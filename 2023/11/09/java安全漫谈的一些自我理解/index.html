@@ -21,13 +21,13 @@
 
     <meta name="description" content="最近学习了java反序列化的相关知识，就在这稍微做一些总结。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java安全漫谈的一些自我理解">
+<meta property="og:title" content="java反序列化以及一些前置知识">
 <meta property="og:url" content="http://6pc1.github.io/2023/11/09/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="6pc1&#39;s blog">
 <meta property="og:description" content="最近学习了java反序列化的相关知识，就在这稍微做一些总结。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-09T03:47:55.000Z">
-<meta property="article:modified_time" content="2023-11-09T07:22:36.412Z">
+<meta property="article:modified_time" content="2023-11-09T07:45:14.571Z">
 <meta property="article:author" content="6pc1">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="serialize">
@@ -38,10 +38,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://6pc1.github.io/2023/11/09/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3/","path":"2023/11/09/java安全漫谈的一些自我理解/","title":"java安全漫谈的一些自我理解"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://6pc1.github.io/2023/11/09/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3/","path":"2023/11/09/java安全漫谈的一些自我理解/","title":"java反序列化以及一些前置知识"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>java安全漫谈的一些自我理解 | 6pc1's blog</title>
+<title>java反序列化以及一些前置知识 | 6pc1's blog</title>
   
 
 
@@ -141,7 +141,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81java%E5%8F%8D%E5%B0%84"><span class="nav-number">1.</span> <span class="nav-text">一、java反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81RMI"><span class="nav-number">2.</span> <span class="nav-text">二、RMI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81serialize-star2"><span class="nav-number">3.</span> <span class="nav-text">三、serialize:star2:</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81java%E5%8F%8D%E5%B0%84"><span class="nav-number">1.</span> <span class="nav-text">一、java反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81RMI"><span class="nav-number">2.</span> <span class="nav-text">二、RMI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81serialize%F0%9F%8C%9F"><span class="nav-number">3.</span> <span class="nav-text">三、serialize🌟</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -233,12 +233,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="java安全漫谈的一些自我理解 | 6pc1's blog">
+      <meta itemprop="name" content="java反序列化以及一些前置知识 | 6pc1's blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          java安全漫谈的一些自我理解
+          java反序列化以及一些前置知识
         </h1>
 
         <div class="post-meta-container">
@@ -250,7 +250,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-11-09 11:47:55 / 修改时间：15:22:36" itemprop="dateCreated datePublished" datetime="2023-11-09T11:47:55+08:00">2023-11-09</time>
+      <time title="创建时间：2023-11-09 11:47:55 / 修改时间：15:45:14" itemprop="dateCreated datePublished" datetime="2023-11-09T11:47:55+08:00">2023-11-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -276,14 +276,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>3.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -335,7 +335,23 @@
 <p>codebase的利用方法</p>
 <p>在以前的有段时间，java是可以运行在浏览器上的，就有一个codebase属性，这是一个地址，去告诉哪个地方寻找类，这个时候我们就可以使用rmi的相关操作，去使其加载我们自己部署的服务器上的一些恶意类。</p>
 <p>就比如在log4j这个CVE中，也是可以去使用rmi去实现的，去完成反弹shell从而获得权限。</p>
-<h1 id="三、serialize-star2"><a href="#三、serialize-star2" class="headerlink" title="三、serialize:star2:"></a>三、serialize:star2:</h1>
+<h1 id="三、serialize🌟"><a href="#三、serialize🌟" class="headerlink" title="三、serialize🌟"></a>三、serialize🌟</h1><p>这是学习的重难点，我现在也还知识初步了解一些，还没完全弄完😭</p>
+<p>一般web手初识反序列化都是从php开始，首先就java的反序列化和php的还是有很大区别的，php是直接利用serialize和unserialize这两个函数进行序列化和反序列化的过程，我们无法去控制这个过程中的任何东西，而java就不一样了。</p>
+<blockquote>
+<ul>
+<li>writeObject：序列化</li>
+<li>readObject：反序列化</li>
+</ul>
+</blockquote>
+<p>这两个主要是java中序列化反序列化所需要使用到的，一般需要搭配一些其他的东西去使用。</p>
+<p>eg</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">serialize</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br><span class="line">&#123;</span><br><span class="line">     <span class="type">FileOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;result.txt&quot;</span>);  <span class="comment">//用于保存序列化数据</span></span><br><span class="line">     ObjectOutputStream obj_out=<span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(out);   <span class="comment">//实例化一个对象输出流</span></span><br><span class="line">     <span class="type">User</span> <span class="variable">u</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">     u.setName(<span class="string">&quot;6pc1&quot;</span>);</span><br><span class="line">     obj_out.writeObject(u);   <span class="comment">//利用writeObject方法将序列化对象存储在本地</span></span><br><span class="line">     obj_out.close();</span><br><span class="line">     System.out.println(<span class="string">&quot;User对象序列化成功！&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">unserialize</span><span class="params">()</span> <span class="keyword">throws</span> IOException, ClassNotFoundException</span><br><span class="line">&#123;</span><br><span class="line">     <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;result.txt&quot;</span>);  <span class="comment">//读取之前保存的序列化数据</span></span><br><span class="line">     <span class="type">ObjectInputStream</span> <span class="variable">ins</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(in);  <span class="comment">//实例化一个对象输入流</span></span><br><span class="line">     <span class="type">User</span> <span class="variable">u</span> <span class="operator">=</span> (User)ins.readObject();      <span class="comment">//利用readObject方法将序列化对象转为对象</span></span><br><span class="line">     system.out.println(<span class="string">&quot;User对象反序列化成功！&quot;</span>);</span><br><span class="line">     System.out.println(u.getName());</span><br><span class="line">     ins.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就是java反序列话的主要过程，是可以自己去操作序列化反序列化的一些过程的，就比如在序列化后的文件中添加一些数据一类的</p>
+<p>这也不是唯一一种，我们也可以用byte流的方法代替文件流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ByteArrayOutputStream</span> <span class="variable">baos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">ObjectOutputStream obj_out=<span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(baos); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">ByteArrayInputStream</span> <span class="variable">bais</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(baos.toByteArray());</span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">ins</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(bais);</span><br></pre></td></tr></table></figure>
+
+
     </div>
 
     
@@ -388,13 +404,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">3k</span>
+    <span title="站点总字数">4k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3 分钟</span>
+    <span title="站点阅读时长">4 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -21,7 +21,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>java安全漫谈的一些自我理解</title>
+    <title>java反序列化以及一些前置知识</title>
     <url>/2023/11/09/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<p>最近学习了java反序列化的相关知识，就在这稍微做一些总结。</p>
 <span id="more"></span>
@@ -65,7 +65,23 @@
 <p>codebase的利用方法</p>
 <p>在以前的有段时间，java是可以运行在浏览器上的，就有一个codebase属性，这是一个地址，去告诉哪个地方寻找类，这个时候我们就可以使用rmi的相关操作，去使其加载我们自己部署的服务器上的一些恶意类。</p>
 <p>就比如在log4j这个CVE中，也是可以去使用rmi去实现的，去完成反弹shell从而获得权限。</p>
-<h1 id="三、serialize-star2"><a href="#三、serialize-star2" class="headerlink" title="三、serialize:star2:"></a>三、serialize:star2:</h1>]]></content>
+<h1 id="三、serialize🌟"><a href="#三、serialize🌟" class="headerlink" title="三、serialize🌟"></a>三、serialize🌟</h1><p>这是学习的重难点，我现在也还知识初步了解一些，还没完全弄完😭</p>
+<p>一般web手初识反序列化都是从php开始，首先就java的反序列化和php的还是有很大区别的，php是直接利用serialize和unserialize这两个函数进行序列化和反序列化的过程，我们无法去控制这个过程中的任何东西，而java就不一样了。</p>
+<blockquote>
+<ul>
+<li>writeObject：序列化</li>
+<li>readObject：反序列化</li>
+</ul>
+</blockquote>
+<p>这两个主要是java中序列化反序列化所需要使用到的，一般需要搭配一些其他的东西去使用。</p>
+<p>eg</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">serialize</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br><span class="line">&#123;</span><br><span class="line">     <span class="type">FileOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;result.txt&quot;</span>);  <span class="comment">//用于保存序列化数据</span></span><br><span class="line">     ObjectOutputStream obj_out=<span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(out);   <span class="comment">//实例化一个对象输出流</span></span><br><span class="line">     <span class="type">User</span> <span class="variable">u</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">     u.setName(<span class="string">&quot;6pc1&quot;</span>);</span><br><span class="line">     obj_out.writeObject(u);   <span class="comment">//利用writeObject方法将序列化对象存储在本地</span></span><br><span class="line">     obj_out.close();</span><br><span class="line">     System.out.println(<span class="string">&quot;User对象序列化成功！&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">unserialize</span><span class="params">()</span> <span class="keyword">throws</span> IOException, ClassNotFoundException</span><br><span class="line">&#123;</span><br><span class="line">     <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;result.txt&quot;</span>);  <span class="comment">//读取之前保存的序列化数据</span></span><br><span class="line">     <span class="type">ObjectInputStream</span> <span class="variable">ins</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(in);  <span class="comment">//实例化一个对象输入流</span></span><br><span class="line">     <span class="type">User</span> <span class="variable">u</span> <span class="operator">=</span> (User)ins.readObject();      <span class="comment">//利用readObject方法将序列化对象转为对象</span></span><br><span class="line">     system.out.println(<span class="string">&quot;User对象反序列化成功！&quot;</span>);</span><br><span class="line">     System.out.println(u.getName());</span><br><span class="line">     ins.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就是java反序列话的主要过程，是可以自己去操作序列化反序列化的一些过程的，就比如在序列化后的文件中添加一些数据一类的</p>
+<p>这也不是唯一一种，我们也可以用byte流的方法代替文件流</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ByteArrayOutputStream</span> <span class="variable">baos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">ObjectOutputStream obj_out=<span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(baos); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">ByteArrayInputStream</span> <span class="variable">bais</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(baos.toByteArray());</span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">ins</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(bais);</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>java</category>
       </categories>
