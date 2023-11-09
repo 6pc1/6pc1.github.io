@@ -23,17 +23,44 @@
   <entry>
     <title>java安全漫谈的一些自我理解</title>
     <url>/2023/11/09/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<p>​	最近看了p神的代码审计星球的java安全漫谈，就像就这方面稍微做一些自己的总结。（纯属自己记录，学习的话还是最好看p神写的）</p>
+    <content><![CDATA[<p>最近学习了java反序列化的相关知识，就在这稍微做一些总结。</p>
+<span id="more"></span>
+
 <h1 id="一、java反射"><a href="#一、java反射" class="headerlink" title="一、java反射"></a>一、java反射</h1><p>首先就是介绍总结一下java反射中用到的一些相关方法，当然也不是直接对着方法名记忆，那样太枯燥了，主要就是在使用的过程中去学习。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="comment">//这个的意思就是获取到java.lang.Runtime这个类，是一种获取类最常见的方法，然后获取到的类就被“等同”于clazz（！！！这里要想起来类和对象之间的区别，这两个不是同一种东西！！！）</span></span><br><span class="line">clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(clazz.newInstance(), <span class="string">&quot;id&quot;</span>);</span><br><span class="line"><span class="comment">//这里我们就逐步分析，首先就是getMethod就是获取一个类的方法</span></span><br><span class="line"><span class="comment">//格式： 类.getMethod（“方法名”, 这个方法需要传递的参数类型）</span></span><br><span class="line"><span class="comment">//然后就是invoke，这是一个调用上面获得的方法。</span></span><br><span class="line"><span class="comment">//格式： 方法名.(类的一个对象,需要传递给方法的参数)</span></span><br><span class="line"><span class="comment">//newInstance就是调用该类的构造方法去实例化一个对象</span></span><br></pre></td></tr></table></figure>
 
-]]></content>
+<p>当然这样直接去运行时会产生报错的！！！这又是为什么呢？</p>
+<p>这里主要就是因为我们无法通过newInstance去获得类的对象，而这里是因为Runtime的构造方法是私有的，是一种”单例”的设计模式</p>
+<blockquote>
+<p>单例的设计模式：主要是考虑到某些类一般只需要类的初始化时使用一次构造方法，而不是每次都需要去再重新使用构造方法，但这样的话我们又应该怎么样去调用构造方法呢？所以设计者就设计了一个静态方法，像这里的就是getRuntime这个方法，使用这个方法就会返回一个对象</p>
+</blockquote>
+<p>所以修改之后的代码就是</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">clazz</span> = class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="type">Method</span> <span class="variable">execMethod</span> <span class="operator">=</span> clazz.getMethod(<span class="string">&quot;exec&quot;</span>,String.class);</span><br><span class="line"><span class="type">Method</span> <span class="variable">getRuntimeMethod</span> <span class="operator">=</span> clazz.getMethod(<span class="string">&quot;getRuntime&quot;</span>);</span><br><span class="line"><span class="type">Object</span> <span class="variable">runtime</span> <span class="operator">=</span> getRuntimeMethed.invoke(clazz);</span><br><span class="line">execMethod.invoke(runtime,<span class="string">&quot;calc&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以去调用到我们需要的方法了。</p>
+<p>当然这样也是还有点缺点的，就比如如果没有这个getRuntime的方法呢？这又应该怎么办？</p>
+<p>这个时候就可以使用getConstructor这个方法去获取到我们想要的类。</p>
+<blockquote>
+<p>格式： 类.getConstructor(构造方法的参数类型)</p>
+</blockquote>
+<p>eg.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">clazz</span> = Class.forName(<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>);</span><br><span class="line">clazz.getMethod(<span class="string">&quot;start&quot;</span>).invoke(clazz.getConstructor(List.class).newInstance(Arrays.asList(<span class="string">&quot;calc.exe&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>然后就是如果构造方法是私有方法，我们应该去使用getDeclaredMethod这个方法。</p>
+<blockquote>
+<p>getMethod 系列方法获取的是当前类中所有公共方法，包括从父类继承的方法 </p>
+<p>getDeclaredMethod 系列方法获取的是当前类中“声明”的方法，是实在写在这个类里的，包括私 有的方法，但从父类里继承来的就不包含了</p>
+<p>还有就是getConstructor和getDeclaredConstructor基本上相似的</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">clazz</span> = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="type">Constructor</span> <span class="variable">m</span> <span class="operator">=</span> clazz.getDeclaredConstructor();</span><br><span class="line">m.setAccessible(<span class="literal">true</span>);</span><br><span class="line">clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(m.newInstance(), <span class="string">&quot;calc.exe&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>setAccessible必须要设置为true，不然无法去使用。</p>
+<h1 id="二、RMI"><a href="#二、RMI" class="headerlink" title="二、RMI"></a>二、RMI</h1>]]></content>
       <categories>
         <category>java</category>
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>p神</tag>
         <tag>serialize</tag>
       </tags>
   </entry>
