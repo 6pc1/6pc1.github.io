@@ -164,7 +164,14 @@
 <p>之后的相应是</p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">PS C:\VScodeproject&gt; &amp; C:/Users/ASUS/AppData/Local/Programs/Python/Python310/python.exe c:/VScodeproject/python/python-study/装饰器应用.py</span><br><span class="line">请先登录</span><br><span class="line">还未完成用户登录操作</span><br><span class="line">请输入用户名：admin</span><br><span class="line">请输入密码：<span class="number">123456</span></span><br><span class="line">登录成功</span><br><span class="line">欢迎来到首页</span><br><span class="line">欢迎来到我的订单</span><br><span class="line">欢迎来到我的资料</span><br></pre></td></tr></table></figure>
 
-<h1 id="三、正在学习中………"><a href="#三、正在学习中………" class="headerlink" title="三、正在学习中………"></a>三、正在学习中………</h1>]]></content>
+<h1 id="三、Pickle和Json模块的总结"><a href="#三、Pickle和Json模块的总结" class="headerlink" title="三、Pickle和Json模块的总结"></a>三、Pickle和Json模块的总结</h1><p>Pickle是将对象（数据）转化为字节，json是将对象（数据）转化为json格式</p>
+<blockquote>
+<p>1、dumps    把对象（数据）转化为字节</p>
+<p>2、loads       把字节转化回对象（数据）</p>
+<p>3、dump      把对象序列化成字节之后写入到文件</p>
+<p>3、load         把文件中的字节反序列化成对象 </p>
+</blockquote>
+]]></content>
       <categories>
         <category>python</category>
       </categories>
