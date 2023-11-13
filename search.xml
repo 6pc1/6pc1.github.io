@@ -179,4 +179,37 @@
         <tag>python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>python学习经历-2-flask</title>
+    <url>/2023/11/13/python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86-2-flask/</url>
+    <content><![CDATA[<p>接着之前的python进行学习，决定还是从更加实用点的项目相关的知识去学习，这样也可以去更好的实践当中去锻炼自己的能力，所以就选择了flask这个python中的轻量模块去学习。</p>
+<span id="more"></span>
+
+<h1 id="一、python中虚拟环境的使用"><a href="#一、python中虚拟环境的使用" class="headerlink" title="一、python中虚拟环境的使用"></a>一、python中虚拟环境的使用</h1><p>python是一个非常常见的编程语言，在python使用过程中，我们总是需要使用到很多需要自己安装下载的库，所以一般一个python编程人员的电脑上都有着许许多多的python库，而在我们去开发一些网站，程序相关的时候，我们并不需要去使用到我们所有的库，并且可能需要去使用某些特定版本的库，可这又应该怎么办？这个时候，虚拟环境也就因此诞生了。</p>
+<blockquote>
+<p>在使用Python语言时，通过pip（pip3）来安装第三方包，但是由于pip的特性，系统中只能安装每个包的一个版本。但是在实际项目开发中，不同项目可能需要第三方包的不同版本，迫使我们需要根据实际需求不断进行更新或卸载相应的包，而如果我们直接使用本地的Python环境，会导致整体的开发环境相当混乱而不易管理，这时候我们就需要开辟一个独立干净的空间进行开发和部署，虚拟环境就孕育而生。</p>
+</blockquote>
+<p>下面就直接去记录一下一些虚拟环境的常见使用方法，最流行的就是Virtualenv这个虚拟环境的配置工具</p>
+<p>安装：</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install virtualenv virtualenvwrapper-win  //windows环境下</span><br></pre></td></tr></table></figure>
+
+<p>查看虚拟环境有哪些</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">workon</span><br></pre></td></tr></table></figure>
+
+<p>创建一个新的虚拟环境</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">mkvirtualenv 虚拟环境名</span><br></pre></td></tr></table></figure>
+
+<p>去使用一个虚拟环境</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">workon 虚拟环境名</span><br></pre></td></tr></table></figure>
+
+<p>注意：虚拟环境文件默认在C盘中用户下中的env中</p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>flask</tag>
+      </tags>
+  </entry>
 </search>
