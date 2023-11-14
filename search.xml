@@ -203,6 +203,10 @@
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">workon 虚拟环境名</span><br></pre></td></tr></table></figure>
 
 <p>注意：虚拟环境文件默认在C盘中用户下中的env中</p>
+<h1 id="二、数据库中的数据迁移操作"><a href="#二、数据库中的数据迁移操作" class="headerlink" title="二、数据库中的数据迁移操作"></a>二、数据库中的数据迁移操作</h1><p>为什么要做数据迁移呢？在我的理解中这就相当于一个空白数据库的初始化，将创建的类中的列添加到数据库之中，其实就是相当于我们去创建各个字段的过程。</p>
+<p>下面就是用到的命令</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">flask db init   //创建迁移文件夹migrates，只调用一次</span><br><span class="line">flask db migrate //生成迁移文件</span><br><span class="line">flask db upgrade  //执行迁移文件中的升级</span><br><span class="line">flask db downgrade  //执行迁移文件中的降级</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>python</category>
