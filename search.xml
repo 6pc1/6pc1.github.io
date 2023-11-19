@@ -180,9 +180,10 @@
       </tags>
   </entry>
   <entry>
-    <title>python学习经历-2-flask</title>
+    <title></title>
     <url>/2023/11/13/python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86-2-flask/</url>
-    <content><![CDATA[<p>接着之前的python进行学习，决定还是从更加实用点的项目相关的知识去学习，这样也可以去更好的实践当中去锻炼自己的能力，所以就选择了flask这个python中的轻量模块去学习。</p>
+    <content><![CDATA[<p>title: python学习经历-2-flask<br>date: 2023-11-13 21:24:13<br>tags: [python, flask]<br>categories: python</p>
+<p>接着之前的python进行学习，决定还是从更加实用点的项目相关的知识去学习，这样也可以去更好的实践当中去锻炼自己的能力，所以就选择了flask这个python中的轻量模块去学习。</p>
 <span id="more"></span>
 
 <h1 id="一、python中虚拟环境的使用"><a href="#一、python中虚拟环境的使用" class="headerlink" title="一、python中虚拟环境的使用"></a>一、python中虚拟环境的使用</h1><p>python是一个非常常见的编程语言，在python使用过程中，我们总是需要使用到很多需要自己安装下载的库，所以一般一个python编程人员的电脑上都有着许许多多的python库，而在我们去开发一些网站，程序相关的时候，我们并不需要去使用到我们所有的库，并且可能需要去使用某些特定版本的库，可这又应该怎么办？这个时候，虚拟环境也就因此诞生了。</p>
@@ -203,17 +204,215 @@
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">workon 虚拟环境名</span><br></pre></td></tr></table></figure>
 
 <p>注意：虚拟环境文件默认在C盘中用户下中的env中</p>
-<h1 id="二、数据库中的数据迁移操作"><a href="#二、数据库中的数据迁移操作" class="headerlink" title="二、数据库中的数据迁移操作"></a>二、数据库中的数据迁移操作</h1><p>为什么要做数据迁移呢？在我的理解中这就相当于一个空白数据库的初始化，将创建的类中的列添加到数据库之中，其实就是相当于我们去创建各个字段的过程。</p>
+<h1 id="二、数据库中的数据迁移操作"><a href="#二、数据库中的数据迁移操作" class="headerlink" title="二、数据库中的数据迁移操作"></a>二、数据库中的数据迁移操作</h1><p>数据库首先先初始化连接设置</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">db_uri = <span class="string">&#x27;mysql+pymysql://root:password@localhost:3306/bookdb&#x27;</span></span><br><span class="line">app.config[<span class="string">&#x27;SQLALCHEMY_DATABASE_URI&#x27;</span>] = db_uri</span><br><span class="line">app.config[<span class="string">&#x27;SQLALCHEMY_TRACK_MODIFICATIONS&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>其次就是模块类的创建，也就相当于数据库中的列</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;tb_user&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>), unique=<span class="literal">True</span>, index=<span class="literal">True</span>)</span><br><span class="line">    age = db.Column(db.Integer, default=<span class="number">1</span>)</span><br><span class="line">    sex = db.Column(db.Boolean, default=<span class="literal">True</span>)</span><br><span class="line">    salary = db.Column(db.Float, default=<span class="number">10000</span>, nullable=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>为什么要做数据迁移呢？在我的理解中这就相当于一个空白数据库的初始化，将创建的类中的列添加到数据库之中，其实就是相当于我们去创建各个字段的过程。</p>
 <p>下面就是用到的命令</p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">flask db init   //创建迁移文件夹migrates，只调用一次</span><br><span class="line">flask db migrate //生成迁移文件</span><br><span class="line">flask db upgrade  //执行迁移文件中的升级</span><br><span class="line">flask db downgrade  //执行迁移文件中的降级</span><br></pre></td></tr></table></figure>
 
+<h1 id="三、flask框架中的一些基本操作以及示例"><a href="#三、flask框架中的一些基本操作以及示例" class="headerlink" title="三、flask框架中的一些基本操作以及示例"></a>三、flask框架中的一些基本操作以及示例</h1><h2 id="1、最基础的单文件框架"><a href="#1、最基础的单文件框架" class="headerlink" title="1、最基础的单文件框架"></a>1、最基础的单文件框架</h2><p>文件结构：</p>
+<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-19/4e67729456c911aa9646284ff32250ab--24ca--image-20231119174414920.png" alt="image-20231119174414920"></p>
+<blockquote>
+<p>static: 静态文件文件夹，用于存放一些像是css，js，image，font等的文件。</p>
+<p>templates：用于存放html网站文件</p>
+</blockquote>
+<p>app.py:（主项目文件）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>():  <span class="comment"># put application&#x27;s code here</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World!&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index/&#x27;</span></span>) </span><span class="comment">#路由的注册</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello index!&#x27;</span>  <span class="comment">#页面显示的数据</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p><strong>app运行的时候一些可选的参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>debug</td>
+<td>代码更新是否自动重启</td>
+<td>False</td>
+</tr>
+<tr>
+<td>theaded</td>
+<td>是否开启多线程</td>
+<td>False</td>
+</tr>
+<tr>
+<td>port</td>
+<td>指定端口</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>host</td>
+<td>指定主机（设置0.0.0.0可以通过本地IP访问）</td>
+<td>127.0.0.1</td>
+</tr>
+</tbody></table>
+<p>一般项目开发时都会开启debug模式</p>
+<h2 id="2、简单的模板渲染"><a href="#2、简单的模板渲染" class="headerlink" title="2、简单的模板渲染"></a>2、简单的模板渲染</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">render_template()  <span class="comment">#可以返回一个渲染的html页面</span></span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<p>app.py</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>, name=<span class="string">&quot;法外狂徒张三&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>index.html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;../static/index.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>index<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>name: &#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以利用render_template去将后端的一些数据返回到前端，然后再使用去使用传递过来的参数</p>
+<h2 id="3、对文件结构进行进行拆分"><a href="#3、对文件结构进行进行拆分" class="headerlink" title="3、对文件结构进行进行拆分"></a>3、对文件结构进行进行拆分</h2><p>文件结构：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-19/137d93a1d65364fb1dee979682c5fa2a--6af8--image-20231119182749925.png" alt="image-20231119182749925"></p>
+<p>将除了主文件的其他文件都移入一个单独创建的App文件夹当中。</p>
+<blockquote>
+<p>init.py：初始化的文件，在这里我们将app的创建函数放入其中，待需要使用时导入即可</p>
+<p>models.py：模板文件，后边主要用于数据库方面的操作</p>
+<p>views.py：视图函数的存放，也就是存放各种路由的地方</p>
+</blockquote>
+<p>为了方便视图函数的使用，使用蓝图去绑定</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">app.register_blueprint(blueprint=blue)</span><br></pre></td></tr></table></figure>
+
+<p>将app绑定在blue上，这样之后路由就可以这样去使用了</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/home/&#x27;</span></span>)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4、简易登录界面的实现"><a href="#4、简易登录界面的实现" class="headerlink" title="4、简易登录界面的实现"></a>4、简易登录界面的实现</h2><h3 id="①cookie的一些设置"><a href="#①cookie的一些设置" class="headerlink" title="①cookie的一些设置"></a>①cookie的一些设置</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">response = redirect(<span class="string">&#x27;/home/&#x27;</span>) <span class="comment">#重定向，用于登录后界面的跳转</span></span><br><span class="line"></span><br><span class="line">response.set_cookie(<span class="string">&#x27;user&#x27;</span>, username, max_age=<span class="number">3600</span>*<span class="number">24</span>*<span class="number">7</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可以直接通过set__cookie去设置一个json格式的cookie</p>
+<h3 id="②session的一些设置"><a href="#②session的一些设置" class="headerlink" title="②session的一些设置"></a>②session的一些设置</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">app.config[<span class="string">&#x27;SECRET_KEY&#x27;</span>] = <span class="string">&#x27;admin&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>将app的配置文件中的SECRET_KEY修改为不空的值，并且将这个作为密匙去加密</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">session[<span class="string">&#x27;user&#x27;</span>] = username</span><br><span class="line"></span><br><span class="line">session.permanent = <span class="literal">True</span>  <span class="comment">#默认是false，关闭浏览器后就清空session</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="③实现"><a href="#③实现" class="headerlink" title="③实现"></a>③实现</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint, redirect, render_template, request, session</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">blue = Blueprint(<span class="string">&#x27;user&#x27;</span>, __name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/home/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    username = session.get(<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;home.html&#x27;</span>, username</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/login/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>():</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;GET&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> render_template(<span class="string">&#x27;login.html&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        username = request.form.get(<span class="string">&#x27;username&#x27;</span>)   <span class="comment">#获取传递过来的参数</span></span><br><span class="line">        password = request.form.get(<span class="string">&#x27;password&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> username == <span class="string">&#x27;admin&#x27;</span> <span class="keyword">and</span> password == <span class="string">&#x27;123456&#x27;</span>:</span><br><span class="line">            response = redirect(<span class="string">&#x27;/home/&#x27;</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># response.set_cookie(&#x27;user&#x27;, username, max_age=3600*24*7)</span></span><br><span class="line">            session[<span class="string">&#x27;user&#x27;</span>] = username</span><br><span class="line">            session.permanent = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;用户名或密码错误！&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/logout/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">logout</span>():</span><br><span class="line">    response = redirect(<span class="string">&#x27;/home/&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    session.pop(<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"><span class="comment"># @blue.route(&#x27;/string/&lt;string:name&gt;/&#x27;, methods=[&#x27;GET&#x27;,&#x27;POST&#x27;])</span></span><br><span class="line"><span class="comment"># def get_string(name):</span></span><br><span class="line"><span class="comment">#     print(type(name))</span></span><br><span class="line"><span class="comment">#     return name</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># @blue.route(&#x27;/redirect/&#x27;)</span></span><br><span class="line"><span class="comment"># def make_redirect():</span></span><br><span class="line"><span class="comment">#     pass</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     return redirect(&#x27;https://www.qq.com&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<p>在自己设计一个前段登入即可</p>
+<p>示例：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5、路由参数"><a href="#5、路由参数" class="headerlink" title="5、路由参数"></a>5、路由参数</h2><blockquote>
+<p>string  接收如何没有斜杠(‘&#x2F;‘)的字符串(默认)</p>
+<p>int  接收整型</p>
+<p>float   接收浮点型</p>
+<p>path  接收路径，可接收斜线(‘&#x2F;‘)</p>
+<p>uuid   只接受uuid字符串，唯一码，一种生成规律（uuid是一段特定的字符串，基本无法伪造）</p>
+<p>any   可以同时指定多种路径，进行限定</p>
+</blockquote>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/any/&lt;any(apple, orange, banana):fruit&gt;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_any</span>(<span class="params">fruit</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(fruit))</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">str</span>(fruit)</span><br></pre></td></tr></table></figure>
+
+<p>any表示限定只能在给定的之中选择</p>
+<h2 id="6、路由请求方法的指定"><a href="#6、路由请求方法的指定" class="headerlink" title="6、路由请求方法的指定"></a>6、路由请求方法的指定</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/login/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>设置该路由可以由GET和POST这两种请求方法区访问</p>
+<p>一些最常见的请求方式</p>
+<blockquote>
+<p>GET</p>
+<p>POST</p>
+<p>PUT</p>
+<p>DELETE</p>
+</blockquote>
+<h1 id="四、flask中四个全局变量"><a href="#四、flask中四个全局变量" class="headerlink" title="四、flask中四个全局变量"></a>四、flask中四个全局变量</h1><p>**</p>
+<table>
+<thead>
+<tr>
+<th><strong>变量</strong></th>
+<th><strong>上下文</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>current_app</td>
+<td>应用上下文</td>
+<td>相当与在主程序中激活的实例化app（<code>app=Flask(__name__)</code>）</td>
+</tr>
+<tr>
+<td>g</td>
+<td>应用上下文</td>
+<td>一次性函数，处理请求的临时变量。只在一个请求中被应用，下个请求开始时会自动重置</td>
+</tr>
+<tr>
+<td>request</td>
+<td>请求上下文</td>
+<td>请求对象。存放了客户端发来的HTTP信息</td>
+</tr>
+<tr>
+<td>session</td>
+<td>请求上下文</td>
+<td>记录用户和服务器之间的会话的。在服务器端记录需要记住的信息。（和cookie对应，cookies是记录在客户端的）</td>
+</tr>
+</tbody></table>
+<p><strong>request中的一些用法:</strong></p>
+<blockquote>
+<p>url   完整请求地址</p>
+<p>base_url   去掉GET参数的URL</p>
+<p>host_url   只有主机和端口号的URL</p>
+<p>path  路由中的路径</p>
+<p>method 请求方式</p>
+<p>remote_addr  请求的客户端地址</p>
+<p>args   GET请求参数</p>
+<p>form   POST请求参数</p>
+<p>files   文件上传</p>
+<p>headers  请求头</p>
+<p>cookies   请求头中的cookie</p>
+</blockquote>
+<h1 id="五、钩子函数装饰器"><a href="#五、钩子函数装饰器" class="headerlink" title="五、钩子函数装饰器"></a>五、钩子函数装饰器</h1><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>before_first_request</td>
+<td>处理第一次请求之前</td>
+</tr>
+<tr>
+<td>before_request</td>
+<td>在每次请求之前，通常利用这个处理一些变量，实现反爬</td>
+</tr>
+<tr>
+<td>app.after_request</td>
+<td>注册一个函数，如果没有未处理的异常抛出，每次请求结束后运行</td>
+</tr>
+<tr>
+<td>app.teardown_request</td>
+<td>有异常也会运行，每次请求结束后。当APP上下文被移除后执行的函数，可以进行数据库的提交和回滚</td>
+</tr>
+</tbody></table>
+<p>使用示例：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.before_request  </span><span class="comment">#每次请求之前访问</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">before</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before request&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="六、Flask的一些插件的使用"><a href="#六、Flask的一些插件的使用" class="headerlink" title="六、Flask的一些插件的使用"></a>六、Flask的一些插件的使用</h1><h2 id="1、flask-caching"><a href="#1、flask-caching" class="headerlink" title="1、flask-caching"></a>1、flask-caching</h2><p>安装</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install flask-caching</span><br></pre></td></tr></table></figure>
+
+<p>初始化</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">cache = Cache(config=&#123;</span><br><span class="line">    <span class="string">&#x27;CACHE_TYPE&#x27;</span>: <span class="string">&#x27;simple&#x27;</span>  <span class="comment">#缓存类型</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>添加缓存</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@cache.cached(<span class="params">timeout=<span class="number">20</span></span>)   </span><span class="comment">#使缓存存在20秒</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;index2&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(g.star)</span><br><span class="line"></span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;index2&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>对反爬的相关应用</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.before_request  </span><span class="comment">#每次请求之前访问</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">before</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before request&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(request.path)</span><br><span class="line">    <span class="built_in">print</span>(request.method)</span><br><span class="line">    <span class="built_in">print</span>(request.remote_addr)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#简单的反爬</span></span><br><span class="line">    <span class="built_in">print</span>(request.user_agent)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;python&#x27;</span> <span class="keyword">in</span> request.user_agent.string:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;您正在使用python爬虫，再见！&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#针对ip作反爬</span></span><br><span class="line">    ip = request.remote_addr</span><br><span class="line">    <span class="keyword">if</span> cache.get(ip):</span><br><span class="line">        <span class="comment">#做了个拦截，不会进入视图函数</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;小伙子，别爬了！&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#对每个ip设置一个缓存，1秒内不让重复访问</span></span><br><span class="line">        cache.<span class="built_in">set</span>(ip, <span class="string">&#x27;value&#x27;</span>, timeout=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="七、前后端分离模式"><a href="#七、前后端分离模式" class="headerlink" title="七、前后端分离模式"></a>七、前后端分离模式</h1><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-19/7a211a47e9bdbf3195d69d8b36829d3b--ad35--image-20231119204503992.png" alt="image-20231119204503992"></p>
+<p>将原本的views拆分为urls和apis。</p>
+<p>urls.py</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  路由文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> .exts <span class="keyword">import</span> api</span><br><span class="line"><span class="keyword">from</span> .apis <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">api.add_resource(HelloResource, <span class="string">&#x27;/hello/&#x27;</span>)</span><br><span class="line">api.add_resource(UserResource, <span class="string">&#x27;/user/&#x27;</span>, endpoint=<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">api.add_resource(User2Resource, <span class="string">&#x27;/user2/&#x27;</span>)</span><br><span class="line">api.add_resource(User4Resource, <span class="string">&#x27;/user4/&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>apis.py</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> jsonify</span><br><span class="line"><span class="keyword">from</span> flask_restful <span class="keyword">import</span> Resource, fields, marshal_with, reqparse</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 类视图  CBV</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HelloResource</span>(<span class="title class_ inherited__">Resource</span>):   <span class="comment">#必须要继承Resource</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;get请求&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">post</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;methods&#x27;</span>: <span class="string">&#x27;post请求&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Flask-RESTful</span></span><br><span class="line">ret_field = &#123;</span><br><span class="line">    <span class="string">&#x27;status&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;msg&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;data&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;like&#x27;</span>: fields.String(default=<span class="string">&#x27;ball&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;data2&#x27;</span>: fields.String(attribute=<span class="string">&#x27;data&#x27;</span>) <span class="comment">#类似于引用，将data的值给一个另外名字的变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserResource</span>(<span class="title class_ inherited__">Resource</span>):</span><br><span class="line"><span class="meta">    @marshal_with(<span class="params">ret_field</span>)     </span><span class="comment">#flask的一个拓展，用以规范后端返回数据的格式</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&#x27;status&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;ok&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: <span class="string">&#x27;千峰教育Python&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">user_fields = &#123;</span><br><span class="line">    <span class="string">&#x27;id&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;age&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;url&#x27;</span>: fields.Url(endpoint=<span class="string">&#x27;id&#x27;</span>, absolute=<span class="literal">True</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ret_field2 = &#123;</span><br><span class="line">    <span class="string">&#x27;status&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;msg&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;data&#x27;</span>: fields.Nested(user_fields)  <span class="comment">#获取一个列表数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User2Resource</span>(<span class="title class_ inherited__">Resource</span>):</span><br><span class="line"><span class="meta">    @marshal_with(<span class="params">ret_field2</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        user = User.query.first()   <span class="comment">#从数据库中拿出数据</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&#x27;status&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;ok&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: user</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数解析  完成前端数据的返回</span></span><br><span class="line">parser = reqparse.RequestParser()</span><br><span class="line">parser.add_argument(<span class="string">&#x27;name&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, required=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;name是必须的&#x27;</span>)   </span><br><span class="line">parser.add_argument(<span class="string">&#x27;age&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, action=<span class="string">&#x27;append&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User4Resource</span>(<span class="title class_ inherited__">Resource</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        args = parser.parse_args()</span><br><span class="line">        name = args.get(<span class="string">&#x27;name&#x27;</span>)</span><br><span class="line">        age = args.get(<span class="string">&#x27;age&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&#x27;name&#x27;</span>: name, <span class="string">&#x27;age&#x27;</span>: age&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="八、数据表之间的操作"><a href="#八、数据表之间的操作" class="headerlink" title="八、数据表之间的操作"></a>八、数据表之间的操作</h1><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> .exts <span class="keyword">import</span> db</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#一对多</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Grade</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;grade&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>), unique=<span class="literal">True</span>, index=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment">#建立关联</span></span><br><span class="line">    <span class="comment">#定义班级表的一对多关系，不是字段，Student为学生表模型，backref为反向查找名称</span></span><br><span class="line">    students = db.relationship(<span class="string">&#x27;Student&#x27;</span>, backref=<span class="string">&#x27;grade&#x27;</span>, lazy=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;student&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    age = db.Column(db.Integer)</span><br><span class="line">    <span class="comment">#创建外键，关联到班级表的主键，实现一对多关系，班级表中也要有对应操作</span></span><br><span class="line">    gradeid = db.Column(db.Integer, db.ForeignKey(Grade.<span class="built_in">id</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#多对多    </span></span><br><span class="line"><span class="comment">#中间表（不是类）    </span></span><br><span class="line">collect = db.Table(</span><br><span class="line">    <span class="string">&#x27;collects&#x27;</span>,</span><br><span class="line">    <span class="comment">#user_id为表字段名称，user.id未外键表的id</span></span><br><span class="line">    db.Column(<span class="string">&#x27;user_id&#x27;</span>, db.Integer, db.ForeignKey(<span class="string">&#x27;usermodel.id&#x27;</span>), primary_key=<span class="literal">True</span>),</span><br><span class="line">    db.Column(<span class="string">&#x27;movie_id&#x27;</span>, db.Integer, db.ForeignKey(<span class="string">&#x27;movie.id&#x27;</span>), primary_key=<span class="literal">True</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserModel</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;usermodel&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>))</span><br><span class="line">    age = db.Column(db.Integer)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Movie</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;movie&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>))</span><br><span class="line">    age = db.Column(db.Integer)</span><br><span class="line">	</span><br><span class="line">    <span class="comment">#多对多  关联的学生摆个的模型   中间表的名称   反向查找</span></span><br><span class="line">    users = db.relationship(<span class="string">&#x27;UserModel&#x27;</span>, backref=<span class="string">&#x27;movies&#x27;</span>, lazy=<span class="string">&#x27;dynamic&#x27;</span>, secondary=collect)</span><br></pre></td></tr></table></figure>
+
+<p>lazy属性</p>
+<blockquote>
+<p>dynamic：    会返回一个query对象(查询集)，可以继续使用其他查询方法，如all()</p>
+<p>select：    首次访问到属性的时候，就会加载该属性的数据</p>
+<p>joined：    在对关联的两个表进行join操作，从而获取到所有相关的对象</p>
+<p>True：    返回一个可用的列表对象，同select</p>
+</blockquote>
 ]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>flask</tag>
-      </tags>
   </entry>
 </search>
