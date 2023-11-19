@@ -180,10 +180,9 @@
       </tags>
   </entry>
   <entry>
-    <title></title>
+    <title>python学习经历-2-flask</title>
     <url>/2023/11/13/python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86-2-flask/</url>
-    <content><![CDATA[<p>title: python学习经历-2-flask<br>date: 2023-11-13 21:24:13<br>tags: [python, flask]<br>categories: python</p>
-<p>接着之前的python进行学习，决定还是从更加实用点的项目相关的知识去学习，这样也可以去更好的实践当中去锻炼自己的能力，所以就选择了flask这个python中的轻量模块去学习。</p>
+    <content><![CDATA[<p>接着之前的python进行学习，决定还是从更加实用点的项目相关的知识去学习，这样也可以去更好的实践当中去锻炼自己的能力，所以就选择了flask这个python中的轻量模块去学习。</p>
 <span id="more"></span>
 
 <h1 id="一、python中虚拟环境的使用"><a href="#一、python中虚拟环境的使用" class="headerlink" title="一、python中虚拟环境的使用"></a>一、python中虚拟环境的使用</h1><p>python是一个非常常见的编程语言，在python使用过程中，我们总是需要使用到很多需要自己安装下载的库，所以一般一个python编程人员的电脑上都有着许许多多的python库，而在我们去开发一些网站，程序相关的时候，我们并不需要去使用到我们所有的库，并且可能需要去使用某些特定版本的库，可这又应该怎么办？这个时候，虚拟环境也就因此诞生了。</p>
@@ -454,5 +453,12 @@
 
 <p>这样就可以去便利我们对参数的使用</p>
 ]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>flask</tag>
+      </tags>
   </entry>
 </search>
