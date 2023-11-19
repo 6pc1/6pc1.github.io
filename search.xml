@@ -413,6 +413,46 @@
 <p>joined：    在对关联的两个表进行join操作，从而获取到所有相关的对象</p>
 <p>True：    返回一个可用的列表对象，同select</p>
 </blockquote>
+<h1 id="九、前端页面渲染的一些函数操作"><a href="#九、前端页面渲染的一些函数操作" class="headerlink" title="九、前端页面渲染的一些函数操作"></a>九、前端页面渲染的一些函数操作</h1><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>capitalize</td>
+<td>首字母大写</td>
+</tr>
+<tr>
+<td>upper</td>
+<td>全部大写</td>
+</tr>
+<tr>
+<td>lower</td>
+<td>全部小写</td>
+</tr>
+<tr>
+<td>title</td>
+<td>每个单词首字母大写</td>
+</tr>
+<tr>
+<td>trim</td>
+<td>去掉两边的空白</td>
+</tr>
+<tr>
+<td>striptags</td>
+<td>去掉所有的HTML标签</td>
+</tr>
+<tr>
+<td>safe</td>
+<td>即删除标签，又保留标签功能</td>
+</tr>
+</tbody></table>
+<p>我们就可以在html页面中去使用</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>模板<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello &#123;&#123; name|capitalize &#125;&#125; ! <span class="tag">&lt;/<span class="name">h1</span>&gt;</span>	</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样就可以去便利我们对参数的使用</p>
 ]]></content>
   </entry>
 </search>
