@@ -461,4 +461,777 @@
         <tag>blog</tag>
       </tags>
   </entry>
+  <entry>
+    <title>java学习历程记录</title>
+    <url>/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<p>其实java是之前一段时间学习的，但是学到一半的时候发现我的python能力不行，所以又转去学python了，然后又由于我之前没有记笔记的习惯，就导致我现在再回来看java，就基本上忘关了，所以想着借着写博客的功夫去将我的一些java学习历程记录下来，也能去好好的复习一下之前的知识。所以这篇文章并不主要是为了入门，更多的只是我自己的一个学习记录，仅限参考。</p>
+<span id="more"></span>
+
+<h1 id="一、一些基础的前端知识"><a href="#一、一些基础的前端知识" class="headerlink" title="一、一些基础的前端知识"></a>一、一些基础的前端知识</h1><h2 id="1、css中的元素选择器"><a href="#1、css中的元素选择器" class="headerlink" title="1、css中的元素选择器:"></a>1、css中的元素选择器:</h2><p>顾名思义：选择器是选取需设置样式的元素（标签），但是我们根据业务场景不同，选择的标签的需求也是多种多样的，所以选择器有很多种，因为我们是做后台开发的，所以对于css选择器，我们只学习最基本的3种。</p>
+<p><strong>选择器通用语法如下</strong>：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">选择器名   &#123;</span><br><span class="line">    css样式名：css样式值;</span><br><span class="line">    css样式名：css样式值;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们需要学习的3种选择器是元素选择器，id选择器，class选择器，语法以及作用如下：</p>
+<h3 id="1-元素（标签）选择器："><a href="#1-元素（标签）选择器：" class="headerlink" title="1.元素（标签）选择器："></a><strong>1.元素（标签）选择器：</strong></h3><ul>
+<li>选择器的名字必须是标签的名字</li>
+<li>作用：选择器中的样式会作用于所有同名的标签上</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">元素名称 &#123;</span><br><span class="line">    css样式名:css样式值；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例子如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-id选择器"><a href="#2-id选择器" class="headerlink" title="2.id选择器:"></a><strong>2.id选择器:</strong></h3><ul>
+<li>选择器的名字前面需要加上#</li>
+<li>作用：选择器中的样式会作用于指定id的标签上，而且有且只有一个标签（由于id是唯一的）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#id属性值 &#123;</span><br><span class="line">    css样式名:css样式值；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例子如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#did</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-类选择器："><a href="#3-类选择器：" class="headerlink" title="3.类选择器："></a><strong>3.类选择器：</strong></h3><ul>
+<li>选择器的名字前面需要加上 .</li>
+<li>作用：选择器中的样式会作用于所有class的属性值和该名字一样的标签上，可以是多个</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.class属性值 &#123;</span><br><span class="line">    css样式名:css样式值；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>例子如下：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.cls</span>&#123;</span><br><span class="line">     <span class="attribute">color</span>: green;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、一些常见的html标签"><a href="#2、一些常见的html标签" class="headerlink" title="2、一些常见的html标签"></a>2、一些常见的html标签</h2><h3 id="1-视频、音频标签"><a href="#1-视频、音频标签" class="headerlink" title="1). 视频、音频标签"></a><strong>1). 视频、音频标签</strong></h3><ul>
+<li><p>视频标签: &lt;video&gt;</p>
+<ul>
+<li>属性: <ul>
+<li>src: 规定视频的url</li>
+<li>controls: 显示播放控件</li>
+<li>width: 播放器的宽度</li>
+<li>height: 播放器的高度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>音频标签: &lt;audio&gt;</p>
+<ul>
+<li>属性:<ul>
+<li>src: 规定音频的url</li>
+<li>controls: 显示播放控件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-段落标签"><a href="#2-段落标签" class="headerlink" title="2). 段落标签"></a><strong>2). 段落标签</strong></h3><ul>
+<li><p>换行标签: &lt;br&gt;</p>
+<ul>
+<li>注意: 在HTML页面中,我们在编辑器中通过回车实现的换行, 仅仅在文本编辑器中会看到换行效果, 浏览器是不会解析的, HTML中换行需要通过br标签</li>
+</ul>
+</li>
+<li><p>段落标签: &lt;p&gt;</p>
+<ul>
+<li>如: &lt;p&gt; 这是一个段落 &lt;&#x2F;p&gt;</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-文本格式标签"><a href="#3-文本格式标签" class="headerlink" title="3). 文本格式标签"></a><strong>3). 文本格式标签</strong></h3><table>
+<thead>
+<tr>
+<th>效果</th>
+<th>标签</th>
+<th>标签(强调)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>加粗</td>
+<td>b</td>
+<td>strong</td>
+</tr>
+<tr>
+<td>倾斜</td>
+<td>i</td>
+<td>em</td>
+</tr>
+<tr>
+<td>下划线</td>
+<td>u</td>
+<td>ins</td>
+</tr>
+<tr>
+<td>删除线</td>
+<td>s</td>
+<td>del</td>
+</tr>
+</tbody></table>
+<p>前面的标签 b、i、u、s 就仅仅是实现加粗、倾斜、下划线、删除线的效果，是没有强调语义的。 而后面的strong、em、ins、del在实现加粗、倾斜、下划线、删除线的效果的同时，还带有强调语义。</p>
+<blockquote>
+<p>注意事项: </p>
+<ul>
+<li><p>在HTML页面中无论输入了多少个空格, 最多只会显示一个。 可以使用空格占位符（&amp;nbsp；）来生成空格，如果需要多个空格，就使用多次占位符。</p>
+</li>
+<li><p>那在HTML中，除了空格占位符以外，还有一些其他的占位符(了解, 只需要知道空格的占位符写法即可)，如下：</p>
+<ul>
+<li><table>
+<thead>
+<tr>
+<th align="left">显示结果</th>
+<th align="left">描述</th>
+<th align="left">占位符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left">空格</td>
+<td align="left">&amp;nbsp;</td>
+</tr>
+<tr>
+<td align="left">&lt;</td>
+<td align="left">小于号</td>
+<td align="left">&amp;lt;</td>
+</tr>
+<tr>
+<td align="left">&gt;</td>
+<td align="left">大于号</td>
+<td align="left">&amp;gt;</td>
+</tr>
+<tr>
+<td align="left">&amp;</td>
+<td align="left">和号</td>
+<td align="left">&amp;amp;</td>
+</tr>
+<tr>
+<td align="left">“</td>
+<td align="left">引号</td>
+<td align="left">&amp;quot;</td>
+</tr>
+<tr>
+<td align="left">‘</td>
+<td align="left">撇号</td>
+<td align="left">&amp;apos;</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="4-布局美化"><a href="#4-布局美化" class="headerlink" title="4).布局美化"></a>4).布局美化</h3><h4 id="①盒子模型"><a href="#①盒子模型" class="headerlink" title="①盒子模型"></a>①盒子模型</h4><ul>
+<li><p>盒子：页面中所有的元素（标签），都可以看做是一个 盒子，由盒子将页面中的元素包含在一个矩形区域内，通过盒子的视角更方便的进行页面布局</p>
+</li>
+<li><p>盒子模型组成：内容区域（content）、内边距区域（padding）、边框区域（border）、外边距区域（margin）</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f529eda86837643eb1ca32955d5c36f6--cead--image-20230310092820616.png" alt="image-20230310092820616"></p>
+<p>CSS盒子模型，其实和日常生活中的包装盒是非常类似的，就比如：</p>
+<p> <img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/0f2a5351ad32ffa9c1fe2588bec73ffd--df3d--image-20230310093247265.png" alt="image-20230310093247265"></p>
+<p>盒子的大小，其实就包括三个部分： border、padding、content，而margin外边距是不包括在盒子之内的。</p>
+<p>盒子模型代码示例：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>盒子模型<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">200px</span>;  <span class="comment">/* 宽度 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">200px</span>;  <span class="comment">/* 高度 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">box-sizing</span>: border-box; <span class="comment">/* 指定width height为盒子的高宽 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: aquamarine; <span class="comment">/* 背景色 */</span></span></span><br><span class="line"><span class="language-css">            </span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">20px</span> <span class="number">20px</span> <span class="number">20px</span> <span class="number">20px</span>; <span class="comment">/* 内边距, 上 右 下 左 , 边距都一行, 可以简写: padding: 20px;*/</span> </span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">10px</span> solid red; <span class="comment">/* 边框, 宽度 线条类型 颜色 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">30px</span> <span class="number">30px</span> <span class="number">30px</span> <span class="number">30px</span>; <span class="comment">/* 外边距, 上 右 下 左 , 边距都一行, 可以简写: margin: 30px; */</span></span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A </span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/4d2ca694e5a1c402d403f1a675b553da--1cdb--image-20231121183250787.png" alt="image-20231121183250787"></p>
+<h4 id="②布局标签"><a href="#②布局标签" class="headerlink" title="②布局标签"></a>②布局标签</h4><ul>
+<li><p>布局标签：实际开发网页中，会大量频繁的使用 div 和 span 这两个没有语义的布局标签。</p>
+</li>
+<li><p>标签：<div> <span></p>
+</li>
+<li><p>特点：</p>
+<ul>
+<li><p>div标签：</p>
+<ul>
+<li><p>一行只显示一个（独占一行）</p>
+</li>
+<li><p>宽度默认是父元素的宽度，高度默认由内容撑开</p>
+</li>
+<li><p>可以设置宽高（width、height）</p>
+</li>
+</ul>
+</li>
+<li><p>span标签：</p>
+<ul>
+<li><p>一行可以显示多个</p>
+</li>
+<li><p>宽度和高度默认由内容撑开</p>
+</li>
+<li><p>不可以设置宽高（width、height）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-表格标签"><a href="#5-表格标签" class="headerlink" title="5).表格标签"></a>5).表格标签</h3><p><strong>标签：</strong></p>
+<ul>
+<li><p>&lt;table&gt; : 用于定义整个表格, 可以包裹多个 &lt;tr&gt;， 常用属性如下： </p>
+<ul>
+<li>border：规定表格边框的宽度</li>
+<li>width：规定表格的宽度</li>
+<li>cellspacing: 规定单元之间的空间</li>
+</ul>
+</li>
+<li><p>&lt;tr&gt; : 表格的行，可以包裹多个 &lt;td&gt;  </p>
+</li>
+<li><p>&lt;td&gt; : 表格单元格(普通)，可以包裹内容 , 如果是表头单元格，可以替换为 &lt;th&gt;</p>
+</li>
+</ul>
+<p><strong>演示：</strong></p>
+<p>代码如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML-表格<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">td</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center; <span class="comment">/* 单元格内容居中展示 */</span></span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1px&quot;</span> <span class="attr">cellspacing</span>=<span class="string">&quot;0&quot;</span>  <span class="attr">width</span>=<span class="string">&quot;600px&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>序号<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>品牌Logo<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>品牌名称<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>企业名称<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/huawei.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100px&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>华为<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>华为技术有限公司<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/alibaba.jpg&quot;</span>  <span class="attr">width</span>=<span class="string">&quot;100px&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>阿里<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>阿里巴巴集团控股有限公司<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>打开浏览器，效果如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/582d460a041f8a2b306cebd22a6333f9--f915--image-20231121183451283.png" alt="image-20231121183451283"></p>
+<p>整合表格使用 table 标签包裹 , 其中的每一行数据都是一个 tr , 每一行中的每一个单元格都是一个 td , 而如果是表头单元格, 可以使用 th (具有加粗居中展示的效果)。</p>
+<h3 id="6-表单标签（数据提交）"><a href="#6-表单标签（数据提交）" class="headerlink" title="6).表单标签（数据提交）"></a>6).表单标签（数据提交）</h3><p>那表单呢,在我们日常的上网的过程中,基本上每天都会遇到。比如，我们经常在访问网站时，出现的登录页面、注册页面、个人信息提交页面，其实都是一个一个的表单 。 当我们在这些表单中录入数据之后，一点击 “提交”，就会将表单中我们填写的数据采集到，并提交， 那其实这个数据呢，一般会提交到服务端，最终保存在数据库中 （后面的课程中会讲到）。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/158ab888ad88adfdda5cce236171acbc--b1b4--image-20231121183623494.png"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f0994b8edc9b5e7ce1a8ad860729d313--0da3--image-20231121183653494.png" alt="image-20231121183653494"></p>
+<p>那其实，上述的整个窗口是一个表单，而表单是一项一项的，这个我们称为表单项 或 表单元素。</p>
+<ul>
+<li><p>表单场景: 表单就是在网页中负责数据采集功能的，如：注册、登录的表单。 </p>
+</li>
+<li><p>表单标签: &lt;form&gt;</p>
+</li>
+<li><p>表单属性:</p>
+<ul>
+<li>action: 规定表单提交时，向何处发送表单数据，表单提交的URL。</li>
+<li>method: 规定用于发送表单数据的方式，常见为： GET、POST。<ul>
+<li>GET：表单数据是拼接在url后面的， 如： xxxxxxxxxxx?username&#x3D;Tom&amp;age&#x3D;12，url中能携带的表单数据大小是有限制的。</li>
+<li>POST： 表单数据是在请求体（消息体）中携带的，大小没有限制。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>表单项标签: 不同类型的input元素、下拉列表、文本域等。</p>
+<ul>
+<li>input: 定义表单项，通过type属性控制输入形式</li>
+<li>select: 定义下拉列表</li>
+<li>textarea: 定义文本域</li>
+</ul>
+</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML-表单<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment">    form表单属性: </span></span><br><span class="line"><span class="comment">        action: 表单提交的url, 往何处提交数据 . 如果不指定, 默认提交到当前页面</span></span><br><span class="line"><span class="comment">        method: 表单的提交方式 .</span></span><br><span class="line"><span class="comment">            get: 在url后面拼接表单数据, 比如: ?username=Tom&amp;age=12 , url长度有限制 . 默认值</span></span><br><span class="line"><span class="comment">            post: 在消息体(请求体)中传递的, 参数大小无限制的.</span></span><br><span class="line"><span class="comment">    --&gt;</span>   </span><br><span class="line">	</span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;get/post&quot;</span>&gt;</span>   #表单提交方式的修改</span><br><span class="line">        用户名: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">        年龄: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;提交&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>表单中的所有表单项，要想能够正常的采集数据，在提交的时候能提交到服务端，表单项必须指定name属性。 否则，无法提交该表单项。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">用户名: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-表单的拓展使用"><a href="#7-表单的拓展使用" class="headerlink" title="7).表单的拓展使用"></a>7).表单的拓展使用</h3><p>在一个表单中，可以存在很多的表单项，而虽然表单项的形式各式各样，但是表单项的标签其实就只有三个，分别是：</p>
+<ul>
+<li><p>&lt;input&gt;: 表单项 , 通过type属性控制输入形式。</p>
+<table>
+<thead>
+<tr>
+<th>type取值</th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>text</td>
+<td>默认值，定义单行的输入字段</td>
+</tr>
+<tr>
+<td>password</td>
+<td>定义密码字段</td>
+</tr>
+<tr>
+<td>radio</td>
+<td>定义单选按钮</td>
+</tr>
+<tr>
+<td>checkbox</td>
+<td>定义复选框</td>
+</tr>
+<tr>
+<td>file</td>
+<td>定义文件上传按钮</td>
+</tr>
+<tr>
+<td>date&#x2F;time&#x2F;datetime-local</td>
+<td>定义日期&#x2F;时间&#x2F;日期时间</td>
+</tr>
+<tr>
+<td>number</td>
+<td>定义数字输入框</td>
+</tr>
+<tr>
+<td>email</td>
+<td>定义邮件输入框</td>
+</tr>
+<tr>
+<td>hidden</td>
+<td>定义隐藏域</td>
+</tr>
+<tr>
+<td>submit &#x2F; reset &#x2F; button</td>
+<td>定义提交按钮 &#x2F; 重置按钮 &#x2F; 可点击按钮</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>&lt;select&gt;: 定义下拉列表, &lt;option&gt; 定义列表项</p>
+</li>
+<li><p>&lt;textarea&gt;: 文本域</p>
+</li>
+</ul>
+<p>示例：</p>
+<p>创建一个新的表单项的html文件，具体内容如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML-表单项标签<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- value: 表单项提交的值 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">     姓名: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     密码: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span> </span><br><span class="line">     性别: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span> 男</span><br><span class="line">          <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>&gt;</span> 女 <span class="tag">&lt;/<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     爱好: <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;java&quot;</span>&gt;</span> java <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;game&quot;</span>&gt;</span> game <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;sing&quot;</span>&gt;</span> sing <span class="tag">&lt;/<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     图像: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;image&quot;</span>&gt;</span>  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     生日: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span> <span class="attr">name</span>=<span class="string">&quot;birthday&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     时间: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;time&quot;</span> <span class="attr">name</span>=<span class="string">&quot;time&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     日期时间: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;datetime-local&quot;</span> <span class="attr">name</span>=<span class="string">&quot;datetime&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     邮箱: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">name</span>=<span class="string">&quot;email&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     年龄: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     学历: <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;degree&quot;</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>----------- 请选择 -----------<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span>大专<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>&gt;</span>本科<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;3&quot;</span>&gt;</span>硕士<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;4&quot;</span>&gt;</span>博士<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">select</span>&gt;</span>  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     描述: <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span>  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">	 	</span><br><span class="line">     <span class="comment">&lt;!-- 表单常见按钮 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;按钮&quot;</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">value</span>=<span class="string">&quot;重置&quot;</span>&gt;</span> </span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;提交&quot;</span>&gt;</span>   </span><br><span class="line">     <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过浏览器打开上述的表单项html文件，最终展示出的表单信息如下：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/d4e6fd6e75794d9e43ad0c6a3d4c6078--0018--image-20231121184043690.png" alt="image-20231121184043690"></p>
+<h3 id="7-CSS善用文档"><a href="#7-CSS善用文档" class="headerlink" title="7).CSS善用文档"></a>7).CSS善用文档</h3><p>进入W3C进行查询。即用即查即可</p>
+<h2 id="3、js的基本使用"><a href="#3、js的基本使用" class="headerlink" title="3、js的基本使用"></a>3、js的基本使用</h2><h3 id="1-书写语法"><a href="#1-书写语法" class="headerlink" title="1).书写语法"></a>1).书写语法</h3><ul>
+<li><p>区分大小写：与 Java 一样，变量名、函数名以及其他一切东西都是区分大小写的</p>
+</li>
+<li><p>每行结尾的分号可有可无</p>
+</li>
+<li><p>大括号表示代码块</p>
+</li>
+<li><p>注释：</p>
+<ul>
+<li><p>单行注释：&#x2F;&#x2F; 注释内容</p>
+</li>
+<li><p>多行注释：&#x2F;* 注释内容 *&#x2F;</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>我们需要借助js中3钟输出语句，来演示书写语法</p>
+<table>
+<thead>
+<tr>
+<th>api</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>window.alert()</td>
+<td>警告框</td>
+</tr>
+<tr>
+<td>document.write()</td>
+<td>在HTML 输出内容</td>
+</tr>
+<tr>
+<td>console.log()</td>
+<td>写入浏览器控制台</td>
+</tr>
+</tbody></table>
+<h3 id="2-变量"><a href="#2-变量" class="headerlink" title="2).变量"></a>2).变量</h3><p>书写语法会了，变量是一门编程语言比不可少的，所以接下来我们需要学习js中变量的声明，在js中，变量的声明和java中还是不同的。首先js中主要通过如下3个关键字来声明变量的：</p>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>var</td>
+<td>早期ECMAScript5中用于变量声明的关键字</td>
+</tr>
+<tr>
+<td>let</td>
+<td>ECMAScript6中新增的用于变量声明的关键字，相比较var，let只在代码块内生效</td>
+</tr>
+<tr>
+<td>const</td>
+<td>声明常量的，常量一旦声明，不能修改</td>
+</tr>
+</tbody></table>
+<p>在js中声明变量还需要注意如下几点：</p>
+<ul>
+<li>JavaScript 是一门弱类型语言，变量可以存放不同类型的值 。</li>
+<li>变量名需要遵循如下规则：<ul>
+<li>组成字符可以是任何字母、数字、下划线（_）或美元符号（$）</li>
+<li>数字不能开头</li>
+<li>建议使用驼峰命名</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-数据类型与运算符"><a href="#3-数据类型与运算符" class="headerlink" title="3).数据类型与运算符"></a>3).数据类型与运算符</h3><p>这两个就不用多说了，直接放表格</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>number</td>
+<td>数字（整数、小数、NaN(Not a Number)）</td>
+</tr>
+<tr>
+<td>string</td>
+<td>字符串，单双引皆可</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>布尔。true，false</td>
+</tr>
+<tr>
+<td>null</td>
+<td>对象为空</td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>当声明的变量未初始化时，该变量的默认值是 undefined</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>运算规则</th>
+<th>运算符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>算术运算符</td>
+<td>+ , - , * , &#x2F; , % , ++ , –</td>
+</tr>
+<tr>
+<td>赋值运算符</td>
+<td>&#x3D; , +&#x3D; , -&#x3D; , *&#x3D; , &#x2F;&#x3D; , %&#x3D;</td>
+</tr>
+<tr>
+<td>比较运算符</td>
+<td>&gt; , &lt; , &gt;&#x3D; , &lt;&#x3D; , !&#x3D; , &#x3D;&#x3D; , &#x3D;&#x3D;&#x3D;   注意     &#x3D;&#x3D; 会进行类型转换，&#x3D;&#x3D;&#x3D; 不会进行类型转换</td>
+</tr>
+<tr>
+<td>逻辑运算符</td>
+<td>&amp;&amp; , || , !</td>
+</tr>
+<tr>
+<td>三元运算符</td>
+<td>条件表达式 ? true_value: false_value</td>
+</tr>
+</tbody></table>
+<h3 id="4-函数"><a href="#4-函数" class="headerlink" title="4).函数"></a>4).函数</h3><h4 id="①第一种定义方法"><a href="#①第一种定义方法" class="headerlink" title="①第一种定义方法"></a>①第一种定义方法</h4><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> 函数名(参数<span class="number">1</span>,参数<span class="number">2.</span>.)&#123;</span><br><span class="line">    要执行的代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为JavaScript是弱数据类型的语言，所以有如下几点需要注意：</p>
+<ul>
+<li>形式参数不需要声明类型，并且JavaScript中不管什么类型都是let或者var去声明，加上也没有意义。</li>
+<li>返回值也不需要声明类型，直接return即可</li>
+</ul>
+<h4 id="②第二种定义方法"><a href="#②第二种定义方法" class="headerlink" title="②第二种定义方法"></a>②第二种定义方法</h4><p>第二种可以通过var去定义函数的名字，具体格式如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> functionName = <span class="keyword">function</span> (<span class="params">参数<span class="number">1</span>,参数<span class="number">2.</span>.</span>)&#123;   </span><br><span class="line">	<span class="comment">//要执行的代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他的和第一种方法是相同的</p>
+<h3 id="5-BOM对象"><a href="#5-BOM对象" class="headerlink" title="5).BOM对象"></a>5).BOM对象</h3><p>BOM中提供了如下5个对象：</p>
+<table>
+<thead>
+<tr>
+<th align="left">对象名称</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Window</td>
+<td align="left">浏览器窗口对象</td>
+</tr>
+<tr>
+<td align="left">Navigator</td>
+<td align="left">浏览器对象</td>
+</tr>
+<tr>
+<td align="left">Screen</td>
+<td align="left">屏幕对象</td>
+</tr>
+<tr>
+<td align="left">History</td>
+<td align="left">历史记录对象</td>
+</tr>
+<tr>
+<td align="left">Location</td>
+<td align="left">d地址栏对象</td>
+</tr>
+</tbody></table>
+<p>上述5个对象与浏览器各组成对应的关系如下图所示：</p>
+<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/4188d3cbe1ed885e474d4ffbe61b3ddd--9adc--image-20231121185953491.png" alt="image-20231121185953491"></p>
+<p>主要使用到的是Windows和Location这两个</p>
+<h4 id="①Windows对象"><a href="#①Windows对象" class="headerlink" title="①Windows对象"></a>①Windows对象</h4><p>window对象指的是浏览器窗口对象，是JavaScript的全部对象，所以对于window对象，我们可以直接使用，并且对于window对象的方法和属性，我们可以省略window.例如：我们之前学习的alert()函数其实是属于window对象的,其完整的代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">window.alert(&#x27;hello&#x27;);</span><br></pre></td></tr></table></figure>
+
+<p>其可以省略window.  所以可以简写成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">alert(&#x27;hello&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>所以对于window对象的属性和方法，我们都是采用简写的方式。window提供了很多属性和方法，下表列出了常用属性和方法</p>
+<p>window对象提供了获取其他BOM对象的属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>history</td>
+<td>用于获取history对象</td>
+</tr>
+<tr>
+<td>location</td>
+<td>用于获取location对象</td>
+</tr>
+<tr>
+<td>Navigator</td>
+<td>用于获取Navigator对象</td>
+</tr>
+<tr>
+<td>Screen</td>
+<td>用于获取Screen对象</td>
+</tr>
+</tbody></table>
+<p>也就是说我们要使用location对象，只需要通过代码<code>window.location</code>或者简写<code>location</code>即可使用</p>
+<p>window也提供了一些常用的函数，如下表格所示：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alert()</td>
+<td>显示带有一段消息和一个确认按钮的警告框。</td>
+</tr>
+<tr>
+<td>comfirm()</td>
+<td>显示带有一段消息以及确认按钮和取消按钮的对话框。</td>
+</tr>
+<tr>
+<td>setInterval()</td>
+<td>按照指定的周期（以毫秒计）来调用函数或计算表达式。</td>
+</tr>
+<tr>
+<td>setTimeout()</td>
+<td>在指定的毫秒数后调用函数或计算表达式。</td>
+</tr>
+</tbody></table>
+<h4 id="②Location对象"><a href="#②Location对象" class="headerlink" title="②Location对象"></a>②Location对象</h4><p>location是指代浏览器的地址栏对象，对于这个对象，我们常用的是href属性，用于获取或者设置浏览器的地址信息，添加如下代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//获取浏览器地址栏信息</span></span><br><span class="line"><span class="title function_">alert</span>(location.<span class="property">href</span>);</span><br><span class="line"><span class="comment">//设置浏览器地址栏信息</span></span><br><span class="line">location.<span class="property">href</span> = <span class="string">&quot;https://www.itcast.cn&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>浏览器效果如下：首先弹框展示浏览器地址栏信息，</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/2fb1b4a2882b8e052bbc146ab2538a5b--a4c9--image-20231121191247946.png" alt="image-20231121191247946"></p>
+<p>然后点击确定后，因为我们设置了地址栏信息，所以浏览器跳转到传智首页</p>
+<h3 id="6-DOM对象"><a href="#6-DOM对象" class="headerlink" title="6).DOM对象"></a>6).DOM对象</h3><p>HTML中的Element对象可以通过Document对象获取，而Document对象是通过window对象获取的。document对象提供的用于获取Element元素对象的api如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>document.getElementById()</td>
+<td>根据id属性值获取，返回单个Element对象</td>
+</tr>
+<tr>
+<td>document.getElementsByTagName()</td>
+<td>根据标签名称获取，返回Element对象数组</td>
+</tr>
+<tr>
+<td>document.getElementsByName()</td>
+<td>根据name属性值获取，返回Element对象数组</td>
+</tr>
+<tr>
+<td>document.getElementsByClassName()</td>
+<td>根据class属性值获取，返回Element对象数组</td>
+</tr>
+</tbody></table>
+<p>操作属性</p>
+<p>那么获取到标签了，我们如何操作标签的属性呢？通过查询文档资料，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f44d21e5a1292672353de1d459108e31--a783--image-20231121192858063.png" alt="image-20231121192858063"></p>
+<p>得出我们可以通过div标签对象的innerHTML属性来修改标签的内容。此时我们想把页面中的<strong>传智教育替换成传智教育666</strong>，所以要获取2个div中的第一个，所以可以通过下标0获取数组中的第一个div，注释之前的代码，编写如下代码：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> divs = <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;cls&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> div1 = divs[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">div1.<span class="property">innerHTML</span> = <span class="string">&quot;传智教育666&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>浏览器刷新页面，展示效果如下图所示：</p>
+<p>浏览器刷新页面，展示效果如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/5db9ab60bdd4f569c18c988a032a4621--5c20--image-20231121192928778.png" alt="image-20231121192928778"></p>
+<p> 发现页面内容变成了传智教育666</p>
+<p>全部源码：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>JS-对象-DOM<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">&quot;h1&quot;</span> <span class="attr">src</span>=<span class="string">&quot;img/off.gif&quot;</span>&gt;</span>  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cls&quot;</span>&gt;</span>传智教育<span class="tag">&lt;/<span class="name">div</span>&gt;</span>   <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cls&quot;</span>&gt;</span>黑马程序员<span class="tag">&lt;/<span class="name">div</span>&gt;</span>  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span>&gt;</span> 电影</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span>&gt;</span> 旅游</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span>&gt;</span> 游戏</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//1. 获取Element元素</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//1.1 获取元素-根据ID获取</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// var img = document.getElementById(&#x27;h1&#x27;);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// alert(img);</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//1.2 获取元素-根据标签获取 - div</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// var divs = document.getElementsByTagName(&#x27;div&#x27;);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// for (let i = 0; i &lt; divs.length; i++) &#123;</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//     alert(divs[i]);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// &#125;</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//1.3 获取元素-根据name属性获取</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// var ins = document.getElementsByName(&#x27;hobby&#x27;);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// for (let i = 0; i &lt; ins.length; i++) &#123;</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//     alert(ins[i]);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// &#125;</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//1.4 获取元素-根据class属性获取</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// var divs = document.getElementsByClassName(&#x27;cls&#x27;);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// for (let i = 0; i &lt; divs.length; i++) &#123;</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//     alert(divs[i]);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// &#125;</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//2. 查询参考手册, 属性、方法</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> divs = <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;cls&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> div1 = divs[<span class="number">0</span>];</span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    div1.<span class="property">innerHTML</span> = <span class="string">&quot;传智教育666&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-事件绑定"><a href="#7-事件绑定" class="headerlink" title="7).事件绑定"></a>7).事件绑定</h3><h4 id="方式1：通过html标签中的事件属性进行绑定"><a href="#方式1：通过html标签中的事件属性进行绑定" class="headerlink" title="方式1：通过html标签中的事件属性进行绑定"></a>方式1：通过html标签中的事件属性进行绑定</h4><p>例如一个按钮，我们对于按钮可以绑定单机事件，可以借助标签的onclick属性，属性值指向一个函数。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btn1&quot;</span> <span class="attr">value</span>=<span class="string">&quot;事件绑定1&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;on()&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>很明显没有on函数，所以我们需要创建该函数，代码如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">on</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">alert</span>(<span class="string">&quot;按钮1被点击了...&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="方式2：通过DOM中Element元素的事件属性进行绑定"><a href="#方式2：通过DOM中Element元素的事件属性进行绑定" class="headerlink" title="方式2：通过DOM中Element元素的事件属性进行绑定"></a>方式2：通过DOM中Element元素的事件属性进行绑定</h4><p>依据我们学习过得DOM的知识点，我们知道html中的标签被加载成element对象，所以我们也可以通过element对象的属性来操作标签的属性。此时我们再次添加一个按钮，代码如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">id</span>=<span class="string">&quot;btn2&quot;</span> <span class="attr">value</span>=<span class="string">&quot;事件绑定2&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以先通过id属性获取按钮对象，然后操作对象的onclick属性来绑定事件，代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;btn2&#x27;</span>).<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(<span class="string">&quot;按钮2被点击了...&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-一些常见的事件"><a href="#8-一些常见的事件" class="headerlink" title="8).一些常见的事件"></a>8).一些常见的事件</h3><table>
+<thead>
+<tr>
+<th>事件属性名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onclick</td>
+<td>鼠标单击事件</td>
+</tr>
+<tr>
+<td>onblur</td>
+<td>元素失去焦点</td>
+</tr>
+<tr>
+<td>onfocus</td>
+<td>元素获得焦点</td>
+</tr>
+<tr>
+<td>onload</td>
+<td>某个页面或图像被完成加载</td>
+</tr>
+<tr>
+<td>onsubmit</td>
+<td>当表单提交时触发该事件</td>
+</tr>
+<tr>
+<td>onmouseover</td>
+<td>鼠标被移到某元素之上</td>
+</tr>
+<tr>
+<td>onmouseout</td>
+<td>鼠标从某元素移开</td>
+</tr>
+</tbody></table>
+<h2 id="4、vue的基本使用"><a href="#4、vue的基本使用" class="headerlink" title="4、vue的基本使用"></a>4、vue的基本使用</h2><h3 id="1、快速入门"><a href="#1、快速入门" class="headerlink" title="1、快速入门"></a>1、快速入门</h3><p>第一步：将vue.js下载拷贝到项目目录下</p>
+<p>第二步：然后编写&lt;script&gt;标签来引入vue.js文件，代码如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/vue.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>第三步：在js代码区域定义vue对象,代码如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//定义Vue对象</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">el</span>: <span class="string">&quot;#app&quot;</span>, <span class="comment">//vue接管区域</span></span></span><br><span class="line"><span class="language-javascript">        <span class="attr">data</span>:&#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="attr">message</span>: <span class="string">&quot;Hello Vue&quot;</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;)</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在创建vue对象时，有几个常用的属性：</p>
+<ul>
+<li>el:  用来指定哪儿些标签受 Vue 管理。 该属性取值 <code>#app</code> 中的 <code>app</code> 需要是受管理的标签的id属性值</li>
+<li>data: 用来定义数据模型</li>
+<li>methods: 用来定义函数。这个我们在后面就会用到</li>
+</ul>
+<p>第四步：在html区域编写视图，其中双大括号是插值表达式，用来将vue对象中定义的model展示到页面上的</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;message&quot;</span>&gt;</span></span><br><span class="line">        &#123;&#123;message&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>浏览器打开效果如图所示：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/9485d513933405e6a210b4d9c55c3643--bbba--image-20231121195000984.png" alt="image-20231121195000984"></p>
+<h3 id="2、vue指令"><a href="#2、vue指令" class="headerlink" title="2、vue指令"></a>2、vue指令</h3><table>
+<thead>
+<tr>
+<th><strong>指令</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><u><strong>v-bind</strong></u></td>
+<td><u><strong>为HTML标签绑定属性值，如设置  href , css样式等</strong></u></td>
+</tr>
+<tr>
+<td><u><strong>v-model</strong></u></td>
+<td><u><strong>在表单元素上创建双向数据绑定</strong></u></td>
+</tr>
+<tr>
+<td>v-on</td>
+<td>为HTML标签绑定事件</td>
+</tr>
+<tr>
+<td>v-if</td>
+<td>条件性的渲染某元素，判定为true时渲染,否则不渲染</td>
+</tr>
+<tr>
+<td>v-else</td>
+<td></td>
+</tr>
+<tr>
+<td>v-else-if</td>
+<td></td>
+</tr>
+<tr>
+<td>v-show</td>
+<td>根据条件展示某元素，区别在于切换的是display属性的值</td>
+</tr>
+<tr>
+<td>v-for</td>
+<td>列表渲染，遍历容器的元素或者对象的属性</td>
+</tr>
+</tbody></table>
+<h4 id="①v-bind"><a href="#①v-bind" class="headerlink" title="①v-bind:"></a>①v-bind:</h4><p>为HTML标签绑定属性值，如设置  href , css样式等。当vue对象中的数据模型发生变化时，标签的属性值会随之发生变化。</p>
+<h4 id="②v-model："><a href="#②v-model：" class="headerlink" title="②v-model："></a>②v-model：</h4><p>在表单元素上创建双向数据绑定。什么是双向？</p>
+<ul>
+<li>vue对象的data属性中的数据变化，视图展示会一起变化</li>
+<li>视图数据发生变化，vue对象的data属性中的数据也会随着变化。</li>
+</ul>
+<p>data属性中数据变化，我们知道可以通过赋值来改变，但是视图数据为什么会发生变化呢？<strong>只有表单项标签！所以双向绑定一定是使用在表单项标签上的</strong>。</p>
+<p>接下来我们学习一下v-on指令。</p>
+<h4 id="③v-on"><a href="#③v-on" class="headerlink" title="③v-on:"></a>③v-on:</h4><p>用来给html标签绑定事件的。<strong>需要注意的是如下2点</strong>：</p>
+<ul>
+<li><p>v-on语法给标签的事件绑定的函数，必须是vue对象种声明的函数</p>
+</li>
+<li><p>v-on语法绑定事件时，事件名相比较js中的事件名，没有on</p>
+<p>例如：在js中，事件绑定demo函数</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">onclick</span>=<span class="string">&quot;demo()&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>vue中，事件绑定demo函数</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">v-on:click</span>=<span class="string">&quot;demo()&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="④v-if和v-show"><a href="#④v-if和v-show" class="headerlink" title="④v-if和v-show"></a>④v-if和v-show</h4><p>用于觉得是否展示</p>
+<p>可以发现，浏览器呈现的效果是一样的，但是浏览器中html源码不一样。v-if指令，不满足条件的标签代码直接没了，而v-show指令中，不满足条件的代码依然存在，只是添加了css样式来控制标签不去显示。</p>
+<h4 id="⑤v-for"><a href="#⑤v-for" class="headerlink" title="⑤v-for"></a>⑤v-for</h4><p>v-for: 从名字我们就能看出，这个指令是用来遍历的。其语法格式如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">标签</span> <span class="attr">v-for</span>=<span class="string">&quot;变量名 in 集合模型数据&quot;</span>&gt;</span></span><br><span class="line">    &#123;&#123;变量名&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">标签</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是：需要循环那个标签，v-for 指令就写在那个标签上。</p>
+<p>有时我们遍历时需要使用索引，那么v-for指令遍历的语法格式如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">标签</span> <span class="attr">v-for</span>=<span class="string">&quot;(变量名,索引变量) in 集合模型数据&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--索引变量是从0开始，所以要表示序号的话，需要手动的加1--&gt;</span></span><br><span class="line">   &#123;&#123;索引变量 + 1&#125;&#125; &#123;&#123;变量名&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">标签</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、生命周期"><a href="#3、生命周期" class="headerlink" title="3、生命周期"></a>3、生命周期</h3><p>vue的生命周期：指的是vue对象从创建到销毁的过程。vue的生命周期包含8个阶段：每触发一个生命周期事件，会自动执行一个生命周期方法，这些生命周期方法也被称为钩子方法。其完整的生命周期如下图所示：</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>阶段周期</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>beforeCreate</td>
+<td>创建前</td>
+</tr>
+<tr>
+<td>created</td>
+<td>创建后</td>
+</tr>
+<tr>
+<td>beforeMount</td>
+<td>挂载前</td>
+</tr>
+<tr>
+<td>mounted</td>
+<td>挂载完成</td>
+</tr>
+<tr>
+<td>beforeUpdate</td>
+<td>更新前</td>
+</tr>
+<tr>
+<td>updated</td>
+<td>更新后</td>
+</tr>
+<tr>
+<td>beforeDestroy</td>
+<td>销毁前</td>
+</tr>
+<tr>
+<td>destroyed</td>
+<td>销毁后</td>
+</tr>
+</tbody></table>
+<p>下图是 Vue 官网提供的从创建 Vue 到效果 Vue 对象的整个过程及各个阶段对应的钩子函数：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/d3dd27cb2a5d10c6de0c00f4c9cf12fd--9b10--image-20231121195747907.png" alt="image-20231121195747907"></p>
+<p>其中我们需要重点关注的是**mounted,**其他的我们了解即可。</p>
+<p>mounted：挂载完成，Vue初始化成功，HTML页面渲染成功。<strong>以后我们一般用于页面初始化自动的ajax请求后台数据</strong></p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+      </tags>
+  </entry>
 </search>
