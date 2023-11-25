@@ -1236,6 +1236,144 @@
 <p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/d3dd27cb2a5d10c6de0c00f4c9cf12fd--9b10--image-20231121195747907.png" alt="image-20231121195747907"></p>
 <p>其中我们需要重点关注的是**mounted,**其他的我们了解即可。</p>
 <p>mounted：挂载完成，Vue初始化成功，HTML页面渲染成功。<strong>以后我们一般用于页面初始化自动的ajax请求后台数据</strong></p>
+<h2 id="5、Ajax的使用"><a href="#5、Ajax的使用" class="headerlink" title="5、Ajax的使用"></a>5、Ajax的使用</h2><h3 id="1、Ajax的介绍"><a href="#1、Ajax的介绍" class="headerlink" title="1、Ajax的介绍"></a>1、Ajax的介绍</h3><p>我们详细的解释一下Ajax技术的2个作用</p>
+<ul>
+<li><p>与服务器进行数据交互</p>
+<p>如下图所示前端资源被浏览器解析，但是前端页面上缺少数据，前端可以通过Ajax技术，向后台服务器发起请求，后台服务器接受到前端的请求，从数据库中获取前端需要的资源，然后响应给前端，前端在通过我们学习的vue技术，可以将数据展示到页面上，这样用户就能看到完整的页面了。此处可以对比JavaSE中的网络编程技术来理解。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/1478bd2c5b10db3902848da91ea311f7--5dc6--image-20231125221238816.png" alt="image-20231125221238816"></p>
+<p>异步交互：可以在<strong>不重新加载整个页面</strong>的情况下，与服务器交换数据并<strong>更新部分网页</strong>的技术。</p>
+<p>如下图所示，当我们再百度搜索java时，下面的联想数据是通过Ajax请求从后台服务器得到的，在整个过程中，我们的Ajax请求不会导致整个百度页面的重新加载，并且只针对搜索栏这局部模块的数据进行了数据的更新，不会对整个页面的其他地方进行数据的更新，这样就大大提升了页面的加载速度，用户体验高。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/9c8182429cd46012b107552c0eaa8f90--794e--image-20231125221257133.png" alt="image-20231125221257133"></p>
+<p>这里也就再来讲下异步操作和同步操作的区别是什么。</p>
+<p>同步请求发送过程如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/3eee530c76cba726b219ea41081ef642--233d--image-20231125221354077.png" alt="image-20231125221354077"></p>
+<ul>
+<li><p>浏览器页面在发送请求给服务器，在服务器处理请求的过程中，浏览器页面不能做其他的操作。只能等到服务器响应结束后才能，浏览器页面才能继续做其他的操作。 </p>
+</li>
+<li><p>异步请求发送过程如下图所示：</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c577c087270747d00d18b684c2ebcca0--5447--image-20231125221404817.png" alt="image-20231125221404817"></p>
+<ul>
+<li>浏览器页面发送请求给服务器，在服务器处理请求的过程中，浏览器页面还可以做其他的操作。</li>
+</ul>
+<p>这样就能像百度搜索那样，未点击搜索但是仍然可以显示部分数据。</p>
+<h3 id="2、Ajax的简单使用"><a href="#2、Ajax的简单使用" class="headerlink" title="2、Ajax的简单使用"></a>2、Ajax的简单使用</h3><ul>
+<li><p>服务器端</p>
+<p>因为我们暂时还没学过服务器端的代码，所以此处已经直接提供好了服务器端的请求地址，我们前端直接通过Ajax请求访问该地址即可。<strong>后台服务器地址</strong>：<a href="http://yapi.smart-xwork.cn/mock/169327/emp/list">http://yapi.smart-xwork.cn/mock/169327/emp/list</a></p>
+<p>上述地址我们也可以直接通过浏览器来访问，访问结果如图所示：只截取部分数据</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/e3c78a9e3285d3b9c77530b3800ca1d1--4d72--image-20231125222034015.png" alt="image-20231125222034015"></p>
+</li>
+<li><p>客户端</p>
+<p>客户端的Ajax请求代码如下有如下4步，接下来我们跟着步骤一起操作一下。</p>
+<p>第一步：首先我们再VS Code中创建AJAX的文件夹，并且创建名为01. Ajax-原生方式.html的文件，提供如下代码，主要是按钮绑定单击事件，我们希望点击按钮，来发送ajax请求</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>原生Ajax<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;获取数据&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;getData()&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">getData</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">     </span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>第二步：创建XMLHttpRequest对象，用于和服务器交换数据，也是原生Ajax请求的核心对象，提供了各种方法。代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//1. 创建XMLHttpRequest </span></span><br><span class="line"><span class="keyword">var</span> xmlHttpRequest  = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br></pre></td></tr></table></figure>
+
+<p>第三步：调用对象的open()方法设置请求的参数信息，例如请求地址，请求方式。然后调用send()方法向服务器发送请求，代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//2. 发送异步请求</span></span><br><span class="line">xmlHttpRequest.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>,<span class="string">&#x27;http://yapi.smart-xwork.cn/mock/169327/emp/list&#x27;</span>);</span><br><span class="line">xmlHttpRequest.<span class="title function_">send</span>();<span class="comment">//发送请求</span></span><br></pre></td></tr></table></figure>
+
+<p>第四步：我们通过绑定事件的方式，来获取服务器响应的数据。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//3. 获取服务响应数据</span></span><br><span class="line">xmlHttpRequest.<span class="property">onreadystatechange</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="comment">//此处判断 4表示浏览器已经完全接受到Ajax请求得到的响应， 200表示这是一个正确的Http请求，没有错误</span></span><br><span class="line">    <span class="keyword">if</span>(xmlHttpRequest.<span class="property">readyState</span> == <span class="number">4</span> &amp;&amp; xmlHttpRequest.<span class="property">status</span> == <span class="number">200</span>)&#123;</span><br><span class="line">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;div1&#x27;</span>).<span class="property">innerHTML</span> = xmlHttpRequest.<span class="property">responseText</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>最后我们通过浏览器打开页面，请求点击按钮，发送Ajax请求，最终显示结果如下图所示：</p>
+<p> <img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/199862e599fc5422f4a52ec17821161c--1f36--image-20231125222026868.png" alt="image-20231125222026868"></p>
+<p>并且通过浏览器的f12抓包，我们点击网络中的XHR请求，发现可以抓包到我们发送的Ajax请求。XHR代表的就是异步请求</p>
+</li>
+</ul>
+<p>这些代码看起来也就是很复杂吧，很不方便去记忆，这个时候，Axios就因此诞生了。</p>
+<h3 id="3、Axios"><a href="#3、Axios" class="headerlink" title="3、Axios"></a>3、Axios</h3><p>Axios的使用比较简单，主要分为2步：</p>
+<ul>
+<li><p>引入Axios文件</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/axios-0.18.0.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用Axios发送请求，并获取响应结果，官方提供的api很多，此处给出2种，如下</p>
+<ul>
+<li><p>发送 get 请求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">axios</span>(&#123;</span><br><span class="line">    <span class="attr">method</span>:<span class="string">&quot;get&quot;</span>,</span><br><span class="line">    <span class="attr">url</span>:<span class="string">&quot;http://localhost:8080/ajax-demo1/aJAXDemo1?username=zhangsan&quot;</span></span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">resp</span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(resp.<span class="property">data</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发送 post 请求</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">axios</span>(&#123;</span><br><span class="line">    <span class="attr">method</span>:<span class="string">&quot;post&quot;</span>,</span><br><span class="line">    <span class="attr">url</span>:<span class="string">&quot;http://localhost:8080/ajax-demo1/aJAXDemo1&quot;</span>,</span><br><span class="line">    <span class="attr">data</span>:<span class="string">&quot;username=zhangsan&quot;</span></span><br><span class="line">&#125;).<span class="title function_">then</span>(<span class="keyword">function</span> (<span class="params">resp</span>)&#123;</span><br><span class="line">    <span class="title function_">alert</span>(resp.<span class="property">data</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>axios()是用来发送异步请求的，小括号中使用 js的JSON对象传递请求相关的参数：</p>
+<ul>
+<li>method属性：用来设置请求方式的。取值为 get 或者 post。</li>
+<li>url属性：用来书写请求的资源路径。如果是 get 请求，需要将请求参数拼接到路径的后面，格式为： url?参数名&#x3D;参数值&amp;参数名2&#x3D;参数值2。</li>
+<li>data属性：作为请求体被发送的数据。也就是说如果是 post 请求的话，数据需要作为 data 属性的值。</li>
+</ul>
+<p>then() 需要传递一个匿名函数。我们将 then()中传递的匿名函数称为 <strong>回调函数</strong>，意思是该匿名函数在发送请求时不会被调用，而是在成功响应后调用的函数。而该回调函数中的 resp 参数是对响应的数据进行封装的对象，通过 resp.data 可以获取到响应的数据。</p>
+</li>
+</ul>
+<p>Axios还针对不同的请求，提供了别名方式的api,具体如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>axios.get(url [, config])</td>
+<td>发送get请求</td>
+</tr>
+<tr>
+<td>axios.delete(url [, config])</td>
+<td>发送delete请求</td>
+</tr>
+<tr>
+<td>axios.post(url [, data[, config]])</td>
+<td>发送post请求</td>
+</tr>
+<tr>
+<td>axios.put(url [, data[, config]])</td>
+<td>发送put请求</td>
+</tr>
+</tbody></table>
+<p>我们目前只关注get和post请求，所以在上述的入门案例中，我们可以将get请求代码改写成如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.<span class="title function_">get</span>(<span class="string">&quot;http://yapi.smart-xwork.cn/mock/169327/emp/list&quot;</span>).<span class="title function_">then</span>(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(result.<span class="property">data</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>post请求改写成如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">axios.<span class="title function_">post</span>(<span class="string">&quot;http://yapi.smart-xwork.cn/mock/169327/emp/deleteById&quot;</span>,<span class="string">&quot;id=1&quot;</span>).<span class="title function_">then</span>(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(result.<span class="property">data</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、Vue的简单教程介绍"><a href="#6、Vue的简单教程介绍" class="headerlink" title="6、Vue的简单教程介绍"></a>6、Vue的简单教程介绍</h2><h3 id="1、项目创建"><a href="#1、项目创建" class="headerlink" title="1、项目创建"></a>1、项目创建</h3><p>环境准备好了，接下来我们需要通过Vue-cli创建一个vue项目，然后再学习一下vue项目的目录结构。Vue-cli提供了如下2种方式创建vue项目:</p>
+<ul>
+<li><p>命令行：直接通过命令行方式创建vue项目</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vue create vue-project01</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>图形化界面：通过命令先进入到图形化界面，然后再进行vue工程的创建</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2、项目结构的简单分析"><a href="#2、项目结构的简单分析" class="headerlink" title="2、项目结构的简单分析"></a>2、项目结构的简单分析</h3><p>我们通过VS Code打开之前创建的vue文件夹，打开之后，呈现如下图所示页面：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/a84df0d25fc9623cd84a8136751af782--7c96--image-20231125224706489.png" alt="image-20231125224706489"></p>
+<p>vue项目的标准目录结构以及目录对应的解释如下图所示:</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/5cc1aec4f35e31988a0864b2586a0c5e--5409--image-20231125224714378.png" alt="image-20231125224714378"></p>
+<p>其中我们平时开发代码就是在<strong>src目录</strong>下	</p>
+<h3 id="3、Vue项目的运行"><a href="#3、Vue项目的运行" class="headerlink" title="3、Vue项目的运行"></a>3、Vue项目的运行</h3><p>那么vue项目开发好了，我们应该怎么运行vue项目呢？主要提供了2种方式</p>
+<ul>
+<li>第一种方式：通过VS Code提供的图形化界面 ，如下图所示：（注意：NPM脚本窗口默认不显示，可以参考本节的最后调试出来）</li>
+</ul>
+<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c06bda53d80150fc54aea584a377c7d0--c078--image-20231125225846123.png" alt="image-20231125225846123"></p>
+<p>点击之后，我们等待片刻，即可运行，在终端界面中，我们发现项目是运行在本地服务的8080端口，我们直接通过浏览器打开地址</p>
+<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/f1f262284f1a4dd41228e35f1ecf52e8--3933--image-20231125225858533.png" alt="image-20231125225858533"></p>
+<p>最终浏览器打开后，呈现如下界面，表示项目运行成功</p>
+<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c7ec1f87086087633a3fc5e245fdc31a--d81e--image-20231125225912576.png" alt="image-20231125225912576"></p>
+<p>其实此时访问的是 <strong>src&#x2F;App.vue</strong>这个根组件，此时我们打开这个组件，修改代码：添加内容Vue</p>
+<p>只要我们保存更新的代码，我们直接打开浏览器，不需要做任何刷新，发现页面呈现内容发生了变化，如下图所示：</p>
+<p>这就是我们vue项目的热更新功能 </p>
+<p>对于8080端口，经常被占用，所以我们可以去修改默认的8080端口。我们修改vue.config.js文件的内容，添加如下代码：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">devServer<span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">    port<span class="punctuation">:</span><span class="number">7000</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>第二种方式：命令行方式</p>
+<p>直接基于cmd命令窗口，在vue目录下，执行输入命令<code>npm run serve</code>即可，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/65f26040c8e0cf8668a0e615a8a223ea--ef9c--image-20231125230802565.png" alt="image-20231125230802565"></p>
 ]]></content>
       <categories>
         <category>java</category>
