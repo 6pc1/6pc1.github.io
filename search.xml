@@ -472,7 +472,7 @@
       </tags>
   </entry>
   <entry>
-    <title>java学习历程记录</title>
+    <title>java学习历程记录-前端</title>
     <url>/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95/</url>
     <content><![CDATA[<p>其实java是之前一段时间学习的，但是学到一半的时候发现我的python能力不行，所以又转去学python了，然后又由于我之前没有记笔记的习惯，就导致我现在再回来看java，就基本上忘光了，所以想着借着写博客的功夫去将我的一些java学习历程记录下来，也能去好好的复习一下之前的知识。所以这篇文章并不主要是为了入门，更多的只是我自己的一个学习记录，仅限参考。</p>
 <span id="more"></span>
@@ -1454,6 +1454,8 @@
 <p>然后就是项目的部署</p>
 <p>将我们之前打包的前端工程dist目录下得内容拷贝到nginx的html目录下</p>
 <p>然后启动nginx去启动服务，就成功将该项目部署完成了</p>
+<hr>
+<p>到这就差不多了这篇，主要就是对java中一些简单的前端知识进行总结。</p>
 ]]></content>
       <categories>
         <category>java</category>
