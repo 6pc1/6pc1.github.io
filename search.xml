@@ -1518,6 +1518,27 @@
 <blockquote>
 <p>GITHUB资源搜索：<br>in:name test #仓库标题搜索含有关键字<br>in:descripton test #仓库描述搜索含有关键字<br>in:readme test #Readme文件搜素含有关键字<br>stars:&gt;3000 test #stars数量大于3000的搜索关键字</p>
 </blockquote>
+<h2 id="第8章-信息打点-系统篇-端口扫描-CDN服务-负载均衡-WAF防火墙"><a href="#第8章-信息打点-系统篇-端口扫描-CDN服务-负载均衡-WAF防火墙" class="headerlink" title="第8章 信息打点-系统篇&amp;端口扫描&amp;CDN服务&amp;负载均衡&amp;WAF防火墙"></a>第8章 信息打点-系统篇&amp;端口扫描&amp;CDN服务&amp;负载均衡&amp;WAF防火墙</h2><p>知识点：<br>1、获取网络信息-服务厂商&amp;网络架构<br>2、获取服务信息-应用协议&amp;内网资产<br>3、获取阻碍信息-CDN&amp;WAF&amp;负载&amp;防火墙</p>
+<p>详细点：<br>CDN服务，WAF防火墙，负载均衡，防火墙阻碍？</p>
+<p>演示案例：<br>网络信息获取-服务厂商&amp;网络架构<br>通过域名信息查询获取 IP、云服务厂商、域名出售厂商、注册者邮箱等信息（可以使用威胁情报平台）</p>
+<p>服务信息获取-协议应用&amp;内网资产<br>旁注：查询同一服务器下的不同WEB应用<br>C段：查询同一网段下，不同服务器部署的不同WEB应用<br>nmap target -Pn -osscan-limit -sV</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-Pn：不检测主机存活 -osscan-limit:扫操作系统 </span><br><span class="line"></span><br><span class="line">-sV：探测打开的端口以确定服务/版本信息</span><br></pre></td></tr></table></figure>
+
+<p>阻碍信息获取-CDN&amp;WAF&amp;负载&amp;防火墙<br>超级ping:CDN服务识别（全国个地去ping目标地址，看访问的IP地址是否不同）<br>wafw00f识别waf、看图识别</p>
+<p>ldb识别负载均衡</p>
+<p>#相关利用项目：<br>Masscan:<a href="https://github.com/robertdavidgraham/masscan">https://github.com/robertdavidgraham/masscan</a><br>Wafwoof:<a href="https://github.com/Enablesecurity/wafw00f">https://github.com/Enablesecurity/wafw00f</a><br>Kali上自带Nmap,Masscan,lbd等项目，超级ping:ping.chinaz.com<br>超级ping:CDN服务识别<br>Masscan:端口扫描，应用协议<br>Wafw00f:Web应用防护防火墙识别<br>namp：端口扫描，应用协议，防火墙识别<br>lbd:负载均衡，广域网负载均衡，应用层负载均衡</p>
+<h2 id="第9天-信息打点-CDN烧过篇-漏洞回链8接口探针-全网扫指-反向件"><a href="#第9天-信息打点-CDN烧过篇-漏洞回链8接口探针-全网扫指-反向件" class="headerlink" title="第9天 信息打点-CDN烧过篇&amp;漏洞回链8接口探针&amp;全网扫指&amp;反向件"></a>第9天 信息打点-CDN烧过篇&amp;漏洞回链8接口探针&amp;全网扫指&amp;反向件</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">知识点：</span><br><span class="line">1、CDN知识-工作原理及阻碍</span><br><span class="line">2、CDN配置-域名&amp;区域&amp;类型</span><br><span class="line">3、CDN绕过-靠谱十余种技战法</span><br><span class="line">4、CDN绑定-HOSTS绑定指向访问</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>CDN 是构建在数据网络上的一种分布式的内容分发网。 CDN的作用是采用流媒体服务器集群技术，克服单机系统输出带宽及并发能力不足的缺点，可极大提升系统支持的并发流数目，减少或避免单点失效带来的不良影响。</p>
+</blockquote>
+<p>#前置知识<br>1.传统访问：用户访问域名-&gt;解析服务器IP-&gt;访问目标主机<br>2.普通CDN:用户访问域名-&gt;CDN节点-&gt;真实服务器IP-&gt;访问目标主机<br>3.带WAF的CDN:用户访问域名-&gt;CDN节点(WAF)-&gt;真实服务器IP-&gt;访问目标主机</p>
+<p>CDN的使用:在阿里云平台上去进行按每一步配置即可。</p>
+<p>#判定标准：<br>nslookup,各地ping(出现多个IP即启用CDN服务)<br>#参考知识：<br><a href="https://zhuanlan.zhihu.com/p/33440472">https://zhuanlan.zhihu.com/p/33440472</a><br><a href="https://www.cnblogs.com/blacksunny/p/5771827.html">https://www.cnblogs.com/blacksunny/p/5771827.html</a><br>子域名，去掉www,邮件服务器，国外访问，证书查询，APP抓包<br>黑暗空间引擎（yofo），通过漏洞或泄露获取，扫全网，以量打量，第三方接口查询等</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">演示案例：</span><br><span class="line">真实应用-CDN绕过-漏洞&amp;遗留文件</span><br><span class="line">原理： 利用ssrf使得服务器主动请求VPS地址，此时通过在VPS地址监听请求即可得知真实地址。（相当于目标服务器主动请求VPS地址，vps会监听到真实地址）</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-子域名查询操作</span><br><span class="line">原理：配置CDN时管理员考虑费用问题可能会将子域名排除在外，此时通过手机子域名信息即可得到真实地址（用于子域名应用和根域名应用部署在同一服务器的情况下）</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-接口查询国外访问</span><br><span class="line">原理：配置CDN时选择地域可能会仅设置成国内生效，此时使用国外地址访问获得真实地址</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-主动邮件配合备案</span><br><span class="line">原理:通过系统功能（如：密码找回发送邮件，查看邮件发送方地址找寻），通过备案信息确认，一般是通过备案的地点去判定</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-全网扫描FuckCDN</span><br><span class="line">原理：扫描全球ip匹配web内容，实用工具匹配扫描网段title信息。需要大量时间很多情况下，不过也是最稳定的方法。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#参考知识：</span><br><span class="line">https://zhuanlan.zhihu.com/p/33440472</span><br><span class="line">https://www.cnblogs.com/blacksunny/p/5771827.html</span><br><span class="line">子域名，去掉www,邮件服务器，国外访问，证书查询，APP抓包</span><br><span class="line">黑暗空间引擎，通过漏洞或泄露获取，扫全网，以量打量，第三方接口查询等</span><br><span class="line">#案例资源：</span><br><span class="line">超级Ping:https://www.17ce.com/</span><br><span class="line">接口查询：https://get-site-ip.com/</span><br><span class="line">国外请求：https://tools.ipip.net/cdn.php</span><br><span class="line">全网扫描：https://github.com/Tai7sy/fuckcdn</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>Web</category>
