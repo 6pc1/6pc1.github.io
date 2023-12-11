@@ -1518,7 +1518,7 @@
 <blockquote>
 <p>GITHUB资源搜索：<br>in:name test #仓库标题搜索含有关键字<br>in:descripton test #仓库描述搜索含有关键字<br>in:readme test #Readme文件搜素含有关键字<br>stars:&gt;3000 test #stars数量大于3000的搜索关键字</p>
 </blockquote>
-<h2 id="第8章-信息打点-系统篇-端口扫描-CDN服务-负载均衡-WAF防火墙"><a href="#第8章-信息打点-系统篇-端口扫描-CDN服务-负载均衡-WAF防火墙" class="headerlink" title="第8章 信息打点-系统篇&amp;端口扫描&amp;CDN服务&amp;负载均衡&amp;WAF防火墙"></a>第8章 信息打点-系统篇&amp;端口扫描&amp;CDN服务&amp;负载均衡&amp;WAF防火墙</h2><p>知识点：<br>1、获取网络信息-服务厂商&amp;网络架构<br>2、获取服务信息-应用协议&amp;内网资产<br>3、获取阻碍信息-CDN&amp;WAF&amp;负载&amp;防火墙</p>
+<h1 id="第8天-信息打点-系统篇-端口扫描-CDN服务-负载均衡-WAF防火墙"><a href="#第8天-信息打点-系统篇-端口扫描-CDN服务-负载均衡-WAF防火墙" class="headerlink" title="第8天 信息打点-系统篇&amp;端口扫描&amp;CDN服务&amp;负载均衡&amp;WAF防火墙"></a>第8天 信息打点-系统篇&amp;端口扫描&amp;CDN服务&amp;负载均衡&amp;WAF防火墙</h1><p>知识点：<br>1、获取网络信息-服务厂商&amp;网络架构<br>2、获取服务信息-应用协议&amp;内网资产<br>3、获取阻碍信息-CDN&amp;WAF&amp;负载&amp;防火墙</p>
 <p>详细点：<br>CDN服务，WAF防火墙，负载均衡，防火墙阻碍？</p>
 <p>演示案例：<br>网络信息获取-服务厂商&amp;网络架构<br>通过域名信息查询获取 IP、云服务厂商、域名出售厂商、注册者邮箱等信息（可以使用威胁情报平台）</p>
 <p>服务信息获取-协议应用&amp;内网资产<br>旁注：查询同一服务器下的不同WEB应用<br>C段：查询同一网段下，不同服务器部署的不同WEB应用<br>nmap target -Pn -osscan-limit -sV</p>
@@ -1527,7 +1527,7 @@
 <p>阻碍信息获取-CDN&amp;WAF&amp;负载&amp;防火墙<br>超级ping:CDN服务识别（全国个地去ping目标地址，看访问的IP地址是否不同）<br>wafw00f识别waf、看图识别</p>
 <p>ldb识别负载均衡</p>
 <p>#相关利用项目：<br>Masscan:<a href="https://github.com/robertdavidgraham/masscan">https://github.com/robertdavidgraham/masscan</a><br>Wafwoof:<a href="https://github.com/Enablesecurity/wafw00f">https://github.com/Enablesecurity/wafw00f</a><br>Kali上自带Nmap,Masscan,lbd等项目，超级ping:ping.chinaz.com<br>超级ping:CDN服务识别<br>Masscan:端口扫描，应用协议<br>Wafw00f:Web应用防护防火墙识别<br>namp：端口扫描，应用协议，防火墙识别<br>lbd:负载均衡，广域网负载均衡，应用层负载均衡</p>
-<h2 id="第9天-信息打点-CDN烧过篇-漏洞回链8接口探针-全网扫指-反向件"><a href="#第9天-信息打点-CDN烧过篇-漏洞回链8接口探针-全网扫指-反向件" class="headerlink" title="第9天 信息打点-CDN烧过篇&amp;漏洞回链8接口探针&amp;全网扫指&amp;反向件"></a>第9天 信息打点-CDN烧过篇&amp;漏洞回链8接口探针&amp;全网扫指&amp;反向件</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">知识点：</span><br><span class="line">1、CDN知识-工作原理及阻碍</span><br><span class="line">2、CDN配置-域名&amp;区域&amp;类型</span><br><span class="line">3、CDN绕过-靠谱十余种技战法</span><br><span class="line">4、CDN绑定-HOSTS绑定指向访问</span><br></pre></td></tr></table></figure>
+<h1 id="第9天-信息打点-CDN烧过篇-漏洞回链8接口探针-全网扫指-反向件"><a href="#第9天-信息打点-CDN烧过篇-漏洞回链8接口探针-全网扫指-反向件" class="headerlink" title="第9天 信息打点-CDN烧过篇&amp;漏洞回链8接口探针&amp;全网扫指&amp;反向件"></a>第9天 信息打点-CDN烧过篇&amp;漏洞回链8接口探针&amp;全网扫指&amp;反向件</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">知识点：</span><br><span class="line">1、CDN知识-工作原理及阻碍</span><br><span class="line">2、CDN配置-域名&amp;区域&amp;类型</span><br><span class="line">3、CDN绕过-靠谱十余种技战法</span><br><span class="line">4、CDN绑定-HOSTS绑定指向访问</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>CDN 是构建在数据网络上的一种分布式的内容分发网。 CDN的作用是采用流媒体服务器集群技术，克服单机系统输出带宽及并发能力不足的缺点，可极大提升系统支持的并发流数目，减少或避免单点失效带来的不良影响。</p>
@@ -1539,6 +1539,31 @@
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#参考知识：</span><br><span class="line">https://zhuanlan.zhihu.com/p/33440472</span><br><span class="line">https://www.cnblogs.com/blacksunny/p/5771827.html</span><br><span class="line">子域名，去掉www,邮件服务器，国外访问，证书查询，APP抓包</span><br><span class="line">黑暗空间引擎，通过漏洞或泄露获取，扫全网，以量打量，第三方接口查询等</span><br><span class="line">#案例资源：</span><br><span class="line">超级Ping:https://www.17ce.com/</span><br><span class="line">接口查询：https://get-site-ip.com/</span><br><span class="line">国外请求：https://tools.ipip.net/cdn.php</span><br><span class="line">全网扫描：https://github.com/Tai7sy/fuckcdn</span><br></pre></td></tr></table></figure>
 
+<h1 id="第10天-信息打点-APP-小程序篇-抓包封包-XP框架-反编译-资产提取"><a href="#第10天-信息打点-APP-小程序篇-抓包封包-XP框架-反编译-资产提取" class="headerlink" title="第10天 信息打点-APP&amp;小程序篇&amp;抓包封包&amp;XP框架&amp;反编译&amp;资产提取"></a>第10天 信息打点-APP&amp;小程序篇&amp;抓包封包&amp;XP框架&amp;反编译&amp;资产提取</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#### 知识点：</span><br><span class="line"></span><br><span class="line">1、小程序-外在-资产收集</span><br><span class="line">2、APP-外在&amp;内在-资产收集</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#### 演示案例：</span><br><span class="line"></span><br><span class="line">APP-外在抓包-Fd&amp;茶杯&amp;Burp</span><br><span class="line"></span><br><span class="line">APP-外在封包-封包监听工具</span><br><span class="line">使用封包监听也可抓到数据包</span><br></pre></td></tr></table></figure>
+
+<p>APP-内在提取-ApplnfoScanner</p>
+<blockquote>
+<p>一款适用于以HW行动&#x2F;红队&#x2F;渗透测试团队为场景的移动端(Android、iOS、WEB、H5、静态网站)信息收集扫描工具，可以帮助渗透测试工程师、攻击队成员、红队成员快速收集到移动端或者静态WEB站点中关键的资产信息并提供基本的信息输出,如：Title、Domain、CDN、指纹信息、状态信息等。</p>
+</blockquote>
+<p>APP-内在搜索-反编译载入IDEA</p>
+<ul>
+<li>APP-资源提取-安装泡&amp;资源文件<br>使用安卓修改大师导入apk文件，可对域名资源进行收集</li>
+</ul>
+<p>​	还可使用IDEA对反编译出的项目进行资源收集</p>
+<ul>
+<li>APP-框架使用-Xposed&amp;JustTrustMe</li>
+</ul>
+<p>某些apk存在加壳的情况，会扫描失败，可以通过工具判断apk是否加壳</p>
+<p>可通过安装xp框架的方式进行脱壳处理</p>
+<p>小程序-微信-电脑版登录启动抓包分析</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">APP安卓入手</span><br><span class="line">1、外在-抓包封包-资产安全测试</span><br><span class="line">资产收集-资源提取-ICO,MD5,HASH-黑暗引擎搜索相关资产</span><br><span class="line">2、外在-功能逻辑</span><br><span class="line">3、内在-反编译-JAVA代码代码审计</span><br><span class="line">4、内在-反编译-提取RES资源-黑暗资产收集</span><br></pre></td></tr></table></figure>
+
+<h1 id="第11天信息打点-红队工具篇-Fofa-Quake-Kunyu-Suize水泽-Ar灯塔"><a href="#第11天信息打点-红队工具篇-Fofa-Quake-Kunyu-Suize水泽-Ar灯塔" class="headerlink" title="第11天信息打点-红队工具篇&amp;Fofa&amp;Quake&amp;Kunyu&amp;Suize水泽&amp;Ar灯塔"></a>第11天信息打点-红队工具篇&amp;Fofa&amp;Quake&amp;Kunyu&amp;Suize水泽&amp;Ar灯塔</h1><p>知识点：<br>1、网络空间四大引擎-Fofa&amp;Quake&amp;shodan&amp;2 oomeye I<br>2、自动化信息收集项目-ARL灯塔&amp;Suize水泽s Kunyui坤舆<br>3、单点功能信息收集项目-企查：子域名指纹识别：社工信息</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##黑暗引擎：</span><br><span class="line">https://fofa.so</span><br><span class="line">https://quake.360.cn</span><br><span class="line">https://www.shodan.io</span><br><span class="line">https://www.zoomeye.org</span><br><span class="line">##自动项目：</span><br><span class="line">https://github.com/knownsec/Kunyu</span><br><span class="line">https://github.com/0x727/shuize 0x727</span><br><span class="line">https://github.com/TophantTechnology/ARL</span><br><span class="line">##相关资源：</span><br><span class="line">https://forum.ywhack.com/center.php</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、演示案例：网络空间-Fofa&amp;Quake&amp;Shodan&amp;Zoomeye</span><br><span class="line">工具测评网络空间四大黑暗彩擎集合版项目</span><br><span class="line">finger:通过调用zoomeyes和fofa的接口实现</span><br><span class="line">	通过fofa和zoomeyes两个接口去进行信息搜集</span><br><span class="line">2工具测评-自动化收集-ARL灯塔&amp;Suize水泽&amp;Kunyu</span><br><span class="line">Kunyu：通过调用zoomeyes API实现资产信息和漏洞信息收集 还能够通过一个api去进行相关漏洞的搜集</span><br><span class="line">ARL灯塔：自动化信息收集工具</span><br><span class="line">水泽Suize：认为是暂时最好用的一个工具，能够搜集到更加全面的信息。</span><br><span class="line">3、工具测评-单点功能器企查查&amp;子域名&amp;指纹识别&amp;社工</span><br><span class="line">相比自动化全部搜集的工具，所能搜集到的信息更加准确，但都是同一个方面的。</span><br><span class="line">上述工具都可以在菱角社区去找到。</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Web</category>
