@@ -1,352 +1,208 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><title>java学习历程记录-前端基础 | 6pc1's blog</title><meta name="keywords" content="html,css,js"><meta name="author" content="6pc1"><meta name="copyright" content="6pc1"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#f7f9fe"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-touch-fullscreen" content="yes"><meta name="apple-mobile-web-app-title" content="java学习历程记录-前端基础"><meta name="application-name" content="java学习历程记录-前端基础"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="#f7f9fe"><meta property="og:type" content="article"><meta property="og:title" content="java学习历程记录-前端基础"><meta property="og:url" content="http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/index.html"><meta property="og:site_name" content="6pc1's blog"><meta property="og:description" content="其实java是之前一段时间学习的，但是学到一半的时候发现我的python能力不行，所以又转去学python了，然后又由于我之前没有记笔记的习惯，就导致我现在再回来看java，就基本上忘光了，所以想着借着写博客的功夫去将我的一些java学习历程记录下来，也能去好好的复习一下之前的知识。所以这篇文章并不"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta property="article:author" content="6pc1"><meta property="article:tag"><meta name="twitter:card" content="summary"><meta name="twitter:image" content="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg"><meta name="description" content="其实java是之前一段时间学习的，但是学到一半的时候发现我的python能力不行，所以又转去学python了，然后又由于我之前没有记笔记的习惯，就导致我现在再回来看java，就基本上忘光了，所以想着借着写博客的功夫去将我的一些java学习历程记录下来，也能去好好的复习一下之前的知识。所以这篇文章并不"><link rel="shortcut icon" href="/favicon.ico"><link rel="canonical" href="http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/"><link rel="preconnect" href="//cdn.cbd.int"/><meta name="google-site-verification" content="xxx"/><meta name="baidu-site-verification" content="code-xxx"/><meta name="msvalidate.01" content="xxx"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  linkPageTop: undefined,
+  peoplecanvas: {"enable":true,"img":"https://upload-bbs.miyoushe.com/upload/2023/09/03/125766904/ee23df8517f3c3e3efc4145658269c06_5714860933110284659.png"},
+  postHeadAiDescription: {"enable":true,"gptName":"AnZhiYu","mode":"local","switchBtn":false,"btnLink":"https://afdian.net/item/886a79d4db6711eda42a52540025c377","randomNum":3,"basicWordCount":1000,"key":"xxxx","Referer":"https://xx.xx/"},
+  diytitle: {"enable":true,"leaveTitle":"w(ﾟДﾟ)w 不要走！再看看嘛！","backTitle":"♪(^∇^*)欢迎肥来！"},
+  LA51: undefined,
+  greetingBox: undefined,
+  twikooEnvId: '',
+  commentBarrageConfig:undefined,
+  root: '/',
+  preloader: {"source":3},
+  friends_vue_info: undefined,
+  navMusic: true,
+  mainTone: undefined,
+  authorStatus: undefined,
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简","rightMenuMsgToTraditionalChinese":"转为繁体","rightMenuMsgToSimplifiedChinese":"转为简体"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    simplehomepage: true,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"copy":true,"copyrightEbable":false,"limitCount":50,"languages":{"author":"作者: 6pc1","link":"链接: ","source":"来源: 6pc1's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。","copySuccess":"复制成功，复制和转载请标注本文地址"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#425AEF","bgDark":"#1f1f1f","position":"top-center"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.min.js',
+      css: 'https://cdn.cbd.int/flickr-justified-gallery@2.1.2/dist/fjGallery.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  shortcutKey: undefined,
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  configTitle: '6pc1's blog',
+  title: 'java学习历程记录-前端基础',
+  postAI: '',
+  pageFillDescription: '一、一些基础的前端知识, 1、css中的元素选择器, 1.元素（标签）选择器：, 2.id选择器, 3.类选择器：, 2、一些常见的html标签, 1). 视频、音频标签, 2). 段落标签, 3). 文本格式标签, 4).布局美化, ①盒子模型, ②布局标签, 5).表格标签, 6).表单标签（数据提交）, 7).表单的拓展使用, 7).CSS善用文档, 3、js的基本使用, 1).书写语法, 2).变量, 3).数据类型与运算符, 4).函数, ①第一种定义方法, ②第二种定义方法, 5).BOM对象, ①Windows对象, ②Location对象, 6).DOM对象, 7).事件绑定, 方式1：通过html标签中的事件属性进行绑定, 方式2：通过DOM中Element元素的事件属性进行绑定, 8).一些常见的事件, 4、vue的基本使用, 1、快速入门, 2、vue指令, ①v-bind, ②v-model：, ③v-on, ④v-if和v-show, ⑤v-for, 3、生命周期, 5、Ajax的使用, 1、Ajax的介绍, 2、Ajax的简单使用, 3、Axios, 6、Vue的简单教程介绍, 1、项目创建, 2、项目结构的简单分析, 3、Vue项目的运行, 4、Vue组件库Element, 1、简单介绍, 2、快速入门, 3、分页组件的使用, ①模块的简单使用介绍, ②组件事件, 5、Vue路由, 6、项目部署打包其实是之前一段时间学习的但是学到一半的时候发现我的能力不行所以又转去学了然后又由于我之前没有记笔记的习惯就导致我现在再回来看就基本上忘光了所以想着借着写博客的功夫去将我的一些学习历程记录下来也能去好好的复习一下之前的知识所以这篇文章并不主要是为了入门更多的只是我自己的一个学习记录仅限参考一一些基础的前端知识中的元素选择器顾名思义选择器是选取需设置样式的元素标签但是我们根据业务场景不同选择的标签的需求也是多种多样的所以选择器有很多种因为我们是做后台开发的所以对于选择器我们只学习最基本的种选择器通用语法如下选择器名样式名样式值样式名样式值我们需要学习的种选择器是元素选择器选择器选择器语法以及作用如下元素标签选择器选择器的名字必须是标签的名字作用选择器中的样式会作用于所有同名的标签上元素名称样式名样式值例子如下选择器选择器的名字前面需要加上作用选择器中的样式会作用于指定的标签上而且有且只有一个标签由于是唯一的属性值样式名样式值例子如下类选择器选择器的名字前面需要加上作用选择器中的样式会作用于所有的属性值和该名字一样的标签上可以是多个属性值样式名样式值例子如下一些常见的标签视频音频标签视频标签属性规定视频的显示播放控件播放器的宽度播放器的高度音频标签属性规定音频的显示播放控件段落标签换行标签注意在页面中我们在编辑器中通过回车实现的换行仅仅在文本编辑器中会看到换行效果浏览器是不会解析的中换行需要通过标签段落标签如这是一个段落文本格式标签效果标签标签强调加粗倾斜下划线删除线前面的标签就仅仅是实现加粗倾斜下划线删除线的效果是没有强调语义的而后面的在实现加粗倾斜下划线删除线的效果的同时还带有强调语义注意事项在页面中无论输入了多少个空格最多只会显示一个可以使用空格占位符来生成空格如果需要多个空格就使用多次占位符那在中除了空格占位符以外还有一些其他的占位符了解只需要知道空格的占位符写法即可如下显示结果描述占位符空格小于号大于号和号引号撇号布局美化盒子模型盒子页面中所有的元素标签都可以看做是一个盒子由盒子将页面中的元素包含在一个矩形区域内通过盒子的视角更方便的进行页面布局盒子模型组成内容区域内边距区域边框区域外边距区域盒子模型其实和日常生活中的包装盒是非常类似的就比如盒子的大小其实就包括三个部分而外边距是不包括在盒子之内的盒子模型代码示例盒子模型宽度高度指定为盒子的高宽背景色内边距上右下左边距都一行可以简写边框宽度线条类型颜色外边距上右下左边距都一行可以简写效果布局标签布局标签实际开发网页中会大量频繁的使用和这两个没有语义的布局标签标签特点标签一行只显示一个独占一行宽度默认是父元素的宽度高度默认由内容撑开可以设置宽高标签一行可以显示多个宽度和高度默认由内容撑开不可以设置宽高表格标签标签用于定义整个表格可以包裹多个常用属性如下规定表格边框的宽度规定表格的宽度规定单元之间的空间表格的行可以包裹多个表格单元格普通可以包裹内容如果是表头单元格可以替换为演示代码如下表格单元格内容居中展示序号品牌品牌名称企业名称华为华为技术有限公司阿里阿里巴巴集团控股有限公司打开浏览器效果如下图所示整合表格使用标签包裹其中的每一行数据都是一个每一行中的每一个单元格都是一个而如果是表头单元格可以使用具有加粗居中展示的效果表单标签数据提交那表单呢在我们日常的上网的过程中基本上每天都会遇到比如我们经常在访问网站时出现的登录页面注册页面个人信息提交页面其实都是一个一个的表单当我们在这些表单中录入数据之后一点击提交就会将表单中我们填写的数据采集到并提交那其实这个数据呢一般会提交到服务端最终保存在数据库中后面的课程中会讲到那其实上述的整个窗口是一个表单而表单是一项一项的这个我们称为表单项或表单元素表单场景表单就是在网页中负责数据采集功能的如注册登录的表单表单标签表单属性规定表单提交时向何处发送表单数据表单提交的规定用于发送表单数据的方式常见为表单数据是拼接在后面的如中能携带的表单数据大小是有限制的表单数据是在请求体消息体中携带的大小没有限制表单项标签不同类型的元素下拉列表文本域等定义表单项通过属性控制输入形式定义下拉列表定义文本域示例表单表单属性表单提交的往何处提交数据如果不指定默认提交到当前页面表单的提交方式在后面拼接表单数据比如长度有限制默认值在消息体请求体中传递的参数大小无限制的表单提交方式的修改用户名年龄提交表单中的所有表单项要想能够正常的采集数据在提交的时候能提交到服务端表单项必须指定属性否则无法提交该表单项用户名表单的拓展使用在一个表单中可以存在很多的表单项而虽然表单项的形式各式各样但是表单项的标签其实就只有三个分别是表单项通过属性控制输入形式取值描述默认值定义单行的输入字段定义密码字段定义单选按钮定义复选框定义文件上传按钮定义日期时间日期时间定义数字输入框定义邮件输入框定义隐藏域定义提交按钮重置按钮可点击按钮定义下拉列表定义列表项文本域示例创建一个新的表单项的文件具体内容如下表单项标签表单项提交的值姓名密码性别男女爱好图像生日时间日期时间邮箱年龄学历请选择大专本科硕士博士描述表单常见按钮按钮重置提交通过浏览器打开上述的表单项文件最终展示出的表单信息如下善用文档进入进行查询即用即查即可的基本使用书写语法区分大小写与一样变量名函数名以及其他一切东西都是区分大小写的每行结尾的分号可有可无大括号表示代码块注释单行注释注释内容多行注释注释内容我们需要借助中钟输出语句来演示书写语法描述警告框在输出内容写入浏览器控制台变量书写语法会了变量是一门编程语言比不可少的所以接下来我们需要学习中变量的声明在中变量的声明和中还是不同的首先中主要通过如下个关键字来声明变量的关键字解释早期中用于变量声明的关键字中新增的用于变量声明的关键字相比较只在代码块内生效声明常量的常量一旦声明不能修改在中声明变量还需要注意如下几点是一门弱类型语言变量可以存放不同类型的值变量名需要遵循如下规则组成字符可以是任何字母数字下划线或美元符号数字不能开头建议使用驼峰命名数据类型与运算符这两个就不用多说了直接放表格数据类型描述数字整数小数字符串单双引皆可布尔对象为空当声明的变量未初始化时该变量的默认值是运算规则运算符算术运算符赋值运算符比较运算符注意会进行类型转换不会进行类型转换逻辑运算符三元运算符条件表达式函数第一种定义方法函数名参数参数要执行的代码因为是弱数据类型的语言所以有如下几点需要注意形式参数不需要声明类型并且中不管什么类型都是或者去声明加上也没有意义返回值也不需要声明类型直接即可第二种定义方法第二种可以通过去定义函数的名字具体格式如下参数参数要执行的代码其他的和第一种方法是相同的对象中提供了如下个对象对象名称描述浏览器窗口对象浏览器对象屏幕对象历史记录对象地址栏对象上述个对象与浏览器各组成对应的关系如下图所示主要使用到的是和这两个对象对象指的是浏览器窗口对象是的全部对象所以对于对象我们可以直接使用并且对于对象的方法和属性我们可以省略例如我们之前学习的函数其实是属于对象的其完整的代码如下其可以省略所以可以简写成所以对于对象的属性和方法我们都是采用简写的方式提供了很多属性和方法下表列出了常用属性和方法对象提供了获取其他对象的属性属性描述用于获取对象用于获取对象用于获取对象用于获取对象也就是说我们要使用对象只需要通过代码或者简写即可使用也提供了一些常用的函数如下表格所示函数描述显示带有一段消息和一个确认按钮的警告框显示带有一段消息以及确认按钮和取消按钮的对话框按照指定的周期以毫秒计来调用函数或计算表达式在指定的毫秒数后调用函数或计算表达式对象是指代浏览器的地址栏对象对于这个对象我们常用的是属性用于获取或者设置浏览器的地址信息添加如下代码获取浏览器地址栏信息设置浏览器地址栏信息浏览器效果如下首先弹框展示浏览器地址栏信息然后点击确定后因为我们设置了地址栏信息所以浏览器跳转到传智首页对象中的对象可以通过对象获取而对象是通过对象获取的对象提供的用于获取元素对象的如下表所示函数描述根据属性值获取返回单个对象根据标签名称获取返回对象数组根据属性值获取返回对象数组根据属性值获取返回对象数组操作属性那么获取到标签了我们如何操作标签的属性呢通过查询文档资料如下图所示得出我们可以通过标签对象的属性来修改标签的内容此时我们想把页面中的传智教育替换成传智教育所以要获取个中的第一个所以可以通过下标获取数组中的第一个注释之前的代码编写如下代码传智教育浏览器刷新页面展示效果如下图所示浏览器刷新页面展示效果如下图所示发现页面内容变成了传智教育全部源码对象传智教育黑马程序员电影旅游游戏获取元素获取元素根据获取获取元素根据标签获取获取元素根据属性获取获取元素根据属性获取查询参考手册属性方法传智教育事件绑定方式通过标签中的事件属性进行绑定例如一个按钮我们对于按钮可以绑定单机事件可以借助标签的属性属性值指向一个函数事件绑定很明显没有函数所以我们需要创建该函数代码如下按钮被点击了方式通过中元素的事件属性进行绑定依据我们学习过得的知识点我们知道中的标签被加载成对象所以我们也可以通过对象的属性来操作标签的属性此时我们再次添加一个按钮代码如下事件绑定我们可以先通过属性获取按钮对象然后操作对象的属性来绑定事件代码如下按钮被点击了一些常见的事件事件属性名说明鼠标单击事件元素失去焦点元素获得焦点某个页面或图像被完成加载当表单提交时触发该事件鼠标被移到某元素之上鼠标从某元素移开的基本使用快速入门第一步将下载拷贝到项目目录下第二步然后编写标签来引入文件代码如下第三步在代码区域定义对象代码如下定义对象接管区域在创建对象时有几个常用的属性用来指定哪儿些标签受管理该属性取值中的需要是受管理的标签的属性值用来定义数据模型用来定义函数这个我们在后面就会用到第四步在区域编写视图其中双大括号是插值表达式用来将对象中定义的展示到页面上的浏览器打开效果如图所示指令指令作用为标签绑定属性值如设置样式等在表单元素上创建双向数据绑定为标签绑定事件条件性的渲染某元素判定为时渲染否则不渲染根据条件展示某元素区别在于切换的是属性的值列表渲染遍历容器的元素或者对象的属性为标签绑定属性值如设置样式等当对象中的数据模型发生变化时标签的属性值会随之发生变化在表单元素上创建双向数据绑定什么是双向对象的属性中的数据变化视图展示会一起变化视图数据发生变化对象的属性中的数据也会随着变化属性中数据变化我们知道可以通过赋值来改变但是视图数据为什么会发生变化呢只有表单项标签所以双向绑定一定是使用在表单项标签上的接下来我们学习一下指令用来给标签绑定事件的需要注意的是如下点语法给标签的事件绑定的函数必须是对象种声明的函数语法绑定事件时事件名相比较中的事件名没有例如在中事件绑定函数中事件绑定函数和用于觉得是否展示可以发现浏览器呈现的效果是一样的但是浏览器中源码不一样指令不满足条件的标签代码直接没了而指令中不满足条件的代码依然存在只是添加了样式来控制标签不去显示从名字我们就能看出这个指令是用来遍历的其语法格式如下标签变量名集合模型数据变量名标签需要注意的是需要循环那个标签指令就写在那个标签上有时我们遍历时需要使用索引那么指令遍历的语法格式如下标签变量名索引变量集合模型数据索引变量是从开始所以要表示序号的话需要手动的加索引变量变量名标签生命周期的生命周期指的是对象从创建到销毁的过程的生命周期包含个阶段每触发一个生命周期事件会自动执行一个生命周期方法这些生命周期方法也被称为钩子方法其完整的生命周期如下图所示状态阶段周期创建前创建后挂载前挂载完成更新前更新后销毁前销毁后下图是官网提供的从创建到效果对象的整个过程及各个阶段对应的钩子函数其中我们需要重点关注的是其他的我们了解即可挂载完成初始化成功页面渲染成功以后我们一般用于页面初始化自动的请求后台数据的使用的介绍我们详细的解释一下技术的个作用与服务器进行数据交互如下图所示前端资源被浏览器解析但是前端页面上缺少数据前端可以通过技术向后台服务器发起请求后台服务器接受到前端的请求从数据库中获取前端需要的资源然后响应给前端前端在通过我们学习的技术可以将数据展示到页面上这样用户就能看到完整的页面了此处可以对比中的网络编程技术来理解异步交互可以在不重新加载整个页面的情况下与服务器交换数据并更新部分网页的技术如下图所示当我们再百度搜索时下面的联想数据是通过请求从后台服务器得到的在整个过程中我们的请求不会导致整个百度页面的重新加载并且只针对搜索栏这局部模块的数据进行了数据的更新不会对整个页面的其他地方进行数据的更新这样就大大提升了页面的加载速度用户体验高这里也就再来讲下异步操作和同步操作的区别是什么同步请求发送过程如下图所示浏览器页面在发送请求给服务器在服务器处理请求的过程中浏览器页面不能做其他的操作只能等到服务器响应结束后才能浏览器页面才能继续做其他的操作异步请求发送过程如下图所示浏览器页面发送请求给服务器在服务器处理请求的过程中浏览器页面还可以做其他的操作这样就能像百度搜索那样未点击搜索但是仍然可以显示部分数据的简单使用服务器端因为我们暂时还没学过服务器端的代码所以此处已经直接提供好了服务器端的请求地址我们前端直接通过请求访问该地址即可后台服务器地址上述地址我们也可以直接通过浏览器来访问访问结果如图所示只截取部分数据客户端客户端的请求代码如下有如下步接下来我们跟着步骤一起操作一下第一步首先我们再中创建的文件夹并且创建名为原生方式的文件提供如下代码主要是按钮绑定单击事件我们希望点击按钮来发送请求原生获取数据第二步创建对象用于和服务器交换数据也是原生请求的核心对象提供了各种方法代码如下创建第三步调用对象的方法设置请求的参数信息例如请求地址请求方式然后调用方法向服务器发送请求代码如下发送异步请求发送请求第四步我们通过绑定事件的方式来获取服务器响应的数据获取服务响应数据此处判断表示浏览器已经完全接受到请求得到的响应表示这是一个正确的请求没有错误最后我们通过浏览器打开页面请求点击按钮发送请求最终显示结果如下图所示并且通过浏览器的抓包我们点击网络中的请求发现可以抓包到我们发送的请求代表的就是异步请求这些代码看起来也就是很复杂吧很不方便去记忆这个时候就因此诞生了的使用比较简单主要分为步引入文件使用发送请求并获取响应结果官方提供的很多此处给出种如下发送请求发送请求是用来发送异步请求的小括号中使用的对象传递请求相关的参数属性用来设置请求方式的取值为或者属性用来书写请求的资源路径如果是请求需要将请求参数拼接到路径的后面格式为参数名参数值参数名参数值属性作为请求体被发送的数据也就是说如果是请求的话数据需要作为属性的值需要传递一个匿名函数我们将中传递的匿名函数称为回调函数意思是该匿名函数在发送请求时不会被调用而是在成功响应后调用的函数而该回调函数中的参数是对响应的数据进行封装的对象通过可以获取到响应的数据还针对不同的请求提供了别名方式的具体如下方法描述发送请求发送请求发送请求发送请求我们目前只关注和请求所以在上述的入门案例中我们可以将请求代码改写成如下请求改写成如下的简单教程介绍项目创建环境准备好了接下来我们需要通过创建一个项目然后再学习一下项目的目录结构提供了如下种方式创建项目命令行直接通过命令行方式创建项目图形化界面通过命令先进入到图形化界面然后再进行工程的创建项目结构的简单分析我们通过打开之前创建的文件夹打开之后呈现如下图所示页面项目的标准目录结构以及目录对应的解释如下图所示其中我们平时开发代码就是在目录下项目的运行那么项目开发好了我们应该怎么运行项目呢主要提供了种方式第一种方式通过提供的图形化界面如下图所示注意脚本窗口默认不显示可以参考本节的最后调试出来点击之后我们等待片刻即可运行在终端界面中我们发现项目是运行在本地服务的端口我们直接通过浏览器打开地址最终浏览器打开后呈现如下界面表示项目运行成功其实此时访问的是这个根组件此时我们打开这个组件修改代码添加内容只要我们保存更新的代码我们直接打开浏览器不需要做任何刷新发现页面呈现内容发生了变化如下图所示这就是我们项目的热更新功能对于端口经常被占用所以我们可以去修改默认的端口我们修改文件的内容添加如下代码第二种方式命令行方式直接基于命令窗口在目录下执行输入命令即可如下图所示组件库简单介绍不知道同学们还否记得我们之前讲解的前端开发模式我们之前学习的是侧重于开发的主要用于数据绑定到视图的那么接下来我们学习的就是一款侧重于开发的前端框架主要用于开发美观的页面的是饿了么公司前端开发团队提供的一套基于的网站组件库用于快速构建网页提供了很多组件组成网页的部件供我们使用例如超链接按钮图片表格等等如下图所示就是我们开发的页面和提供的效果对比可以发现提供的各式各样好看的按钮的学习方式和我们之前的学习方式不太一样对于我们作为一个后台开发者只需要学会如何从的官网拷贝组件到我们自己的页面中并且做一些修改即可其官网地址我们主要学习的是中提供的常用组件至于其他组件同学们可以通过我们这几个组件的学习掌握到的学习技巧然后课后自行学习快速入门首先我们要掌握的快速入门接下来同学们就一起跟着步骤来操作一下首先我们先要安装的组件库打开停止之前的项目然后在命令行输入如下命令然后我们需要在这个入口文件中引入的组件库其代码如下然后我们需要按照项目的开发规范在目录下创建一个组件文件注意组件名称后缀是并且在组件文件中编写之前介绍过的基本组件语法代码如下组件的所有属性都可以在组件页面的最下方找到如下图所示分页组件的使用模块的简单使用介绍分页组件主要提供分页工具条相关功能其展示效果图下图所示首先在官网找到分页组件我们选择带背景色分页组件如下图所示然后复制代码到我们的组件文件的中拷贝如下代码对于分页组件我们需要关注的是如下几个重要属性可以通过查阅官网组件中最下面的组件属性详细说明得到添加北京颜色也就是上图蓝色背景色效果分页工具条的布局其具体值包含这些值数据的总数量然后根据官方分页组件提供的属性说明如下图所示我们可以进行相关的自定义组件事件对于分页组件除了上述几个属性还有个非常重要的事件我们需要去学习改变时会触发改变时会触发其官方详细解释含义如下图所示然后我们找到对应的代码首先复制事件复制代码如下此时组件的完整代码如下分页紧接着需要复制事件需要的个函数需要注意属性和同级其代码如下每页条当前页此时组件的部分完整代码如下每页条当前页王小虎上海市普陀区金沙江路弄王小虎上海市普陀区金沙江路弄王小虎上海市普陀区金沙江路弄王小虎上海市普陀区金沙江路弄库中还有许多各种各样的模块就不过多去摘抄了也都可以去官方网站去复制粘贴使用路由首先我们需要先安装插件可以通过如下命令但是我们不需要安装因为当初我们再创建项目时已经勾选了路由功能已经安装好了然后我们需要在文件中定义路由表根据其提供的模板代码进行修改最终代码如下地址对应的组件注意需要去掉没有引用的模块在中我们已经引入了功能如下图所示路由基本信息配置好了路由表已经被加载此时我们还缺少个东西就是和所以我们需要修改个页面和我们左侧栏的个按钮为其代码如下部门管理员工管理然后我们还需要在内容展示区域即中定义作为组件的切换其的完整代码如下但是我们浏览器打开地址发现一片空白因为我们默认的路由路径是但是路由配置中没有对应的关系所以我们需要在路由配置中对应的路由组件代码如下表示重定向到即可此时我们打开浏览器访问发现直接访问的是的页面并且能够进行切换了项目部署打包前端打包直接使用脚本中的就行然后会在工程目录下生成一个目录用于存放需要发布的前端资源然后就是项目的部署将我们之前打包的前端工程目录下得内容拷贝到的目录下然后启动去启动服务就成功将该项目部署完成了到这就差不多了这篇主要就是对中一些简单的前端知识进行总结',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-29 15:46:21',
+  postMainColor: '',
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
 
-<link rel="stylesheet" href="/css/main.css">
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
 
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#18171d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#f7f9fe')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
 
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
-
-<script class="next-config" data-name="main" type="application/json">{"hostname":"6pc1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/./search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-
-    <meta name="description" content="其实java是之前一段时间学习的，但是学到一半的时候发现我的python能力不行，所以又转去学python了，然后又由于我之前没有记笔记的习惯，就导致我现在再回来看java，就基本上忘光了，所以想着借着写博客的功夫去将我的一些java学习历程记录下来，也能去好好的复习一下之前的知识。所以这篇文章并不主要是为了入门，更多的只是我自己的一个学习记录，仅限参考。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="java学习历程记录-前端基础">
-<meta property="og:url" content="http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/index.html">
-<meta property="og:site_name" content="6pc1&#39;s blog">
-<meta property="og:description" content="其实java是之前一段时间学习的，但是学到一半的时候发现我的python能力不行，所以又转去学python了，然后又由于我之前没有记笔记的习惯，就导致我现在再回来看java，就基本上忘光了，所以想着借着写博客的功夫去将我的一些java学习历程记录下来，也能去好好的复习一下之前的知识。所以这篇文章并不主要是为了入门，更多的只是我自己的一个学习记录，仅限参考。">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f529eda86837643eb1ca32955d5c36f6--cead--image-20230310092820616.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/0f2a5351ad32ffa9c1fe2588bec73ffd--df3d--image-20230310093247265.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/4d2ca694e5a1c402d403f1a675b553da--1cdb--image-20231121183250787.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/582d460a041f8a2b306cebd22a6333f9--f915--image-20231121183451283.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/158ab888ad88adfdda5cce236171acbc--b1b4--image-20231121183623494.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f0994b8edc9b5e7ce1a8ad860729d313--0da3--image-20231121183653494.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/d4e6fd6e75794d9e43ad0c6a3d4c6078--0018--image-20231121184043690.png">
-<meta property="og:image" content="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/4188d3cbe1ed885e474d4ffbe61b3ddd--9adc--image-20231121185953491.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/2fb1b4a2882b8e052bbc146ab2538a5b--a4c9--image-20231121191247946.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f44d21e5a1292672353de1d459108e31--a783--image-20231121192858063.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/5db9ab60bdd4f569c18c988a032a4621--5c20--image-20231121192928778.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/9485d513933405e6a210b4d9c55c3643--bbba--image-20231121195000984.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/d3dd27cb2a5d10c6de0c00f4c9cf12fd--9b10--image-20231121195747907.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/1478bd2c5b10db3902848da91ea311f7--5dc6--image-20231125221238816.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/9c8182429cd46012b107552c0eaa8f90--794e--image-20231125221257133.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/3eee530c76cba726b219ea41081ef642--233d--image-20231125221354077.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c577c087270747d00d18b684c2ebcca0--5447--image-20231125221404817.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/e3c78a9e3285d3b9c77530b3800ca1d1--4d72--image-20231125222034015.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/199862e599fc5422f4a52ec17821161c--1f36--image-20231125222026868.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/a84df0d25fc9623cd84a8136751af782--7c96--image-20231125224706489.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/5cc1aec4f35e31988a0864b2586a0c5e--5409--image-20231125224714378.png">
-<meta property="og:image" content="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c06bda53d80150fc54aea584a377c7d0--c078--image-20231125225846123.png">
-<meta property="og:image" content="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/f1f262284f1a4dd41228e35f1ecf52e8--3933--image-20231125225858533.png">
-<meta property="og:image" content="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c7ec1f87086087633a3fc5e245fdc31a--d81e--image-20231125225912576.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/65f26040c8e0cf8668a0e615a8a223ea--ef9c--image-20231125230802565.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/c92b1497ee7ee1c09646c7aaebee97d7--60f3--image-20231126124900304.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/0f0b2aab93e8d8518b669d973dde38c1--6d6a--image-20231126131145410.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/7468d1d99b01cb7723ca4c0cd4335452--94ad--image-20231126131705631.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/e22f237cc331a65a0908fb17c9c2b5b6--af07--image-20231126132145510.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/e827629131f4a621175ebf09cc745931--039d--image-20231126132222798.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/f9cd77e8eaaf0da83921d624361fed4c--012d--image-20231126140930945.png">
-<meta property="article:published_time" content="2023-11-21T08:32:56.000Z">
-<meta property="article:modified_time" content="2023-11-29T07:46:21.466Z">
-<meta property="article:author" content="6pc1">
-<meta property="article:tag" content="html">
-<meta property="article:tag" content="css">
-<meta property="article:tag" content="js">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f529eda86837643eb1ca32955d5c36f6--cead--image-20230310092820616.png">
-
-
-<link rel="canonical" href="http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">
-
-
-
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/","path":"2023/11/21/java学习历程记录-前端基础/","title":"java学习历程记录-前端基础"}</script>
-
-<script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>java学习历程记录-前端基础 | 6pc1's blog</title>
-  
-
-
-
-
-
-
-
-<link rel="dns-prefetch" href="waline-server-pi-one.vercel.app">
-  <noscript>
-    <link rel="stylesheet" href="/css/noscript.css">
-  </noscript>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <div class="column">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏" role="button">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <p class="site-title">6pc1's blog</p>
-      <i class="logo-line"></i>
-    </a>
-      <p class="site-subtitle" itemprop="description">a not interesting blog</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="搜索" role="button">
-        <i class="fa fa-search fa-fw fa-lg"></i>
-    </div>
-  </div>
-</div>
-
-
-
-<nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
-        </a>
-      </li>
-  </ul>
-</nav>
-
-
-
-  <div class="search-pop-overlay">
-    <div class="popup search-popup"><div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off" maxlength="80"
-           placeholder="搜索..." spellcheck="false"
-           type="search" class="search-input">
-  </div>
-  <span class="popup-btn-close" role="button">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div class="search-result-container no-result">
-  <div class="search-result-icon">
-    <i class="fa fa-spinner fa-pulse fa-5x"></i>
-  </div>
-</div>
-
-    </div>
-  </div>
-
-</header>
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
         
-  
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%9A%84%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">一、一些基础的前端知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81css%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">1、css中的元素选择器:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%83%E7%B4%A0%EF%BC%88%E6%A0%87%E7%AD%BE%EF%BC%89%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.元素（标签）选择器：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-id%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.id选择器:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%9A"><span class="nav-number">1.1.3.</span> <span class="nav-text">3.类选择器：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84html%E6%A0%87%E7%AD%BE"><span class="nav-number">1.2.</span> <span class="nav-text">2、一些常见的html标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%A7%86%E9%A2%91%E3%80%81%E9%9F%B3%E9%A2%91%E6%A0%87%E7%AD%BE"><span class="nav-number">1.2.1.</span> <span class="nav-text">1). 视频、音频标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%AE%B5%E8%90%BD%E6%A0%87%E7%AD%BE"><span class="nav-number">1.2.2.</span> <span class="nav-text">2). 段落标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E6%A0%87%E7%AD%BE"><span class="nav-number">1.2.3.</span> <span class="nav-text">3). 文本格式标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%B8%83%E5%B1%80%E7%BE%8E%E5%8C%96"><span class="nav-number">1.2.4.</span> <span class="nav-text">4).布局美化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A0%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">①盒子模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A1%E5%B8%83%E5%B1%80%E6%A0%87%E7%AD%BE"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">②布局标签</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%A1%A8%E6%A0%BC%E6%A0%87%E7%AD%BE"><span class="nav-number">1.2.5.</span> <span class="nav-text">5).表格标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%A1%A8%E5%8D%95%E6%A0%87%E7%AD%BE%EF%BC%88%E6%95%B0%E6%8D%AE%E6%8F%90%E4%BA%A4%EF%BC%89"><span class="nav-number">1.2.6.</span> <span class="nav-text">6).表单标签（数据提交）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E8%A1%A8%E5%8D%95%E7%9A%84%E6%8B%93%E5%B1%95%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.7.</span> <span class="nav-text">7).表单的拓展使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-CSS%E5%96%84%E7%94%A8%E6%96%87%E6%A1%A3"><span class="nav-number">1.2.8.</span> <span class="nav-text">7).CSS善用文档</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81js%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">3、js的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E4%B9%A6%E5%86%99%E8%AF%AD%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">1).书写语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8F%98%E9%87%8F"><span class="nav-number">1.3.2.</span> <span class="nav-text">2).变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.3.3.</span> <span class="nav-text">3).数据类型与运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.4.</span> <span class="nav-text">4).函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A0%E7%AC%AC%E4%B8%80%E7%A7%8D%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">①第一种定义方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A1%E7%AC%AC%E4%BA%8C%E7%A7%8D%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">②第二种定义方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-BOM%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.5.</span> <span class="nav-text">5).BOM对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A0Windows%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">①Windows对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A1Location%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">②Location对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-DOM%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.6.</span> <span class="nav-text">6).DOM对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A"><span class="nav-number">1.3.7.</span> <span class="nav-text">7).事件绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F1%EF%BC%9A%E9%80%9A%E8%BF%87html%E6%A0%87%E7%AD%BE%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%B1%9E%E6%80%A7%E8%BF%9B%E8%A1%8C%E7%BB%91%E5%AE%9A"><span class="nav-number">1.3.7.1.</span> <span class="nav-text">方式1：通过html标签中的事件属性进行绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F2%EF%BC%9A%E9%80%9A%E8%BF%87DOM%E4%B8%ADElement%E5%85%83%E7%B4%A0%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%B1%9E%E6%80%A7%E8%BF%9B%E8%A1%8C%E7%BB%91%E5%AE%9A"><span class="nav-number">1.3.7.2.</span> <span class="nav-text">方式2：通过DOM中Element元素的事件属性进行绑定</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.3.8.</span> <span class="nav-text">8).一些常见的事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81vue%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">4、vue的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">1.4.1.</span> <span class="nav-text">1、快速入门</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81vue%E6%8C%87%E4%BB%A4"><span class="nav-number">1.4.2.</span> <span class="nav-text">2、vue指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A0v-bind"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">①v-bind:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A1v-model%EF%BC%9A"><span class="nav-number">1.4.2.2.</span> <span class="nav-text">②v-model：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A2v-on"><span class="nav-number">1.4.2.3.</span> <span class="nav-text">③v-on:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A3v-if%E5%92%8Cv-show"><span class="nav-number">1.4.2.4.</span> <span class="nav-text">④v-if和v-show</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E2%91%A4v-for"><span class="nav-number">1.4.2.5.</span> <span class="nav-text">⑤v-for</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.4.3.</span> <span class="nav-text">3、生命周期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81Ajax%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">5、Ajax的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81Ajax%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.5.1.</span> <span class="nav-text">1、Ajax的介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81Ajax%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.2.</span> <span class="nav-text">2、Ajax的简单使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81Axios"><span class="nav-number">1.5.3.</span> <span class="nav-text">3、Axios</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81Vue%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.6.</span> <span class="nav-text">6、Vue的简单教程介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA"><span class="nav-number">1.6.1.</span> <span class="nav-text">1、项目创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90"><span class="nav-number">1.6.2.</span> <span class="nav-text">2、项目结构的简单分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81Vue%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%BF%90%E8%A1%8C"><span class="nav-number">1.6.3.</span> <span class="nav-text">3、Vue项目的运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81Vue%E7%BB%84%E4%BB%B6%E5%BA%93Element"><span class="nav-number">1.6.4.</span> <span class="nav-text">4、Vue组件库Element</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.6.4.1.</span> <span class="nav-text">1、简单介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-number">1.6.4.2.</span> <span class="nav-text">2、快速入门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.6.4.3.</span> <span class="nav-text">3、分页组件的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%91%A0%E6%A8%A1%E5%9D%97%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.6.4.3.1.</span> <span class="nav-text">①模块的简单使用介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E2%91%A1%E7%BB%84%E4%BB%B6%E4%BA%8B%E4%BB%B6"><span class="nav-number">1.6.4.3.2.</span> <span class="nav-text">②组件事件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81Vue%E8%B7%AF%E7%94%B1"><span class="nav-number">1.6.5.</span> <span class="nav-text">5、Vue路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E6%89%93%E5%8C%85"><span class="nav-number">1.6.6.</span> <span class="nav-text">6、项目部署打包</span></a></li></ol></li></ol></li></ol></div>
-        </div>
-        <!--/noindex-->
-
-        <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="6pc1"
-      src="/images/avatar.png">
-  <p class="site-author-name" itemprop="name">6pc1</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-        <a href="/archives/">
-          <span class="site-state-item-count">9</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-          <a href="/categories/">
-        <span class="site-state-item-count">6</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-          <a href="/tags/">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/6pc1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;6pc1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:2961816476@qq.com" title="E-Mail → mailto:2961816476@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://qm.qq.com/q/uZSUzwBesa" title="QQ → https:&#x2F;&#x2F;qm.qq.com&#x2F;q&#x2F;uZSUzwBesa" rel="noopener me" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
-      </span>
-  </div>
-
-        </div>
-      </div>
-    </div>
-
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
     
-    <div class="sidebar-inner sidebar-blogroll">
-      <div class="links-of-blogroll animated">
-        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
-          链接
-        </div>
-        <ul class="links-of-blogroll-list">
-            <li class="links-of-blogroll-item">
-              <a href="https://hacbit.tech/" title="https:&#x2F;&#x2F;hacbit.tech&#x2F;" rel="noopener" target="_blank">hacbit</a>
-            </li>
-            <li class="links-of-blogroll-item">
-              <a href="https://yixinbc.tech/" title="https:&#x2F;&#x2F;yixinbc.tech&#x2F;" rel="noopener" target="_blank">yixinBC</a>
-            </li>
-        </ul>
-      </div>
-    </div>
-  </aside>
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body data-type="anzhiyu"><div id="web_bg"></div><div id="an_music_bg"></div><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><img class="loading-img nolazyload" alt="加载头像" src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg"/><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.getElementById('loading-box').classList.add("loaded");
+  },
+  initLoading: () => {
+    document.getElementById('loading-box').classList.remove("loaded")
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+setTimeout(function(){preloader.endLoading();},10000)
 
-
-    </div>
-
-    <div class="main-inner post posts-expand">
-
-
-  
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="6pc1">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="6pc1's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="java学习历程记录-前端基础 | 6pc1's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          java学习历程记录-前端基础
-        </h1>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-11-21 16:32:56" itemprop="dateCreated datePublished" datetime="2023-11-21T16:32:56+08:00">2023-11-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-29 15:46:21" itemprop="dateModified" datetime="2023-11-29T15:46:21+08:00">2023-11-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span id="busuanzi_value_page_pv"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Waline：</span>
-  
-    <a title="waline" href="/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/#waline" itemprop="discussionUrl">
-      <span class="post-comments-count waline-comment-count" data-path="/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>25k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>23 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody"><p>其实java是之前一段时间学习的，但是学到一半的时候发现我的python能力不行，所以又转去学python了，然后又由于我之前没有记笔记的习惯，就导致我现在再回来看java，就基本上忘光了，所以想着借着写博客的功夫去将我的一些java学习历程记录下来，也能去好好的复习一下之前的知识。所以这篇文章并不主要是为了入门，更多的只是我自己的一个学习记录，仅限参考。</p>
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.10/progress_bar/progress_bar.css"/><script async="async" src="https://cdn.cbd.int/pace-js@1.2.4/pace.min.js" data-pace-options="{ &quot;restartOnRequestAfter&quot;:false,&quot;eventLag&quot;:false}"></script><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><div id="nav-group"><span id="blog_name"><a id="site-name" href="/" accesskey="h"><div class="title">6pc1's blog</div><i class="anzhiyufont anzhiyu-icon-house-chimney"></i></a></span><div class="mask-name-container"><div id="name-container"><a id="page-name" href="javascript:anzhiyu.scrollToDest(0, 500)">PAGE_NAME</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div></div><div id="nav-right"><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机前往一个文章" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-dice"></i></a></div><input id="center-console" type="checkbox"/><label class="widget" for="center-console" title="中控台" onclick="anzhiyu.switchConsole();"><i class="left"></i><i class="widget center"></i><i class="widget right"></i></label><div id="console"><div class="console-card-group-reward"><ul class="reward-all console-card"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" alt="微信" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" alt="支付宝" src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments"><div class="card-content"><div class="author-content-item-tips">互动</div><span class="author-content-item-title"> 最新评论</span></div><div class="aside-list"><span>正在加载中...</span></div></div></div><div class="console-card-group-right"><div class="console-card tags"><div class="card-content"><div class="author-content-item-tips">兴趣点</div><span class="author-content-item-title">寻找你感兴趣的领域</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/JavaWeb/" style="font-size: 1.05rem;">JavaWeb<sup>1</sup></a><a href="/tags/Spring/" style="font-size: 1.05rem;">Spring<sup>1</sup></a><a href="/tags/blog/" style="font-size: 1.05rem;">blog<sup>1</sup></a><a href="/tags/css/" style="font-size: 1.05rem;">css<sup>1</sup></a><a href="/tags/flask/" style="font-size: 1.05rem;">flask<sup>1</sup></a><a href="/tags/html/" style="font-size: 1.05rem;">html<sup>1</sup></a><a href="/tags/java/" style="font-size: 1.05rem;">java<sup>1</sup></a><a href="/tags/js/" style="font-size: 1.05rem;">js<sup>1</sup></a><a href="/tags/python/" style="font-size: 1.05rem;">python<sup>2</sup></a><a href="/tags/serialize/" style="font-size: 1.05rem;">serialize<sup>1</sup></a><a href="/tags/%E6%B8%97%E9%80%8F/" style="font-size: 1.05rem;">渗透<sup>1</sup></a></div></div><hr/></div></div><div class="console-card history"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-box-archiv"></i><span>文章</span></div><div class="card-archives"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/11/"><span class="card-archive-list-date">十一月 2023</span><div class="card-archive-list-count-group"><span class="card-archive-list-count">9</span><span>篇</span></div></a></li></ul></div><hr/></div></div></div><div class="button-group"><div class="console-btn-item"><a class="darkmode_switchbutton" title="显示模式切换" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-moon"></i></a></div><div class="console-btn-item" id="consoleHideAside" onclick="anzhiyu.hideAsideBtn()" title="边栏显示控制"><a class="asideSwitch"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></a></div><div class="console-btn-item" id="consoleMusic" onclick="anzhiyu.musicToggle()" title="音乐开关"><a class="music-switch"><i class="anzhiyufont anzhiyu-icon-music"></i></a></div></div><div class="console-mask" onclick="anzhiyu.hideConsole()" href="javascript:void(0);"></div></div><div class="nav-button" id="nav-totop"><a class="totopbtn" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i><span id="percent" onclick="anzhiyu.scrollToDest(0,500)">0</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" title="切换"><i class="anzhiyufont anzhiyu-icon-bars"></i></a></div></div></div></nav><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original">原创</a><span class="post-meta-categories"><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-inbox post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url">前端</a></span><span class="article-meta tags"><a class="article-meta__tags" href="/tags/html/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>html</span></a><a class="article-meta__tags" href="/tags/css/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>css</span></a><a class="article-meta__tags" href="/tags/js/" tabindex="-1" itemprop="url"> <span> <i class="anzhiyufont anzhiyu-icon-hashtag"></i>js</span></a></span></div></div><h1 class="post-title" itemprop="name headline">java学习历程记录-前端基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="anzhiyufont anzhiyu-icon-calendar-days post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" itemprop="dateCreated datePublished" datetime="2023-11-21T08:32:56.000Z" title="发表于 2023-11-21 16:32:56">2023-11-21</time><span class="post-meta-separator"></span><i class="anzhiyufont anzhiyu-icon-history post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" itemprop="dateCreated datePublished" datetime="2023-11-29T07:46:21.466Z" title="更新于 2023-11-29 15:46:21">2023-11-29</time></span></div><div class="meta-secondline"><span class="post-meta-separator">       </span><span class="post-meta-position" title="作者IP属地为长沙"><i class="anzhiyufont anzhiyu-icon-location-dot"></i>长沙</span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section><div id="post-top-cover"><img class="nolazyload" id="post-top-bg" src=""></div></header><main id="blog-container"><div class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container" itemscope itemtype="http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/"><header><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url">前端</a><a href="/tags/html/" tabindex="-1" itemprop="url">html</a><a href="/tags/css/" tabindex="-1" itemprop="url">css</a><a href="/tags/js/" tabindex="-1" itemprop="url">js</a><h1 id="CrawlerTitle" itemprop="name headline">java学习历程记录-前端基础</h1><span itemprop="author" itemscope itemtype="http://schema.org/Person">6pc1</span><time itemprop="dateCreated datePublished" datetime="2023-11-21T08:32:56.000Z" title="发表于 2023-11-21 16:32:56">2023-11-21</time><time itemprop="dateCreated datePublished" datetime="2023-11-29T07:46:21.466Z" title="更新于 2023-11-29 15:46:21">2023-11-29</time></header><p>其实java是之前一段时间学习的，但是学到一半的时候发现我的python能力不行，所以又转去学python了，然后又由于我之前没有记笔记的习惯，就导致我现在再回来看java，就基本上忘光了，所以想着借着写博客的功夫去将我的一些java学习历程记录下来，也能去好好的复习一下之前的知识。所以这篇文章并不主要是为了入门，更多的只是我自己的一个学习记录，仅限参考。</p>
 <span id="more"></span>
 
 <h1 id="一、一些基础的前端知识"><a href="#一、一些基础的前端知识" class="headerlink" title="一、一些基础的前端知识"></a>一、一些基础的前端知识</h1><h2 id="1、css中的元素选择器"><a href="#1、css中的元素选择器" class="headerlink" title="1、css中的元素选择器:"></a>1、css中的元素选择器:</h2><p>顾名思义：选择器是选取需设置样式的元素（标签），但是我们根据业务场景不同，选择的标签的需求也是多种多样的，所以选择器有很多种，因为我们是做后台开发的，所以对于css选择器，我们只学习最基本的3种。</p>
@@ -502,15 +358,15 @@
 <li><p>盒子模型组成：内容区域（content）、内边距区域（padding）、边框区域（border）、外边距区域（margin）</p>
 </li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f529eda86837643eb1ca32955d5c36f6--cead--image-20230310092820616.png" alt="image-20230310092820616"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f529eda86837643eb1ca32955d5c36f6--cead--image-20230310092820616.png" alt="image-20230310092820616"></p>
 <p>CSS盒子模型，其实和日常生活中的包装盒是非常类似的，就比如：</p>
-<p> <img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/0f2a5351ad32ffa9c1fe2588bec73ffd--df3d--image-20230310093247265.png" alt="image-20230310093247265"></p>
+<p> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/0f2a5351ad32ffa9c1fe2588bec73ffd--df3d--image-20230310093247265.png" alt="image-20230310093247265"></p>
 <p>盒子的大小，其实就包括三个部分： border、padding、content，而margin外边距是不包括在盒子之内的。</p>
 <p>盒子模型代码示例：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>盒子模型<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">200px</span>;  <span class="comment">/* 宽度 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">200px</span>;  <span class="comment">/* 高度 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">box-sizing</span>: border-box; <span class="comment">/* 指定width height为盒子的高宽 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: aquamarine; <span class="comment">/* 背景色 */</span></span></span><br><span class="line"><span class="language-css">            </span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">20px</span> <span class="number">20px</span> <span class="number">20px</span> <span class="number">20px</span>; <span class="comment">/* 内边距, 上 右 下 左 , 边距都一行, 可以简写: padding: 20px;*/</span> </span></span><br><span class="line"><span class="language-css">            <span class="attribute">border</span>: <span class="number">10px</span> solid red; <span class="comment">/* 边框, 宽度 线条类型 颜色 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: <span class="number">30px</span> <span class="number">30px</span> <span class="number">30px</span> <span class="number">30px</span>; <span class="comment">/* 外边距, 上 右 下 左 , 边距都一行, 可以简写: margin: 30px; */</span></span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A A </span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>效果：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/4d2ca694e5a1c402d403f1a675b553da--1cdb--image-20231121183250787.png" alt="image-20231121183250787"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/4d2ca694e5a1c402d403f1a675b553da--1cdb--image-20231121183250787.png" alt="image-20231121183250787"></p>
 <h4 id="②布局标签"><a href="#②布局标签" class="headerlink" title="②布局标签"></a>②布局标签</h4><ul>
 <li><p>布局标签：实际开发网页中，会大量频繁的使用 div 和 span 这两个没有语义的布局标签。</p>
 </li>
@@ -560,11 +416,11 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML-表格<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">td</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">text-align</span>: center; <span class="comment">/* 单元格内容居中展示 */</span></span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">&quot;1px&quot;</span> <span class="attr">cellspacing</span>=<span class="string">&quot;0&quot;</span>  <span class="attr">width</span>=<span class="string">&quot;600px&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>序号<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>品牌Logo<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>品牌名称<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>企业名称<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/huawei.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100px&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>华为<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>华为技术有限公司<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/alibaba.jpg&quot;</span>  <span class="attr">width</span>=<span class="string">&quot;100px&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>阿里<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>阿里巴巴集团控股有限公司<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>打开浏览器，效果如下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/582d460a041f8a2b306cebd22a6333f9--f915--image-20231121183451283.png" alt="image-20231121183451283"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/582d460a041f8a2b306cebd22a6333f9--f915--image-20231121183451283.png" alt="image-20231121183451283"></p>
 <p>整合表格使用 table 标签包裹 , 其中的每一行数据都是一个 tr , 每一行中的每一个单元格都是一个 td , 而如果是表头单元格, 可以使用 th (具有加粗居中展示的效果)。</p>
 <h3 id="6-表单标签（数据提交）"><a href="#6-表单标签（数据提交）" class="headerlink" title="6).表单标签（数据提交）"></a>6).表单标签（数据提交）</h3><p>那表单呢,在我们日常的上网的过程中,基本上每天都会遇到。比如，我们经常在访问网站时，出现的登录页面、注册页面、个人信息提交页面，其实都是一个一个的表单 。 当我们在这些表单中录入数据之后，一点击 “提交”，就会将表单中我们填写的数据采集到，并提交， 那其实这个数据呢，一般会提交到服务端，最终保存在数据库中 （后面的课程中会讲到）。</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/158ab888ad88adfdda5cce236171acbc--b1b4--image-20231121183623494.png"></p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f0994b8edc9b5e7ce1a8ad860729d313--0da3--image-20231121183653494.png" alt="image-20231121183653494"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/158ab888ad88adfdda5cce236171acbc--b1b4--image-20231121183623494.png"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f0994b8edc9b5e7ce1a8ad860729d313--0da3--image-20231121183653494.png" alt="image-20231121183653494"></p>
 <p>那其实，上述的整个窗口是一个表单，而表单是一项一项的，这个我们称为表单项 或 表单元素。</p>
 <ul>
 <li><p>表单场景: 表单就是在网页中负责数据采集功能的，如：注册、登录的表单。 </p>
@@ -657,7 +513,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML-表单项标签<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- value: 表单项提交的值 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">     姓名: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     密码: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span> </span><br><span class="line">     性别: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span> 男</span><br><span class="line">          <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>&gt;</span> 女 <span class="tag">&lt;/<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     爱好: <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;java&quot;</span>&gt;</span> java <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;game&quot;</span>&gt;</span> game <span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">label</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;sing&quot;</span>&gt;</span> sing <span class="tag">&lt;/<span class="name">label</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     图像: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">name</span>=<span class="string">&quot;image&quot;</span>&gt;</span>  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     生日: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;date&quot;</span> <span class="attr">name</span>=<span class="string">&quot;birthday&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     时间: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;time&quot;</span> <span class="attr">name</span>=<span class="string">&quot;time&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     日期时间: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;datetime-local&quot;</span> <span class="attr">name</span>=<span class="string">&quot;datetime&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     邮箱: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;email&quot;</span> <span class="attr">name</span>=<span class="string">&quot;email&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     年龄: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     学历: <span class="tag">&lt;<span class="name">select</span> <span class="attr">name</span>=<span class="string">&quot;degree&quot;</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;&quot;</span>&gt;</span>----------- 请选择 -----------<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span>大专<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>&gt;</span>本科<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;3&quot;</span>&gt;</span>硕士<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">               <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;4&quot;</span>&gt;</span>博士<span class="tag">&lt;/<span class="name">option</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">select</span>&gt;</span>  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     描述: <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span>  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;id&quot;</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">	 	</span><br><span class="line">     <span class="comment">&lt;!-- 表单常见按钮 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;按钮&quot;</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;reset&quot;</span> <span class="attr">value</span>=<span class="string">&quot;重置&quot;</span>&gt;</span> </span><br><span class="line">     <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;提交&quot;</span>&gt;</span>   </span><br><span class="line">     <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>通过浏览器打开上述的表单项html文件，最终展示出的表单信息如下：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/d4e6fd6e75794d9e43ad0c6a3d4c6078--0018--image-20231121184043690.png" alt="image-20231121184043690"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/d4e6fd6e75794d9e43ad0c6a3d4c6078--0018--image-20231121184043690.png" alt="image-20231121184043690"></p>
 <h3 id="7-CSS善用文档"><a href="#7-CSS善用文档" class="headerlink" title="7).CSS善用文档"></a>7).CSS善用文档</h3><p>进入W3C进行查询。即用即查即可</p>
 <h2 id="3、js的基本使用"><a href="#3、js的基本使用" class="headerlink" title="3、js的基本使用"></a>3、js的基本使用</h2><h3 id="1-书写语法"><a href="#1-书写语法" class="headerlink" title="1).书写语法"></a>1).书写语法</h3><ul>
 <li><p>区分大小写：与 Java 一样，变量名、函数名以及其他一切东西都是区分大小写的</p>
@@ -825,7 +681,7 @@
 </tr>
 </tbody></table>
 <p>上述5个对象与浏览器各组成对应的关系如下图所示：</p>
-<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/4188d3cbe1ed885e474d4ffbe61b3ddd--9adc--image-20231121185953491.png" alt="image-20231121185953491"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/4188d3cbe1ed885e474d4ffbe61b3ddd--9adc--image-20231121185953491.png" alt="image-20231121185953491"></p>
 <p>主要使用到的是Windows和Location这两个</p>
 <h4 id="①Windows对象"><a href="#①Windows对象" class="headerlink" title="①Windows对象"></a>①Windows对象</h4><p>window对象指的是浏览器窗口对象，是JavaScript的全部对象，所以对于window对象，我们可以直接使用，并且对于window对象的方法和属性，我们可以省略window.例如：我们之前学习的alert()函数其实是属于window对象的,其完整的代码如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.alert(&#x27;hello&#x27;);</span><br></pre></td></tr></table></figure>
@@ -889,7 +745,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取浏览器地址栏信息</span></span><br><span class="line"><span class="title function_">alert</span>(location.<span class="property">href</span>);</span><br><span class="line"><span class="comment">//设置浏览器地址栏信息</span></span><br><span class="line">location.<span class="property">href</span> = <span class="string">&quot;https://www.itcast.cn&quot;</span>;</span><br></pre></td></tr></table></figure>
 
 <p>浏览器效果如下：首先弹框展示浏览器地址栏信息，</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/2fb1b4a2882b8e052bbc146ab2538a5b--a4c9--image-20231121191247946.png" alt="image-20231121191247946"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/2fb1b4a2882b8e052bbc146ab2538a5b--a4c9--image-20231121191247946.png" alt="image-20231121191247946"></p>
 <p>然后点击确定后，因为我们设置了地址栏信息，所以浏览器跳转到传智首页</p>
 <h3 id="6-DOM对象"><a href="#6-DOM对象" class="headerlink" title="6).DOM对象"></a>6).DOM对象</h3><p>HTML中的Element对象可以通过Document对象获取，而Document对象是通过window对象获取的。document对象提供的用于获取Element元素对象的api如下表所示：</p>
 <table>
@@ -918,13 +774,13 @@
 </tbody></table>
 <p>操作属性</p>
 <p>那么获取到标签了，我们如何操作标签的属性呢？通过查询文档资料，如下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f44d21e5a1292672353de1d459108e31--a783--image-20231121192858063.png" alt="image-20231121192858063"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/f44d21e5a1292672353de1d459108e31--a783--image-20231121192858063.png" alt="image-20231121192858063"></p>
 <p>得出我们可以通过div标签对象的innerHTML属性来修改标签的内容。此时我们想把页面中的<strong>传智教育替换成传智教育666</strong>，所以要获取2个div中的第一个，所以可以通过下标0获取数组中的第一个div，注释之前的代码，编写如下代码：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> divs = <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;cls&#x27;</span>);</span><br><span class="line"><span class="keyword">var</span> div1 = divs[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">div1.<span class="property">innerHTML</span> = <span class="string">&quot;传智教育666&quot;</span>;</span><br></pre></td></tr></table></figure>
 
 <p>浏览器刷新页面，展示效果如下图所示：</p>
 <p>浏览器刷新页面，展示效果如下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/5db9ab60bdd4f569c18c988a032a4621--5c20--image-20231121192928778.png" alt="image-20231121192928778"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/5db9ab60bdd4f569c18c988a032a4621--5c20--image-20231121192928778.png" alt="image-20231121192928778"></p>
 <p> 发现页面内容变成了传智教育666</p>
 <p>全部源码：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>JS-对象-DOM<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">&quot;h1&quot;</span> <span class="attr">src</span>=<span class="string">&quot;img/off.gif&quot;</span>&gt;</span>  <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cls&quot;</span>&gt;</span>传智教育<span class="tag">&lt;/<span class="name">div</span>&gt;</span>   <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cls&quot;</span>&gt;</span>黑马程序员<span class="tag">&lt;/<span class="name">div</span>&gt;</span>  <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span>&gt;</span> 电影</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span>&gt;</span> 旅游</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span>&gt;</span> 游戏</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//1. 获取Element元素</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//1.1 获取元素-根据ID获取</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// var img = document.getElementById(&#x27;h1&#x27;);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// alert(img);</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//1.2 获取元素-根据标签获取 - div</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// var divs = document.getElementsByTagName(&#x27;div&#x27;);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// for (let i = 0; i &lt; divs.length; i++) &#123;</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//     alert(divs[i]);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// &#125;</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//1.3 获取元素-根据name属性获取</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// var ins = document.getElementsByName(&#x27;hobby&#x27;);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// for (let i = 0; i &lt; ins.length; i++) &#123;</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//     alert(ins[i]);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// &#125;</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//1.4 获取元素-根据class属性获取</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// var divs = document.getElementsByClassName(&#x27;cls&#x27;);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// for (let i = 0; i &lt; divs.length; i++) &#123;</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//     alert(divs[i]);</span></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// &#125;</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">//2. 查询参考手册, 属性、方法</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> divs = <span class="variable language_">document</span>.<span class="title function_">getElementsByClassName</span>(<span class="string">&#x27;cls&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> div1 = divs[<span class="number">0</span>];</span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    div1.<span class="property">innerHTML</span> = <span class="string">&quot;传智教育666&quot;</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -994,7 +850,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">v-model</span>=<span class="string">&quot;message&quot;</span>&gt;</span></span><br><span class="line">        &#123;&#123;message&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>浏览器打开效果如图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/9485d513933405e6a210b4d9c55c3643--bbba--image-20231121195000984.png" alt="image-20231121195000984"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/9485d513933405e6a210b4d9c55c3643--bbba--image-20231121195000984.png" alt="image-20231121195000984"></p>
 <h3 id="2、vue指令"><a href="#2、vue指令" class="headerlink" title="2、vue指令"></a>2、vue指令</h3><table>
 <thead>
 <tr>
@@ -1105,7 +961,7 @@
 </tr>
 </tbody></table>
 <p>下图是 Vue 官网提供的从创建 Vue 到效果 Vue 对象的整个过程及各个阶段对应的钩子函数：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/d3dd27cb2a5d10c6de0c00f4c9cf12fd--9b10--image-20231121195747907.png" alt="image-20231121195747907"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-21/d3dd27cb2a5d10c6de0c00f4c9cf12fd--9b10--image-20231121195747907.png" alt="image-20231121195747907"></p>
 <p>其中我们需要重点关注的是**mounted,**其他的我们了解即可。</p>
 <p>mounted：挂载完成，Vue初始化成功，HTML页面渲染成功。<strong>以后我们一般用于页面初始化自动的ajax请求后台数据</strong></p>
 <h2 id="5、Ajax的使用"><a href="#5、Ajax的使用" class="headerlink" title="5、Ajax的使用"></a>5、Ajax的使用</h2><h3 id="1、Ajax的介绍"><a href="#1、Ajax的介绍" class="headerlink" title="1、Ajax的介绍"></a>1、Ajax的介绍</h3><p>我们详细的解释一下Ajax技术的2个作用</p>
@@ -1114,20 +970,20 @@
 <p>如下图所示前端资源被浏览器解析，但是前端页面上缺少数据，前端可以通过Ajax技术，向后台服务器发起请求，后台服务器接受到前端的请求，从数据库中获取前端需要的资源，然后响应给前端，前端在通过我们学习的vue技术，可以将数据展示到页面上，这样用户就能看到完整的页面了。此处可以对比JavaSE中的网络编程技术来理解。</p>
 </li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/1478bd2c5b10db3902848da91ea311f7--5dc6--image-20231125221238816.png" alt="image-20231125221238816"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/1478bd2c5b10db3902848da91ea311f7--5dc6--image-20231125221238816.png" alt="image-20231125221238816"></p>
 <p>异步交互：可以在<strong>不重新加载整个页面</strong>的情况下，与服务器交换数据并<strong>更新部分网页</strong>的技术。</p>
 <p>如下图所示，当我们再百度搜索java时，下面的联想数据是通过Ajax请求从后台服务器得到的，在整个过程中，我们的Ajax请求不会导致整个百度页面的重新加载，并且只针对搜索栏这局部模块的数据进行了数据的更新，不会对整个页面的其他地方进行数据的更新，这样就大大提升了页面的加载速度，用户体验高。</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/9c8182429cd46012b107552c0eaa8f90--794e--image-20231125221257133.png" alt="image-20231125221257133"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/9c8182429cd46012b107552c0eaa8f90--794e--image-20231125221257133.png" alt="image-20231125221257133"></p>
 <p>这里也就再来讲下异步操作和同步操作的区别是什么。</p>
 <p>同步请求发送过程如下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/3eee530c76cba726b219ea41081ef642--233d--image-20231125221354077.png" alt="image-20231125221354077"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/3eee530c76cba726b219ea41081ef642--233d--image-20231125221354077.png" alt="image-20231125221354077"></p>
 <ul>
 <li><p>浏览器页面在发送请求给服务器，在服务器处理请求的过程中，浏览器页面不能做其他的操作。只能等到服务器响应结束后才能，浏览器页面才能继续做其他的操作。 </p>
 </li>
 <li><p>异步请求发送过程如下图所示：</p>
 </li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c577c087270747d00d18b684c2ebcca0--5447--image-20231125221404817.png" alt="image-20231125221404817"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c577c087270747d00d18b684c2ebcca0--5447--image-20231125221404817.png" alt="image-20231125221404817"></p>
 <ul>
 <li>浏览器页面发送请求给服务器，在服务器处理请求的过程中，浏览器页面还可以做其他的操作。</li>
 </ul>
@@ -1136,7 +992,7 @@
 <li><p>服务器端</p>
 <p>因为我们暂时还没学过服务器端的代码，所以此处已经直接提供好了服务器端的请求地址，我们前端直接通过Ajax请求访问该地址即可。<strong>后台服务器地址</strong>：<a target="_blank" rel="noopener" href="http://yapi.smart-xwork.cn/mock/169327/emp/list">http://yapi.smart-xwork.cn/mock/169327/emp/list</a></p>
 <p>上述地址我们也可以直接通过浏览器来访问，访问结果如图所示：只截取部分数据</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/e3c78a9e3285d3b9c77530b3800ca1d1--4d72--image-20231125222034015.png" alt="image-20231125222034015"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/e3c78a9e3285d3b9c77530b3800ca1d1--4d72--image-20231125222034015.png" alt="image-20231125222034015"></p>
 </li>
 <li><p>客户端</p>
 <p>客户端的Ajax请求代码如下有如下4步，接下来我们跟着步骤一起操作一下。</p>
@@ -1155,7 +1011,7 @@
 
 
 <p>最后我们通过浏览器打开页面，请求点击按钮，发送Ajax请求，最终显示结果如下图所示：</p>
-<p> <img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/199862e599fc5422f4a52ec17821161c--1f36--image-20231125222026868.png" alt="image-20231125222026868"></p>
+<p> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/199862e599fc5422f4a52ec17821161c--1f36--image-20231125222026868.png" alt="image-20231125222026868"></p>
 <p>并且通过浏览器的f12抓包，我们点击网络中的XHR请求，发现可以抓包到我们发送的Ajax请求。XHR代表的就是异步请求</p>
 </li>
 </ul>
@@ -1224,19 +1080,19 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue ui</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="2、项目结构的简单分析"><a href="#2、项目结构的简单分析" class="headerlink" title="2、项目结构的简单分析"></a>2、项目结构的简单分析</h3><p>我们通过VS Code打开之前创建的vue文件夹，打开之后，呈现如下图所示页面：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/a84df0d25fc9623cd84a8136751af782--7c96--image-20231125224706489.png" alt="image-20231125224706489"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/a84df0d25fc9623cd84a8136751af782--7c96--image-20231125224706489.png" alt="image-20231125224706489"></p>
 <p>vue项目的标准目录结构以及目录对应的解释如下图所示:</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/5cc1aec4f35e31988a0864b2586a0c5e--5409--image-20231125224714378.png" alt="image-20231125224714378"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/5cc1aec4f35e31988a0864b2586a0c5e--5409--image-20231125224714378.png" alt="image-20231125224714378"></p>
 <p>其中我们平时开发代码就是在<strong>src目录</strong>下	</p>
 <h3 id="3、Vue项目的运行"><a href="#3、Vue项目的运行" class="headerlink" title="3、Vue项目的运行"></a>3、Vue项目的运行</h3><p>那么vue项目开发好了，我们应该怎么运行vue项目呢？主要提供了2种方式</p>
 <ul>
 <li>第一种方式：通过VS Code提供的图形化界面 ，如下图所示：（注意：NPM脚本窗口默认不显示，可以参考本节的最后调试出来）</li>
 </ul>
-<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c06bda53d80150fc54aea584a377c7d0--c078--image-20231125225846123.png" alt="image-20231125225846123"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c06bda53d80150fc54aea584a377c7d0--c078--image-20231125225846123.png" alt="image-20231125225846123"></p>
 <p>点击之后，我们等待片刻，即可运行，在终端界面中，我们发现项目是运行在本地服务的8080端口，我们直接通过浏览器打开地址</p>
-<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/f1f262284f1a4dd41228e35f1ecf52e8--3933--image-20231125225858533.png" alt="image-20231125225858533"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/f1f262284f1a4dd41228e35f1ecf52e8--3933--image-20231125225858533.png" alt="image-20231125225858533"></p>
 <p>最终浏览器打开后，呈现如下界面，表示项目运行成功</p>
-<p><img src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c7ec1f87086087633a3fc5e245fdc31a--d81e--image-20231125225912576.png" alt="image-20231125225912576"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="http://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/c7ec1f87086087633a3fc5e245fdc31a--d81e--image-20231125225912576.png" alt="image-20231125225912576"></p>
 <p>其实此时访问的是 <strong>src&#x2F;App.vue</strong>这个根组件，此时我们打开这个组件，修改代码：添加内容Vue</p>
 <p>只要我们保存更新的代码，我们直接打开浏览器，不需要做任何刷新，发现页面呈现内容发生了变化，如下图所示：</p>
 <p>这就是我们vue项目的热更新功能 </p>
@@ -1245,11 +1101,11 @@
 
 <p>第二种方式：命令行方式</p>
 <p>直接基于cmd命令窗口，在vue目录下，执行输入命令<code>npm run serve</code>即可，如下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/65f26040c8e0cf8668a0e615a8a223ea--ef9c--image-20231125230802565.png" alt="image-20231125230802565"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-25/65f26040c8e0cf8668a0e615a8a223ea--ef9c--image-20231125230802565.png" alt="image-20231125230802565"></p>
 <h3 id="4、Vue组件库Element"><a href="#4、Vue组件库Element" class="headerlink" title="4、Vue组件库Element"></a>4、Vue组件库Element</h3><h4 id="1、简单介绍"><a href="#1、简单介绍" class="headerlink" title="1、简单介绍"></a>1、简单介绍</h4><p>不知道同学们还否记得我们之前讲解的前端开发模式MVVM，我们之前学习的vue是侧重于VM开发的，主要用于数据绑定到视图的，那么接下来我们学习的ElementUI就是一款侧重于V开发的前端框架，主要用于开发美观的页面的。</p>
 <p>Element：是饿了么公司前端开发团队提供的一套基于 Vue 的网站组件库，用于快速构建网页。</p>
 <p>Element 提供了很多组件（组成网页的部件）供我们使用。例如 超链接、按钮、图片、表格等等。如下图所示就是我们开发的页面和ElementUI提供的效果对比：可以发现ElementUI提供的各式各样好看的按钮</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/c92b1497ee7ee1c09646c7aaebee97d7--60f3--image-20231126124900304.png" alt="image-20231126124900304"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/c92b1497ee7ee1c09646c7aaebee97d7--60f3--image-20231126124900304.png" alt="image-20231126124900304"></p>
 <p>ElementUI的学习方式和我们之前的学习方式不太一样，对于ElementUI，我们作为一个后台开发者，只需要<strong>学会如何从ElementUI的官网拷贝组件到我们自己的页面中，并且做一些修改即可</strong>。其官网地址：<a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN%EF%BC%8C%E6%88%91%E4%BB%AC%E4%B8%BB%E8%A6%81%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%98%AFElementUI%E4%B8%AD%E6%8F%90%E4%BE%9B%E7%9A%84%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6%EF%BC%8C%E8%87%B3%E4%BA%8E%E5%85%B6%E4%BB%96%E7%BB%84%E4%BB%B6%E5%90%8C%E5%AD%A6%E4%BB%AC%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E6%88%91%E4%BB%AC%E8%BF%99%E5%87%A0%E4%B8%AA%E7%BB%84%E4%BB%B6%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%8E%8C%E6%8F%A1%E5%88%B0ElementUI%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%8A%80%E5%B7%A7%EF%BC%8C%E7%84%B6%E5%90%8E%E8%AF%BE%E5%90%8E%E8%87%AA%E8%A1%8C%E5%AD%A6%E4%B9%A0%E3%80%82">https://element.eleme.cn/#/zh-CN，我们主要学习的是ElementUI中提供的常用组件，至于其他组件同学们可以通过我们这几个组件的学习掌握到ElementUI的学习技巧，然后课后自行学习。</a></p>
 <h4 id="2、快速入门"><a href="#2、快速入门" class="headerlink" title="2、快速入门"></a>2、快速入门</h4><p>首先我们要掌握ElementUI的快速入门，接下来同学们就一起跟着步骤来操作一下。</p>
 <p>首先，我们先要安装ElementUI的组件库，打开VS Code，停止之前的项目，然后在命令行输入如下命令：</p>
@@ -1262,9 +1118,9 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">&#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>PS:Element组件的所有属性都可以在组件页面的最下方找到</strong>，如下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/0f0b2aab93e8d8518b669d973dde38c1--6d6a--image-20231126131145410.png" alt="image-20231126131145410"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/0f0b2aab93e8d8518b669d973dde38c1--6d6a--image-20231126131145410.png" alt="image-20231126131145410"></p>
 <h4 id="3、分页组件的使用"><a href="#3、分页组件的使用" class="headerlink" title="3、分页组件的使用"></a>3、分页组件的使用</h4><h5 id="①模块的简单使用介绍"><a href="#①模块的简单使用介绍" class="headerlink" title="①模块的简单使用介绍"></a>①模块的简单使用介绍</h5><p>Pagination: 分页组件，主要提供分页工具条相关功能。其展示效果图下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/7468d1d99b01cb7723ca4c0cd4335452--94ad--image-20231126131705631.png" alt="image-20231126131705631"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/7468d1d99b01cb7723ca4c0cd4335452--94ad--image-20231126131705631.png" alt="image-20231126131705631"></p>
 <p>首先在官网找到分页组件，我们选择带背景色分页组件，如下图所示：</p>
 <p>然后复制代码到我们的ElementView.vue组件文件的template中，拷贝如下代码：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-pagination</span></span></span><br><span class="line"><span class="tag">    <span class="attr">background</span></span></span><br><span class="line"><span class="tag">    <span class="attr">layout</span>=<span class="string">&quot;prev, pager, next&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:total</span>=<span class="string">&quot;1000&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-pagination</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -1276,7 +1132,7 @@
 <li>total: 数据的总数量</li>
 </ul>
 <p>然后根据官方分页组件提供的layout属性说明，如下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/e22f237cc331a65a0908fb17c9c2b5b6--af07--image-20231126132145510.png" alt="image-20231126132145510"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/e22f237cc331a65a0908fb17c9c2b5b6--af07--image-20231126132145510.png" alt="image-20231126132145510"></p>
 <p>我们可以进行相关的自定义</p>
 <h5 id="②组件事件"><a href="#②组件事件" class="headerlink" title="②组件事件"></a>②组件事件</h5><p>对于分页组件，除了上述几个属性，还有2个非常重要的事件我们需要去学习：</p>
 <ul>
@@ -1284,7 +1140,7 @@
 <li>current-change ：currentPage 改变时会触发</li>
 </ul>
 <p>其官方详细解释含义如下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/e827629131f4a621175ebf09cc745931--039d--image-20231126132222798.png" alt="image-20231126132222798"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/e827629131f4a621175ebf09cc745931--039d--image-20231126132222798.png" alt="image-20231126132222798"></p>
 <p>然后我们找到对应的代码，首先复制事件，复制代码如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@size-change=<span class="string">&quot;handleSizeChange&quot;</span></span><br><span class="line">@current-change=<span class="string">&quot;handleCurrentChange&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -1309,7 +1165,7 @@
 
 <p>注意需要去掉没有引用的import模块。</p>
 <p>在main.js中，我们已经引入了router功能，如下图所示：</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/f9cd77e8eaaf0da83921d624361fed4c--012d--image-20231126140930945.png" alt="image-20231126140930945"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-26/f9cd77e8eaaf0da83921d624361fed4c--012d--image-20231126140930945.png" alt="image-20231126140930945"></p>
 <p>路由基本信息配置好了，路由表已经被加载，此时我们还缺少2个东西，就是&lt;router-lin&gt;和&lt;router-view&gt;,所以我们需要修改2个页面（EmpView.vue和DeptView.vue）我们左侧栏的2个按钮为router-link,其代码如下：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-menu-item</span> <span class="attr">index</span>=<span class="string">&quot;1-1&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">&quot;/dept&quot;</span>&gt;</span>部门管理<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-menu-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-menu-item</span> <span class="attr">index</span>=<span class="string">&quot;1-2&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-link</span> <span class="attr">to</span>=<span class="string">&quot;/emp&quot;</span>&gt;</span>员工管理<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-menu-item</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -1328,141 +1184,148 @@
 <p>然后启动nginx去启动服务，就成功将该项目部署完成了</p>
 <hr>
 <p>到这就差不多了这篇，主要就是对java中一些简单的前端知识进行总结。</p>
-
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/html/" rel="tag"># html</a>
-              <a href="/tags/css/" rel="tag"># css</a>
-              <a href="/tags/js/" rel="tag"># js</a>
-          </div>
-
+</article><div class="post-copyright"><div class="copyright-cc-box"><i class="anzhiyufont anzhiyu-icon-copyright"></i></div><div class="post-copyright__author_box"><a class="post-copyright__author_img" href="/" title="头像"><img class="post-copyright__author_img_back" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"><img class="post-copyright__author_img_front" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" title="头像" alt="头像"></a><div class="post-copyright__author_name">6pc1</div><div class="post-copyright__author_desc">a not interesting blog</div></div><div class="post-copyright__post__info"><a class="post-copyright__original" title="该文章为原创文章，注意版权协议" href="http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">原创</a><a class="post-copyright-title"><span onclick="rm.copyPageUrl('http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/')">java学习历程记录-前端基础</span></a></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div class="rewardLeftButton"><div class="post-reward" onclick="anzhiyu.addRewardMask()"><div class="reward-button button--animated" title="赞赏作者"><i class="anzhiyufont anzhiyu-icon-hand-heart-fill"></i>打赏作者</div><div class="reward-main"><div class="reward-all"><span class="reward-title">感谢你赐予我前进的力量</span><ul class="reward-group"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul><a class="reward-main-btn" href="/about/#about-reward" target="_blank"><div class="reward-text">赞赏者名单</div><div class="reward-dec">因为你们的支持让我意识到写文章的价值🙏</div></a></div></div></div><div id="quit-box" onclick="anzhiyu.removeRewardMask()" style="display: none"></div></div><div class="shareRight"><div class="share-link mobile"><div class="share-qrcode"><div class="share-button" title="使用手机访问这篇文章"><i class="anzhiyufont anzhiyu-icon-qrcode"></i></div><div class="share-main"><div class="share-main-all"><div id="qrcode" title="http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/"></div><div class="reward-dec">使用手机访问这篇文章</div></div></div></div></div><div class="share-link weibo"><a class="share-button" target="_blank" href="https://service.weibo.com/share/share.php?title=java学习历程记录-前端基础&amp;url=http://6pc1.github.io/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/&amp;pic=" rel="external nofollow noreferrer noopener"><i class="anzhiyufont anzhiyu-icon-weibo"></i></a></div><script>function copyCurrentPageUrl() {
+  var currentPageUrl = window.location.href;
+  var input = document.createElement("input");
+  input.setAttribute("value", currentPageUrl);
+  document.body.appendChild(input);
+  input.select();
+  input.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  document.body.removeChild(input);
+}</script><div class="share-link copyurl"><div class="share-button" id="post-share-url" title="复制链接" onclick="copyCurrentPageUrl()"><i class="anzhiyufont anzhiyu-icon-link"></i></div></div></div></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://6pc1.github.io" target="_blank">6pc1's blog</a>！</span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__box"><div class="post-meta__box__tag-list"><a class="post-meta__box__tags" href="/tags/html/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>html<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/css/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>css<span class="tagsPageCount">1</span></a><a class="post-meta__box__tags" href="/tags/js/"><span class="tags-punctuation"> <i class="anzhiyufont anzhiyu-icon-tag"></i></span>js<span class="tagsPageCount">1</span></a></div></div></div><div class="post_share"><div class="social-share" data-image="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"/><script src="https://cdn.cbd.int/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer="defer"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/11/13/python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86-2-flask/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">python学习经历-2-flask</div></div></a></div><div class="next-post pull-right"><a href="/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-SpringMVC/"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">java学习历程记录-SpringMVC</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="author-info-avatar"><img class="avatar-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://bu.dusays.com/2023/04/27/64496e511b09c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__description"></div></div></div><div class="card-widget anzhiyu-right-widget" id="card-wechat" onclick="null"><div id="flip-wrapper"><div id="flip-content"><div class="face" style="background: url(https://bu.dusays.com/2023/01/13/63c02edf44033.png) center center / 100% no-repeat"></div><div class="back face" style="background: url(https://bu.dusays.com/2023/05/13/645fa415e8694.png) center center / 100% no-repeat"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-bars"></i><span>文章目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%9A%84%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">一、一些基础的前端知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81css%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">1、css中的元素选择器:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%85%83%E7%B4%A0%EF%BC%88%E6%A0%87%E7%AD%BE%EF%BC%89%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%9A"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.元素（标签）选择器：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-id%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">2.id选择器:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%9A"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.类选择器：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84html%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.</span> <span class="toc-text">2、一些常见的html标签</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%A7%86%E9%A2%91%E3%80%81%E9%9F%B3%E9%A2%91%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.1.</span> <span class="toc-text">1). 视频、音频标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%AE%B5%E8%90%BD%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.2.</span> <span class="toc-text">2). 段落标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%96%87%E6%9C%AC%E6%A0%BC%E5%BC%8F%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.3.</span> <span class="toc-text">3). 文本格式标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B8%83%E5%B1%80%E7%BE%8E%E5%8C%96"><span class="toc-number">1.2.4.</span> <span class="toc-text">4).布局美化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">①盒子模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1%E5%B8%83%E5%B1%80%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">②布局标签</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%A1%A8%E6%A0%BC%E6%A0%87%E7%AD%BE"><span class="toc-number">1.2.5.</span> <span class="toc-text">5).表格标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E8%A1%A8%E5%8D%95%E6%A0%87%E7%AD%BE%EF%BC%88%E6%95%B0%E6%8D%AE%E6%8F%90%E4%BA%A4%EF%BC%89"><span class="toc-number">1.2.6.</span> <span class="toc-text">6).表单标签（数据提交）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%A1%A8%E5%8D%95%E7%9A%84%E6%8B%93%E5%B1%95%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.7.</span> <span class="toc-text">7).表单的拓展使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-CSS%E5%96%84%E7%94%A8%E6%96%87%E6%A1%A3"><span class="toc-number">1.2.8.</span> <span class="toc-text">7).CSS善用文档</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81js%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">1.3.</span> <span class="toc-text">3、js的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B9%A6%E5%86%99%E8%AF%AD%E6%B3%95"><span class="toc-number">1.3.1.</span> <span class="toc-text">1).书写语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text">2).变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.3.3.</span> <span class="toc-text">3).数据类型与运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.4.</span> <span class="toc-text">4).函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0%E7%AC%AC%E4%B8%80%E7%A7%8D%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">①第一种定义方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1%E7%AC%AC%E4%BA%8C%E7%A7%8D%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">②第二种定义方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-BOM%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.3.5.</span> <span class="toc-text">5).BOM对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0Windows%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.3.5.1.</span> <span class="toc-text">①Windows对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1Location%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.3.5.2.</span> <span class="toc-text">②Location对象</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-DOM%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.3.6.</span> <span class="toc-text">6).DOM对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A"><span class="toc-number">1.3.7.</span> <span class="toc-text">7).事件绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F1%EF%BC%9A%E9%80%9A%E8%BF%87html%E6%A0%87%E7%AD%BE%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%B1%9E%E6%80%A7%E8%BF%9B%E8%A1%8C%E7%BB%91%E5%AE%9A"><span class="toc-number">1.3.7.1.</span> <span class="toc-text">方式1：通过html标签中的事件属性进行绑定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F2%EF%BC%9A%E9%80%9A%E8%BF%87DOM%E4%B8%ADElement%E5%85%83%E7%B4%A0%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%B1%9E%E6%80%A7%E8%BF%9B%E8%A1%8C%E7%BB%91%E5%AE%9A"><span class="toc-number">1.3.7.2.</span> <span class="toc-text">方式2：通过DOM中Element元素的事件属性进行绑定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BA%8B%E4%BB%B6"><span class="toc-number">1.3.8.</span> <span class="toc-text">8).一些常见的事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81vue%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">1.4.</span> <span class="toc-text">4、vue的基本使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-number">1.4.1.</span> <span class="toc-text">1、快速入门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81vue%E6%8C%87%E4%BB%A4"><span class="toc-number">1.4.2.</span> <span class="toc-text">2、vue指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A0v-bind"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">①v-bind:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A1v-model%EF%BC%9A"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">②v-model：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A2v-on"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">③v-on:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A3v-if%E5%92%8Cv-show"><span class="toc-number">1.4.2.4.</span> <span class="toc-text">④v-if和v-show</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E2%91%A4v-for"><span class="toc-number">1.4.2.5.</span> <span class="toc-text">⑤v-for</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">1.4.3.</span> <span class="toc-text">3、生命周期</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81Ajax%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.5.</span> <span class="toc-text">5、Ajax的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81Ajax%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.5.1.</span> <span class="toc-text">1、Ajax的介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81Ajax%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-number">1.5.2.</span> <span class="toc-text">2、Ajax的简单使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81Axios"><span class="toc-number">1.5.3.</span> <span class="toc-text">3、Axios</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81Vue%E7%9A%84%E7%AE%80%E5%8D%95%E6%95%99%E7%A8%8B%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.6.</span> <span class="toc-text">6、Vue的简单教程介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA"><span class="toc-number">1.6.1.</span> <span class="toc-text">1、项目创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%86%E6%9E%90"><span class="toc-number">1.6.2.</span> <span class="toc-text">2、项目结构的简单分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81Vue%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%BF%90%E8%A1%8C"><span class="toc-number">1.6.3.</span> <span class="toc-text">3、Vue项目的运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81Vue%E7%BB%84%E4%BB%B6%E5%BA%93Element"><span class="toc-number">1.6.4.</span> <span class="toc-text">4、Vue组件库Element</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%E3%80%81%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.6.4.1.</span> <span class="toc-text">1、简单介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E3%80%81%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="toc-number">1.6.4.2.</span> <span class="toc-text">2、快速入门</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3%E3%80%81%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.6.4.3.</span> <span class="toc-text">3、分页组件的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%91%A0%E6%A8%A1%E5%9D%97%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.6.4.3.1.</span> <span class="toc-text">①模块的简单使用介绍</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E2%91%A1%E7%BB%84%E4%BB%B6%E4%BA%8B%E4%BB%B6"><span class="toc-number">1.6.4.3.2.</span> <span class="toc-text">②组件事件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81Vue%E8%B7%AF%E7%94%B1"><span class="toc-number">1.6.5.</span> <span class="toc-text">5、Vue路由</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E6%89%93%E5%8C%85"><span class="toc-number">1.6.6.</span> <span class="toc-text">6、项目部署打包</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="anzhiyufont anzhiyu-icon-history"></i><span>最近发布</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/" title="渗透测试学习之路">渗透测试学习之路</a><time datetime="2023-11-28T11:35:52.000Z" title="发表于 2023-11-28 19:35:52">2023-11-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-JavaWeb/" title="java学习历程记录-JavaWeb">java学习历程记录-JavaWeb</a><time datetime="2023-11-26T13:28:17.000Z" title="发表于 2023-11-26 21:28:17">2023-11-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-SpringMVC/" title="java学习历程记录-SpringMVC">java学习历程记录-SpringMVC</a><time datetime="2023-11-26T13:21:16.000Z" title="发表于 2023-11-26 21:21:16">2023-11-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" title="java学习历程记录-前端基础">java学习历程记录-前端基础</a><time datetime="2023-11-21T08:32:56.000Z" title="发表于 2023-11-21 16:32:56">2023-11-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/11/13/python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86-2-flask/" title="python学习经历-2-flask">python学习经历-2-flask</a><time datetime="2023-11-13T13:24:13.000Z" title="发表于 2023-11-13 21:24:13">2023-11-13</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div id="footer-bar-tips"><div class="copyright">&copy;2020 - 2024 By <a class="footer-bar-link" href="/" title="6pc1" target="_blank">6pc1</a></div></div><div id="footer-type-tips"></div></div><div class="footer-bar-right"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/anzhiyu-c/hexo-theme-anzhiyu" title="主题">主题</a></div></div></div></footer></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="sidebar-site-data site-data is-center"><a href="/archives/" title="archive"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/" title="tag"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/" title="category"><div class="headline">分类</div><div class="length-num">6</div></a></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><a class="darkmode_switchbutton menu-child" href="javascript:void(0);" title="显示模式"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span>显示模式</span></a></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">网页</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://blog.anheyu.com/" title="博客"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="/img/favicon.ico" alt="博客"/><span class="back-menu-item-text">博客</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://image.anheyu.com/" title="安知鱼图床"><img class="back-menu-item-icon" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null,this.src=&quot;/img/404.jpg&quot;" data-lazy-src="https://image.anheyu.com/favicon.ico" alt="安知鱼图床"/><span class="back-menu-item-text">安知鱼图床</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 文章</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/archives/"><i class="anzhiyufont anzhiyu-icon-box-archive faa-tada" style="font-size: 0.9em;"></i><span> 隧道</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/categories/"><i class="anzhiyufont anzhiyu-icon-shapes faa-tada" style="font-size: 0.9em;"></i><span> 分类</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags faa-tada" style="font-size: 0.9em;"></i><span> 标签</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 友链</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/link/"><i class="anzhiyufont anzhiyu-icon-link faa-tada" style="font-size: 0.9em;"></i><span> 友人帐</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/fcircle/"><i class="anzhiyufont anzhiyu-icon-artstation faa-tada" style="font-size: 0.9em;"></i><span> 朋友圈</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/comments/"><i class="anzhiyufont anzhiyu-icon-envelope faa-tada" style="font-size: 0.9em;"></i><span> 留言板</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 我的</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="anzhiyufont anzhiyu-icon-music faa-tada" style="font-size: 0.9em;"></i><span> 音乐馆</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/bangumis/"><i class="anzhiyufont anzhiyu-icon-bilibili faa-tada" style="font-size: 0.9em;"></i><span> 追番页</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/album/"><i class="anzhiyufont anzhiyu-icon-images faa-tada" style="font-size: 0.9em;"></i><span> 相册集</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/air-conditioner/"><i class="anzhiyufont anzhiyu-icon-fan faa-tada" style="font-size: 0.9em;"></i><span> 小空调</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span> 关于</span></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/about/"><i class="anzhiyufont anzhiyu-icon-paper-plane faa-tada" style="font-size: 0.9em;"></i><span> 关于本人</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/essay/"><i class="anzhiyufont anzhiyu-icon-lightbulb faa-tada" style="font-size: 0.9em;"></i><span> 闲言碎语</span></a></li><li><a class="site-page child faa-parent animated-hover" href="javascript:toRandomPost()"><i class="anzhiyufont anzhiyu-icon-shoe-prints1 faa-tada" style="font-size: 0.9em;"></i><span> 随便逛逛</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="item-headline"></div><div class="card-tag-cloud"><a href="/tags/JavaWeb/" style="font-size: 0.88rem;">JavaWeb<sup>1</sup></a><a href="/tags/Spring/" style="font-size: 0.88rem;">Spring<sup>1</sup></a><a href="/tags/blog/" style="font-size: 0.88rem;">blog<sup>1</sup></a><a href="/tags/css/" style="font-size: 0.88rem;">css<sup>1</sup></a><a href="/tags/flask/" style="font-size: 0.88rem;">flask<sup>1</sup></a><a href="/tags/html/" style="font-size: 0.88rem;">html<sup>1</sup></a><a href="/tags/java/" style="font-size: 0.88rem;">java<sup>1</sup></a><a href="/tags/js/" style="font-size: 0.88rem;">js<sup>1</sup></a><a href="/tags/python/" style="font-size: 0.88rem;">python<sup>2</sup></a><a href="/tags/serialize/" style="font-size: 0.88rem;">serialize<sup>1</sup></a><a href="/tags/%E6%B8%97%E9%80%8F/" style="font-size: 0.88rem;">渗透<sup>1</sup></a></div></div><hr/></div></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="anzhiyufont anzhiyu-icon-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="anzhiyufont anzhiyu-icon-arrows-left-right"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="anzhiyufont anzhiyu-icon-gear"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="anzhiyufont anzhiyu-icon-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></button></div></div><div id="nav-music"><a id="nav-music-hoverTips" onclick="anzhiyu.musicToggle()" accesskey="m">播放音乐</a><div id="console-music-bg"></div><meting-js id="8152976493" server="netease" type="playlist" mutex="true" preload="none" theme="var(--anzhiyu-main)" data-lrctype="0" order="random" volume="0.7"></meting-js></div><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="anzhiyufont anzhiyu-icon-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="anzhiyufont anzhiyu-icon-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="anzhiyufont anzhiyu-icon-arrow-rotate-right" style="font-size: 1rem;"></i></div><div class="rightMenu-item" id="menu-top"><i class="anzhiyufont anzhiyu-icon-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="anzhiyufont anzhiyu-icon-paste"></i><span>粘贴文本</span></div><a class="rightMenu-item" id="menu-commenttext"><i class="anzhiyufont anzhiyu-icon-comment-medical"></i><span>引用到评论</span></a><div class="rightMenu-item" id="menu-newwindow"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="anzhiyufont anzhiyu-icon-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="anzhiyufont anzhiyu-icon-images"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="anzhiyufont anzhiyu-icon-download"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-newwindowimg"><i class="anzhiyufont anzhiyu-icon-window-restore"></i><span>新窗口打开图片</span></div><div class="rightMenu-item" id="menu-search"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-searchBaidu"><i class="anzhiyufont anzhiyu-icon-magnifying-glass"></i><span>百度搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="anzhiyufont anzhiyu-icon-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="anzhiyufont anzhiyu-icon-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="anzhiyufont anzhiyu-icon-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-playlist" onclick="window.open(&quot;https://y.qq.com/n/ryqq/playlist/8802438608&quot;, &quot;_blank&quot;);" style="display: none;"><i class="anzhiyufont anzhiyu-icon-radio"></i><span>查看所有歌曲</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item menu-link" id="menu-randomPost"><i class="anzhiyufont anzhiyu-icon-shuffle"></i><span>随便逛逛</span></a><a class="rightMenu-item menu-link" href="/categories/"><i class="anzhiyufont anzhiyu-icon-cube"></i><span>博客分类</span></a><a class="rightMenu-item menu-link" href="/tags/"><i class="anzhiyufont anzhiyu-icon-tags"></i><span>文章标签</span></a></div><div class="rightMenu-group rightMenu-line rightMenuOther"><a class="rightMenu-item" id="menu-copy" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-copy"></i><span>复制地址</span></a><a class="rightMenu-item" id="menu-commentBarrage" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-message"></i><span class="menu-commentBarrage-text">关闭热评</span></a><a class="rightMenu-item" id="menu-darkmode" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></a><a class="rightMenu-item" id="menu-translate" href="javascript:void(0);"><i class="anzhiyufont anzhiyu-icon-language"></i><span>轉為繁體</span></a></div></div><div id="rightmenu-mask"></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.cbd.int/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js"></script><script src="https://cdn.cbd.int/instant.page@5.2.0/instantpage.js" type="module"></script><script src="https://cdn.cbd.int/vanilla-lazyload@17.8.5/dist/lazyload.iife.min.js"></script><script src="https://cdn.cbd.int/node-snackbar@0.1.16/dist/snackbar.min.js"></script><canvas id="universe"></canvas><script async src="https://npm.elemecdn.com/anzhiyu-theme-static@1.0.0/dark/dark.js"></script><script>// 消除控制台打印
+var HoldLog = console.log;
+console.log = function () {};
+let now1 = new Date();
+queueMicrotask(() => {
+  const Log = function () {
+    HoldLog.apply(console, arguments);
+  }; //在恢复前输出日志
+  const grt = new Date("04/01/2021 00:00:00"); //此处修改你的建站时间或者网站上线时间
+  now1.setTime(now1.getTime() + 250);
+  const days = (now1 - grt) / 1000 / 60 / 60 / 24;
+  const dnum = Math.floor(days);
+  const ascll = [
+    `欢迎使用安知鱼!`,
+    `生活明朗, 万物可爱`,
+    `
         
+       █████╗ ███╗   ██╗███████╗██╗  ██╗██╗██╗   ██╗██╗   ██╗
+      ██╔══██╗████╗  ██║╚══███╔╝██║  ██║██║╚██╗ ██╔╝██║   ██║
+      ███████║██╔██╗ ██║  ███╔╝ ███████║██║ ╚████╔╝ ██║   ██║
+      ██╔══██║██║╚██╗██║ ███╔╝  ██╔══██║██║  ╚██╔╝  ██║   ██║
+      ██║  ██║██║ ╚████║███████╗██║  ██║██║   ██║   ╚██████╔╝
+      ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝   ╚═╝    ╚═════╝
+        
+        `,
+    "已上线",
+    dnum,
+    "天",
+    "©2020 By 安知鱼 V1.6.12",
+  ];
+  const ascll2 = [`NCC2-036`, `调用前置摄像头拍照成功，识别为【小笨蛋】.`, `Photo captured: `, `🤪`];
 
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2023/11/13/python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86-2-flask/" rel="prev" title="python学习经历-2-flask">
-                  <i class="fa fa-angle-left"></i> python学习经历-2-flask
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-SpringMVC/" rel="next" title="java学习历程记录-SpringMVC">
-                  java学习历程记录-SpringMVC <i class="fa fa-angle-right"></i>
-                </a>
-            </div>
-          </div>
-    </footer>
-  </article>
-</div>
-
-
-
-
-
-
-    <div class="comments" id="waline"></div>
-</div>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-inner">
-
-  <div class="copyright">
-    &copy; 2023 – 
-    <span itemprop="copyrightYear">2024</span>
-    <span class="with-love">
-      <i class="fa fa-heart"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">6pc1</span>
-  </div>
-<div class="wordcount">
-  <span class="post-meta-item">
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-line"></i>
-    </span>
-    <span title="站点总字数">56k</span>
-  </span>
-  <span class="post-meta-item">
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="站点阅读时长">51 分钟</span>
-  </span>
-</div>
-<div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
-  </div>
-
-    </div>
-  </footer>
-
-  
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up fa-lg"></i>
-    <span>0%</span>
-  </div>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/js/third-party/search/local-search.js"></script>
-
-
-
-
-
-
-
-  
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-pi-one.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2023/11/21/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/"}</script>
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
-<script>
-document.addEventListener('page:loaded', () => {
-  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
-    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
-  ).then(() => 
-    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  setTimeout(
+    Log.bind(
+      console,
+      `\n%c${ascll[0]} %c ${ascll[1]} %c ${ascll[2]} %c${ascll[3]}%c ${ascll[4]}%c ${ascll[5]}\n\n%c ${ascll[6]}\n`,
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      "color:#425AEF",
+      "",
+      "color:#425AEF",
+      ""
+    )
   );
-});
-</script>
+  setTimeout(
+    Log.bind(
+      console,
+      `%c ${ascll2[0]} %c ${ascll2[1]} %c \n${ascll2[2]} %c\n${ascll2[3]}\n`,
+      "color:white; background-color:#4fd953",
+      "",
+      "",
+      'background:url("https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/tinggge.gif") no-repeat;font-size:450%'
+    )
+  );
 
+  setTimeout(Log.bind(console, "%c WELCOME %c 你好，小笨蛋.", "color:white; background-color:#4f90d9", ""));
 
-  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
-  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
-  <script type="text/javascript" src="/js/fireworks.js"></script>
-</body>
-</html>
+  setTimeout(
+    console.warn.bind(
+      console,
+      "%c ⚡ Powered by 安知鱼 %c 你正在访问 6pc1 的博客.",
+      "color:white; background-color:#f0ad4e",
+      ""
+    )
+  );
+
+  setTimeout(Log.bind(console, "%c W23-12 %c 你已打开控制台.", "color:white; background-color:#4f90d9", ""));
+
+  setTimeout(
+    console.warn.bind(console, "%c S013-782 %c 你现在正处于监控中.", "color:white; background-color:#d9534f", "")
+  );
+});</script><script async src="/anzhiyu/random.js"></script><div class="js-pjax"><input type="hidden" name="page-type" id="page-type" value="post"></div><script>var visitorMail = "";
+</script><script async data-pjax src="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/waterfall/waterfall.js"></script><script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.1.9/icon/ali_iconfont_css.css"><link rel="stylesheet" href="https://cdn.cbd.int/anzhiyu-theme-static@1.0.0/aplayer/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.cbd.int/anzhiyu-blog-static@1.0.1/js/APlayer.min.js"></script><script src="https://cdn.cbd.int/hexo-anzhiyu-music@1.0.1/assets/js/Meting2.min.js"></script><script src="https://cdn.cbd.int/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+  // removeEventListener scroll 
+  anzhiyu.removeGlobalFnEvent('pjax')
+  anzhiyu.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script charset="UTF-8" src="https://cdn.cbd.int/anzhiyu-theme-static@1.1.5/accesskey/accesskey.js"></script></div><div id="popup-window"><div class="popup-window-title">通知</div><div class="popup-window-divider"></div><div class="popup-window-content"><div class="popup-tip">你好呀</div><div class="popup-link"><i class="anzhiyufont anzhiyu-icon-arrow-circle-right"></i></div></div></div></body></html>
