@@ -37,17 +37,6 @@
       </tags>
   </entry>
   <entry>
-    <title>java学习历程记录-SpringMVC</title>
-    <url>/2023/11/26/java%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B%E8%AE%B0%E5%BD%95-SpringMVC/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>python学习历程(1)</title>
     <url>/2023/11/11/python%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B-1/</url>
     <content><![CDATA[<p>最近也是大二了，好不容易终于接到了大创了，不过大创需要我们去深入学习python，加上打算去参加一个python的项目制作，再去想想我那python水平，简直一言难尽，只能抓紧时间赶快补了😱</p>
@@ -125,7 +114,23 @@
     <content><![CDATA[<p>最近学习了java反序列化以及反射 的相关知识，就在这稍微做一些总结。</p>
 <span id="more"></span>
 
-<h1 id="一、java反射"><a href="#一、java反射" class="headerlink" title="一、java反射"></a>一、java反射</h1><p>首先就是介绍总结一下java反射中用到的一些相关方法，当然也不是直接对着方法名记忆，那样太枯燥了，主要就是在使用的过程中去学习。</p>
+<h1 id="一、Java反射"><a href="#一、Java反射" class="headerlink" title="一、Java反射"></a>一、Java反射</h1><p>java反射其实也就是比较基础简单的，主要就是集中在一些函数上。</p>
+<p>首先就是反射的作用是什么</p>
+<blockquote>
+<p>1、让java具有动态性</p>
+<p>2、修改已有对象的属性的值</p>
+<p>3、动态生成对象</p>
+<p>4、动态调用方法</p>
+<p>5、操作内部类和私有方法私有变量</p>
+</blockquote>
+<p>其次就是最主要的一点</p>
+<p>Java反射在Java反序列化中的应用</p>
+<blockquote>
+<p><strong>1、定制需要的对象</strong></p>
+<p><strong>2、通过invoke去调用同名函数以外的函数</strong></p>
+<p><strong>3、通过Class类创建对象，引入不能序列化的类然后通过反射去执行</strong></p>
+</blockquote>
+<p>首先就是介绍总结一下java反射中用到的一些相关方法，当然也不是直接对着方法名记忆，那样太枯燥了，主要就是在使用的过程中去学习。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Class</span> <span class="variable">clazz</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="comment">//这个的意思就是获取到java.lang.Runtime这个类，是一种获取类最常见的方法，然后获取到的类就被“等同”于clazz（！！！这里要想起来类和对象之间的区别，这两个不是同一种东西！！！）</span></span><br><span class="line">clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(clazz.newInstance(), <span class="string">&quot;id&quot;</span>);</span><br><span class="line"><span class="comment">//这里我们就逐步分析，首先就是getMethod就是获取一个类的方法</span></span><br><span class="line"><span class="comment">//格式： 类.getMethod（“方法名”, 这个方法需要传递的参数类型）</span></span><br><span class="line"><span class="comment">//然后就是invoke，这是一个调用上面获得的方法。</span></span><br><span class="line"><span class="comment">//格式： 方法名.(类的一个对象,需要传递给方法的参数)</span></span><br><span class="line"><span class="comment">//newInstance就是调用该类的构造方法去实例化一个对象</span></span><br></pre></td></tr></table></figure>
 
 <p>当然这样直接去运行时会产生报错的！！！这又是为什么呢？</p>
@@ -154,7 +159,27 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">clazz</span> = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="type">Constructor</span> <span class="variable">m</span> <span class="operator">=</span> clazz.getDeclaredConstructor();</span><br><span class="line">m.setAccessible(<span class="literal">true</span>);</span><br><span class="line">clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(m.newInstance(), <span class="string">&quot;calc.exe&quot;</span>);</span><br></pre></td></tr></table></figure>
 
 <p>setAccessible必须要设置为true，不然无法去使用。</p>
-<h1 id="二、RMI"><a href="#二、RMI" class="headerlink" title="二、RMI"></a>二、RMI</h1><p>RMI全称是Remote Method Invocation，远程⽅法调⽤。听这名字应该也就知道，就是去从调用一个远程主机上的java方法，在这里就挑一些重点的代码片段进行讲解。</p>
+<h1 id="二、JDK动态代理"><a href="#二、JDK动态代理" class="headerlink" title="二、JDK动态代理"></a>二、JDK动态代理</h1><p>首先就是个人感觉java的动态代理技术就有点与Python中的装饰器</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-03-11/4b18054f0f5d8eb98cb45ce94a070ab0--4962--image-20240311143731878.png" alt="image-20240311143731878"></p>
+<p>通过调用jdk自带的相关方法，从而去省略跳过自身创建静态代理</p>
+<p>ProxyTest.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">UserInvocationHandler</span> <span class="variable">userinvocationhandler</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserInvocationHandler</span>();</span><br><span class="line"><span class="type">IUser</span> <span class="variable">userProxy</span> <span class="operator">=</span> (IUser) Proxy.newProxyInstance(user.getClass().getClassLoader(),user.getClass().getInterfaces(),userinvocationhandler)</span><br><span class="line">userProxy.method;   <span class="comment">//这样就可以去代理user的方法</span></span><br></pre></td></tr></table></figure>
+
+<p>UserInvocationHandler.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">IUser user;</span><br><span class="line"><span class="keyword">public</span> <span class="title function_">UserInvocationHandler</span><span class="params">(IUser user)</span>&#123;<span class="built_in">this</span>.user = user;&#125;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Object <span class="title function_">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable&#123;</span><br><span class="line">    method.invoke(user,args);   <span class="comment">//进行反射去调用</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>这样也就成功实现了简单的动态代理了</p>
+<h1 id="三、类的动态加载"><a href="#三、类的动态加载" class="headerlink" title="三、类的动态加载"></a>三、类的动态加载</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ClassLoader cl = ClassLoader.getSystemClassLoader();</span><br></pre></td></tr></table></figure>
+
+<p>获得系统当前的类加载器</p>
+<p> 构造代码块，静态代码块———————无论调用什么构造方法都会先调用构造代码块。同理，静态代码块也是如此</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//构造代码块</span><br><span class="line">&#123;</span><br><span class="line">	xxxxxx</span><br><span class="line">&#125;</span><br><span class="line">静态代码块</span><br><span class="line">static&#123;</span><br><span class="line">	xxxxx</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后就去实现一个具体的代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">byte</span>[] code = Files.readAllBytes(Paths.get(<span class="string">&quot;E:\\Test.class&quot;</span>));</span><br><span class="line"><span class="comment">//        Class c =  (Class) defineClassMethod.invoke(cl, &quot;Test&quot;, code,0,code.length);</span></span><br><span class="line"><span class="comment">//        c.newInstance();</span></span><br><span class="line"></span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Unsafe.class;</span><br><span class="line">        <span class="type">Field</span> <span class="variable">theUnsafeField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;theUnsafe&quot;</span>);</span><br><span class="line">        theUnsafeField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        <span class="type">Unsafe</span> <span class="variable">unsafe</span> <span class="operator">=</span> (Unsafe) theUnsafeField.get(<span class="literal">null</span>);</span><br><span class="line">        Class&lt;?&gt; test = unsafe.defineClass(<span class="string">&quot;Test&quot;</span>, code, <span class="number">0</span>, code.length, cl, <span class="literal">null</span>);</span><br><span class="line">        test.newInstance();</span><br></pre></td></tr></table></figure>
+
+<p>通过类加载器可以去实现加载远程或者本地的其他目录下的类</p>
+<h1 id="四、RMI"><a href="#四、RMI" class="headerlink" title="四、RMI"></a>四、RMI</h1><p>RMI全称是Remote Method Invocation，远程⽅法调⽤。听这名字应该也就知道，就是去从调用一个远程主机上的java方法，在这里就挑一些重点的代码片段进行讲解。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">LocateRegistry.createRegistry(<span class="number">1099</span>);</span><br><span class="line">Naming.bind(<span class="string">&quot;rmi://127.0.0.1:1099/Hello&quot;</span>, <span class="keyword">new</span> <span class="title class_">RemoteHelloWorld</span>());(这里是服务器上启动的)</span><br></pre></td></tr></table></figure>
 
 <p>首先第一行这里就是创建并且执行Registry服务，这个服务就是相当于一个中继器，我将类和一个名字绑定丢到这里面去，别的人就可以通过名字去拿到这个对应的类，这就是Registry所起到的一个作用。然后就是第二行，就是将本机的一个类给绑定到了一个Registry服务上，这样等之后就可以去直接拿到这个类了。</p>
@@ -209,7 +234,7 @@
 <p>这也不是唯一一种，我们也可以用byte流的方法代替文件流</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ByteArrayOutputStream</span> <span class="variable">baos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayOutputStream</span>();</span><br><span class="line">ObjectOutputStream obj_out=<span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(baos); </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">ByteArrayInputStream</span> <span class="variable">bais</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ByteArrayInputStream</span>(baos.toByteArray());</span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">ins</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(bais);</span><br></pre></td></tr></table></figure>
 
-]]></content>
+<h1 id="四、CC1链"><a href="#四、CC1链" class="headerlink" title="四、CC1链"></a>四、CC1链</h1>]]></content>
       <categories>
         <category>java</category>
       </categories>
