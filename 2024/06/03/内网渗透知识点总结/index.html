@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"6pc1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/./search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近打了不少春秋云镜的内网渗透的徽章，所以打算对内网的知识点进行一个总结学习。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网渗透知识点总结">
+<meta property="og:url" content="http://6pc1.github.io/2024/06/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="6pc1&#39;s blog">
+<meta property="og:description" content="最近打了不少春秋云镜的内网渗透的徽章，所以打算对内网的知识点进行一个总结学习。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/686758e25b44ac5052c1d58e832b5595--1e96--image-20240603162935647.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/24353d28c62d43e09e3103477a6f5a24--c450--2752372-20220719180949017-1117785613.png">
+<meta property="article:published_time" content="2024-06-03T08:05:42.000Z">
+<meta property="article:modified_time" content="2024-06-03T12:28:39.839Z">
+<meta property="article:author" content="6pc1">
+<meta property="article:tag" content="渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/686758e25b44ac5052c1d58e832b5595--1e96--image-20240603162935647.png">
+
+
+<link rel="canonical" href="http://6pc1.github.io/2024/06/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://6pc1.github.io/2024/06/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/","path":"2024/06/03/内网渗透知识点总结/","title":"内网渗透知识点总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>内网渗透知识点总结 | 6pc1's blog</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-pi-one.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">6pc1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界如画，心中有梦!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%86%85%E7%BD%91%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">一、内网是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E5%8F%88%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">二、内网渗透又是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%86%85%E7%BD%91%E5%BF%85%E9%A1%BB%E7%9F%A5%E8%AF%86%E2%80%94-%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-number">3.</span> <span class="nav-text">三、内网必须知识—-内网穿透</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%86%85%E7%BD%91%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">四、内网结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%B7%A5%E4%BD%9C%E7%BB%84Work-Group"><span class="nav-number">4.1.</span> <span class="nav-text">1、工作组Work Group:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%9F%9F"><span class="nav-number">4.2.</span> <span class="nav-text">2、域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95-AD"><span class="nav-number">4.3.</span> <span class="nav-text">3、活动目录(AD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E5%AE%89%E5%85%A8%E5%9F%9F"><span class="nav-number">4.4.</span> <span class="nav-text">4、安全域</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%9F%9F%E6%9D%83%E9%99%90"><span class="nav-number">5.</span> <span class="nav-text">五、域权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-G-DL-P%E7%AD%96%E7%95%A5"><span class="nav-number">5.0.1.</span> <span class="nav-text">A-G-DL-P策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E5%86%85%E6%9D%83%E9%99%90%E8%A7%A3%E8%AF%BB"><span class="nav-number">5.0.2.</span> <span class="nav-text">域内权限解读</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-%E9%87%8D%E7%82%B9"><span class="nav-number">6.</span> <span class="nav-text">六、内网信息收集            重点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-number">6.0.1.</span> <span class="nav-text">Windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux"><span class="nav-number">6.0.2.</span> <span class="nav-text">Linux</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%86%85%E7%BD%91%E5%9F%9F%E6%B8%97%E9%80%8F%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="nav-number">7.</span> <span class="nav-text">七、内网域渗透常用工具</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="6pc1"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">6pc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/6pc1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;6pc1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2961816476@qq.com" title="E-Mail → mailto:2961816476@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://qm.qq.com/q/uZSUzwBesa" title="QQ → https:&#x2F;&#x2F;qm.qq.com&#x2F;q&#x2F;uZSUzwBesa" rel="noopener me" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://hacbit.tech/" title="https:&#x2F;&#x2F;hacbit.tech&#x2F;" rel="noopener" target="_blank">hacbit</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://yixinbc.tech/" title="https:&#x2F;&#x2F;yixinbc.tech&#x2F;" rel="noopener" target="_blank">yixinBC</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://6pc1.github.io/2024/06/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="6pc1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="内网渗透知识点总结 | 6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          内网渗透知识点总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-03 16:05:42 / 修改时间：20:28:39" itemprop="dateCreated datePublished" datetime="2024-06-03T16:05:42+08:00">2024-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2024/06/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2024/06/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最近打了不少春秋云镜的内网渗透的徽章，所以打算对内网的知识点进行一个总结学习。</p>
+<span id="more"></span>
+
+<h1 id="一、内网是什么？"><a href="#一、内网是什么？" class="headerlink" title="一、内网是什么？"></a>一、内网是什么？</h1><p>内网也指局域网，是指在某个区域由多台计算机互连而成的计算机组，组网范围通常在数千米以内。</p>
+<p>在局域网中，可以实现文件管理、应用软件共享、打印机共享、工作组内的日程安排、电子邮件和传真通信服务等。</p>
+<p>内网是封闭的，可以由办公室内的两台计算机组成，也可以由一个公司内的大量计算机组成。</p>
+<p>简单来说：内网就是某一区域内封闭的计算机组，由大量的计算机组成。</p>
+<p>一个简单的网络拓扑图：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/686758e25b44ac5052c1d58e832b5595--1e96--image-20240603162935647.png" alt="image-20240603162935647"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/24353d28c62d43e09e3103477a6f5a24--c450--2752372-20220719180949017-1117785613.png" alt="2752372-20220719180949017-1117785613"></p>
+<p>可以看出就是内网是独立于外网的，外网无法直接去访问内网中的主机，只有通过VPN，代理等技术去间接访问。</p>
+<p><a target="_blank" rel="noopener" href="https://websec.readthedocs.io/zh/latest/intranet/index.html">https://websec.readthedocs.io/zh/latest/intranet/index.html</a>  Web安全学习笔记</p>
+<h1 id="二、内网渗透又是什么？"><a href="#二、内网渗透又是什么？" class="headerlink" title="二、内网渗透又是什么？"></a>二、内网渗透又是什么？</h1><p>内网渗透，从字面上理解便是对目标服务器所在内网进行渗透并最终获取域控权限的一种渗透。内网渗透的前提是获取一个webshell，可以是低权限的webshell，因为可以通过提权获取高权限</p>
+<p>在进行内网渗透之前需要了解一个概念，<strong>域环境</strong>。在内网中，往往可能存在几百上千台机器，例如需要对机器进行升级、打补丁，设置权限等，管理员不可能一台一台地更新修改，因此衍生出了域环境。  （域控DC一般都是Windows系统） （但并不绝对，<a target="_blank" rel="noopener" href="https://www.dbs724.com/113421.html">Linux</a>也能够成为域控）</p>
+<p>管理员以一台主机作为域控制器新建一个域，将其他主机加入域中，以域控来操作其他主机。因为域控的最高权限，导致了域控所在的主机的管理员账户密码可以登陆任意一台主机，所以内网渗透的最终目标，往往是拿下域控的权限</p>
+<h1 id="三、内网必须知识—-内网穿透"><a href="#三、内网必须知识—-内网穿透" class="headerlink" title="三、内网必须知识—-内网穿透"></a>三、内网必须知识—-内网穿透</h1><p>在渗透测试过程中，我们拿下了一台服务器的权限，并且通过<code>netstat -ano</code>发现开启了3389端口，想要远程桌面连接的时候发现无法连接。这是因为我们获取的服务器所处的环境为内网，而内网主机的3389端口，是公网IP通过端口映射的。也就是说，我们连接的外网IP地址的3389端口，映射到内网中，不一定是那台服务器的3389端口。</p>
+<p><strong>解决这种问题的方法有俩种：</strong></p>
+<ul>
+<li>让目标机器去连接外网主机（必须有一台公网服务器，内网主机能够访问互联网）</li>
+<li>在目前机器上设置一个信号站（放一个web文件在目标机器上，所有流量都要经过这个文件通信） （一般情况下就是socks隧道的搭建）</li>
+</ul>
+<p>在渗透测试过程中，内网主机不能访问互联网是很常见的。</p>
+<p>这里可以使用的就是stowaway搭建网络代理 ———————<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/129681017">https://blog.csdn.net/qq_44159028/article/details/129681017</a></p>
+<h1 id="四、内网结构"><a href="#四、内网结构" class="headerlink" title="四、内网结构"></a>四、内网结构</h1><p><a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/network/306068.html">https://www.freebuf.com/articles/network/306068.html</a></p>
+<h2 id="1、工作组Work-Group"><a href="#1、工作组Work-Group" class="headerlink" title="1、工作组Work Group:"></a>1、工作组Work Group:</h2><p>是最常见最简单最普通的资源管理模式，就是将不同的电脑按功能分别列入不同的组中，以方便管理。</p>
+<h2 id="2、域"><a href="#2、域" class="headerlink" title="2、域"></a>2、域</h2><p>域是一个有安全边界的计算机集合，域通过安全边界来隔离本域和外部资源。</p>
+<p>域又可以再进一步的分类：</p>
+<ul>
+<li>单域                  就两台主机，一台DC一台备份DC</li>
+<li>父域，子域       划分多个域，第一个域为父域，其他为子域</li>
+<li>域树（tree）     域树是多个域通过建立信任关系组成的集合。</li>
+<li>域林（forest）  域林是由一个或多个没有形成连续名字空间的域树组成，它和域树最大的区别就是域林之间没有形成连续的名字空间，而域树则是由一些具有连续名字空间的域组成。</li>
+<li>DNS域名服务器   DNS服务器，计算机使用DNS来定位DC、服务器和其他计算机的，所以域的名字就是DNS域的名字。</li>
+</ul>
+<h2 id="3、活动目录-AD"><a href="#3、活动目录-AD" class="headerlink" title="3、活动目录(AD)"></a>3、活动目录(AD)</h2><p>简写为<code>AD</code>，它是 Windows Server 中负责架构中大型网络环境的集中式目录管理服务</p>
+<p><strong>活动目录的功能：</strong></p>
+<ul>
+<li>账户集中管理</li>
+<li>软件集中管理</li>
+<li>环境集中管理</li>
+<li>增强安全性</li>
+<li>更可靠、更短的宕机时间</li>
+</ul>
+<p><strong>活动目录与域控制器的区别</strong></p>
+<p>由域网络中的众多对象组成的层次结构的数据库被称为活动目录数据库（AD库）。要实现域环境其实就是要安装AD，如果内网中某台机器安装了AD，那么他就是DC。也就实现了只需要在活动目录中对某个账号修改一次密码，在整个域中任意一台机器上都可使用该账号登录。<br>方便了DC对域内其他机器的统一管理</p>
+<h2 id="4、安全域"><a href="#4、安全域" class="headerlink" title="4、安全域"></a>4、安全域</h2><p><strong>安全域的划分目的：</strong></p>
+<p>将一组安全等级相同的计算机划如同一网段。</p>
+<p>这个网段内的计算机拥有相同的网络边界，并在网络边界上通过部署防火墙来实现对其他安全域的网络控制策略，从而允许哪些IP地址访问域，允许此域访问哪些IP地址和网段进行设置。</p>
+<p>这些措施将使得网络风险最小化，当攻击发生时，可以尽可能地将威胁隔离从而降低对域内计算机的影响</p>
+<p><strong>DMZ</strong></p>
+<p>DMZ<code>demilitarized zone</code>，中文名为“隔离区”，或称“非军事化区”。它是为了解决安装防火墙后外部网络的访问用户不能访问内部网络服务器的问题，从而设立的一个非安全系统与安全系统之间的缓冲区。</p>
+<p><strong>简答来说：DMZ就是将内网与外网进行隔离，存放一些必须公开的服务器设施，用来对外提供服务。</strong></p>
+<p><strong>办公区</strong></p>
+<p>公司员工日常的工作区，一般会安装防病毒软件、主机入侵检测产品等。办公区般能够访问DMZ。如果运维人员也在办公区，那么部分主机也能访问核心数据区（很多大企业还会使用堡垒机来统一管理用户的登录行为）。</p>
+<p>攻击者如果想进入内网，一般会使用鱼叉攻击、水坑攻击，当然还有社会工程学手段。办公区人员多而杂，变动也很频繁，在安全管理上可能存在诸多漏洞，是攻击者进入内网的重要途径之一。</p>
+<p><strong>核心区</strong></p>
+<p>存储企业最重要的数据、文档等信息资产，通过日志记录、安全审计等安全措施进行严密的保护，往往只有很少的主机能够访问。从外部是很难直接访问核心区的。</p>
+<p>一般来说，能够直接访问核心区的只有运维人员或者IT部门的主管，所以，攻击者会重点关注这些用户的信息（攻击者在内网中进行横向移动攻击时，会优先查找这些主机）</p>
+<h1 id="五、域权限"><a href="#五、域权限" class="headerlink" title="五、域权限"></a>五、域权限</h1><ol>
+<li><p>域本地组</p>
+<p>多域用户访问单域资源（访问同一域），不能嵌套在其他组中，只能在其所在域内指派权限</p>
+</li>
+<li><p>全局组</p>
+<p>单域用户访问多域资源（必须是同一域里面的用户），能够嵌套在其他组中，可在域林中的任何域指派权限</p>
+</li>
+<li><p>通用组</p>
+<p>多域用户访问多域资源，成员信息不保存在域控制器中，而是保存在全局编录（GC）中，任何变化都会导致全林复制</p>
+</li>
+</ol>
+<h3 id="A-G-DL-P策略"><a href="#A-G-DL-P策略" class="headerlink" title="A-G-DL-P策略"></a>A-G-DL-P策略</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">A：Account，用户账号</span><br><span class="line"></span><br><span class="line">G：Global Group，全局组</span><br><span class="line"></span><br><span class="line">U：Universal Group，通用组</span><br><span class="line"></span><br><span class="line">DL：Domain Local Group，域本地组</span><br><span class="line"></span><br><span class="line">P：Permission，许可，资源权限</span><br><span class="line">先将用户账号添加至全局组中，再将全局组添加至域本地组中，然后为域本地组分配资源权限</span><br></pre></td></tr></table></figure>
+
+<h3 id="域内权限解读"><a href="#域内权限解读" class="headerlink" title="域内权限解读"></a>域内权限解读</h3><ul>
+<li>域本地组：来自全林作用于本域</li>
+<li>全局组：来组本域作用于全林</li>
+<li>通用组：来自全林作用于全林</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">本地域组的权限</span><br><span class="line">Administrators（管理员组） ————最重要的权限</span><br><span class="line"></span><br><span class="line">Remote Desktop Users（远程登录组）</span><br><span class="line"></span><br><span class="line">Print Operators（打印机操作员组）</span><br><span class="line"></span><br><span class="line">Account Operators（帐号操作员组）</span><br><span class="line"></span><br><span class="line">Server Operaters（服务器操作员组）</span><br><span class="line"></span><br><span class="line">Backup Operators（备份操作员组）</span><br><span class="line">全局组、通用组的权限：</span><br><span class="line">Domain Admins（域管理员组）————最最最重要的权限，一般来说域渗透是看重这个</span><br><span class="line"></span><br><span class="line">Enterprise Admins（企业系统管理员组）————最重要的权限，其次是去看重这个权限</span><br><span class="line"></span><br><span class="line">Schema Admins（架构管理员组）————最重要的权限</span><br><span class="line"></span><br><span class="line">Domain Users（域用户组)</span><br></pre></td></tr></table></figure>
+
+<h1 id="六、内网信息收集-重点"><a href="#六、内网信息收集-重点" class="headerlink" title="六、内网信息收集            重点"></a>六、内网信息收集            重点</h1><p>目标资产信息搜集的程度，决定渗透过程的复杂程度。<br>目标主机信息搜集的深度，决定后渗透权限持续把控。<br>渗透的本质是信息搜集，而信息搜集整理为后续的情报跟进提供了强大的保证。</p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p><strong>系统相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#查看系统信息</span><br><span class="line">systeminfo /all</span><br><span class="line"></span><br><span class="line">#查看补丁列表</span><br><span class="line">wmic qfe getCaption,Description,HotFixID,InstalledOn</span><br><span class="line"></span><br><span class="line">#查看主机开机时间</span><br><span class="line">net statistics workstation</span><br><span class="line"></span><br><span class="line">#查看计划任务</span><br><span class="line">schtasks /query /fo LIST /v             #query显示所有计划任务</span><br></pre></td></tr></table></figure>
+
+<p><strong>用户相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#检查当前用户，权限</span><br><span class="line">whoami /user &amp;&amp; whoami /priv</span><br><span class="line">whoami /all        #查看当前域并获取域SID</span><br><span class="line"></span><br><span class="line">#查看在线用户信息</span><br><span class="line">quser</span><br><span class="line">query user || qwinsta</span><br></pre></td></tr></table></figure>
+
+<p><strong>程序相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#查看杀毒软件</span><br><span class="line">wmic /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntivirusProduct Get displayName /Format:List</span><br><span class="line"></span><br><span class="line">#查看安装的程序和版本</span><br><span class="line">wmic product getname,version</span><br><span class="line"></span><br><span class="line">#查询运行的进程</span><br><span class="line">tasklist</span><br><span class="line">wmic process list brief</span><br><span class="line">wmic process getprocessid,executablepath,name      #显示进程的路径、名称、pid</span><br><span class="line">wmic servicelist brief                             #查看本机服务</span><br><span class="line"></span><br><span class="line">#远程桌面连接历史记录</span><br><span class="line">cmdkey /l</span><br><span class="line"></span><br><span class="line">#查看自启动程序列表</span><br><span class="line">wmic startuo getcommand,caption</span><br></pre></td></tr></table></figure>
+
+<p><strong>网络连接相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#tcp/udp网络连接状态，端口信息</span><br><span class="line">netstat -ano</span><br><span class="line"></span><br><span class="line">ipconfig /all              #查询本机IP段，所在域等</span><br><span class="line">route print                #打印路由信息</span><br><span class="line">arp -a                   #查看arp缓存，可以发现内网主机</span><br><span class="line"></span><br><span class="line">#查看局域网信息</span><br><span class="line">net view            #查看同一域内机器列表</span><br><span class="line">net view \\ip       #查看某ip共享</span><br><span class="line">net view \\GHQ      #查看GHQ计算机的共享资源列表</span><br><span class="line">net view /domain    #查看内网存在多少个域</span><br><span class="line">net view /domin:XYZ  #查看XYZ域的机器列表</span><br><span class="line">net accounts /domain  #查询域用户密码过期等信息</span><br><span class="line"></span><br><span class="line">#查看本机共享</span><br><span class="line">net share</span><br><span class="line">wmic share getname,path,status</span><br></pre></td></tr></table></figure>
+
+<p><strong>域相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#判断是否存在域</span><br><span class="line">net config workstation    # 查看当前计算机名，全名，用户名，系统版本，工作站域，登陆的域等</span><br><span class="line">net view /domain          # 查看域</span><br><span class="line"></span><br><span class="line">#查看主域服务器</span><br><span class="line">net time /domain           #主域服务器会同时作为时间服务器</span><br><span class="line"></span><br><span class="line">nltest /DCLIST:god         #查看域控制器主机名，god为域名</span><br><span class="line"></span><br><span class="line">#查看域用户相关信息</span><br><span class="line">net user /domain          #显示所在域的用户</span><br><span class="line">net user 域用户 /domain    #获取域用户详细信息</span><br><span class="line">net user /domain XXX 123456 #修改用户密码，需要域管理员权限</span><br><span class="line"></span><br><span class="line">net group /domain       #查看域内用户组列表</span><br><span class="line">net group &quot;domain admins&quot;/domain       #获取域管理员列表</span><br><span class="line">net group &quot;domain controllers&quot;/domain  #查看域控制器组</span><br><span class="line">net group &quot;domain computers&quot;/domain   #查看域机器</span><br><span class="line"></span><br><span class="line">#列出域信任关系</span><br><span class="line">nltest /domain_trusts      #列出域与域之间的信任关系</span><br><span class="line"></span><br><span class="line">#获得域内用户详细信息</span><br><span class="line">wmic useraccount get/all   #可以获取到域用户的用户名、描述信息、SID、域名、状态等。</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p><strong>系统相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/issue         #查看系统名称</span><br><span class="line">cat /etc/Lsb-release   #查看系统名称,版本号</span><br><span class="line">cat /etc/*release      #查看linux发行信息</span><br><span class="line">uname -an              #查看内核版本</span><br><span class="line">cat /proc/version      #查看内核信息</span><br><span class="line">cat /proc/cpuinfo      #查看cpu信息</span><br><span class="line"></span><br><span class="line">#查看文件系统</span><br><span class="line">df -a </span><br><span class="line"></span><br><span class="line">#查看系统日志</span><br><span class="line">sudo cat /var/log/syslog</span><br><span class="line"></span><br><span class="line">#查看命令记录</span><br><span class="line">cat /root/.bash_history</span><br><span class="line">cat ~/.bash_history</span><br></pre></td></tr></table></figure>
+
+<p><strong>用户相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">whoami     #查看当前shell权限</span><br><span class="line">id         #查看当前用户的权限和所在的管理组</span><br><span class="line"></span><br><span class="line">#查看登录信息</span><br><span class="line">w</span><br><span class="line">who</span><br><span class="line">last       #登入过的用户信息</span><br><span class="line">lastlog    #显示系统中所有用户最近一次登录信息</span><br><span class="line"></span><br><span class="line">#查看账号信息</span><br><span class="line">cat /etc/sudoers</span><br><span class="line">cat /etc/group</span><br><span class="line">cat /etc/passwd</span><br><span class="line"></span><br><span class="line">#列出目前用户可执行与无法执行的指令</span><br><span class="line">sudo -l</span><br></pre></td></tr></table></figure>
+
+<p><strong>网络相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#查询本机IP信息</span><br><span class="line">ifconfig</span><br><span class="line">ip a</span><br><span class="line"></span><br><span class="line">#查看端口信息</span><br><span class="line">netstat -anpt</span><br><span class="line"></span><br><span class="line">#查看网卡配置</span><br><span class="line"> cat /etc/network/interfaces</span><br></pre></td></tr></table></figure>
+
+<p><strong>程序相关</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#查看进程信息</span><br><span class="line">ps -ef  #标准格式显示</span><br><span class="line">ps aux  #BSD格式显示</span><br><span class="line"></span><br><span class="line">#资源占有情况</span><br><span class="line">top -c</span><br><span class="line"></span><br><span class="line">cat /etc/inetd.conf        #由inetd管理的服务列表</span><br><span class="line">cat /etc/xinetd.conf       #由xinetd管理的服务列表</span><br><span class="line"></span><br><span class="line">#查看计划任务</span><br><span class="line">crontab -l</span><br><span class="line">ls -al /etc/cron*</span><br><span class="line">cat /etc/cron.allow</span><br><span class="line">cat /etc/cron.deny</span><br><span class="line">cat /etc/crontab</span><br><span class="line"></span><br><span class="line">#查看开机启动项</span><br><span class="line">/etc/rc.d/init.d/</span><br></pre></td></tr></table></figure>
+
+<p><strong>配置信息</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">iptables –L   #查看防火墙配置（注意需要root权限）</span><br><span class="line">cat /etc/resolv.conf   #查看dns配置文件</span><br><span class="line">cat /etc/network/interfaces    #查看网卡配置文件</span><br><span class="line">cat /etc/apache2/apache2.conf   #查看apache配置文件</span><br><span class="line">cat /etc/my.conf               #mysql配置</span><br><span class="line"></span><br><span class="line">#查看suid文件</span><br><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line">#最近五天的文件</span><br><span class="line">find / -ctime +1 -ctime -5</span><br></pre></td></tr></table></figure>
+
+<h1 id="七、内网域渗透常用工具"><a href="#七、内网域渗透常用工具" class="headerlink" title="七、内网域渗透常用工具"></a>七、内网域渗透常用工具</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">1、WCE</span><br><span class="line">WCE（Windows 凭据管理器）是安全人员广泛使用的一种安全工具，常用于列出登录会话以及添加、修改、和删除关联凭据（如LM hash、NTLM hash、明文密码和Kerberos票据）。</span><br><span class="line">2、mimikatz</span><br><span class="line">mimikatz主要用于从内存中获取明文密码、现金票据和密钥等。</span><br><span class="line">3、Responder</span><br><span class="line">Responder可以嗅探网络中的所有LLMNR包和获取各主机的信息。</span><br><span class="line">4、BeEF</span><br><span class="line">BeEF利用XSS通过Java Script对目标浏览器进行测试，同时可以配合MSF进行进一步渗透。</span><br><span class="line">5、DSHashes</span><br><span class="line">DSHashes主要从NTDSXtract中提取用户易于理解的散列值。</span><br><span class="line">6、PowerSploit</span><br><span class="line">PowerSploit是基于PowerShell的测试框架，主要用于信息收集、权限提升以及权限维持。</span><br><span class="line">7、Nishang</span><br><span class="line">Nishang也是一款基于PowerShell的测试工具，集成各类payload用于渗透测试。</span><br><span class="line">8、Empire</span><br><span class="line">类似于MSF，也是一款拥有丰富模块和接口的渗透测试工具。</span><br><span class="line">9、ps_encoder.py</span><br><span class="line">ps_encoder.py是使用base64封装的powershell命令包，目的是混淆和压缩代码。</span><br><span class="line">10、smbexec</span><br><span class="line">smbexec是使用Samba工具的快速PsExec类工具，它通过ipc$进行连接，将psexec.exe释放到目标主机中，铜鼓欧服务管理（SCManager）进程创建psexecsvc服务并启动服务并能直接提供目标主机的system权限。</span><br><span class="line">11、the-backdoor-factory-master</span><br><span class="line">the-backdoor-factory-master可以对PE、ELF、Mach-O等二进制文件注入shellcode。</span><br><span class="line">12、Veil</span><br><span class="line">Veil用于生成绕过常见防病毒解决方案的MSF有效载荷。</span><br><span class="line">13、MSF</span><br><span class="line">世界上最常用的渗透测试框架。</span><br><span class="line">14、Cobalt Strike</span><br><span class="line">Cobalt Strike主要用于内网渗透，并提供团队协作功能。</span><br><span class="line">15、Nmap</span><br><span class="line">Nmap主要用于发现主机、扫描端口、识别服务和操作系统等</span><br><span class="line">16、Wireshark</span><br><span class="line">Wireshark主要用于网络协议和数据包分析，可以通过网络接口对整个网络接口进行监听。</span><br><span class="line">17、Putty</span><br><span class="line">Putty在windows下主要作为连接SSH 以及 Telnet 的客户端。</span><br><span class="line">18、sqlmap</span><br><span class="line">sqlmap主要用于检测和利用SQL注入漏洞。</span><br><span class="line">19、Burp Suite</span><br><span class="line">Burp Suite主要用于对web应用程序进行测试，最重要的几个模块为Intruder、Proxy、Repeater，用于抓包分析、参数爆破以及重放攻击。</span><br><span class="line">20、Hydra</span><br><span class="line">Hydra（九头蛇）主要用于登录爆破。</span><br><span class="line">21、Getif</span><br><span class="line">Getif主要用于收集SNMP设备的信息。</span><br><span class="line">22、Cain&amp;Abel</span><br><span class="line">Cain&amp;Abel是windows中的一个密码恢复工具，可以通过嗅探网络，来破解加密密码、记录VoIP会话、恢复无线网络密钥、显示面膜框、发现缓存中的密码、分析路由信息、并能恢复各种密码。</span><br></pre></td></tr></table></figure>
+
+<p>更详细见<a target="_blank" rel="noopener" href="https://websec.readthedocs.io/zh/latest/intranet/index.html">https://websec.readthedocs.io/zh/latest/intranet/index.html</a></p>
+<p>域渗透基础知识大全：<a target="_blank" rel="noopener" href="https://decemberus.com/2023/08/02/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">https://decemberus.com/2023/08/02/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</a>    重点</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%97%E9%80%8F/" rel="tag"># 渗透</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/06/ctfshow%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" rel="prev" title="ctfshow刷题记录">
+                  <i class="fa fa-angle-left"></i> ctfshow刷题记录
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/06/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" rel="next" title="应急响应">
+                  应急响应 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">6pc1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">166k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:31</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-pi-one.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2024/06/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+</body>
+</html>

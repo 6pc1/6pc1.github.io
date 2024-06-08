@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"6pc1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/./search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近有一个应急响应的靶场，玄机应急响应，所以也就去研究研究应急响应相关的知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="应急响应">
+<meta property="og:url" content="http://6pc1.github.io/2024/06/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/index.html">
+<meta property="og:site_name" content="6pc1&#39;s blog">
+<meta property="og:description" content="最近有一个应急响应的靶场，玄机应急响应，所以也就去研究研究应急响应相关的知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/3a0d9c411882c5bc7705afad91b22bb5--6149--image-20240603210232034.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/d28b0f9e7667d37d50f5622699501adf--f84c--4-1715845855.jpeg">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/74b48a05cdfb4800616bc807fbcb31d2--d076--image-20240603210808371.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/62ed66c571e83333a1943dd791734695--300b--image-20240603211111911.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/1abf55deb21c8f1fe461ea49fd144171--5b7b--image-20240603211809586.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/166eefc9427d7cc88c7dce4e154b5ef1--0ad4--image-20240603213108197.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/e47bb3e3102e99f799387197b0fc70b1--0f87--image-20240603214219501.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/5b59259fb061754a82bc6ef3f20df148--5c64--image-20240603214722593.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/7f34907dd43c478bf4b991a92418db09--7a2e--image-20240603234947461.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/24f58c7eca7ca7fc6e83f75d013ef857--cdde--image-20240603235135992.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/3178fa94b8a77dfdb2ffde23fc26ea95--8adb--image-20240603235243396.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/756f0698f82fc286b735a6cd1d541f56--e870--image-20240604143457279.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/575e977540b418a47bd0f108845a391f--3128--image-20240604143824876.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/46b380015231d41b240008156e3e0547--bbc4--image-20240604165924985.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/c030043dac3b057b133fd28fb55889e4--7864--image-20240604144504373.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/84d28fd8c5a98ca0d89ec8784038dd6e--38ff--image-20240604150902123.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/fcad17feb5fa9f587876e73751cf967b--3ce9--image-20240604151216742.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/412f4b8562c37d19218dfc4c0c839e92--9f50--image-20240604152206000.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/c9e4ca70d5f748e2e078c2f37a43ff69--eec0--image-20240604162746569.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/0a2bcff864b56870d0d10744161376f9--3b8c--image-20240604162812922.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/5c0faa16d71af08b1b7075b0f32cd94d--f10c--image-20240604163143457.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/302186179a7c28099e8e27a12fb462f0--cbc5--image-20240604163448110.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/2f4d33594702d01d1229dbae670548ef--2e6b--image-20240604163947174.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/b98b564106ffc9a6e9fe7ca1f03d1408--e482--image-20240604164233769.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/c73a16a79b0212101d70f42dc5c69d6f--401e--image-20240605162903006.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/5efbd4ab8dc5c4e2b077d0bc1ae5824f--b680--image-20240605163346550.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/2cd8c6262cf5e480606f5460e207fc4b--d0aa--image-20240605163742918.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/9cb990d3bd9c94928b077bb35d247f7d--b3de--image-20240605164129010.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/d4f38bf6929f600dcb94095637769449--089c--image-20240605175637332.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/00cee077a14016b09a9897660a53672d--38e1--image-20240605175748138.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/511f5ef13a54570c91357d8847df8bbd--a6bf--image-20240605180004338.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/807a96cee19d5e50097803900045fe6f--3d33--image-20240606204835088.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/bd144426495ff8b9701658f09d7eb8b6--0bcd--image-20240606204904710.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/8d56435f54f735c27d9e7782c8a30be9--8999--image-20240606205424797.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/b29a949a7d04c99836299dc95c5deffd--a9f3--image-20240606210839396.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/2152705e94ea461c3edc20ab04eefa09--6ce0--image-20240606212101801.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/942b6ab8109194e0bb7330c939a15f50--59f2--image-20240607152705305.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/f83792fe3a1e3513e87f849792bce21f--1a2e--image-20240607153004452.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/9b4c2cead16ac1d70a7eb1a0f4b84296--01e2--image-20240607153145127.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/1962cab0827eb55feaf69158d0e7f6ae--2ee5--image-20240607153825990.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/08e7ef1309b797d696594cd967d64b51--a38e--image-20240607154234119.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/9f5087d42372f2244c86dba5ecde3dbc--a583--image-20240607165458525.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/59f0fc6648fa379b077b2d1075b1610c--47a9--image-20240607165442183.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/6887818e4c12c222db374dc9619a8d35--85c0--image-20240607165935228.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/1790e65167eb1e3c38d84a9eb138b84d--5d58--image-20240607170104646.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/5190e8675a066d5312ba1b6a12e76dfa--ff78--image-20240607170053639.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/23ee3d817db6697162b7406d6b5ec8e7--9768--image-20240607170331722.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/f7a734496dc1b62649fdfbe75ba6b1d4--a99f--image-20240607170316227.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/d542768c05edb59f0e430e618fd1e051--3ed2--image-20240607170350816.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/6c4271836480a8fdcdee5f4cdafa562e--e949--image-20240607170415685.png">
+<meta property="article:published_time" content="2024-06-03T12:36:21.000Z">
+<meta property="article:modified_time" content="2024-06-07T13:18:46.350Z">
+<meta property="article:author" content="6pc1">
+<meta property="article:tag" content="应急响应">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/3a0d9c411882c5bc7705afad91b22bb5--6149--image-20240603210232034.png">
+
+
+<link rel="canonical" href="http://6pc1.github.io/2024/06/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://6pc1.github.io/2024/06/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/","path":"2024/06/03/应急响应/","title":"应急响应"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>应急响应 | 6pc1's blog</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-pi-one.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">6pc1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界如画，心中有梦!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94"><span class="nav-number">1.</span> <span class="nav-text">第一章-应急响应</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">Linux日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">任务一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%8C"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">任务二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%89"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">任务三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%9B%9B"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">任务四</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A15"><span class="nav-number">1.1.0.5.</span> <span class="nav-text">任务5</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webshell%E6%9F%A5%E6%9D%80"><span class="nav-number">1.2.</span> <span class="nav-text">webshell查杀</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80-1"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">任务一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%8C-1"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">任务二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%89-1"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">任务三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%9B%9B-1"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">任务四</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E5%85%A5%E4%BE%B5%E6%8E%92%E6%9F%A5"><span class="nav-number">1.3.</span> <span class="nav-text">Linux入侵排查</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80-2"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">任务一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%8C-2"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">任务二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%89-2"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">任务三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%9B%9B-2"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">任务四</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%94"><span class="nav-number">1.3.0.5.</span> <span class="nav-text">任务五</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">第二章-日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#apache%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90"><span class="nav-number">2.1.</span> <span class="nav-text">apache日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80-3"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">任务一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%8C-3"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">任务二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%89-3"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">任务三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%9B%9B-3"><span class="nav-number">2.1.0.4.</span> <span class="nav-text">任务四</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94"><span class="nav-number">2.2.</span> <span class="nav-text">mysql应急响应</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80-4"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">任务一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%8C-4"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">任务二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%89-4"><span class="nav-number">2.2.0.3.</span> <span class="nav-text">任务三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%9B%9B-4"><span class="nav-number">2.2.0.4.</span> <span class="nav-text">任务四</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94"><span class="nav-number">2.3.</span> <span class="nav-text">redis应急响应</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80-5"><span class="nav-number">2.3.0.1.</span> <span class="nav-text">任务一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%8C-5"><span class="nav-number">2.3.0.2.</span> <span class="nav-text">任务二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%89-5"><span class="nav-number">2.3.0.3.</span> <span class="nav-text">任务三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%9B%9B-5"><span class="nav-number">2.3.0.4.</span> <span class="nav-text">任务四</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%94-1"><span class="nav-number">2.3.0.5.</span> <span class="nav-text">任务五</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="nav-number">3.</span> <span class="nav-text">第三章-权限维持</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%9A%90%E8%97%8F"><span class="nav-number">3.1.</span> <span class="nav-text">linux权限维持-隐藏</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80-6"><span class="nav-number">3.1.0.1.</span> <span class="nav-text">任务一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%8C-6"><span class="nav-number">3.1.0.2.</span> <span class="nav-text">任务二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%89-6"><span class="nav-number">3.1.0.3.</span> <span class="nav-text">任务三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%9B%9B-6"><span class="nav-number">3.1.0.4.</span> <span class="nav-text">任务四</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%94-2"><span class="nav-number">3.1.0.5.</span> <span class="nav-text">任务五</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-windows%E5%AE%9E%E6%88%98"><span class="nav-number">4.</span> <span class="nav-text">第四章-windows实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#emlog"><span class="nav-number">4.1.</span> <span class="nav-text">emlog</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80-7"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">任务一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%8C-7"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">任务二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%89-7"><span class="nav-number">4.1.0.3.</span> <span class="nav-text">任务三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%9B%9B-7"><span class="nav-number">4.1.0.4.</span> <span class="nav-text">任务四</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91%E6%97%A5%E8%91%B5"><span class="nav-number">4.2.</span> <span class="nav-text">向日葵</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80-8"><span class="nav-number">4.2.0.1.</span> <span class="nav-text">任务一</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wordpress"><span class="nav-number">4.3.</span> <span class="nav-text">wordpress</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80-9"><span class="nav-number">4.3.0.1.</span> <span class="nav-text">任务一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%8C-8"><span class="nav-number">4.3.0.2.</span> <span class="nav-text">任务二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%89-8"><span class="nav-number">4.3.0.3.</span> <span class="nav-text">任务三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%9B%9B-8"><span class="nav-number">4.3.0.4.</span> <span class="nav-text">任务四</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%94-3"><span class="nav-number">4.3.0.5.</span> <span class="nav-text">任务五</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%85%AD"><span class="nav-number">4.3.0.6.</span> <span class="nav-text">任务六</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%91%E9%A1%B5-%E7%AF%A1%E6%94%B9"><span class="nav-number">4.4.</span> <span class="nav-text">黑页&amp;&amp;篡改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%80-10"><span class="nav-number">4.4.0.1.</span> <span class="nav-text">任务一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%8C-9"><span class="nav-number">4.4.0.2.</span> <span class="nav-text">任务二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%B8%89-9"><span class="nav-number">4.4.0.3.</span> <span class="nav-text">任务三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E5%9B%9B-9"><span class="nav-number">4.4.0.4.</span> <span class="nav-text">任务四</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%BB%E5%8A%A1%E4%BA%94-4"><span class="nav-number">4.4.0.5.</span> <span class="nav-text">任务五</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-linux%E5%AE%9E%E6%88%98"><span class="nav-number">5.</span> <span class="nav-text">第五章-linux实战</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="6pc1"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">6pc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/6pc1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;6pc1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2961816476@qq.com" title="E-Mail → mailto:2961816476@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://qm.qq.com/q/uZSUzwBesa" title="QQ → https:&#x2F;&#x2F;qm.qq.com&#x2F;q&#x2F;uZSUzwBesa" rel="noopener me" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://hacbit.tech/" title="https:&#x2F;&#x2F;hacbit.tech&#x2F;" rel="noopener" target="_blank">hacbit</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://yixinbc.tech/" title="https:&#x2F;&#x2F;yixinbc.tech&#x2F;" rel="noopener" target="_blank">yixinBC</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://6pc1.github.io/2024/06/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="6pc1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="应急响应 | 6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          应急响应
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-03 20:36:21" itemprop="dateCreated datePublished" datetime="2024-06-03T20:36:21+08:00">2024-06-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-07 21:18:46" itemprop="dateModified" datetime="2024-06-07T21:18:46+08:00">2024-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Web/" itemprop="url" rel="index"><span itemprop="name">Web</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2024/06/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2024/06/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最近有一个应急响应的靶场，玄机应急响应，所以也就去研究研究应急响应相关的知识。</p>
+<span id="more"></span>
+
+<h1 id="第一章-应急响应"><a href="#第一章-应急响应" class="headerlink" title="第一章-应急响应"></a>第一章-应急响应</h1><h2 id="Linux日志分析"><a href="#Linux日志分析" class="headerlink" title="Linux日志分析"></a>Linux日志分析</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_50765147/article/details/135878715">https://blog.csdn.net/qq_50765147/article/details/135878715</a>  相关资料链接</p>
+<p>首先就是进入题目，ssh连接后，我们可以尝试去读取一下Linux日志文件</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/3a0d9c411882c5bc7705afad91b22bb5--6149--image-20240603210232034.png" alt="image-20240603210232034"></p>
+<h4 id="任务一"><a href="#任务一" class="headerlink" title="任务一"></a>任务一</h4><p>第一个任务就是有多少IP在爆破主机ssh的root帐号，如果有多个使用”,”分割 小到大排序 例如flag{192.168.200.1,192.168.200.2}</p>
+<p>第一个 Flag 的目标是查找爆破 SSH 服务 Root 账户的 IP，故这里我们需要分析 auth 日志，auth 日志常见于 Debian 系（这台靶机就是 Debian）</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/d28b0f9e7667d37d50f5622699501adf--f84c--4-1715845855.jpeg" alt="4-1715845855"></p>
+<p>这里 auth 日志有两条，分别是<code>auth.log</code>和<code>auth.log.1</code>，我们的判断基础是这两个文件，其次这里我们需要判断出哪些爆破的是 Root 账号，所以需要搜索 “Failed password for root”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">拓展：</span><br><span class="line">.1 表示较早的日志文件，而没有 .1 的文件是当前的日志文件</span><br></pre></td></tr></table></figure>
+
+<p>使用grep去进行查找</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/auth.log.1 /var/log/auth.log | grep -a &quot;Failed password for root&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/74b48a05cdfb4800616bc807fbcb31d2--d076--image-20240603210808371.png" alt="image-20240603210808371"></p>
+<p>使用awk进行ip提取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">| awk &#x27;&#123;print $11&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>使用sort排序，使用unip -c 进行去重，使用sort -nr进行降序排序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/auth.log.1 /var/log/auth.log | grep -a &quot;Failed password for root&quot; | awk &#x27;&#123;print $11&#125;&#x27; | uniq -c | sort -nr</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/62ed66c571e83333a1943dd791734695--300b--image-20240603211111911.png" alt="image-20240603211111911"></p>
+<p>成功获取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">4 192.168.200.2</span><br><span class="line">1 192.168.200.32</span><br><span class="line">1 192.168.200.31</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;192.168.200.2,192.168.200.31,192.168.200.32&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二"><a href="#任务二" class="headerlink" title="任务二"></a>任务二</h4><p>2.ssh爆破成功登陆的IP是多少，如果有多个使用”,”分割</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/1abf55deb21c8f1fe461ea49fd144171--5b7b--image-20240603211809586.png" alt="image-20240603211809586"></p>
+<p>这里成功找到登录成功会有Accepted出现，我们按上面做的那样即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/auth.log.1 /var/log/auth.log | grep -a &quot;Accepted&quot; | awk &#x27;&#123;print $11&#125;&#x27; | uniq -c | sort -nr</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2 192.168.200.2</span><br><span class="line">1 221.130.58.74</span><br></pre></td></tr></table></figure>
+
+<p>这里要注意的是，221开头的ip是我们本机登录的ip，所以应该剔除掉</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;192.168.200.2&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三"><a href="#任务三" class="headerlink" title="任务三"></a>任务三</h4><p>3.爆破用户名字典是什么？如果有多个使用”,”分割</p>
+<p>直接还是提取</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/166eefc9427d7cc88c7dce4e154b5ef1--0ad4--image-20240603213108197.png" alt="image-20240603213108197"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/auth.log.1 /var/log/auth.log | grep -a &quot;Failed password&quot; | perl -e &#x27;while($_=&lt;&gt;)&#123; /for(.*?) from/; print &quot;$1\n&quot;;&#125;&#x27;| uniq -c | sort -nr</span><br></pre></td></tr></table></figure>
+
+<p>这里就可以直接拿到字典了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;user,hello,root,test3,test2,test1&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里涉及到一个perl语言</p>
+<h4 id="任务四"><a href="#任务四" class="headerlink" title="任务四"></a>任务四</h4><p>4.成功登录 root 用户的 ip 一共爆破了多少次</p>
+<p>其实第一问的时候已经看到了的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/e47bb3e3102e99f799387197b0fc70b1--0f87--image-20240603214219501.png" alt="image-20240603214219501"></p>
+<p>直接出就行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/log/auth.log.1 /var/log/auth.log | grep -a &quot;Failed password&quot; | awk &#x27;&#123;if($11==&quot;192.168.200.2&quot;) print $11&#125;&#x27;|sort|uniq -c</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务5"><a href="#任务5" class="headerlink" title="任务5"></a>任务5</h4><p>5.黑客登陆主机后新建了一个后门用户，用户名是多少</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/5b59259fb061754a82bc6ef3f20df148--5c64--image-20240603214722593.png" alt="image-20240603214722593"></p>
+<p>在这个地方注意，黑客添加了test2这个用户作为后门</p>
+<p>这里有一点要注意，后边有个debian用户的创建，这个是我们ssh连接的用户，不是黑客创建的</p>
+<h2 id="webshell查杀"><a href="#webshell查杀" class="headerlink" title="webshell查杀"></a>webshell查杀</h2><h4 id="任务一-1"><a href="#任务一-1" class="headerlink" title="任务一"></a>任务一</h4><p>黑客webshell里面的flag flag{xxxxx-xxxx-xxxx-xxxx-xxxx}</p>
+<p>直接用d盾或者火绒即可</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/7f34907dd43c478bf4b991a92418db09--7a2e--image-20240603234947461.png" alt="image-20240603234947461"></p>
+<p>直接就是找到是gz.php</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/24f58c7eca7ca7fc6e83f75d013ef857--cdde--image-20240603235135992.png" alt="image-20240603235135992"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;027ccd04-5065-48b6-a32d-77c704a5e26d&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-1"><a href="#任务二-1" class="headerlink" title="任务二"></a>任务二</h4><p>黑客使用的什么工具的shell github地址的md5 flag{md5}</p>
+<p>直接搜索</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-03/3178fa94b8a77dfdb2ffde23fc26ea95--8adb--image-20240603235243396.png" alt="image-20240603235243396"></p>
+<p>发现是哥斯拉</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;39392de3218c333f794befef07ac9257&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-1"><a href="#任务三-1" class="headerlink" title="任务三"></a>任务三</h4><p>黑客隐藏shell的完整路径的md5 flag{md5} 注 : &#x2F;xxx&#x2F;xxx&#x2F;xxx&#x2F;xxx&#x2F;xxx.xxx</p>
+<p>还是上面d盾也显示出来了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;aebac0e58cd6c5fad1695ee4d1ac1919&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-1"><a href="#任务四-1" class="headerlink" title="任务四"></a>任务四</h4><p>4.黑客免杀马完整路径 md5 flag{md5}</p>
+<p>还是一样的，之前都直接d盾扫出来了的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;eeff2eabfd9b7a6d26fc1a53d3f7d1de&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后这总结一下，D盾真是好好用！！！！！！！！！！！！！！！！！</p>
+<p>这里记录一下一些常见的webshell查杀工具</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1。阿里伏魔</span><br><span class="line">https://ti.aliyun.com/#/webshell</span><br><span class="line">2、百度 WEBDIR+</span><br><span class="line">https://scanner.baidu.com/#/pages/intro</span><br><span class="line">3、河马</span><br><span class="line">https://n.shellpub.com/</span><br><span class="line">4、CloudWalker(牧云)</span><br><span class="line">https://stack.chaitin.com/security-challenge/webshell</span><br><span class="line">5、在线 webshell 查杀-灭绝师太版</span><br><span class="line">http://tools.bugscaner.com/killwebshell/</span><br><span class="line">6、WebShell Detector WebShell 扫描检测器</span><br><span class="line">http://www.shelldetector.com/</span><br><span class="line">7、D 盾</span><br><span class="line">http://www.d99net.net</span><br><span class="line">8、微步</span><br><span class="line">https://threatbook.cn/next/product/sandbox</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux入侵排查"><a href="#Linux入侵排查" class="headerlink" title="Linux入侵排查"></a>Linux入侵排查</h2><h4 id="任务一-2"><a href="#任务一-2" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.web目录存在木马，请找到木马的密码提交</span><br></pre></td></tr></table></figure>
+
+<p>直接就是丢d盾里去就是</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/756f0698f82fc286b735a6cd1d541f56--e870--image-20240604143457279.png" alt="image-20240604143457279"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;1&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-2"><a href="#任务二-2" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">服务器疑似存在不死马，请找到不死马的密码提交</span><br></pre></td></tr></table></figure>
+
+<p>直接就是.shell.php</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;hello&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-2"><a href="#任务三-2" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">不死马是通过哪个文件生成的，请提交文件名</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/575e977540b418a47bd0f108845a391f--3128--image-20240604143824876.png" alt="image-20240604143824876"></p>
+<p>很明显就能找到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;index.php&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-2"><a href="#任务四-2" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">黑客留下了木马文件，请找出黑客的服务器ip提交</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;10.11.55.21&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务五"><a href="#任务五" class="headerlink" title="任务五"></a>任务五</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">黑客留下了木马文件，请找出黑客服务器开启的监端口提交</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;3333&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里直接两个一起做就行，我们发现在网页目录下有个shell.elf木马文件，我们可以直接去运行它，然后再去查看netstat即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -antlp</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">命令详解：</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/46b380015231d41b240008156e3e0547--bbc4--image-20240604165924985.png" alt="image-20240604165924985"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/c030043dac3b057b133fd28fb55889e4--7864--image-20240604144504373.png" alt="image-20240604144504373"></p>
+<h1 id="第二章-日志分析"><a href="#第二章-日志分析" class="headerlink" title="第二章-日志分析"></a>第二章-日志分析</h1><h2 id="apache日志分析"><a href="#apache日志分析" class="headerlink" title="apache日志分析"></a>apache日志分析</h2><h4 id="任务一-3"><a href="#任务一-3" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1、提交当天访问次数最多的IP，即黑客IP：</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat access.log access.log.1 | grep -a &quot;03/Aug&quot; | awk &#x27;&#123;print $1&#125;&#x27; | uniq -c | sort -nr</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/84d28fd8c5a98ca0d89ec8784038dd6e--38ff--image-20240604150902123.png" alt="image-20240604150902123"></p>
+<p>直接找就行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;192.168.200.2&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-3"><a href="#任务二-3" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">黑客使用的浏览器指纹是什么，提交指纹的md5：</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/fcad17feb5fa9f587876e73751cf967b--3ce9--image-20240604151216742.png" alt="image-20240604151216742"></p>
+<p>发现浏览器指纹就是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;2d6330f380f44ac20f3a02eed0958f66&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-3"><a href="#任务三-3" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat access.log access.log.1 | grep -a &quot;/index.php&quot; | awk &#x27;&#123;print $1&#125;&#x27; |uniq -c</span><br></pre></td></tr></table></figure>
+
+<p>就是27次</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;27&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-3"><a href="#任务四-3" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查看黑客IP访问了多少次，提交次数：</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat access.log access.log.1 | grep -a &quot;192.168.200.2 - -&quot; |awk &#x27;&#123;print $1&#125;&#x27;|uniq -c</span><br></pre></td></tr></table></figure>
+
+<p>直接抓ip就行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;6555&#125;</span><br></pre></td></tr></table></figure>
+
+<p>任务五</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查看2023年8月03日8时这一个小时内有多少IP访问，提交次数:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat access.log access.log.1 | grep -a &quot;03/Aug/2023:08:&quot; |awk &#x27;&#123;print $1&#125;&#x27;|sort | uniq -c</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/412f4b8562c37d19218dfc4c0c839e92--9f50--image-20240604152206000.png" alt="image-20240604152206000"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;5&#125;     5个ip</span><br></pre></td></tr></table></figure>
+
+<h2 id="mysql应急响应"><a href="#mysql应急响应" class="headerlink" title="mysql应急响应"></a>mysql应急响应</h2><h4 id="任务一-4"><a href="#任务一-4" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.黑客第一次写入的shell flag&#123;关键字符串&#125; </span><br></pre></td></tr></table></figure>
+
+<p>直接就是d盾扫描即可</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/c9e4ca70d5f748e2e078c2f37a43ff69--eec0--image-20240604162746569.png" alt="image-20240604162746569"></p>
+<p>然后就找到了，在sh.php中</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/0a2bcff864b56870d0d10744161376f9--3b8c--image-20240604162812922.png" alt="image-20240604162812922"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;ccfda79e-7aa1-4275-bc26-a6189eb9a20b&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-4"><a href="#任务二-4" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2.黑客反弹shell的ip flag&#123;ip&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接去查看mysql的日志去分析   &#x2F;var&#x2F;log&#x2F;mysql&#x2F;</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/5c0faa16d71af08b1b7075b0f32cd94d--f10c--image-20240604163143457.png" alt="image-20240604163143457"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;192.168.100.13&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-4"><a href="#任务三-4" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3.黑客提权文件的完整路径 md5 flag&#123;md5&#125; 注 /xxx/xxx/xxx/xxx/xxx.xx</span><br></pre></td></tr></table></figure>
+
+<p>还是之前的mysql日志，我们发现有一个敏感文件1.sh</p>
+<p>我们尝试去找一下</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/302186179a7c28099e8e27a12fb462f0--cbc5--image-20240604163448110.png" alt="image-20240604163448110"></p>
+<p>发现有两个，这一个就是反弹shell的</p>
+<p>——到这里好像啥都没用</p>
+<p>这里就应该去想一下我们应该是怎么攻击的，发现在 &#x2F;var&#x2F;www&#x2F;html 目录下存在一个 common.php 文件，那么黑客应该是通过对网站进行目录探测的时候发现了此文件，恰好此文件还泄露了数据库的账号和密码，那么他的常规操作肯定是远程连接上了数据库后再从数据库作为切入点进行提权，mysql 的常见提权方式就是 UDF 提权<br>然后再根据UDF提权的特性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UDF 提权肯定会在 /usr/lib/mysql/plugin/ 路径下留下攻击痕迹</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/2f4d33594702d01d1229dbae670548ef--2e6b--image-20240604163947174.png" alt="image-20240604163947174"></p>
+<p>成功知道路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/lib/mysql/plugin/udf.so</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;b1818bde4e310f3d23f1005185b973e7&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-4"><a href="#任务四-4" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4.黑客获取的权限 flag&#123;whoami后的值&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -aux</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">命令详解：</span><br><span class="line">ps      查看进程状态</span><br><span class="line">-a      显示所有用户的所有进程</span><br><span class="line">-u      以一种面向用户的格式显示进程信息，包括用户 ID、CPU 使用率、内存使用率、命令名等。</span><br><span class="line">-x      让 ps 命令显示没有控制终端的进程。</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-04/b98b564106ffc9a6e9fe7ca1f03d1408--e482--image-20240604164233769.png" alt="image-20240604164233769"></p>
+<p>可以看到是mysql权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;mysql&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="redis应急响应"><a href="#redis应急响应" class="headerlink" title="redis应急响应"></a>redis应急响应</h2><h4 id="任务一-5"><a href="#任务一-5" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过本地 PC SSH到服务器并且分析黑客攻击成功的 IP 为多少,将黑客 IP 作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>直接看日志，很容易就能发现一个ip多次出现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.100.13出现次数较多明显是爆破</span><br><span class="line">192.168.100.20是主从复制</span><br><span class="line">flag&#123;192.168.100.20&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-5"><a href="#任务二-5" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过本地 PC SSH到服务器并且分析黑客第一次上传的恶意文件,将黑客上传的恶意文件里面的 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/c73a16a79b0212101d70f42dc5c69d6f--401e--image-20240605162903006.png" alt="image-20240605162903006"></p>
+<p>发现对应的恶意文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./exp.so</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;XJ_78f012d7-42fc-49a8-8a8c-e74c87ea109b&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-5"><a href="#任务三-5" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过本地 PC SSH到服务器并且分析黑客反弹 shell 的IP 为多少,将反弹 shell 的IP 作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -l      查看定时任务</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/5efbd4ab8dc5c4e2b077d0bc1ae5824f--b680--image-20240605163346550.png" alt="image-20240605163346550"></p>
+<p>直接就能发现flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;192.168.100.13&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-5"><a href="#任务四-5" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过本地 PC SSH到服务器并且溯源分析黑客的用户名，并且找到黑客使用的工具里的关键字符串(flag&#123;黑客的用户-关键字符串&#125; 注关键字符串 xxx-xxx-xxx)。将用户名和关键字符串作为 FLAG提交</span><br></pre></td></tr></table></figure>
+
+<p>ssh账号登录需要写入ssh公钥，我们直接去root下的.ssh中查看一下是否有对应文件，发现是有的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/2cd8c6262cf5e480606f5460e207fc4b--d0aa--image-20240605163742918.png" alt="image-20240605163742918"></p>
+<p>直接去读取一下，就拿到了用户名，使用用户名去github上搜索一下，就能找到flag所需的后一半</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;xj-test-user-wow-you-find-flag&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/9cb990d3bd9c94928b077bb35d247f7d--b3de--image-20240605164129010.png" alt="image-20240605164129010"></p>
+<h4 id="任务五-1"><a href="#任务五-1" class="headerlink" title="任务五"></a>任务五</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过本地 PC SSH到服务器并且分析黑客篡改的命令,将黑客篡改的命令里面的关键字符串作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>我们直接去查看一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/bin</span><br><span class="line">ls -al</span><br></pre></td></tr></table></figure>
+
+<p>然后我们发现ps命令被修改，直接去读取发现flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;c195i2923381905517d818e313792d196&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="第三章-权限维持"><a href="#第三章-权限维持" class="headerlink" title="第三章-权限维持"></a>第三章-权限维持</h1><h2 id="linux权限维持-隐藏"><a href="#linux权限维持-隐藏" class="headerlink" title="linux权限维持-隐藏"></a>linux权限维持-隐藏</h2><h4 id="任务一-6"><a href="#任务一-6" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">黑客隐藏的隐藏的文件 完整路径md5</span><br></pre></td></tr></table></figure>
+
+<p>在&#x2F;tmp&#x2F;.temp&#x2F;文件夹下发现libprocesshider,libprocesshider是用于隐藏文件的项目</p>
+<p>打开 &#x2F;tmp&#x2F;.temp&#x2F;libprocesshider&#x2F;processhider.c</p>
+<p>成功找到隐藏的文件1.py</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/d4f38bf6929f600dcb94095637769449--089c--image-20240605175637332.png" alt="image-20240605175637332"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/tmp/.temp/libprocesshider/1.py</span><br><span class="line">flag&#123;109ccb5768c70638e24fb46ee7957e37&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-6"><a href="#任务二-6" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">黑客隐藏的文件反弹shell的ip+端口 &#123;ip:port&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接看1.py就行了</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/00cee077a14016b09a9897660a53672d--38e1--image-20240605175748138.png" alt="image-20240605175748138"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;114.114.114.121:9999&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-6"><a href="#任务三-6" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">黑客提权所用的命令 完整路径的md5 flag&#123;md5&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里去联想linux提权，也就主要是两种提权，suid和su提权</p>
+<p>对比而言，suid提权更可能点，我们尝试去试试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -u=s -type f 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-05/511f5ef13a54570c91357d8847df8bbd--a6bf--image-20240605180004338.png" alt="image-20240605180004338"></p>
+<p>发现能够使用的find</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/find</span><br><span class="line">flag&#123;7fd5884f493f4aaf96abee286ee04120&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-6"><a href="#任务四-6" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">黑客尝试注入恶意代码的工具完整路径md5</span><br></pre></td></tr></table></figure>
+
+<p>这里说实话有点不太理解，为什么就是opt目录下存在注入恶意代码的工具</p>
+<p>cymothoa是后门工具</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/.cymothoa-1-beta/cymothoa</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;087c267368ece4fcf422ff733b51aed9&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务五-2"><a href="#任务五-2" class="headerlink" title="任务五"></a>任务五</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用命令运行 ./x.xx 执行该文件 将查询的 Exec****** 值 作为flag提交 flag&#123;/xxx/xxx/xxx&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题目问1.py的启动命令的可执行程序是什么,那么就是Python3，ls &#x2F;usr&#x2F;bin&#x2F;python3 -al 看下软连接</p>
+<p>再使用which去查找一下python的位置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/python3.4</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;/usr/bin/python3.4&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="第四章-windows实战"><a href="#第四章-windows实战" class="headerlink" title="第四章-windows实战"></a>第四章-windows实战</h1><h2 id="emlog"><a href="#emlog" class="headerlink" title="emlog"></a>emlog</h2><h4 id="任务一-7"><a href="#任务一-7" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过本地 PC RDP到服务器并且找到黑客植入 shell,将黑客植入 shell 的密码 作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>可以直接使用D盾去分析一下网站根目录首先就是</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/807a96cee19d5e50097803900045fe6f--3d33--image-20240606204835088.png" alt="image-20240606204835088"></p>
+<p>直接就是扫到后门</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/bd144426495ff8b9701658f09d7eb8b6--0bcd--image-20240606204904710.png" alt="image-20240606204904710"></p>
+<p>发现直接就是有默认密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;rebeyond&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-7"><a href="#任务二-7" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过本地 PC RDP到服务器并且分析黑客攻击成功的 IP 为多少,将黑客 IP 作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>分析ip的话这里我们就可以去查看一下日志文件，因为这里的web服务器是Apache的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/8d56435f54f735c27d9e7782c8a30be9--8999--image-20240606205424797.png" alt="image-20240606205424797"></p>
+<p>拿到ip</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;192.168.126.1&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有一点要注意的是，就是查看日志时需要稍微修改一下后缀才能使用记事本打开</p>
+<h4 id="任务三-7"><a href="#任务三-7" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过本地 PC RDP到服务器并且分析黑客的隐藏账户名称,将黑客隐藏账户名称作为 FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>直接使用windows日志一键分析工具即可</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/b29a949a7d04c99836299dc95c5deffd--a9f3--image-20240606210839396.png" alt="image-20240606210839396"></p>
+<p>直接找到对应的敏感用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;hacker138&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2024-02-29 10:13:06	hacker138$	EC2AMAZ-2OBTHUT	10	User32 	EC2AMAZ-2OBTHUT	C:\Windows\System32\svchost.exe	36.60.53.171	0	4624</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-7"><a href="#任务四-7" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过本地 PC RDP到服务器并且分析黑客的挖矿程序的矿池域名,将黑客挖矿程序的矿池域名称作为(仅域名)FLAG 提交;</span><br></pre></td></tr></table></figure>
+
+<p>首先就是找到对应的敏感文件</p>
+<p>我们可以去查看一下这个黑客用户下的文件</p>
+<p>成功发现Kuang</p>
+<p>运行后发现CPU直接爆，肯定就是一个挖矿病毒了，</p>
+<p>使用pyinstxtractor进行反编译得到pyc文件</p>
+<p>pyc在线解密</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-06/2152705e94ea461c3edc20ab04eefa09--6ce0--image-20240606212101801.png" alt="image-20240606212101801"></p>
+<p>成功获得矿池</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;wakuang.zhigongshanfang.top&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="向日葵"><a href="#向日葵" class="headerlink" title="向日葵"></a>向日葵</h2><h4 id="任务一-8"><a href="#任务一-8" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过本地 PC RDP到服务器并且找到黑客首次攻击成功的时间为 为多少,将黑客首次攻击成功的时间为 作为 FLAG 提交(2028-03-26 08:11:25.123);</span><br></pre></td></tr></table></figure>
+
+<p>好难，第一个就不会写了这个</p>
+<h2 id="wordpress"><a href="#wordpress" class="headerlink" title="wordpress"></a>wordpress</h2><h4 id="任务一-9"><a href="#任务一-9" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请提交攻击者攻击成功的第一时间，格式：flag&#123;YY:MM:DD hh:mm:ss&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接就是看日志主要就是，这里是要看nginx的日志，不要被Apache服务给骗了，里面日志啥都没有</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/942b6ab8109194e0bb7330c939a15f50--59f2--image-20240607152705305.png" alt="image-20240607152705305"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;2023:04:29 22:45:23&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-8"><a href="#任务二-8" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请提交攻击者的浏览器版本 flag&#123;Firgfox/2200&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接还是和上面一样的，这不 直接给了的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Firefox/110.0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;Firefox/110.0&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-8"><a href="#任务三-8" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请提交攻击者目录扫描所使用的工具名称</span><br></pre></td></tr></table></figure>
+
+<p>这日志中直接有的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/f83792fe3a1e3513e87f849792bce21f--1a2e--image-20240607153004452.png" alt="image-20240607153004452"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Fuzz Faster U Fool</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;Fuzz Faster U Fool&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-8"><a href="#任务四-8" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">找到攻击者写入的恶意后门文件，提交文件名（完整路径）</span><br></pre></td></tr></table></figure>
+
+<p>这也还是这个日志中，后边可以直接发现利用了这个后门文件的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/9b4c2cead16ac1d70a7eb1a0f4b84296--01e2--image-20240607153145127.png" alt="image-20240607153145127"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.x.php</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;C:\phpstudy_pro\WWW\.x.php&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务五-3"><a href="#任务五-3" class="headerlink" title="任务五"></a>任务五</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">找到攻击者隐藏在正常web应用代码中的恶意代码，提交该文件名（完整路径）</span><br></pre></td></tr></table></figure>
+
+<p>直接就是扫一下就行，就能发现</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/1962cab0827eb55feaf69158d0e7f6ae--2ee5--image-20240607153825990.png" alt="image-20240607153825990"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;C:\phpstudy_pro\WWW\usr\themes\default\post.php&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务六"><a href="#任务六" class="headerlink" title="任务六"></a>任务六</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请指出可疑进程采用的自动启动的方式，启动的脚本的名字 flag&#123;1.exe&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/08e7ef1309b797d696594cd967d64b51--a38e--image-20240607154234119.png" alt="image-20240607154234119"></p>
+<p>这里主要是注意看修改日期，就能很明显发现这两个文件</p>
+<p>而且bat文件内容就是启动那个exe，就很明显就能感觉出来是黑客留下的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;x.bat&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="黑页-篡改"><a href="#黑页-篡改" class="headerlink" title="黑页&amp;&amp;篡改"></a>黑页&amp;&amp;篡改</h2><p>开放类题目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请启动 phpstudy 后访问 127.0.0.1</span><br><span class="line">具体要求已经在桌面 readme.png 本题为开放式题目，请访问 http://127.0.0.1/dedecms/index.php</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/9f5087d42372f2244c86dba5ecde3dbc--a583--image-20240607165458525.png" alt="image-20240607165458525"></p>
+<h4 id="任务一-10"><a href="#任务一-10" class="headerlink" title="任务一"></a>任务一</h4><p>第一种就很简单的单纯添加html代码而已，删除即可</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/59f0fc6648fa379b077b2d1075b1610c--47a9--image-20240607165442183.png" alt="image-20240607165442183"></p>
+<h4 id="任务二-9"><a href="#任务二-9" class="headerlink" title="任务二"></a>任务二</h4><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/6887818e4c12c222db374dc9619a8d35--85c0--image-20240607165935228.png" alt="image-20240607165935228"></p>
+<h4 id="任务三-9"><a href="#任务三-9" class="headerlink" title="任务三"></a>任务三</h4><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/1790e65167eb1e3c38d84a9eb138b84d--5d58--image-20240607170104646.png" alt="image-20240607170104646"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/5190e8675a066d5312ba1b6a12e76dfa--ff78--image-20240607170053639.png" alt="image-20240607170053639"></p>
+<p>1.js</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/23ee3d817db6697162b7406d6b5ec8e7--9768--image-20240607170331722.png" alt="image-20240607170331722"></p>
+<h4 id="任务四-9"><a href="#任务四-9" class="headerlink" title="任务四"></a>任务四</h4><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/f7a734496dc1b62649fdfbe75ba6b1d4--a99f--image-20240607170316227.png" alt="image-20240607170316227"></p>
+<h4 id="任务五-4"><a href="#任务五-4" class="headerlink" title="任务五"></a>任务五</h4><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/d542768c05edb59f0e430e618fd1e051--3ed2--image-20240607170350816.png" alt="image-20240607170350816"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/6c4271836480a8fdcdee5f4cdafa562e--e949--image-20240607170415685.png" alt="image-20240607170415685"></p>
+<h1 id="第五章-linux实战"><a href="#第五章-linux实战" class="headerlink" title="第五章-linux实战"></a>第五章-linux实战</h1>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/" rel="tag"># 应急响应</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/06/03/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" rel="prev" title="内网渗透知识点总结">
+                  <i class="fa fa-angle-left"></i> 内网渗透知识点总结
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">6pc1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">166k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:31</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-pi-one.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2024/06/03/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+</body>
+</html>
