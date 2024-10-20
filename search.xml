@@ -5131,7 +5131,10 @@
   <entry>
     <title>JUC并发编程</title>
     <url>/2024/10/07/JUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="1、JUC介绍"><a href="#1、JUC介绍" class="headerlink" title="1、JUC介绍"></a>1、JUC介绍</h1><p><strong>源码+官方文档</strong></p>
+    <content><![CDATA[<p>记录学习Java JUC</p>
+<span id="more"></span>
+
+<h1 id="1、JUC介绍"><a href="#1、JUC介绍" class="headerlink" title="1、JUC介绍"></a>1、JUC介绍</h1><p><strong>源码+官方文档</strong></p>
 <p>java.util.concurrent</p>
 <p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-07/2ddf094e6a13c1260581e88ddaafb21b--dba2--image-20241007142426475.png" alt="image-20241007142426475"></p>
 <p>普通的线程代码Thread</p>
@@ -5260,7 +5263,10 @@
   <entry>
     <title>JVM学习</title>
     <url>/2024/09/29/JVM%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="一、JVM的学习方式"><a href="#一、JVM的学习方式" class="headerlink" title="一、JVM的学习方式"></a>一、JVM的学习方式</h1><ul>
+    <content><![CDATA[<p>记录学习Java JVM</p>
+<span id="more"></span>
+
+<h1 id="一、JVM的学习方式"><a href="#一、JVM的学习方式" class="headerlink" title="一、JVM的学习方式"></a>一、JVM的学习方式</h1><ul>
 <li>请你谈谈你对JVM的理解？java8虚拟机和之前的变化更新？</li>
 <li>什么是OOM？什么是栈溢出？怎么分析？</li>
 <li>JVM的常用调优参数有哪些？</li>
@@ -5559,7 +5565,10 @@
   <entry>
     <title>Docker学习</title>
     <url>/2024/09/21/Docker%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="一、Docker概述"><a href="#一、Docker概述" class="headerlink" title="一、Docker概述"></a>一、Docker概述</h1><h2 id="1、docker为什么会出现"><a href="#1、docker为什么会出现" class="headerlink" title="1、docker为什么会出现"></a>1、docker为什么会出现</h2><p>工作中，经常出现“在我的机器上可正常工作”的问题</p>
+    <content><![CDATA[<p>Docker最近用的真多</p>
+<span id="more"></span>
+
+<h1 id="一、Docker概述"><a href="#一、Docker概述" class="headerlink" title="一、Docker概述"></a>一、Docker概述</h1><h2 id="1、docker为什么会出现"><a href="#1、docker为什么会出现" class="headerlink" title="1、docker为什么会出现"></a>1、docker为什么会出现</h2><p>工作中，经常出现“在我的机器上可正常工作”的问题</p>
 <p>因为环境不一致等原因导致。。。</p>
 <p>Docker的思想就来自于集装箱！</p>
 <p>隔离：Docker核心思想！打包装箱！每个箱子是互相隔离的。</p>
@@ -6501,7 +6510,10 @@
   <entry>
     <title>Java学习之旅</title>
     <url>/2024/09/14/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%85/</url>
-    <content><![CDATA[<h1 id="一、Java-SE基础"><a href="#一、Java-SE基础" class="headerlink" title="一、Java SE基础"></a>一、Java SE基础</h1><p>​	这里就是Java学习的开始，从这开始我的Java复习，以及笔记整理之路。</p>
+    <content><![CDATA[<p>学学Java吧！</p>
+<span id="more"></span>
+
+<h1 id="一、Java-SE基础"><a href="#一、Java-SE基础" class="headerlink" title="一、Java SE基础"></a>一、Java SE基础</h1><p>​	这里就是Java学习的开始，从这开始我的Java复习，以及笔记整理之路。</p>
 <h2 id="计算机预科"><a href="#计算机预科" class="headerlink" title="计算机预科"></a>计算机预科</h2><p>​	这都是最基础的，大概就提一下。</p>
 <p>1、打开CMD</p>
 <p>2、管理员身份运行CMD</p>
@@ -9226,7 +9238,10 @@
   <entry>
     <title>redis学习</title>
     <url>/2024/09/17/redis%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h1 id="一、NoSQL概述"><a href="#一、NoSQL概述" class="headerlink" title="一、NoSQL概述"></a>一、NoSQL概述</h1><ul>
+    <content><![CDATA[<p>记录学习NoSQL  Redis</p>
+<span id="more"></span>
+
+<h1 id="一、NoSQL概述"><a href="#一、NoSQL概述" class="headerlink" title="一、NoSQL概述"></a>一、NoSQL概述</h1><ul>
 <li>NoSQL，指的是<strong>非关系型数据库</strong>。NoSQL有时也称为Not Only SQL的缩写，是对不同于传统的关系型数据库的数据库管理系统的统称。</li>
 </ul>
 <h2 id="1、为什么要用NoSQL"><a href="#1、为什么要用NoSQL" class="headerlink" title="1、为什么要用NoSQL"></a>1、为什么要用NoSQL</h2><blockquote>
