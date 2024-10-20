@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"6pc1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/./search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一、Docker概述1、docker为什么会出现工作中，经常出现“在我的机器上可正常工作”的问题 因为环境不一致等原因导致。。。 Docker的思想就来自于集装箱！ 隔离：Docker核心思想！打包装箱！每个箱子是互相隔离的。 Docker通过隔离机制，可以将服务器利用到极致！ 2、Docker的历史Docker 是基于Go 语言实现的开源容器项目，诞生于2013 年年初，最初发起者是 dotCl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker学习">
+<meta property="og:url" content="http://6pc1.github.io/2024/09/21/Docker%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="6pc1&#39;s blog">
+<meta property="og:description" content="一、Docker概述1、docker为什么会出现工作中，经常出现“在我的机器上可正常工作”的问题 因为环境不一致等原因导致。。。 Docker的思想就来自于集装箱！ 隔离：Docker核心思想！打包装箱！每个箱子是互相隔离的。 Docker通过隔离机制，可以将服务器利用到极致！ 2、Docker的历史Docker 是基于Go 语言实现的开源容器项目，诞生于2013 年年初，最初发起者是 dotCl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-21/46de97d6c7d3ec4bc0c24d94f32025ee--6893--image-20240921201222753.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-21/cdad8f4b97c506bb09c7c4b085b817bb--d293--image-20240921201553913.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/28470f218824e23ec82ce28a7b50fbba--134f--image-20240922094005847.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/5bf1cdf230c3155be2fdda1beabb1ff3--764e--image-20240922095218341.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/5f27548b9d8f1e9607ec770f8163467d--85fa--image-20240922100450374.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/d9a59b17ba24e343869da74322314fe6--cc31--image-20240922100554772.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/18b3c4595e4fcb446eec5aa6f07eb057--d721--image-20240922100609249.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/bd0035ab49544d13114ef688ea55e553--3f26--image-20240922100613510.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/da3aea870e0b1d7fbb60aa86470e7314--c384--image-20240922101137679.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/a35078a4e14770dc23e9e96e77b8fa78--3ca0--image-20240922104456381.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/427e9af89ddfbabc7c02f78814a92408--610e--image-20240922105436716.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/9711f3688d4cf560af0826f568ab9078--c194--image-20240922110708559.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/8f92f4b563b758a8b61da0eaabd8e257--ae1f--image-20240922111002319.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/b2631e9ff0347714db21901b08846644--be00--image-20240922112744309.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/5ed9c8b958e7da80cce2ec4be260697e--a128--image-20240922151045620.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/1723b6decc7608a24c3ab59cf2dadd75--6e31--image-20240922151150791.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/3af376d05b8b74bd529ba6cee95b464d--6a23--image-20240922151227485.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/6bbe15637a9c22909ba22cf0ea4aa6d0--89e1--image-20240922152448693.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/bbdf1be4d587d57210e07181711d1724--2253--image-20240922152528402.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/f9c144e64ca90a0bb064c43099abc990--97ab--image-20240922152707544.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/89e58c04d92f0d2023bf15fba34c7dc9--1bf4--image-20240922152716981.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/1a734a4154eeeaac48593ce23297d7ad--628f--image-20240922152734675.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/2eba256a73aa2ce5c8c6877044c1f6d9--61d8--image-20240922162754059.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/25d8e823103f845e6a23f7221dc68d5a--07be--image-20240922170917802.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/56b9338be70822d6aaca2a507ee2b04f--4fcc--image-20240922172857074.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/f5913e68843f79d565a56a4ef914875c--d5b3--image-20240922173620477.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-23/b691757752d20b3ed9330eeecc587ec9--0eed--image-20240923190649837.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-23/d3d17cf58aff5777ea3ecad37eb764d4--fd02--image-20240923190944663.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-23/a6ca8d34b74dcf6ad91395705579a106--078a--image-20240923204922044.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/09d9e244fac1fcb6e6451bd95a5dd738--c8bc--image-20240925165555292.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/20829e4b625bcd77961e47cf15fe20fe--9066--image-20240925165713786.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/f728c102a55c9969c391697ddb24b104--7952--image-20240925183039622.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/846f432f3bb1ac63bb7d25b7de5f8c2f--fb7d--image-20240925185532091.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/9791e62266d3c6d5a8bc17a6068664f7--1062--image-20240925185336056.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/e4b78b4838e2a9c46e21b74356f18387--5b2e--image-20240925185927195.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/b5514df66fdbaa3587500b1413900596--f81e--image-20240925185950744.png">
+<meta property="article:published_time" content="2024-09-21T12:01:51.000Z">
+<meta property="article:modified_time" content="2024-09-26T02:27:33.008Z">
+<meta property="article:author" content="6pc1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-21/46de97d6c7d3ec4bc0c24d94f32025ee--6893--image-20240921201222753.png">
+
+
+<link rel="canonical" href="http://6pc1.github.io/2024/09/21/Docker%E5%AD%A6%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://6pc1.github.io/2024/09/21/Docker%E5%AD%A6%E4%B9%A0/","path":"2024/09/21/Docker学习/","title":"Docker学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Docker学习 | 6pc1's blog</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-pi-one.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">6pc1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界如画，心中有梦!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81Docker%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">一、Docker概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81docker%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%87%BA%E7%8E%B0"><span class="nav-number">1.1.</span> <span class="nav-text">1、docker为什么会出现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81Docker%E7%9A%84%E5%8E%86%E5%8F%B2"><span class="nav-number">1.2.</span> <span class="nav-text">2、Docker的历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81Docker%E8%83%BD%E5%B9%B2%E5%98%9B"><span class="nav-number">1.3.</span> <span class="nav-text">3、Docker能干嘛</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Docker%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">二、Docker安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81Docker%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%84%E6%88%90"><span class="nav-number">2.1.</span> <span class="nav-text">1、Docker的基本组成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85docker"><span class="nav-number">2.2.</span> <span class="nav-text">2、安装docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%9B%9E%E6%BB%9Ahello-world%E6%B5%81%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">3、回滚hello-world流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81Docker%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">三、Docker常见命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">1、帮助命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">2、镜像命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.3.</span> <span class="nav-text">3、容器命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E5%B8%B8%E7%94%A8%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="nav-number">3.4.</span> <span class="nav-text">4、常用其他命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8"><span class="nav-number">3.5.</span> <span class="nav-text">5、命令大全</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Docker%E7%9A%84%E4%BD%BF%E7%94%A8%E7%BB%83%E4%B9%A0"><span class="nav-number">4.</span> <span class="nav-text">四、Docker的使用练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81Docker%E5%AE%89%E8%A3%85nginx"><span class="nav-number">4.1.</span> <span class="nav-text">1、Docker安装nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E5%AE%89%E8%A3%85%E4%B8%80%E4%B8%AAtomcat"><span class="nav-number">4.2.</span> <span class="nav-text">2、安装一个tomcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81Docker%E5%AE%89%E8%A3%85Elesticsearch"><span class="nav-number">4.3.</span> <span class="nav-text">3、Docker安装Elesticsearch</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81portainer%E5%8F%AF%E8%A7%86%E5%8C%96%E9%9D%A2%E6%9D%BF%E5%AE%89%E8%A3%85"><span class="nav-number">5.</span> <span class="nav-text">五、portainer可视化面板安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81Docker%E9%95%9C%E5%83%8F"><span class="nav-number">6.</span> <span class="nav-text">六、Docker镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E9%95%9C%E5%83%8F%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">6.1.</span> <span class="nav-text">1、镜像是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81Docker%E9%95%9C%E5%83%8F%E5%8A%A0%E8%BD%BD%E5%8E%9F%E7%90%86"><span class="nav-number">6.2.</span> <span class="nav-text">2、Docker镜像加载原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%88%86%E5%B1%82%E7%90%86%E8%A7%A3"><span class="nav-number">6.3.</span> <span class="nav-text">3、分层理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E9%95%9C%E5%83%8Fcommit"><span class="nav-number">6.4.</span> <span class="nav-text">4、镜像commit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">7.</span> <span class="nav-text">七、容器数据卷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">7.1.</span> <span class="nav-text">1、什么是容器数据卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">7.2.</span> <span class="nav-text">2、使用容器数据卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E5%8C%BF%E5%90%8D%E5%92%8C%E5%85%B7%E5%90%8D%E6%8C%82%E8%BD%BD"><span class="nav-number">7.3.</span> <span class="nav-text">3、匿名和具名挂载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E5%88%9D%E8%AF%86Dockerfile"><span class="nav-number">7.4.</span> <span class="nav-text">4、初识Dockerfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E6%95%B0%E6%8D%AE%E5%8D%B7%E5%AE%B9%E5%99%A8"><span class="nav-number">7.5.</span> <span class="nav-text">5、数据卷容器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AB%E3%80%81dockerfile"><span class="nav-number">8.</span> <span class="nav-text">八、dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AFdockerfile"><span class="nav-number">8.1.</span> <span class="nav-text">1、什么是dockerfile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81dockerfile%E7%9A%84%E6%9E%84%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="nav-number">8.2.</span> <span class="nav-text">2、dockerfile的构建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81Dockerfile%E6%8C%87%E4%BB%A4"><span class="nav-number">8.3.</span> <span class="nav-text">3、Dockerfile指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E5%AE%9E%E6%88%98%E6%B5%8B%E8%AF%95"><span class="nav-number">8.4.</span> <span class="nav-text">4、实战测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E5%8F%91%E5%B8%83%E9%95%9C%E5%83%8F"><span class="nav-number">8.5.</span> <span class="nav-text">5、发布镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E6%80%BB%E7%BB%93"><span class="nav-number">8.6.</span> <span class="nav-text">6、总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B9%9D%E3%80%81Docker%E7%BD%91%E7%BB%9C"><span class="nav-number">9.</span> <span class="nav-text">九、Docker网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E7%90%86%E8%A7%A3docker0"><span class="nav-number">9.1.</span> <span class="nav-text">1、理解docker0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E2%80%93link"><span class="nav-number">9.2.</span> <span class="nav-text">2、–link</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%BB%9C"><span class="nav-number">9.3.</span> <span class="nav-text">3、自定义网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E7%BD%91%E7%BB%9C%E8%BF%9E%E9%80%9A"><span class="nav-number">9.4.</span> <span class="nav-text">4、网络连通</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E3%80%81Docker-compose"><span class="nav-number">10.</span> <span class="nav-text">十、Docker compose</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="6pc1"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">6pc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/6pc1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;6pc1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2961816476@qq.com" title="E-Mail → mailto:2961816476@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://qm.qq.com/q/uZSUzwBesa" title="QQ → https:&#x2F;&#x2F;qm.qq.com&#x2F;q&#x2F;uZSUzwBesa" rel="noopener me" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://hacbit.tech/" title="https:&#x2F;&#x2F;hacbit.tech&#x2F;" rel="noopener" target="_blank">hacbit</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://yixinbc.tech/" title="https:&#x2F;&#x2F;yixinbc.tech&#x2F;" rel="noopener" target="_blank">yixinBC</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="http://clearwine.online/" title="http:&#x2F;&#x2F;clearwine.online" rel="noopener" target="_blank">qinjiu</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://6pc1.github.io/2024/09/21/Docker%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="6pc1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Docker学习 | 6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-09-21 20:01:51" itemprop="dateCreated datePublished" datetime="2024-09-21T20:01:51+08:00">2024-09-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-09-26 10:27:33" itemprop="dateModified" datetime="2024-09-26T10:27:33+08:00">2024-09-26</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2024/09/21/Docker%E5%AD%A6%E4%B9%A0/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2024/09/21/Docker%E5%AD%A6%E4%B9%A0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>49k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>44 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="一、Docker概述"><a href="#一、Docker概述" class="headerlink" title="一、Docker概述"></a>一、Docker概述</h1><h2 id="1、docker为什么会出现"><a href="#1、docker为什么会出现" class="headerlink" title="1、docker为什么会出现"></a>1、docker为什么会出现</h2><p>工作中，经常出现“在我的机器上可正常工作”的问题</p>
+<p>因为环境不一致等原因导致。。。</p>
+<p>Docker的思想就来自于集装箱！</p>
+<p>隔离：Docker核心思想！打包装箱！每个箱子是互相隔离的。</p>
+<p>Docker通过隔离机制，可以将服务器利用到极致！</p>
+<h2 id="2、Docker的历史"><a href="#2、Docker的历史" class="headerlink" title="2、Docker的历史"></a>2、Docker的历史</h2><p>Docker 是基于Go 语言实现的开源容器项目，诞生于2013 年年初，最初发起者是 dotCloud 公司。Docker 自开源后受到广泛的关注和l 讨论，目前已有多个相关项目（包括 Docker 三剑客、Kubemetes 等），逐渐形成了围绕Docker 容器的生态体系。 由于Docker 在业界造成的影响力实在太大， dotCloud 公司后来也直接改名为Docker Inc ，并专注于Docker 相关技术和产品的开发。</p>
+<p>自从dotCloud公司开源其Docker项目后，凭借其便捷的Docker镜像技术解决了当时困扰众多PaaS项目的难题：如何为应用打包，让用户将本地的应用顺利迁移到PaaS平台，而不用顾忌应用的开发语言、配置、依赖包等诸多因素，也因此开启了全新的Docker容器时代。</p>
+<h2 id="3、Docker能干嘛"><a href="#3、Docker能干嘛" class="headerlink" title="3、Docker能干嘛"></a>3、Docker能干嘛</h2><p>对开发和运维（ <strong>DevOps</strong> ）人员来说，可能最梦寐以求的效果就是一次创建或配置， 之后可以在任意地方、任意时间让应用正常运行。</p>
+<p>具体说来， Docker 在开发和运维过程中，具有如下几个方面的优势：</p>
+<ol>
+<li><p><strong>更快速的交付和部署</strong></p>
+<p>使用Docker ，开发人员可以使用镜像来快速构建一套标准的开发环境；开发完成之后，测试和运维人员可以直接使用完全相同环境来部署代码。只要开发测试过的代码，就可以确保在生产环境无缝运行。Docker 可以快速创建和删除容器，实现快速迭代，大量节约开发、测试、部署的时间。并且，整个过程全程可见，使团队更容易理解应用的创建和工作过程。</p>
+</li>
+<li><p><strong>更高效的资源利用</strong></p>
+<p>Docker 容器的运行不需要额外的虚拟化管理程序（Virtual Machine Manager, VMM ，以及Hypervisor）支持，它是内核级的虚拟化，可以实现更高的性能，同时对资源的额外需求很低。跟传统虚拟机方式相比，要提高一到两个数量级。</p>
+</li>
+<li><p><strong>更轻松的迁移和扩展</strong></p>
+<p>Docker 容器几乎可以在任意的平台上运行，包括物理机、虚拟机、公有云、私有云、个人电脑、服务器等，同时支持主流的操作系统发行版本。这种兼容性让用户可以在不同平台之间轻松地迁移应用。</p>
+</li>
+<li><p><strong>更简单的更新管理</strong></p>
+<p>使用Dockerfile ，只需要小小的配置修改，就可以替代以往大量的更新工作。并且所有修改都以增量的方式被分发和更新，从而实现自动化并且高效的容器管理。</p>
+</li>
+</ol>
+<blockquote>
+<p>Docker 和常见的虚拟化方式的不同之处</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-21/46de97d6c7d3ec4bc0c24d94f32025ee--6893--image-20240921201222753.png" alt="image-20240921201222753"></p>
+<p><strong>传统方式是在硬件层面实现虚拟化，需要有额外的虚拟机管理应用和虚拟机操作系统</strong> <strong>层。Docker 容器是在操作系统层面上实现虚拟化，直接复用本地主机的操作系统，因此更加</strong> <strong>轻量级。</strong></p>
+<p>Docker 在容器的基础上，进行了进一步的封装，从文件系统、网络互联到进程隔离等等，极大的简化了容器的创建和维护。使得 Docker 技术比虚拟机技术更为轻便、快捷。</p>
+<p>作为一种新兴的虚拟化方式，Docker 跟传统的虚拟化方式相比具有众多的优势。Docker 容器的启动可以在秒级实现，这相比传统的虚拟机方式要快得多；Docker 对系统资源的利用率很高，一台主机上可以同时运行数千个 Docker 容器。</p>
+<h1 id="二、Docker安装"><a href="#二、Docker安装" class="headerlink" title="二、Docker安装"></a>二、Docker安装</h1><h2 id="1、Docker的基本组成"><a href="#1、Docker的基本组成" class="headerlink" title="1、Docker的基本组成"></a>1、Docker的基本组成</h2><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-21/cdad8f4b97c506bb09c7c4b085b817bb--d293--image-20240921201553913.png" alt="image-20240921201553913"></p>
+<ul>
+<li><p><strong>镜像（Image）</strong></p>
+<p>什么是 Docker 镜像？简单的理解，Docker 镜像就是一个 Linux 的文件系统（Root FileSystem），这个文件系统里面包含可以运行在 Linux 内核的程序以及相应的数据。</p>
+<p>通过镜像启动一个容器，一个镜像就是一个可执行的包，其中包括运行应用程序所需要的所有内容：包含代码，运行时间，库，环境变量和配置文件等。</p>
+<p><strong>Docker 把 App 文件打包成为一个镜像</strong>，并且采用类似多次快照的存储技术，可以实现：</p>
+<ul>
+<li>多个 App 可以共用相同的底层镜像（初始的操作系统镜像）</li>
+<li>App 运行时的 IO 操作和镜像文件隔离</li>
+<li>通过挂载包含不同配置&#x2F;数据文件的目录或者卷（Volume），单个 App 镜像可以用来运行无数个不同业务的容器</li>
+</ul>
+</li>
+<li><p><strong>容器（container）</strong></p>
+<p>镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。</p>
+<blockquote>
+<p>通俗来讲，镜像相当于类，容器相当于对象</p>
+</blockquote>
+</li>
+<li><p><strong>仓库（repository）</strong></p>
+<p>仓库可看成一个代码控制中心，用来保存镜像。</p>
+<p>仓库分为公有仓库和私有仓库。(很类似git)</p>
+<p>Docker Hub是国外的。</p>
+<p>阿里云…都有容器服务器(配置镜像加速!)</p>
+</li>
+</ul>
+<h2 id="2、安装docker"><a href="#2、安装docker" class="headerlink" title="2、安装docker"></a>2、安装docker</h2><ul>
+<li>使用云服务器的，可以直接去对应的官网寻找对应的安装配置方案</li>
+<li>比如我这里使用的就是腾讯云的Ubuntu系统</li>
+</ul>
+<ol>
+<li>执行以下命令，添加 Docker 软件源。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ca-certificates curl</span><br><span class="line">sudo install -m 0755 -d /etc/apt/keyrings</span><br><span class="line">sudo curl -fsSL https://mirrors.cloud.tencent.com/docker-ce/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc</span><br><span class="line">sudo <span class="built_in">chmod</span> a+r /etc/apt/keyrings/docker.asc</span><br><span class="line"><span class="built_in">echo</span>   <span class="string">&quot;deb [arch=<span class="subst">$(dpkg --print-architecture)</span> signed-by=/etc/apt/keyrings/docker.asc] https://mirrors.cloud.tencent.com/docker-ce/linux/ubuntu/ \</span></span><br><span class="line"><span class="string">  <span class="subst">$(. /etc/os-release &amp;&amp; echo <span class="string">&quot;<span class="variable">$VERSION_CODENAME</span>&quot;</span>)</span> stable&quot;</span> |   sudo <span class="built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>执行以下命令，安装 Docker。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>执行以下命令，运行 Docker。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>执行以下命令，检查安装结果。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+
+<p>返回如下信息，即表示安装成功。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/28470f218824e23ec82ce28a7b50fbba--134f--image-20240922094005847.png" alt="image-20240922094005847"></p>
+<ul>
+<li>配置对应的加速源</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>然后添加以下内容</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   <span class="string">&quot;registry-mirrors&quot;</span>: [</span><br><span class="line">   <span class="string">&quot;https://mirror.ccs.tencentyun.com&quot;</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行以下命令，重启 Docker 即可。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>测试使用</p>
+</blockquote>
+<p>运行hello-world</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/5bf1cdf230c3155be2fdda1beabb1ff3--764e--image-20240922095218341.png" alt="image-20240922095218341"></p>
+<blockquote>
+<p>查看镜像</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">hello-world   latest    d2c94e258dcb   16 months ago   13.3kB</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查看容器</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID   IMAGE         COMMAND    CREATED              STATUS                          PORTS     NAMES</span><br><span class="line">03e09e9f8b65   hello-world   <span class="string">&quot;/hello&quot;</span>   About a minute ago   Exited (0) About a minute ago          compassionate_gates</span><br><span class="line"><span class="comment"># 加-a表示所有容器，包括未运行的，不加-a表示正在运行的容器</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>移除容器镜像        </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker rmi -f d2c94e258dcb  移除镜像</span></span><br><span class="line">Untagged: hello-world:latest</span><br><span class="line">Untagged: hello-world@sha256:91fb4b041da273d5a3273b6d587d62d518300a6ad268b28628f74997b93171b2</span><br><span class="line">Deleted: sha256:d2c94e258dcb3c5ac2798d32e1249e42ef01cba4841c2234249495f87264ac5a</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker rm 03e09e9f8b65  移除容器</span></span><br><span class="line">03e09e9f8b65</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、回滚hello-world流程"><a href="#3、回滚hello-world流程" class="headerlink" title="3、回滚hello-world流程"></a>3、回滚hello-world流程</h2><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/5f27548b9d8f1e9607ec770f8163467d--85fa--image-20240922100450374.png" alt="image-20240922100450374"></p>
+<p><strong>底层原理</strong></p>
+<blockquote>
+<p>docker是怎么工作的</p>
+</blockquote>
+<p>docker是一个client-server结构的系统，docker守护进程运行在主机上，然后通过socket连接从客户端访问docker守护进程。</p>
+<p>docker守护进程从客户端接收命令，并按照命令，管理运行在主机上的容器。</p>
+<p>一个docker容器，是一个运行时环境，可以简单理解为进程运行的集装箱。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/d9a59b17ba24e343869da74322314fe6--cc31--image-20240922100554772.png" alt="image-20240922100554772"></p>
+<blockquote>
+<p>为什么docker比vm快</p>
+</blockquote>
+<ol>
+<li>Docker有这比虚拟机更少的抽象层，<strong>由于Docker不需要Hypervisor实现硬件资源虚拟化</strong>，运行在Docker上的程序直接使用的都是实际物理机上的硬件资源，因此在CPU、内存利用率上有明显的优势。</li>
+<li>**Docker利用的是宿主机的内核，而不需要使用Guest OS ** ，因此当新建一个容器时，docker不需要和虚拟机一样重新加载一个操作系统内核，而避免引寻 ，加载操作系统内核是个比较费事费资源的过程，当新建一个虚拟机时，虚拟机软件需要加载Guest OS，返回的新建的过程是分钟级别，而docker直接使用的是宿主机上的操作系统，则省略了返回这个的过程，因此新建一个docker容器只需要几秒钟。</li>
+</ol>
+<p>虚拟机与Docker架构对比图：</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/18b3c4595e4fcb446eec5aa6f07eb057--d721--image-20240922100609249.png" alt="image-20240922100609249"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/bd0035ab49544d13114ef688ea55e553--3f26--image-20240922100613510.png" alt="image-20240922100613510"></p>
+<h1 id="三、Docker常见命令"><a href="#三、Docker常见命令" class="headerlink" title="三、Docker常见命令"></a>三、Docker常见命令</h1><p>官方文档常用命令地址:<a target="_blank" rel="noopener" href="https://docs.docker.com/reference/">https://docs.docker.com/reference/</a></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/da3aea870e0b1d7fbb60aa86470e7314--c384--image-20240922101137679.png" alt="image-20240922101137679"></p>
+<h2 id="1、帮助命令"><a href="#1、帮助命令" class="headerlink" title="1、帮助命令"></a>1、帮助命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#显示docker的版本信息。</span></span><br><span class="line">docker version    </span><br><span class="line"><span class="comment">#显示docker的系统信息，包括镜像和容器的数量</span></span><br><span class="line">docker info   </span><br><span class="line"><span class="comment">#帮助命令</span></span><br><span class="line">docker --<span class="built_in">help</span></span><br><span class="line">docker 命令 --<span class="built_in">help</span> </span><br></pre></td></tr></table></figure>
+
+<h2 id="2、镜像命令"><a href="#2、镜像命令" class="headerlink" title="2、镜像命令"></a>2、镜像命令</h2><blockquote>
+<p>docker image  查看所有本地主机上的镜像</p>
+</blockquote>
+<p>参数和选项</p>
+<ul>
+<li><code>-a</code>, –all             列出所有镜像</li>
+<li><code>-q</code>, –quiet           只显示镜像id</li>
+</ul>
+<p>测试</p>
+<p>1、查看本地主机上的镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">hello-world   latest    d2c94e258dcb   16 months ago   13.3kB</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<ul>
+<li>REPOSITORY 镜像的仓库源</li>
+<li>TAG 镜像的标签（版本） latest表示最新的版本</li>
+<li>IMAGE ID 镜像id</li>
+<li>CREATED 镜像的创建时间</li>
+<li>SIZE 镜像的大小</li>
+</ul>
+<p>2、列出所有镜像的id</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker images -aq</span></span><br><span class="line">d2c94e258dcb</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>docker search 搜索镜像</p>
+</blockquote>
+<p>镜像仓库地址：<a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<p>参数和选项</p>
+<ul>
+<li><code>-f</code>, –filter filter   基于条件过滤</li>
+</ul>
+<p>测试</p>
+<p>1、搜索mysql镜像</p>
+<p>在docker仓库上搜  <a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a></p>
+<p>也可以直接使用命令去搜</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search ****</span><br></pre></td></tr></table></figure>
+
+<p>不过服务器要是不太行，一般会直接超时。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker search mysql</span></span><br><span class="line">Error response from daemon: Get <span class="string">&quot;https://index.docker.io/v1/search?q=mysql&amp;n=25&quot;</span>: dial tcp 199.59.150.39:443: i/o <span class="built_in">timeout</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>docker rmi删除镜像</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker rmi -f 镜像id                    #删除指定镜像</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker rmi -f 镜像id1 镜像id2 镜像id3     #删除多个镜像</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker rmi -f $(docker images -aq)      #删除所有镜像 </span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3、容器命令"><a href="#3、容器命令" class="headerlink" title="3、容器命令"></a>3、容器命令</h2><p>我们有了镜像，才能创建容器，所以先下载一个centos镜像来学习</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker pull centos</span></span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/centos</span><br><span class="line">a1d0c7532777: Pull complete </span><br><span class="line">Digest: sha256:a27fd8080b517143cbbbab9dfb7c8571c40d67d534bbdee55bd6c473f432b177</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> centos:latest</span><br><span class="line">docker.io/library/centos:latest</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动容器</p>
+</blockquote>
+<p>docker run [可选参数] 容器名或者容器id</p>
+<p>创建一个新的容器并运行一个命令</p>
+<p>可选参数</p>
+<ul>
+<li><strong>-i:</strong> 以交互模式运行容器，通常与 -t 同时使用</li>
+<li><strong>-t:</strong> 为容器重新分配一个伪输入终端，通常与 -i 同时使用</li>
+<li><strong>-P:</strong> 随机端口映射，容器内部端口<strong>随机</strong>映射到主机的端口</li>
+<li><strong>-p:</strong> 指定端口映射，格式为：<strong>主机(宿主)端口:容器端口</strong></li>
+<li><strong>-d:</strong> 后台运行容器，并返回容器ID；</li>
+<li><strong>–name&#x3D;”nginx-lb”:</strong> 为容器指定一个名称</li>
+<li><strong>-e username&#x3D;”ritchie”:</strong> 设置环境变量</li>
+</ul>
+<p>测试：</p>
+<p>1、使用镜像centos以交互模式启动一个容器,在容器内执行&#x2F;bin&#x2F;bash命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -it centos /bin/bash</span></span><br><span class="line">[root@5bfd7775d62f /]<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES</span><br><span class="line">5bfd7775d62f   centos    <span class="string">&quot;/bin/bash&quot;</span>   55 seconds ago   Up 54 seconds             goofy_ellis</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>退出容器</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span>       <span class="comment">#直接退出容器并关闭</span></span><br><span class="line">快捷键：ctrl+p+q   <span class="comment">#容器不关闭退出 注意p和q的顺序！</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>列出所有的容器</p>
+</blockquote>
+<p>docker ps</p>
+<p>可选参数</p>
+<ul>
+<li>**-a :**显示所有的容器，包括未运行的。</li>
+<li>**-n :**列出最近创建的n个容器。</li>
+<li>**-q :**静默模式，只显示容器编号。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID   IMAGE     COMMAND       CREATED              STATUS              PORTS     NAMES</span><br><span class="line">5bfd7775d62f   centos    <span class="string">&quot;/bin/bash&quot;</span>   About a minute ago   Up About a minute             goofy_ellis</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID   IMAGE         COMMAND       CREATED              STATUS                      PORTS     NAMES</span><br><span class="line">5bfd7775d62f   centos        <span class="string">&quot;/bin/bash&quot;</span>   About a minute ago   Up About a minute                     goofy_ellis</span><br><span class="line">8d2482707137   hello-world   <span class="string">&quot;/hello&quot;</span>      12 minutes ago       Exited (0) 12 minutes ago             clever_mccarthy</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># </span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>删除容器</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">rm</span> -f 容器<span class="built_in">id</span>                       <span class="comment"># 删除指定容器</span></span><br><span class="line">docker <span class="built_in">rm</span> -f $(docker ps -aq)       <span class="comment"># 删除所有容器</span></span><br><span class="line">docker ps -a -q|xargs docker <span class="built_in">rm</span> -f  <span class="comment"># 删除所有的容器</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>启动和停止容器</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器<span class="built_in">id</span>           <span class="comment"># 启动容器</span></span><br><span class="line">docker restart 容器<span class="built_in">id</span>         <span class="comment"># 重启容器</span></span><br><span class="line">docker stop 容器<span class="built_in">id</span>            <span class="comment"># 停止当前正在运行的容器</span></span><br><span class="line">docker <span class="built_in">kill</span> 容器<span class="built_in">id</span>            <span class="comment"># 强制停止当前的容器</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="4、常用其他命令"><a href="#4、常用其他命令" class="headerlink" title="4、常用其他命令"></a>4、常用其他命令</h2><blockquote>
+<p>后台启动命令</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -d centos</span></span><br><span class="line">3c59ba355924fa7659dea00b40ee81e0b156ea8173cc3ed55d10abdda9b71346</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES</span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题，后端启动容器后，docker ps，发现centos停止了</span></span><br><span class="line"><span class="comment"># 常见的坑， docker 容器使用后台运行， 就必须要有一个前台进程，docker发现没有应用，就会自动停止</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -d -it centos  #这种启动容器后就不会关闭了</span></span><br><span class="line">427021a3fe1bed3ce5a2950d50204b0b5c7ba6124e436132cb810791e04d7c9d</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES</span><br><span class="line">427021a3fe1b   centos    <span class="string">&quot;/bin/bash&quot;</span>   3 seconds ago   Up 3 seconds             brave_moore</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查看日志</p>
+</blockquote>
+<p>docker logs [参数与参选] 容器id</p>
+<p>参数与选项</p>
+<ul>
+<li><strong>-f :</strong> 跟踪日志输出</li>
+<li><strong>-t :</strong> 显示时间戳</li>
+<li>**–since :**显示某个开始时间的所有日志</li>
+<li><strong>-n</strong>或者**–tail :**仅列出最新N条容器日志</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker logs -tf -n=10 容器id</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker logs -tf -n=10 427021a3fe1b</span></span><br><span class="line"><span class="comment"># 这里没有日志，我们自己编写一段shell脚本</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -d -it centos /bin/bash -c &quot;while true;do echo zyy hello;sleep 10;done&quot;</span></span><br><span class="line">26805bf07f643d921b05be3a9c3f9eff41481bc302406c8c64b8ffbfc72b52ee</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker logs -tf -n=10 26805bf07f6</span></span><br><span class="line">2024-09-22T02:29:02.878255691Z zyy hello</span><br><span class="line">2024-09-22T02:29:12.896589927Z zyy hello</span><br></pre></td></tr></table></figure>
+
+<p><strong>命令<code>docker run -d -it centos /bin/bash -c &quot;while true;do echo zyy hello;sleep 1;done&quot;</code>解释：</strong></p>
+<p>该命令会不停地输出字符串 “zyy hello”，每隔 1 秒钟输出一次，直到容器被停止。</p>
+<p>其中，各个参数的含义如下：</p>
+<ul>
+<li><code>docker run</code> 是 Docker 命令的基本语法，用于启动一个新的容器。</li>
+<li><code>-d</code> 参数表示在后台运行容器。</li>
+<li><code>centos</code> 参数表示使用的镜像名称，这里使用的是 CentOS 镜像。</li>
+<li><code>/bin/bash -c &quot;while true;do echo zyy hello;sleep 1;done&quot;</code> 参数表示在容器内部执行的 shell 命令。其中 <code>/bin/bash</code> 是 shell 的路径，<code>-c</code> 参数表示在 shell 中执行指定的命令。这里的命令是一个无限循环，不停地输出字符串 “zyy hello”。</li>
+</ul>
+<blockquote>
+<p>查看容器中的进程信息</p>
+</blockquote>
+<p>docker top 容器id</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES</span><br><span class="line">4ee256515d6e   centos    <span class="string">&quot;/bin/bash&quot;</span>   4 seconds ago   Up 3 seconds             frosty_swartz</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker top 4ee256515d6e</span></span><br><span class="line">UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD</span><br><span class="line">root                2564662             2564639             0                   10:33               pts/0               00:00:00            /bin/bash</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>查看镜像的元数据</p>
+</blockquote>
+<p>docker inspect 容器id<br>元数据 (meta data)——“data about data” 描述数据的数据，一般是结构化数据 </p>
+<p>元数据是指从信息资源中抽取出来的用于说明其特征、内容的结构化的数据(如题名,版本、出版数据、相关说明,包括检索点等)，用于组织、描述、检索、保存、管理信息和知识资源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker inspect 4ee256515d6e</span></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;Id&quot;</span>: <span class="string">&quot;4ee256515d6e776f4e2b6e8e80d1a65b67635347465ba27a08035cffb3f01983&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Created&quot;</span>: <span class="string">&quot;2024-09-22T02:33:02.5872125Z&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Path&quot;</span>: <span class="string">&quot;/bin/bash&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Args&quot;</span>: [],</span><br><span class="line">        <span class="string">&quot;State&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Status&quot;</span>: <span class="string">&quot;running&quot;</span>,</span><br><span class="line">........</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>进入当前正在运行的容器</p>
+</blockquote>
+<p><strong>方式一：docker exec</strong></p>
+<p>docker exec -it 容器id &#x2F;bin&#x2F;bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker exec -it 4ee256515d6e /bin/sh</span></span><br><span class="line">sh-4.4<span class="comment"># ls</span></span><br><span class="line">bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var</span><br></pre></td></tr></table></figure>
+
+<p><strong>方式二：docker attach</strong></p>
+<p>docker attach 容器id</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker attach 4ee256515d6e</span></span><br><span class="line">[root@4ee256515d6e /]<span class="comment"># ls</span></span><br><span class="line">bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var</span><br></pre></td></tr></table></figure>
+
+<p>区别</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker exec       # 进入容器后开启一个新的终端，可以在里面操作</span></span><br><span class="line"><span class="comment"># docker attach     # 进入容器正在执行的终端，不会启动新的进程</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>从容器拷贝到主机上、从主机拷贝到容器上</p>
+</blockquote>
+<p>docker   cp   容器id:容器文件   主机路径</p>
+<p>docker   cp   主机文件   容器id:容器路径</p>
+<h2 id="5、命令大全"><a href="#5、命令大全" class="headerlink" title="5、命令大全"></a>5、命令大全</h2><p><a target="_blank" rel="noopener" href="https://pythondjango.cn/python/tools/2-docker-dockerfile/">https://pythondjango.cn/python/tools/2-docker-dockerfile/</a></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/a35078a4e14770dc23e9e96e77b8fa78--3ca0--image-20240922104456381.png" alt="image-20240922104456381"></p>
+<h1 id="四、Docker的使用练习"><a href="#四、Docker的使用练习" class="headerlink" title="四、Docker的使用练习"></a>四、Docker的使用练习</h1><h2 id="1、Docker安装nginx"><a href="#1、Docker安装nginx" class="headerlink" title="1、Docker安装nginx"></a>1、Docker安装nginx</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker pull nginx 1、 拉取nginx</span></span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/nginx</span><br><span class="line">a2318d6c47ec: Pull complete </span><br><span class="line">095d327c79ae: Pull complete </span><br><span class="line">bbfaa25db775: Pull complete </span><br><span class="line">7bb6fb0cfb2b: Pull complete </span><br><span class="line">0723edc10c17: Pull complete </span><br><span class="line">24b3fdc4d1e3: Pull complete </span><br><span class="line">3122471704d5: Pull complete </span><br><span class="line">Digest: sha256:04ba374043ccd2fc5c593885c0eacddebabd5ca375f9323666f28dfd5a9710e3</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> nginx:latest</span><br><span class="line">docker.io/library/nginx:latest</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY    TAG       IMAGE ID       CREATED         SIZE</span><br><span class="line">nginx         latest    39286ab8a5e1   5 weeks ago     188MB</span><br><span class="line">hello-world   latest    d2c94e258dcb   16 months ago   13.3kB</span><br><span class="line">centos        latest    5d0da3dc9764   3 years ago     231MB</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -it -d --name nginx01 -p 3344:80 nginx 启动nginx</span></span><br><span class="line">6c511e58320a06a81eeec1708d7fecd85486d8b879711ab3993e6599849cb5d6</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker ps  查看nginx容器</span></span><br><span class="line">CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                   NAMES</span><br><span class="line">6c511e58320a   nginx     <span class="string">&quot;/docker-entrypoint.…&quot;</span>   28 seconds ago   Up 28 seconds   0.0.0.0:3344-&gt;80/tcp, :::3344-&gt;80/tcp   nginx01</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/427e9af89ddfbabc7c02f78814a92408--610e--image-20240922105436716.png" alt="image-20240922105436716"></p>
+<p>成功搭建（注意这里需要服务器开启对应的3344端口，外界才能访问到）</p>
+<p><strong><code>docker run -it -d --name nginx02 -p 3344:80 nginx</code>解释</strong></p>
+<ul>
+<li><code>docker run</code>：启动一个新的容器</li>
+<li><code>-it</code>：表示启用交互式终端并分配一个伪终端，这样我们可以在容器中交互式地执行命令。</li>
+<li><code>-d</code>：表示将容器运行在后台（守护进程）。</li>
+<li><code>--name nginx02</code>：给容器起一个名字叫做 <code>nginx02</code>。</li>
+<li><code>-p 3344:80</code>：将主机的 3344 端口映射到容器的 80 端口，这样我们就可以通过主机的 3344 端口来访问容器内的 Nginx 服务。</li>
+<li><code>nginx</code>：表示要启动的镜像名称为 <code>nginx</code>。</li>
+</ul>
+<p>因此，这个命令的作用是在 Docker 中启动一个名为 <code>nginx02</code> 的容器，运行 Nginx 服务，并将容器的 80 端口映射到主机的 3344 端口，以便我们可以通过访问主机的 3344 端口来访问 Nginx 服务。容器会在后台运行，并启用交互式终端。</p>
+<h2 id="2、安装一个tomcat"><a href="#2、安装一个tomcat" class="headerlink" title="2、安装一个tomcat"></a>2、安装一个tomcat</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker pull tomcat  拉取镜像</span></span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/tomcat</span><br><span class="line">32b824d45c61: Pull complete </span><br><span class="line">fe18bb7e114f: Pull complete </span><br><span class="line">581ebfe08d3f: Pull complete </span><br><span class="line">7c7bdd063feb: Pull complete </span><br><span class="line">28f1e2918031: Pull complete </span><br><span class="line">dbce9ebf04f0: Pull complete </span><br><span class="line">4f4fb700ef54: Pull complete </span><br><span class="line">2963b9c3d96f: Pull complete </span><br><span class="line">Digest: sha256:0298f25ea8171042fe610457ff0fd72382d36a144eae4483e2784bbbae31d68b</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> tomcat:latest</span><br><span class="line">docker.io/library/tomcat:latest</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -d -p 3355:8080 --name tomcat01 tomcat  启动容器</span></span><br><span class="line">c0186e2559f5fe67ca6b32f386859ea1a3028572c42c93237ef746581c59361e</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/9711f3688d4cf560af0826f568ab9078--c194--image-20240922110708559.png" alt="image-20240922110708559"></p>
+<p>发现服务可以访问，但是没有页面</p>
+<p>进入服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker exec -it c0186e2559 /bin/bash 进入容器</span></span><br><span class="line">root@c0186e2559f5:/usr/local/tomcat/webapps<span class="comment"># ls</span></span><br></pre></td></tr></table></figure>
+
+<p>发现webapp下为空</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 原因：阿里云镜像的原因，阿里云默认是最小的镜像，所以不必要的都剔除掉</span><br><span class="line"># 保证最小可运行的环境！</span><br></pre></td></tr></table></figure>
+
+<p>解决方案：将webapps.dist下的文件都拷贝到webapps下即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@c0186e2559f5:/usr/local/tomcat<span class="comment"># cp -r webapps.dist/* webapps</span></span><br></pre></td></tr></table></figure>
+
+<p>刷新一下服务，就有页面了</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/8f92f4b563b758a8b61da0eaabd8e257--ae1f--image-20240922111002319.png" alt="image-20240922111002319"></p>
+<p>问题:我们以后要部署项目，如果每次都要进入容器是不是十分麻烦？要是可以在容器外部提供一个映射路径，比如webapps，我们在外部放置项目，就自动同步内部就好了！</p>
+<h2 id="3、Docker安装Elesticsearch"><a href="#3、Docker安装Elesticsearch" class="headerlink" title="3、Docker安装Elesticsearch"></a>3、Docker安装Elesticsearch</h2><p>elasticsearch暴露的端口很多</p>
+<p>十分耗内存（所以体现测试的时候可以提前把其他docker容器先停止，启动时可以限制堆内存大小）</p>
+<p>es 的数据一般需要放置到安全目录！挂载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -d --name es -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; -e ES_JAVA_OPTS=&quot;-Xms64m -Xmx512m&quot; elasticsearch:7.6.2</span></span><br><span class="line">Unable to find image <span class="string">&#x27;elasticsearch:7.6.2&#x27;</span> locally</span><br><span class="line">7.6.2: Pulling from library/elasticsearch</span><br><span class="line">ab5ef0e58194: Pull complete </span><br><span class="line">c4d1ca5c8a25: Pull complete </span><br><span class="line">941a3cc8e7b8: Pull complete </span><br><span class="line">43ec483d9618: Pull complete </span><br><span class="line">c486fd200684: Pull complete </span><br><span class="line">1b960df074b2: Pull complete </span><br><span class="line">1719d48d6823: Pull complete </span><br><span class="line">Digest: sha256:1b09dbd93085a1e7bca34830e77d2981521a7210e11f11eda997add1c12711fa</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> elasticsearch:7.6.2</span><br><span class="line">6861a387a1cac6856d948d54b5ec3db63b04f762d0deb2a7f7ba4e77af3d7a62</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># curl localhost:9200</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;name&quot;</span> : <span class="string">&quot;6861a387a1ca&quot;</span>,</span><br><span class="line">  <span class="string">&quot;cluster_name&quot;</span> : <span class="string">&quot;docker-cluster&quot;</span>,</span><br><span class="line">  <span class="string">&quot;cluster_uuid&quot;</span> : <span class="string">&quot;b2Wz4EljT7qCteo0VMyFMQ&quot;</span>,</span><br><span class="line">  <span class="string">&quot;version&quot;</span> : &#123;</span><br><span class="line">    <span class="string">&quot;number&quot;</span> : <span class="string">&quot;7.6.2&quot;</span>,</span><br><span class="line">    <span class="string">&quot;build_flavor&quot;</span> : <span class="string">&quot;default&quot;</span>,</span><br><span class="line">    <span class="string">&quot;build_type&quot;</span> : <span class="string">&quot;docker&quot;</span>,</span><br><span class="line">    <span class="string">&quot;build_hash&quot;</span> : <span class="string">&quot;ef48eb35cf30adf4db14086e8aabd07ef6fb113f&quot;</span>,</span><br><span class="line">    <span class="string">&quot;build_date&quot;</span> : <span class="string">&quot;2020-03-26T06:34:37.794943Z&quot;</span>,</span><br><span class="line">    <span class="string">&quot;build_snapshot&quot;</span> : <span class="literal">false</span>,</span><br><span class="line">    <span class="string">&quot;lucene_version&quot;</span> : <span class="string">&quot;8.4.0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;minimum_wire_compatibility_version&quot;</span> : <span class="string">&quot;6.8.0&quot;</span>,</span><br><span class="line">    <span class="string">&quot;minimum_index_compatibility_version&quot;</span> : <span class="string">&quot;6.0.0-beta1&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;tagline&quot;</span> : <span class="string">&quot;You Know, for Search&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker stats   #查看cpu状态</span></span><br><span class="line">CONTAINER ID   NAME      CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS</span><br><span class="line">6861a387a1ca   es        3.26%     368.8MiB / 1.918GiB   18.78%    4.11kB / 3.75kB   6.16MB / 2.03MB   45</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/b2631e9ff0347714db21901b08846644--be00--image-20240922112744309.png" alt="image-20240922112744309"></p>
+<p><strong><code>docker run -d --name es -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; -e ES_JAVA_OPTS=&quot;-Xms64m -Xmx512m&quot; elasticsearch:7.6.2</code>命令解释</strong></p>
+<p>这是一个使用 Docker 命令行工具来启动一个 Elasticsearch 版本为 7.6.2 的容器，并设置了一些选项和参数。</p>
+<p>具体来说，这些选项和参数的含义如下：</p>
+<ul>
+<li><code>-d</code> 表示在后台运行容器，即以“守护进程”模式运行，不会占用当前终端的控制台；</li>
+<li><code>--name es</code> 表示给容器起一个名称为 “es”；</li>
+<li><code>-p 9200:9200 -p 9300:9300</code> 表示将容器内部的 9200 端口和 9300 端口映射到主机的 9200 和 9300 端口上，以便在主机上通过浏览器或客户端连接 Elasticsearch；</li>
+<li><code>-e &quot;discovery.type=single-node&quot;</code> 表示设置 Elasticsearch 的节点类型为 “single-node”，即单节点模式，这是一个简单的运行 Elasticsearch 的方式，适用于测试或开发环境；</li>
+<li><code>-e ES_JAVA_OPTS=&quot;-Xms64m -Xmx512m&quot;</code> 表示设置 Elasticsearch 的 Java 虚拟机参数，其中 “-Xms64m” 表示设置初始堆大小为 64MB，”-Xmx512m” 表示设置最大堆大小为 512MB；</li>
+<li><code>elasticsearch:7.6.2</code> 表示要运行的容器镜像名称和版本号，这里是 Elasticsearch 官方提供的 7.6.2 版本。</li>
+</ul>
+<p>总体来说，这个命令的作用是在 Docker 中启动一个 Elasticsearch 7.6.2 的容器，并将容器内部的端口映射到主机上，以便在主机上访问 Elasticsearch。其中的选项和参数可以根据需要进行修改或调整。</p>
+<h1 id="五、portainer可视化面板安装"><a href="#五、portainer可视化面板安装" class="headerlink" title="五、portainer可视化面板安装"></a>五、portainer可视化面板安装</h1><ul>
+<li>portainer(先用这个)</li>
+<li>rancher(CI&#x2F;DI再用)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -d -p 8088:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer</span></span><br><span class="line">Unable to find image <span class="string">&#x27;portainer/portainer:latest&#x27;</span> locally</span><br><span class="line">latest: Pulling from portainer/portainer</span><br><span class="line">772227786281: Pull complete </span><br><span class="line">96fd13befc87: Pull complete </span><br><span class="line">0bad1d247b5b: Pull complete </span><br><span class="line">b5d1b01b1d39: Pull complete </span><br><span class="line">Digest: sha256:47b064434edf437badf7337e516e07f64477485c8ecc663ddabbe824b20c672d</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> portainer/portainer:latest</span><br><span class="line">8de613bef9cc0af508c8db2433789ee570f1a7737260130c36ab03d7fcfd54a9</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>docker run -d -p 8088:9000 --restart=always -v /var/run/docker.sock:/var/run/docker.sock --privileged=true portainer/portainer</code>解释</strong></p>
+<p>这是一个用于运行 Docker 容器的 Docker 命令。具体来说，该命令启动了一个名为 Portainer 的 Docker 容器，并将容器的 9000 端口映射到主机的 8088 端口，以便在主机上通过浏览器访问 Portainer。</p>
+<p>以下是各个参数的含义：</p>
+<ul>
+<li><code>-d</code>：表示以后台模式运行容器。</li>
+<li><code>-p 8088:9000</code>：表示将容器的 9000 端口映射到主机的 8088 端口。</li>
+<li><code>--restart=always</code>：表示容器在停止后总是会自动重启。</li>
+<li><code>-v /var/run/docker.sock:/var/run/docker.sock</code>：表示将主机的 Docker 守护进程的 Unix 套接字文件（&#x2F;var&#x2F;run&#x2F;docker.sock）挂载到容器的同一位置，从而让 Portainer 可以管理主机上的其他 Docker 容器。</li>
+<li><code>--privileged=true</code>：表示在容器中开启特权模式，以便 Portainer 能够访问主机上的 Docker 守护进程。</li>
+</ul>
+<p>总之，这个命令的作用是在主机上启动一个 Portainer 容器，以便通过 web 界面来管理和监控其他 Docker 容器。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/5ed9c8b958e7da80cce2ec4be260697e--a128--image-20240922151045620.png" alt="image-20240922151045620"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/1723b6decc7608a24c3ab59cf2dadd75--6e31--image-20240922151150791.png" alt="image-20240922151150791"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/3af376d05b8b74bd529ba6cee95b464d--6a23--image-20240922151227485.png" alt="image-20240922151227485"></p>
+<ul>
+<li>使用图形化界面对docker容器镜像进行对应的管理</li>
+</ul>
+<h1 id="六、Docker镜像"><a href="#六、Docker镜像" class="headerlink" title="六、Docker镜像"></a>六、Docker镜像</h1><h2 id="1、镜像是什么"><a href="#1、镜像是什么" class="headerlink" title="1、镜像是什么"></a>1、镜像是什么</h2><p>镜像是一种轻量级、可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含</p>
+<p>运行某个软件所需的所有内容，包括代码、运行时、库、环境变量和配置文件。</p>
+<h2 id="2、Docker镜像加载原理"><a href="#2、Docker镜像加载原理" class="headerlink" title="2、Docker镜像加载原理"></a>2、Docker镜像加载原理</h2><blockquote>
+<p>UnionFS(联合文件系统)</p>
+</blockquote>
+<p>UnionFS（联合文件系统）：Union文件系统（UnionFS）是一种分层、轻量级并且高性能的文件系统，</p>
+<p>它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系</p>
+<p>统下(unite several directories into a single virtual fifilesystem)。Union 文件系统是 Docker 镜像的基</p>
+<p>础。镜像可以通过分层来进行继承，基于基础镜像（没有父镜像），可以制作各种具体的应用镜像。</p>
+<p>特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件</p>
+<p>系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录</p>
+<blockquote>
+<p>docker镜像加载原理</p>
+</blockquote>
+<p>docker的镜像实际上由一层一层的文件系统组成，这种层级的文件系统UnionFS。</p>
+<p>bootfs(boot fifile system)主要包含bootloader和kernel, bootloader主要是引导加载kernel, Linux刚启</p>
+<p>动时会加载bootfs文件系统，在Docker镜像的最底层是bootfs。这一层与我们典型的Linux&#x2F;Unix系统是</p>
+<p>一样的，包含boot加载器和内核。当boot加载完成之后整个内核就都在内存中了，此时内存的使用权已</p>
+<p>由bootfs转交给内核，此时系统也会卸载bootfs。 </p>
+<p>rootfs (root fifile system) ，在bootfs之上。包含的就是典型 Linux 系统中的 &#x2F;dev, &#x2F;proc, &#x2F;bin, &#x2F;etc 等标</p>
+<p>准目录和文件。rootfs就是各种不同的操作系统发行版，比如Ubuntu，Centos等等。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/6bbe15637a9c22909ba22cf0ea4aa6d0--89e1--image-20240922152448693.png" alt="image-20240922152448693"></p>
+<p>平时我们安装进虚拟机的CentOS都是好几个G，为什么Docker这里才200M？</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/bbdf1be4d587d57210e07181711d1724--2253--image-20240922152528402.png" alt="image-20240922152528402"></p>
+<p>对于一个精简的OS，rootfs 可以很小，只需要包含最基本的命令，工具和程序库就可以了，因为底层直</p>
+<p>接用Host的kernel，自己只需要提供rootfs就可以了。由此可见对于不同的linux发行版, bootfs基本是一</p>
+<p>致的, rootfs会有差别, 因此不同的发行版可以公用bootfs。 </p>
+<h2 id="3、分层理解"><a href="#3、分层理解" class="headerlink" title="3、分层理解"></a>3、分层理解</h2><p>我们可以去下载一个镜像，注意观察下载的日志输出，可以看到是一层一层的在下载！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker pull redis</span></span><br><span class="line">Using default tag: latest</span><br><span class="line">latest: Pulling from library/redis</span><br><span class="line">a2318d6c47ec: Pull complete </span><br><span class="line">ed7fd66f27f2: Pull complete </span><br><span class="line">410a3d5b3155: Pull complete </span><br><span class="line">9312cf3f6b3e: Pull complete </span><br><span class="line">c39877ab23d0: Pull complete </span><br><span class="line">01394ffc7248: Pull complete </span><br><span class="line">4f4fb700ef54: Pull complete </span><br><span class="line">5a03cb6163ab: Pull complete </span><br><span class="line">Digest: sha256:eadf354977d428e347d93046bb1a5569d701e8deb68f090215534a99dbcb23b9</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> redis:latest</span><br><span class="line">docker.io/library/redis:latest</span><br></pre></td></tr></table></figure>
+
+<p>思考：为什么Docker镜像要采用这种分层的结构呢？</p>
+<p>最大的好处，我觉得莫过于是资源共享了！比如有多个镜像都从相同的Base镜像构建而来，那么宿主机</p>
+<p>只需在磁盘上保留一份base镜像，同时内存中也只需要加载一份base镜像，这样就可以为所有的容器服</p>
+<p>务了，而且镜像的每一层都可以被共享。</p>
+<p>查看镜像分层的方式可以通过 <code>docker image inspect</code> 命令！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;RootFS&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Type&quot;</span>: <span class="string">&quot;layers&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Layers&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;sha256:8e2ab394fabf557b00041a8f080b10b4e91c7027b7c174f095332c7ebb6501cb&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:9a978e3d8066b448323af0ea471da443c1e9da9dd8d0663d380b6af6a5ef14ed&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:a64e92ee12394b08486442cb272116d6b0a4f363748434316a2e9ed2fdd379c0&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:40710ab1222c055362a531507662df6177a4a2c97095b5ead8389c1e5b797615&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:15ef09f0323042ab4d842cd2d5d53d1cdd99414ee787d08f7d7064bf69d2d146&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:e4dbf0bd9d9df4561e608086d426c8edca8dd2fd9b83b2bc76b4fbc88066fc1d&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef&quot;</span>,</span><br><span class="line">                <span class="string">&quot;sha256:950a085c0a1cd3e27102081e4a7bfb4bd0a624325b1cd3caf71f0d5f5eced6b6&quot;</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>理解：</p>
+<p>所有的 Docker 镜像都起始于一个基础镜像层，当进行修改或增加新的内容时，就会在当前镜像层之</p>
+<p>上，创建新的镜像层。</p>
+<p>举一个简单的例子，假如基于 Ubuntu Linux 16.04 创建一个新的镜像，这就是新镜像的第一层；如果</p>
+<p>在该镜像中添加 Python包，就会在基础镜像层之上创建第二个镜像层；如果继续添加一个安全补丁，就</p>
+<p>会创建第三个镜像层。</p>
+<p>该镜像当前已经包含 3 个镜像层，如下图所示（这只是一个用于演示的很简单的例子）。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/f9c144e64ca90a0bb064c43099abc990--97ab--image-20240922152707544.png" alt="image-20240922152707544"></p>
+<p>上图中的镜像层跟之前图中的略有区别，主要目的是便于展示文件。</p>
+<p>下图中展示了一个稍微复杂的三层镜像，在外部看来整个镜像只有 6 个文件，这是因为最上层中的文件</p>
+<p>7 是文件 5 的一个更新版本。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/89e58c04d92f0d2023bf15fba34c7dc9--1bf4--image-20240922152716981.png" alt="image-20240922152716981"></p>
+<p>这种情况下，上层镜像层中的文件覆盖了底层镜像层中的文件。这样就使得文件的更新版本作为一个新</p>
+<p>镜像层添加到镜像当中。</p>
+<p>Docker 通过存储引擎（新版本采用快照机制）的方式来实现镜像层堆栈，并保证多镜像层对外展示为统</p>
+<p>一的文件系统。</p>
+<p>Linux 上可用的存储引擎有 AUFS、Overlay2、Device Mapper、Btrfs 以及 ZFS。顾名思义，每种存储</p>
+<p>引擎都基于 Linux 中对应的文件系统或者块设备技术，并且每种存储引擎都有其独有的性能特点。</p>
+<p>Docker 在 Windows 上仅支持 windowsfifilter 一种存储引擎，该引擎基于 NTFS 文件系统之上实现了分</p>
+<p>层和 CoW。</p>
+<p>下图展示了与系统显示相同的三层镜像。所有镜像层堆叠并合并，对外提供统一的视图。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/1a734a4154eeeaac48593ce23297d7ad--628f--image-20240922152734675.png" alt="image-20240922152734675"></p>
+<blockquote>
+<p>特点</p>
+</blockquote>
+<p>Docker镜像都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部！</p>
+<p>这一层就是我们通常说的容器层，容器之下的都叫镜像层！</p>
+<h2 id="4、镜像commit"><a href="#4、镜像commit" class="headerlink" title="4、镜像commit"></a>4、镜像commit</h2><p><strong>docker commit</strong> <strong>从容器创建一个新的镜像。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker commit 提交容器副本使之成为一个新的镜像！</span><br><span class="line"></span><br><span class="line"># 语法 </span><br><span class="line">docker commit -m=&quot;提交的描述信息&quot; -a=&quot;作者&quot; 容器id 要创建的目标镜像名:[标签名]</span><br></pre></td></tr></table></figure>
+
+<p>实际操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -it -p 3355:8080 --name tomcat01 tomcat  启动tomcat</span></span><br><span class="line">root@c8e254e9555b:/usr/local/tomcat<span class="comment"># cp -r webapps.dist/* webapps   进行tomcat的修改</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker commit -a=&quot;6pc1&quot; -m=&quot;add webapps tomcat&quot; c8e254e9555b mytomcat:1.0  将新的容器提交</span></span><br><span class="line">sha256:c4cc1b3de0ff0849bccb0dffa83397f0a6ff1af3a4907bca933856a5da04745a</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker images  成功提交对应镜像</span></span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED          SIZE</span><br><span class="line">mytomcat     1.0       c4cc1b3de0ff   13 seconds ago   474MB</span><br><span class="line">tomcat       latest    7f14c7d5cf60   4 days ago       469MB</span><br><span class="line">redis        latest    590b81f2fea1   7 weeks ago      117MB</span><br><span class="line">centos       latest    5d0da3dc9764   3 years ago      231MB</span><br></pre></td></tr></table></figure>
+
+<p>如果你想要保存你当前的状态，可以通过commit，来提交镜像，方便使用，类似于 VM 中的快照！</p>
+<h1 id="七、容器数据卷"><a href="#七、容器数据卷" class="headerlink" title="七、容器数据卷"></a>七、容器数据卷</h1><h2 id="1、什么是容器数据卷"><a href="#1、什么是容器数据卷" class="headerlink" title="1、什么是容器数据卷"></a>1、什么是容器数据卷</h2><p><strong>docker的理念回顾：</strong></p>
+<p>将应用和运行的环境打包形成容器运行，运行可以伴随着容器，但是我们对于数据的要求，是希望能够</p>
+<p>持久化的！</p>
+<p>就好比，你安装一个MySQL，结果你把容器删了，就相当于删库跑路了，这TM也太扯了吧！</p>
+<p>所以我们希望容器之间有可能可以共享数据，Docker容器产生的数据，如果不通过docker commit 生成</p>
+<p>新的镜像，使得数据作为镜像的一部分保存下来，那么当容器删除后，数据自然也就没有了！这样是行</p>
+<p>不通的！</p>
+<p>为了能保存数据在Docker中我们就可以使用卷！让数据挂载到我们本地！这样数据就不会因为容器删除</p>
+<p>而丢失了！</p>
+<p><strong>作用：</strong></p>
+<p>卷就是目录或者文件，存在一个或者多个容器中，由docker挂载到容器，但不属于联合文件系统，因此</p>
+<p>能够绕过 Union File System ， 提供一些用于持续存储或共享数据的特性</p>
+<p>卷的设计目的就是数据的持久化，完全独立于容器的生存周期，因此Docker不会在容器删除时删除其挂</p>
+<p>载的数据卷</p>
+<p><strong>特点：</strong></p>
+<ol>
+<li>数据卷可在容器之间共享或重用数据</li>
+<li>卷中的更改可以直接生效</li>
+<li>数据卷中的更改不会包含在镜像的更新中</li>
+<li>数据卷的生命周期一直持续到没有容器使用它为止</li>
+</ol>
+<p><strong>所以：总结一句话： 就是容器的持久化，以及容器间的继承和数据共享！</strong></p>
+<h2 id="2、使用容器数据卷"><a href="#2、使用容器数据卷" class="headerlink" title="2、使用容器数据卷"></a>2、使用容器数据卷</h2><blockquote>
+<p>方式一：容器中直接使用命令来添加</p>
+</blockquote>
+<p>挂载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">命令</span><br><span class="line"><span class="comment"># docker run -it -v 宿主机绝对路径目录:容器内目录 镜像名</span></span><br><span class="line">测试</span><br><span class="line"><span class="comment"># docker run -it -v /home/test:/home centos /bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<p>查看数据卷是否挂载成功<code>docker inspect 容器id</code></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/2eba256a73aa2ce5c8c6877044c1f6d9--61d8--image-20240922162754059.png" alt="image-20240922162754059"></p>
+<p>测试容器和宿主机之间数据共享：可以发现，在容器中，创建的会在宿主机中看到！</p>
+<p>测试容器停止退出后，主机修改数据是否会同步！</p>
+<ol>
+<li>停止容器</li>
+<li>在宿主机上修改文件</li>
+<li>启动刚才停止的容器</li>
+<li>然后查看对应的文件，发现数据依旧同步</li>
+</ol>
+<blockquote>
+<p>实战：使用docker安装mysql</p>
+</blockquote>
+<p>思考：mysql 数据持久化的问题！</p>
+<ol>
+<li><p>下载镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker pull mysql:5.7</span></span><br><span class="line">5.7: Pulling from library/mysql</span><br><span class="line">20e4dcae4c69: Pull complete </span><br><span class="line">1c56c3d4ce74: Pull complete </span><br><span class="line">e9f03a1c24ce: Pull complete </span><br><span class="line">68c3898c2015: Pull complete </span><br><span class="line">6b95a940e7b6: Pull complete </span><br><span class="line">90986bb8de6e: Pull complete </span><br><span class="line">ae71319cb779: Pull complete </span><br><span class="line">ffc89e9dfd88: Pull complete </span><br><span class="line">43d05e938198: Pull complete </span><br><span class="line">064b2d298fba: Pull complete </span><br><span class="line">df9a4d85569b: Pull complete </span><br><span class="line">Digest: sha256:4bc6bc963e6d8443453676cae56536f4b8156d78bae03c0145cbe47c2aad73bb</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> mysql:5.7</span><br><span class="line">docker.io/library/mysql:5.7	</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -d -p 3310:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以成功同步对应的信息，使用mysql连接工具就可以变相直接控制docker内的数据库了</p>
+</li>
+</ol>
+<p><code>docker run -d -p 3310:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql01 mysql:5.7</code>命名解释</p>
+<p>这个命令使用 Docker 运行 MySQL 5.7 容器，并做出以下配置：</p>
+<ul>
+<li><code>-d</code> 表示容器在后台运行（即“守护进程”模式）。</li>
+<li><code>-p 3310:3306</code> 将容器内的 MySQL 端口 3306 映射到主机的端口 3310 上，这样你就可以通过主机上的端口 3310 访问 MySQL 服务。</li>
+<li><code>-v /home/mysql/conf:/etc/mysql/conf.d</code> 将主机上的目录 <code>/home/mysql/conf</code> 挂载到容器的 <code>/etc/mysql/conf.d</code> 目录中，这样你可以在主机上编辑 MySQL 配置文件，并且它们会在容器内生效。</li>
+<li><code>-v /home/mysql/data:/var/lib/mysql</code> 将主机上的目录 <code>/home/mysql/data</code> 挂载到容器的 <code>/var/lib/mysql</code> 目录中，这样你可以在主机上保存 MySQL 数据文件，并且它们会在容器内生效。</li>
+<li><code>-e MYSQL_ROOT_PASSWORD=123456</code> 设置 MySQL root 用户的密码为 <code>123456</code>。</li>
+<li><code>--name mysql01</code> 指定容器的名称为 <code>mysql01</code>，以便于管理和查找。</li>
+<li><code>mysql:5.7</code> 指定使用官方提供的 MySQL 5.7 镜像。</li>
+</ul>
+<p>这个命令的作用是在 Docker 中创建并运行一个 MySQL 容器，同时将主机上的目录挂载到容器中，以便于配置和保存数据。</p>
+<h2 id="3、匿名和具名挂载"><a href="#3、匿名和具名挂载" class="headerlink" title="3、匿名和具名挂载"></a>3、匿名和具名挂载</h2><ul>
+<li>-v 容器内路径         #匿名挂载</li>
+<li>-v 卷名:容器内路径      #具名挂载</li>
+<li>-v &#x2F;宿主机路径:容器内路径   #指定路径挂载</li>
+</ul>
+<h2 id="4、初识Dockerfile"><a href="#4、初识Dockerfile" class="headerlink" title="4、初识Dockerfile"></a>4、初识Dockerfile</h2><p>DockerFile 是用来构建Docker镜像的构建文件，是由一些列命令和参数构成的脚本。</p>
+<p>我们在这里，先体验下，后面我们会详细讲解 DockerFile ！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.进入宿主机目录，在目录下再创建一个目录docker-test-volume，在这个新建目录下新建一个文件dockerfile</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test<span class="comment"># mkdir docker-test-volumn</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test<span class="comment"># cd docker-test-volumn/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.编辑dockerfile1这个文件</span></span><br><span class="line"><span class="comment">#说明：在编写DockerFile文件中使用 VOLUME 指令来给镜像添加一个或多个数据卷</span></span><br><span class="line"><span class="comment">#出于可移植和分享的考虑，我们之前使用的 -v 主机目录:容器目录 这种方式不能够直接在 DockerFile中实现</span></span><br><span class="line"><span class="comment">#由于宿主机目录是依赖于特定宿主机的，并不能够保证在所有宿主机上都存在这样的特定目录</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volumn<span class="comment"># vim dockerfile</span></span><br><span class="line">FROM centos</span><br><span class="line">VOLUME [<span class="string">&quot;volume1&quot;</span>,<span class="string">&quot;volume2&quot;</span>]</span><br><span class="line">CMD <span class="built_in">echo</span> <span class="string">&quot;-----end-----&quot;</span></span><br><span class="line">CMD /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment">#3.build后生成镜像，获得一个新镜像 my-centos</span></span><br><span class="line"><span class="comment">#注意最后有一个.</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volumn<span class="comment"># docker build -t my-centos .</span></span><br><span class="line">[+] Building 0.3s (5/5) FINISHED                                                                    docker:default</span><br><span class="line"> =&gt; [internal] load build definition from dockerfile                                                          0.0s</span><br><span class="line"> =&gt; =&gt; transferring dockerfile: 123B                                                                          0.0s</span><br><span class="line"> =&gt; [internal] load metadata <span class="keyword">for</span> docker.io/library/centos:latest                                              0.0s</span><br><span class="line"> =&gt; [internal] load .dockerignore                                                                             0.0s</span><br><span class="line"> =&gt; =&gt; transferring context: 2B                                                                               0.0s</span><br><span class="line"> =&gt; [1/1] FROM docker.io/library/centos:latest                                                                0.0s</span><br><span class="line"> =&gt; exporting to image                                                                                        0.0s</span><br><span class="line"> =&gt; =&gt; exporting layers                                                                                       0.0s</span><br><span class="line"> =&gt; =&gt; writing image sha256:f0839ab2b921916360f89feb21d60cec317c13b76274d4c6de29d9d6bb404f52                  0.0s</span><br><span class="line"> =&gt; =&gt; naming to docker.io/library/my-centos                                                                  0.0s</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volumn<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED             SIZE</span><br><span class="line">mytomcat     1.0       c4cc1b3de0ff   About an hour ago   474MB</span><br><span class="line">tomcat       latest    7f14c7d5cf60   4 days ago          469MB</span><br><span class="line">redis        latest    590b81f2fea1   7 weeks ago         117MB</span><br><span class="line">mysql        5.7       5107333e08a8   9 months ago        501MB</span><br><span class="line">my-centos    latest    f0839ab2b921   3 years ago         231MB</span><br><span class="line">centos       latest    5d0da3dc9764   3 years ago         231MB</span><br><span class="line"></span><br><span class="line"><span class="comment">#4.启动容器 发现数据卷目录volume1和volume2</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volumn<span class="comment"># docker run -it f0839ab2b921 /bin/bash</span></span><br><span class="line">[root@20aafb95c23c /]<span class="comment"># ls</span></span><br><span class="line">bin  etc   lib	  lost+found  mnt  proc  run   srv  tmp  var	  volumn2</span><br><span class="line">dev  home  lib64  media       opt  root  sbin  sys  usr  volumn1</span><br><span class="line"><span class="comment">#5.进入容器，进入volume1目录，1.txt文件，然后退出容器</span></span><br><span class="line">[root@20aafb95c23c /]<span class="comment"># cd volumn1</span></span><br><span class="line">[root@20aafb95c23c volumn1]<span class="comment"># ls</span></span><br><span class="line">[root@20aafb95c23c volumn1]<span class="comment"># touch 1.txt</span></span><br><span class="line">[root@20aafb95c23c volumn1]<span class="comment"># ls</span></span><br><span class="line">1.txt</span><br><span class="line">[root@20aafb95c23c volumn1]<span class="comment"># exit</span></span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line"><span class="comment">#问题:通过上述步骤，容器内的卷目录地址就已经知道了，但是对应的主机目录地址在哪里呢？</span></span><br><span class="line"><span class="comment">#6.查看容器信息</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volumn<span class="comment"># docker ps -a</span></span><br><span class="line">CONTAINER ID   IMAGE          COMMAND       CREATED              STATUS                      PORTS     NAMES</span><br><span class="line">20aafb95c23c   f0839ab2b921   <span class="string">&quot;/bin/bash&quot;</span>   About a minute ago   Exited (0) 23 seconds ago             busy_greider</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volumn<span class="comment"># docker inspect f0839ab2b921</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/25d8e823103f845e6a23f7221dc68d5a--07be--image-20240922170917802.png" alt="image-20240922170917802"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#8、发现宿主机文件</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume<span class="comment"># cd /var/lib/docker/volumes/5408b9e55fc0210903273841542b6fdb1cf0e3e1286994f19d08db8c78c6963b/_data</span></span><br><span class="line">root@VM-16-10-ubuntu:/var/lib/docker/volumes/5408b9e55fc0210903273841542b6fdb1cf0e3e1286994f19d08db8c78c6963b/_data<span class="comment"># ls</span></span><br><span class="line">1.txt</span><br></pre></td></tr></table></figure>
+
+<p>注意：如果访问出现了 cannot open directory: Permission denied</p>
+<p>解决办法：在挂载目录后多加一个 –privileged&#x3D;true参数即可</p>
+<h2 id="5、数据卷容器"><a href="#5、数据卷容器" class="headerlink" title="5、数据卷容器"></a>5、数据卷容器</h2><p>命名的容器挂载数据卷，其他容器通过挂载这个（父容器）实现数据共享，挂载数据卷的容器，称之为</p>
+<p>数据卷容器。</p>
+<p>我们使用上一步的镜像：my-centos 为模板，运行容器 docker01，docker02，docker03，他</p>
+<p>们都会具有容器卷volume1和volume2</p>
+<p><strong>我们来测试下，容器间传递共享</strong></p>
+<ol>
+<li><p>用my-centos镜像，启动容器docker01，在volume2目录下新建一个文件from_docker01.txt</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -it --name docker01 my-centos</span></span><br><span class="line">[root@a31ad75c98e6 /]<span class="comment"># cd volume2</span></span><br><span class="line">[root@a31ad75c98e6 volume2]<span class="comment"># touch from_docker01.txt</span></span><br><span class="line">[root@a31ad75c98e6 volume2]<span class="comment"># ls</span></span><br><span class="line">from_docker01.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>退出不停止容器：ctrl+p+q</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># root@VM-16-10-ubuntu:/home/ubuntu# docker ps</span></span><br><span class="line">CONTAINER ID   IMAGE       COMMAND                  CREATED              STATUS              PORTS     NAMES</span><br><span class="line">a31ad75c98e6   my-centos   <span class="string">&quot;/bin/sh -c /bin/bash&quot;</span>   About a minute ago   Up About a minute             docker01</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用my-centos镜像，启动容器docker02，让docker02继承docker01  <code>--volumes-from</code></p>
+<p>在volume2目录下新建一个文件from_docker02.txt</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker run -it --name docker02 --volumes-from docker01 my-centos</span></span><br><span class="line">[root@de7b3fc3cf53 /]<span class="comment"># cd volume2</span></span><br><span class="line">[root@de7b3fc3cf53 volume2]<span class="comment"># ls</span></span><br><span class="line">from_docker01.txt</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>容器之间配置信息的传递，数据卷的生命周期一直持续到没有容器使用它为止。</strong></p>
+<p><strong>存储在本机的文件则会一直保留！</strong></p>
+<h1 id="八、dockerfile"><a href="#八、dockerfile" class="headerlink" title="八、dockerfile"></a>八、dockerfile</h1><p>大家想想，Nginx，tomcat，mysql 这些镜像都是哪里来的？官方能写，我们不能写吗？</p>
+<p>我们要研究自己如何做一个镜像，而且我们写的微服务项目以及springboot打包上云部署，Docker就是</p>
+<p>最方便的。</p>
+<p>微服务打包成镜像，任何装了Docker的地方，都可以下载使用，极其的方便。</p>
+<p>流程：开发应用&#x3D;&gt;DockerFile&#x3D;&gt;打包为镜像&#x3D;&gt;上传到仓库（私有仓库，公有仓库）&#x3D;&gt; 下载镜像 &#x3D;&gt; 启动</p>
+<p>运行。</p>
+<p>还可以方便移植！</p>
+<h2 id="1、什么是dockerfile"><a href="#1、什么是dockerfile" class="headerlink" title="1、什么是dockerfile"></a>1、什么是dockerfile</h2><p>dockerfifile是用来构建Docker镜像的构建文件，是由一系列命令和参数构成的脚本。</p>
+<p>构建步骤：</p>
+<ol>
+<li>编写DockerFile文件</li>
+<li>docker build 构建镜像</li>
+<li>docker run</li>
+</ol>
+<p>dockerfifile文件我们刚才已经编写过了一次，这里我们继续使用 centos 来看！</p>
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/_/centos">https://hub.docker.com/_/centos</a></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/56b9338be70822d6aaca2a507ee2b04f--4fcc--image-20240922172857074.png" alt="image-20240922172857074"></p>
+<h2 id="2、dockerfile的构建过程"><a href="#2、dockerfile的构建过程" class="headerlink" title="2、dockerfile的构建过程"></a>2、dockerfile的构建过程</h2><p><strong>基础知识</strong></p>
+<ol>
+<li>每条保留字指令都必须为大写字母且后面要跟随至少一个参数</li>
+<li>指令按照从上到下，顺序执行</li>
+<li># 表示注释</li>
+<li>每条指令都会创建一个新的镜像层，并对镜像进行提交</li>
+</ol>
+<p><strong>流程：</strong></p>
+<ol>
+<li>docker从基础镜像运行一个容器</li>
+<li>执行一条指令并对容器做出修改</li>
+<li>执行类似 docker commit 的操作提交一个新的镜像层</li>
+<li>Docker再基于刚提交的镜像运行一个新容器</li>
+<li>执行dockerfifile中的下一条指令直到所有指令都执行完成！</li>
+</ol>
+<p><strong>说明：</strong></p>
+<p>从应用软件的角度来看，DockerFile，docker镜像与docker容器分别代表软件的三个不同阶段。</p>
+<ul>
+<li>DockerFile 是软件的原材料 （代码）</li>
+<li>Docker 镜像则是软件的交付品 （.apk）</li>
+<li>Docker 容器则是软件的运行状态 （客户下载安装执行）</li>
+</ul>
+<p><strong>DockerFile 面向开发，Docker镜像成为交付标准，Docker容器则涉及部署与运维，三者缺一不可！</strong></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-22/f5913e68843f79d565a56a4ef914875c--d5b3--image-20240922173620477.png" alt="image-20240922173620477"></p>
+<p>DockerFile：需要定义一个DockerFile，DockerFile定义了进程需要的一切东西。DockerFile涉及的内容</p>
+<p>包括执行代码或者是文件、环境变量、依赖包、运行时环境、动态链接库、操作系统的发行版、服务进</p>
+<p>程和内核进程（当引用进行需要和系统服务和内核进程打交道，这时需要考虑如何设计 namespace的权</p>
+<p>限控制）等等。</p>
+<p>Docker镜像：在DockerFile 定义了一个文件之后，Docker build 时会产生一个Docker镜像，当运行</p>
+<p>Docker 镜像时，会真正开始提供服务；</p>
+<p>Docker容器：容器是直接提供服务的。</p>
+<h2 id="3、Dockerfile指令"><a href="#3、Dockerfile指令" class="headerlink" title="3、Dockerfile指令"></a>3、Dockerfile指令</h2><p>关键字：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">FROM        <span class="comment"># 基础镜像，当前新镜像是基于哪个镜像的</span></span><br><span class="line">MAINTAINER  <span class="comment"># maintainer 镜像维护者的姓名和邮箱地址</span></span><br><span class="line">RUN         <span class="comment"># 容器构建时需要运行的命令</span></span><br><span class="line">EXPOSE      <span class="comment"># 当前容器对外暴露出的端口</span></span><br><span class="line">WORKDIR	    <span class="comment"># 指定在创建容器后，终端默认登录进来的工作目录，一个落脚点</span></span><br><span class="line">ENV         <span class="comment"># 用来在构建镜像过程中设置环境变量</span></span><br><span class="line">ADD         <span class="comment"># 将宿主机目录下的文件拷贝进镜像且ADD命令会自动处理URL和解压tar压缩包</span></span><br><span class="line">COPY        <span class="comment"># 类似ADD，拷贝文件和目录到镜像中！但是是不会自动解压文件，也不能访问网络资源</span></span><br><span class="line">VLIUME      <span class="comment"># 容器数据卷，用于数据保存和持久化工作</span></span><br><span class="line">CMD         <span class="comment"># 指定一个容器启动时要运行的命令，dockerFile中可以有多个CMD指令，但只有最 后一个生效！</span></span><br><span class="line">ENTRYPOINT  <span class="comment"># entrypoint 指定一个容器启动时要运行的命令！和CMD一样 可以追加命令</span></span><br><span class="line">ONBUILD     <span class="comment"># 当构建一个被继承的DockerFile时运行命令，父镜像在被子镜像继承后，父镜像的 ONBUILD被触发</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-23/b691757752d20b3ed9330eeecc587ec9--0eed--image-20240923190649837.png" alt="image-20240923190649837"></p>
+<h2 id="4、实战测试"><a href="#4、实战测试" class="headerlink" title="4、实战测试"></a>4、实战测试</h2><p>Docker Hub 中99% 的镜像都是通过在base镜像（Scratch）中安装和配置需要的软件构建出来的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-23/d3d17cf58aff5777ea3ecad37eb764d4--fd02--image-20240923190944663.png" alt="image-20240923190944663"></p>
+<blockquote>
+<p>自定一个centos镜像</p>
+</blockquote>
+<ol>
+<li><p>编写dockerfile</p>
+<p>直接运行centos的官方镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume<span class="comment"># docker run -it centos /bin/bash</span></span><br><span class="line">Unable to find image <span class="string">&#x27;centos:latest&#x27;</span> locally</span><br><span class="line">latest: Pulling from library/centos</span><br><span class="line">a1d0c7532777: Already exists </span><br><span class="line">Digest: sha256:a27fd8080b517143cbbbab9dfb7c8571c40d67d534bbdee55bd6c473f432b177</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> centos:latest</span><br><span class="line">[root@bcf6eb6bf82f /]<span class="comment"># vim a</span></span><br><span class="line">bash: vim: <span class="built_in">command</span> not found</span><br><span class="line">[root@bcf6eb6bf82f /]<span class="comment"># ifconfig</span></span><br><span class="line">bash: ifconfig: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+
+<p>发现，不支持vim和ifconfig命令，登陆后的默认路径是&#x2F;</p>
+<p>目的：使我们自己的镜像具备如下：登陆后的默认路径、vim编辑器、查看网络配置ifconfifig支持</p>
+<p>准备编写DockerFlie文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume<span class="comment"># vim mydockerfile-centos</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume<span class="comment"># cat mydockerfile-centos </span></span><br><span class="line">FROM centos</span><br><span class="line">MAINTATINER 6pc1&lt;pc6pc1@qq.com&gt;</span><br><span class="line"></span><br><span class="line">ENV MYPATH /usr/local</span><br><span class="line">WORKDIR <span class="variable">$MYPATH</span></span><br><span class="line"></span><br><span class="line">RUN <span class="built_in">cd</span> /etc/yum.repos.d/</span><br><span class="line">RUN sed -i <span class="string">&#x27;s/mirrorlist/#mirrorlist/g&#x27;</span> /etc/yum.repos.d/CentOS-*</span><br><span class="line">RUN sed -i <span class="string">&#x27;s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g&#x27;</span> /etc/yum.repos.d/CentOS-*</span><br><span class="line">RUN yum -y install vim</span><br><span class="line"></span><br><span class="line">RUN yun -y install net-tools</span><br><span class="line"></span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line">CMD <span class="built_in">echo</span> <span class="variable">$MYPATH</span></span><br><span class="line">CMD <span class="built_in">echo</span> <span class="string">&quot;----end------&quot;</span></span><br><span class="line">CMD /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>说明：dockerfile中直接<code>RUN yum -y install vim</code>可能会报下面错误</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#0 1.607 Error: Failed to download metadata for repo &#x27;appstream&#x27;: Cannot prepare internal mirrorlist: No URLs in mirrorlist</span></span><br></pre></td></tr></table></figure>
+
+<p>说明下面这些，其实就是为了让<code>RUN yum -y install vim</code>可以执行成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RUN <span class="built_in">cd</span> /etc/yum.repos.d/</span><br><span class="line">RUN sed -i <span class="string">&#x27;s/mirrorlist/#mirrorlist/g&#x27;</span> /etc/yum.repos.d/CentOS-*</span><br><span class="line">RUN sed -i <span class="string">&#x27;s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g&#x27;</span> /etc/yum.repos.d/CentOS-*</span><br><span class="line">RUN yum -y install vim</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构建</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume<span class="comment"># docker build -f mydockerfile-centos -t mycentos:1.0 .</span></span><br><span class="line">[+] Building 4.3s (11/11) FINISHED                                                                  docker:default</span><br><span class="line"> =&gt; [internal] load build definition from mydockerfile-centos                                                 0.0s</span><br><span class="line"> =&gt; =&gt; transferring dockerfile: 452B                                                                          0.0s</span><br><span class="line"> =&gt; [internal] load metadata <span class="keyword">for</span> docker.io/library/centos:latest                                              0.0s</span><br><span class="line"> =&gt; [internal] load .dockerignore                                                                             0.0s</span><br><span class="line"> =&gt; =&gt; transferring context: 2B                                                                               0.0s</span><br><span class="line"> =&gt; [1/7] FROM docker.io/library/centos:latest                                                                0.0s</span><br><span class="line"> =&gt; CACHED [2/7] WORKDIR /usr/local                                                                           0.0s</span><br><span class="line"> =&gt; CACHED [3/7] RUN <span class="built_in">cd</span> /etc/yum.repos.d/                                                                     0.0s</span><br><span class="line"> =&gt; CACHED [4/7] RUN sed -i <span class="string">&#x27;s/mirrorlist/#mirrorlist/g&#x27;</span> /etc/yum.repos.d/CentOS-*                            0.0s</span><br><span class="line"> =&gt; CACHED [5/7] RUN sed -i <span class="string">&#x27;s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g&#x27;</span> /etc/yum  0.0s</span><br><span class="line"> =&gt; CACHED [6/7] RUN yum -y install vim                                                                       0.0s</span><br><span class="line"> =&gt; [7/7] RUN yum -y install net-tools                                                                        3.4s</span><br><span class="line"> =&gt; exporting to image                                                                                        0.8s</span><br><span class="line"> =&gt; =&gt; exporting layers                                                                                       0.8s</span><br><span class="line"> =&gt; =&gt; writing image sha256:c3dec9b6a3f811c4d5e5038392822da54ab5e069560708059a1f8bc636eca32d                  0.0s </span><br><span class="line"> =&gt; =&gt; naming to docker.io/library/mycentos:1.0</span><br><span class="line"> root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume<span class="comment"># docker images</span></span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED          SIZE                                                        </span><br><span class="line">mycentos     1.0       c3dec9b6a3f8   30 seconds ago   312MB</span><br><span class="line">centos       latest    5d0da3dc9764   3 years ago      231MB</span><br></pre></td></tr></table></figure>
+
+<p>命令：<code>docker build -f mydockerfile-centos -t mycentos:1.0 .</code>解释：</p>
+<p>这是一个Docker命令，将使用指定的Dockerfile构建一个新的Docker镜像。</p>
+<p>具体来说，该命令的各个部分的含义如下：</p>
+<ul>
+<li><code>docker build</code>：使用Docker命令构建新的镜像</li>
+<li><code>-f mydockerfile-centos</code>：指定Dockerfile的名称为<code>mydockerfile-centos</code>。默认情况下，Docker使用当前目录下的名为<code>Dockerfile</code>的文件作为Dockerfile，但是在这里我们指定了一个不同的名称。</li>
+<li><code>-t mycentos:1.0</code>：指定构建的镜像名称为<code>mycentos</code>，标签为<code>1.0</code>。标签可用于标识同一镜像的不同版本或变体。</li>
+<li><code>.</code>：指定上下文路径，即构建过程中所使用的文件路径。这里的<code>.</code>表示使用当前目录作为上下文路径。</li>
+</ul>
+<p>因此，该命令的含义是使用<code>mydockerfile-centos</code>文件作为Dockerfile，将当前目录下的文件作为上下文构建一个名为<code>mycentos</code>、标签为<code>1.0</code>的新Docker镜像。</p>
+</li>
+<li><p>运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume<span class="comment"># docker run -it mycentos:1.0</span></span><br><span class="line">[root@391dcbf08c75 <span class="built_in">local</span>]<span class="comment"># pwd</span></span><br><span class="line">/usr/local</span><br><span class="line">[root@391dcbf08c75 <span class="built_in">local</span>]<span class="comment"># ifconfig</span></span><br><span class="line">eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 172.17.0.2  netmask 255.255.0.0  broadcast 172.17.255.255</span><br><span class="line">        ether 02:42:ac:11:00:02  txqueuelen 0  (Ethernet)</span><br><span class="line">        RX packets 9  bytes 806 (806.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">[root@391dcbf08c75 <span class="built_in">local</span>]<span class="comment"># vim a</span></span><br><span class="line">[root@391dcbf08c75 <span class="built_in">local</span>]<span class="comment"># ls</span></span><br><span class="line">a  bin	etc  games  include  lib  lib64  libexec  sbin	share  src</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列出镜像的历史</p>
+<p><strong>docker history 镜像id</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume<span class="comment"># docker history c3dec9b6a3f8</span></span><br><span class="line">IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT</span><br><span class="line">c3dec9b6a3f8   5 minutes ago   CMD [<span class="string">&quot;/bin/sh&quot;</span> <span class="string">&quot;-c&quot;</span> <span class="string">&quot;/bin/bash&quot;</span>]                0B        buildkit.dockerfile.v0</span><br><span class="line">&lt;missing&gt;      5 minutes ago   CMD [<span class="string">&quot;/bin/sh&quot;</span> <span class="string">&quot;-c&quot;</span> <span class="string">&quot;echo \&quot;----end------\&quot;&quot;</span>]   0B        buildkit.dockerfile.v0</span><br><span class="line">&lt;missing&gt;      5 minutes ago   CMD [<span class="string">&quot;/bin/sh&quot;</span> <span class="string">&quot;-c&quot;</span> <span class="string">&quot;echo <span class="variable">$MYPATH</span>&quot;</span>]             0B        buildkit.dockerfile.v0</span><br><span class="line">&lt;missing&gt;      5 minutes ago   EXPOSE map[80/tcp:&#123;&#125;]                           0B        buildkit.dockerfile.v0</span><br><span class="line">&lt;missing&gt;      5 minutes ago   RUN /bin/sh -c yum -y install net-tools <span class="comment"># bu…   14.7MB    buildkit.dockerfile.v0</span></span><br><span class="line">&lt;missing&gt;      6 minutes ago   RUN /bin/sh -c yum -y install vim <span class="comment"># buildkit    66.3MB    buildkit.dockerfile.v0</span></span><br><span class="line">&lt;missing&gt;      6 minutes ago   RUN /bin/sh -c sed -i <span class="string">&#x27;s|#baseurl=http://mir…   8.8kB     buildkit.dockerfile.v0</span></span><br><span class="line"><span class="string">&lt;missing&gt;      6 minutes ago   RUN /bin/sh -c sed -i &#x27;</span>s/mirrorlist/<span class="comment">#mirrorl…   8.82kB    buildkit.dockerfile.v0</span></span><br><span class="line">&lt;missing&gt;      6 minutes ago   RUN /bin/sh -c <span class="built_in">cd</span> /etc/yum.repos.d/ <span class="comment"># buildk…   0B        buildkit.dockerfile.v0</span></span><br><span class="line">&lt;missing&gt;      6 minutes ago   WORKDIR /usr/local                              0B        buildkit.dockerfile.v0</span><br><span class="line">&lt;missing&gt;      6 minutes ago   ENV MYPATH=/usr/local                           0B        buildkit.dockerfile.v0</span><br><span class="line">&lt;missing&gt;      6 minutes ago   MAINTAINER 6pc1&lt;pc6pc1@qq.com&gt;                  0B        buildkit.dockerfile.v0</span><br><span class="line">&lt;missing&gt;      3 years ago     /bin/sh -c <span class="comment">#(nop)  CMD [&quot;/bin/bash&quot;]            0B        </span></span><br><span class="line">&lt;missing&gt;      3 years ago     /bin/sh -c <span class="comment">#(nop)  LABEL org.label-schema.sc…   0B        </span></span><br><span class="line">&lt;missing&gt;      3 years ago     /bin/sh -c <span class="comment">#(nop) ADD file:805cb5e15fb6e0bb0…   231MB     </span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>CMD和ENTRYPOINT的去呗</p>
+</blockquote>
+<p>我们之前说过，两个命令都是指定一个容器启动时要运行的命令</p>
+<p><strong>CMD</strong>：Dockerfifile 中可以有多个CMD 指令，但只有最后一个生效，CMD 会被 docker run 之后的参数</p>
+<p>替换！</p>
+<p><strong>ENTRYPOINT</strong>：docker run 之后的参数会被当做参数传递给 ENTRYPOINT，之后形成新的命令组合！</p>
+<blockquote>
+<p>自定义镜像tomcat</p>
+</blockquote>
+<ol>
+<li><p>新建一个路径，并准备好tomcat和jdk的压缩包（官网下载后本地上传到服务器），并新建一个read.txt、新建一个Dockfile文件，并编辑</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># cat Dockerfile </span></span><br><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">MAINTAINER 6pc1&lt;pc6pc1@qq.com&gt;</span><br><span class="line"></span><br><span class="line">COPY 1.txt /usr/local/read.txt</span><br><span class="line"></span><br><span class="line">ADD apache-tomcat-9.0.95.tar /usr/local/</span><br><span class="line">ADD jdk-8u202-linux-x64.tar /usr/local/</span><br><span class="line"></span><br><span class="line">RUN <span class="built_in">cd</span> /etc/yum.repos.d/</span><br><span class="line">RUN sed -i <span class="string">&#x27;s/mirrorlist/#mirrorlist/g&#x27;</span> /etc/yum.repos.d/CentOS-*</span><br><span class="line">RUN sed -i <span class="string">&#x27;s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g&#x27;</span> /etc/yum.repos.d/CentOS-*</span><br><span class="line">RUN yum -y install vim</span><br><span class="line"></span><br><span class="line">ENV MYPATH /usr/local</span><br><span class="line"></span><br><span class="line">WORKDIR <span class="variable">$MYPATH</span></span><br><span class="line"></span><br><span class="line">ENV JAVA_HOME /usr/local/jdk_1.8.0_202</span><br><span class="line">ENV CLASSPATH <span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar</span><br><span class="line">ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.95</span><br><span class="line">ENV CATALINA_BASE /usr/local/apache-tomcat-9.0.95</span><br><span class="line">ENV PATH <span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$CATALINA_HOME</span>/lib:<span class="variable">$CATALINA_HOME</span>/bin</span><br><span class="line"></span><br><span class="line">EXPOSE 8080</span><br><span class="line"></span><br><span class="line">CMD /usr/local/apache-tomcat-9.0.95/bin/startup.sh &amp;&amp; <span class="built_in">tail</span> -F /usr/local/apache-tomcat-9.0.95/bin/logs/catalina.out</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>构建镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker build -t diytomcat .</span></span><br><span class="line">[+] Building 146.5s (14/14) FINISHED                                                                docker:default</span><br><span class="line"> =&gt; [internal] load build definition from Dockerfile                                                          0.0s</span><br><span class="line"> =&gt; =&gt; transferring dockerfile: 866B                                                                          0.0s</span><br><span class="line"> =&gt; [internal] load metadata <span class="keyword">for</span> docker.io/library/centos:latest                                              0.0s</span><br><span class="line"> =&gt; [internal] load .dockerignore                                                                             0.0s</span><br><span class="line"> =&gt; =&gt; transferring context: 2B                                                                               0.0s</span><br><span class="line"> =&gt; CACHED [1/9] FROM docker.io/library/centos:latest                                                         0.0s</span><br><span class="line"> =&gt; [internal] load build context                                                                             2.5s</span><br><span class="line"> =&gt; =&gt; transferring context: 206.81MB                                                                         2.5s</span><br><span class="line"> =&gt; [2/9] COPY 1.txt /usr/local/read.txt                                                                      0.3s</span><br><span class="line"> =&gt; [3/9] ADD apache-tomcat-9.0.95.tar.gz /usr/local/                                                         0.4s</span><br><span class="line"> =&gt; [4/9] ADD jdk-8u202-linux-x64.tar.gz /usr/local/                                                          4.1s</span><br><span class="line"> =&gt; [5/9] RUN <span class="built_in">cd</span> /etc/yum.repos.d/                                                                            0.7s</span><br><span class="line"> =&gt; [6/9] RUN sed -i <span class="string">&#x27;s/mirrorlist/#mirrorlist/g&#x27;</span> /etc/yum.repos.d/CentOS-*                                   0.3s</span><br><span class="line"> =&gt; [7/9] RUN sed -i <span class="string">&#x27;s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g&#x27;</span> /etc/yum.repos.  0.4s</span><br><span class="line"> =&gt; [8/9] RUN yum -y install vim                                                                            134.1s</span><br><span class="line"> =&gt; [9/9] WORKDIR /usr/local                                                                                  0.1s </span><br><span class="line"> =&gt; exporting to image                                                                                        3.3s </span><br><span class="line"> =&gt; =&gt; exporting layers                                                                                       3.2s </span><br><span class="line"> =&gt; =&gt; writing image sha256:88021913b4f29d54ed2453c16e79d7259ab5414f3dc616c6d4e98ca6dad90743                  0.0s </span><br><span class="line"> =&gt; =&gt; naming to docker.io/library/diytomcat  </span><br><span class="line"> root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker images                                    </span></span><br><span class="line">REPOSITORY   TAG       IMAGE ID       CREATED          SIZE</span><br><span class="line">diytomcat    latest    88021913b4f2   34 seconds ago   718MB</span><br><span class="line">mycentos     1.0       c3dec9b6a3f8   59 minutes ago   312MB</span><br><span class="line">centos       latest    5d0da3dc9764   3 years ago      231MB</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker run -d -p 9090:8080 --name mydiytomcat -v /home/ubuntu/test/docker-test-volume/tomcat/test:/usr/local/apache-tomcat-9.0.95/webapps/test diytomcat</span></span><br><span class="line">99f621377dba54b318e382d8f72a16ddf321888392d27b5772e1a7eeb3b1fadf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>结合前面学习的容器卷将测试的web服务test发布</p>
+<p>WEB-INF下新建一个web.xml</p>
+<p>web.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns</span>=<span class="string">&quot;http://java.sun.com/xml/ns/javaee&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">id</span>=<span class="string">&quot;WebApp_ID&quot;</span> <span class="attr">version</span>=<span class="string">&quot;2.5&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">display-name</span>&gt;</span>test<span class="tag">&lt;/<span class="name">display-name</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在test下新建一个a.jsp</p>
+<p>a.jsp</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page language=<span class="string">&quot;java&quot;</span> contentType=<span class="string">&quot;text/html; charset=UTF-8&quot;</span> pageEncoding=<span class="string">&quot;UTF-8&quot;</span>%&gt; </span><br><span class="line">&lt;!DOCTYPE html PUBLIC <span class="string">&quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot;</span> <span class="string">&quot;http://www.w3.org/TR/html4/loose.dtd&quot;</span>&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">	&lt;<span class="built_in">head</span>&gt;</span><br><span class="line">		&lt;meta http-equiv=<span class="string">&quot;Content-Type&quot;</span> content=<span class="string">&quot;text/html; charset=UTF-8&quot;</span>&gt;</span><br><span class="line">		&lt;title&gt;hello，kuangshen&lt;/title&gt;</span><br><span class="line">	&lt;/head&gt;</span><br><span class="line">	&lt;body&gt;</span><br><span class="line">		-----------welcome------------</span><br><span class="line">		&lt;%=<span class="string">&quot; my docker tomcat &quot;</span>%&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line">		&lt;br&gt;</span><br><span class="line">		&lt;% System.out.println(<span class="string">&quot;-------my docker tomcat-------&quot;</span>);%&gt;</span><br><span class="line">	&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="5、发布镜像"><a href="#5、发布镜像" class="headerlink" title="5、发布镜像"></a>5、发布镜像</h2><blockquote>
+<p>DockerHub（不建议，大概率登录超时感觉）</p>
+</blockquote>
+<ol>
+<li>注册dockerhub  <a target="_blank" rel="noopener" href="https://hub.docker.com/%EF%BC%8C%E6%B3%A8%E5%86%8C%E4%B8%80%E4%B8%AA%E8%B4%A6%E5%8F%B7">https://hub.docker.com/，注册一个账号</a></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-23/a6ca8d34b74dcf6ad91395705579a106--078a--image-20240923204922044.png" alt="image-20240923204922044"></p>
+<ol start="2">
+<li>登录</li>
+<li>docker push直接push到仓库中，记得加tag</li>
+</ol>
+<blockquote>
+<p>腾讯云镜像服务</p>
+</blockquote>
+<ol>
+<li><p>使用个人免费版仓库</p>
+<p>这要注意，只有个别地方才能选择个人免费版仓库，这边我选择的是广州</p>
+</li>
+<li><p>创建命名空间和仓库</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/09d9e244fac1fcb6e6451bd95a5dd738--c8bc--image-20240925165555292.png" alt="image-20240925165555292"></p>
+</li>
+<li><p>直接快捷指令就能将容器上传至仓库了</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/20829e4b625bcd77961e47cf15fe20fe--9066--image-20240925165713786.png" alt="image-20240925165713786"></p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu<span class="comment"># docker login ccr.ccs.tencentyun.com --username=100036351621</span></span><br><span class="line">Password: </span><br><span class="line">WARNING! Your password will be stored unencrypted <span class="keyword">in</span> /root/.docker/config.json.</span><br><span class="line">Configure a credential helper to remove this warning. See</span><br><span class="line">https://docs.docker.com/engine/reference/commandline/login/<span class="comment">#credentials-store</span></span><br><span class="line"></span><br><span class="line">Login Succeeded</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、总结"><a href="#6、总结" class="headerlink" title="6、总结"></a>6、总结</h2><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/f728c102a55c9969c391697ddb24b104--7952--image-20240925183039622.png" alt="image-20240925183039622"></p>
+<h1 id="九、Docker网络"><a href="#九、Docker网络" class="headerlink" title="九、Docker网络"></a>九、Docker网络</h1><h2 id="1、理解docker0"><a href="#1、理解docker0" class="headerlink" title="1、理解docker0"></a>1、理解docker0</h2><p>准备工作：清空所有的容器，清空所有的镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">rm</span> -f $(docker ps -a -q)    <span class="comment"># 删除所有容器 </span></span><br><span class="line">docker rmi -f $(docker images -qa) <span class="comment"># 删除全部镜像</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>先做个测试–现象</p>
+</blockquote>
+<ol>
+<li><p>制作一个可以使用<code>ip addr</code>和<code>ping</code>命令的镜像（已经支持的，可以忽略这个步骤）</p>
+<p>下载tomcat原生镜像并启动tomcat容器<code>tomcat01</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker run -d -P --name tomcat01 tomcat</span></span><br></pre></td></tr></table></figure>
+
+<p>查看容器<code>tomcat01</code>内部的ip地址，发现报错如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker exec -it tomcat01 ip addr</span></span><br><span class="line">OCI runtime <span class="built_in">exec</span> failed: <span class="built_in">exec</span> failed: unable to start container process: <span class="built_in">exec</span>: <span class="string">&quot;ip&quot;</span>: executable file not found <span class="keyword">in</span> <span class="variable">$PATH</span>: unknown</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker exec -it tomcat01 /bin/bash</span></span><br><span class="line">\\root@fb4000629c55:/usr/local/tomcat<span class="comment"># ip addr</span></span><br><span class="line">bash: ip: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+
+<p>进入容器执行命令，即可解决</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt install -y iproute2</span><br></pre></td></tr></table></figure>
+
+<p>在容器<code>tomcat01</code>ping一下，发现报错如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@fb4000629c55:/usr/local/tomcat<span class="comment"># ping 172.17.0.2</span></span><br><span class="line">bash: ping: <span class="built_in">command</span> not found</span><br></pre></td></tr></table></figure>
+
+<p>进入容器执行命令，即可解决</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update &amp;&amp; apt-get install -y iputils-ping</span><br></pre></td></tr></table></figure>
+
+<p>容器执行了上面两个命令后，就可以正常使用<code>ip addr</code>和<code>ping</code>这两个命令了，然后我们把容器commit一下，就有个一个新的镜像了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker commit fb4000629c55 my-tomcat01:1.0</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看一下主机本地的ip 地址<code>ip addr</code></p>
+<ul>
+<li><p>lo 本机回环地址</p>
+</li>
+<li><p>eth0 阿里云的私有ip</p>
+</li>
+<li><p>docker0  docker网桥</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/846f432f3bb1ac63bb7d25b7de5f8c2f--fb7d--image-20240925185532091.png" alt="image-20240925185532091"></p>
+</li>
+<li><p>启动容器<code>tomcat01</code>,查看一下容器的ip，然后再查一下主机本地ip</p>
+<p>docker会给每个容器都分配一个ip</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/9791e62266d3c6d5a8bc17a6068664f7--1062--image-20240925185336056.png" alt="image-20240925185336056"></p>
+</li>
+<li><p>我们再起一个容器，结果能够发现两个容器之间是能够ping通的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@fb4000629c55:/usr/local/tomcat<span class="comment"># ping 172.17.0.3</span></span><br><span class="line">PING 172.17.0.3 (172.17.0.3) 56(84) bytes of data.</span><br><span class="line">64 bytes from 172.17.0.3: icmp_seq=1 ttl=64 time=0.099 ms</span><br><span class="line">64 bytes from 172.17.0.3: icmp_seq=2 ttl=64 time=0.067 ms</span><br><span class="line">64 bytes from 172.17.0.3: icmp_seq=3 ttl=64 time=0.064 ms</span><br><span class="line">64 bytes from 172.17.0.3: icmp_seq=4 ttl=64 time=0.060 ms</span><br></pre></td></tr></table></figure></li>
+</ol>
+<blockquote>
+<p>原理</p>
+</blockquote>
+<ol>
+<li><p>每一个安装了Docker的linux主机都有一个docker0的虚拟网卡。这是个桥接网卡，使用了veth-pair</p>
+<p>技术！</p>
+</li>
+<li><p>每启动一个容器，linux主机就会多了一个虚拟网卡。</p>
+<p>veth-pair 就是一对的虚拟设备接口，它都是成对出现的。一端连着协议栈，一端彼此相连着。</p>
+<p>正因为有这个特性，它常常充当着一个桥梁，连接着各种虚拟网络设备!</p>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/e4b78b4838e2a9c46e21b74356f18387--5b2e--image-20240925185927195.png" alt="image-20240925185927195"></p>
+<p>结论：tomcat1和tomcat2共用一个路由器。是的，他们使用的一个，就是docker0。任何一个容器启动</p>
+<p>默认都是docker0网络。</p>
+<p>docker默认会给容器分配一个可用ip。</p>
+<blockquote>
+<p>小结</p>
+</blockquote>
+<p>Docker使用Linux桥接，在宿主机虚拟一个Docker容器网桥(docker0)，Docker启动一个容器时会根据</p>
+<p>Docker网桥的网段分配给容器一个IP地址，称为Container-IP，同时Docker网桥是每个容器的默认网</p>
+<p>关。因为在同一宿主机内的容器都接入同一个网桥，这样容器之间就能够通过容器的Container-IP直接</p>
+<p>通信。</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-09-25/b5514df66fdbaa3587500b1413900596--f81e--image-20240925185950744.png" alt="image-20240925185950744"></p>
+<p>Docker容器网络就很好的利用了Linux虚拟网络技术，在本地主机和容器内分别创建一个虚拟接口，并</p>
+<p>让他们彼此联通（这样一对接口叫veth pair）；</p>
+<p>Docker中的网络接口默认都是虚拟的接口。虚拟接口的优势就是转发效率极高（因为Linux是在内核中</p>
+<p>进行数据的复制来实现虚拟接口之间的数据转发，无需通过外部的网络设备交换），对于本地系统和容</p>
+<p>器系统来说，虚拟接口跟一个正常的以太网卡相比并没有区别，只是他的速度快很多。</p>
+<h2 id="2、–link"><a href="#2、–link" class="headerlink" title="2、–link"></a>2、–link</h2><p>思考一个场景，我们编写一个微服务，数据库连接地址原来是使用ip的，如果ip变化就不行了，那我们</p>
+<p>能不能使用服务名访问呢？</p>
+<p>jdbc:mysql:&#x2F;&#x2F;mysql:3306，这样的话哪怕mysql重启，我们也不需要修改配置了！docker提供了 –link</p>
+<p>的操作！</p>
+<blockquote>
+<p>原理</p>
+</blockquote>
+<p>单纯是修改了host文件使容器名指向了对应的ip地址</p>
+<p>从而可以直接访问对应的容器名</p>
+<p>–link早都过时了，我们不推荐使用！我们可以使用自定义网络的方式</p>
+<h2 id="3、自定义网络"><a href="#3、自定义网络" class="headerlink" title="3、自定义网络"></a>3、自定义网络</h2><blockquote>
+<p>基本命令查看</p>
+</blockquote>
+<p>命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker network --help</span></span><br><span class="line"></span><br><span class="line">Usage:  docker network COMMAND</span><br><span class="line"></span><br><span class="line">Manage networks</span><br><span class="line"></span><br><span class="line">Commands:</span><br><span class="line">  connect     Connect a container to a network</span><br><span class="line">  create      Create a network</span><br><span class="line">  disconnect  Disconnect a container from a network</span><br><span class="line">  inspect     Display detailed information on one or more networks</span><br><span class="line">  <span class="built_in">ls</span>          List networks</span><br><span class="line">  prune       Remove all unused networks</span><br><span class="line">  <span class="built_in">rm</span>          Remove one or more networks</span><br><span class="line"></span><br><span class="line">Run <span class="string">&#x27;docker network COMMAND --help&#x27;</span> <span class="keyword">for</span> more information on a <span class="built_in">command</span>.</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看所有网络</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker network ls</span></span><br><span class="line">NETWORK ID     NAME      DRIVER    SCOPE</span><br><span class="line">6ebce816547d   bridge    bridge    <span class="built_in">local</span></span><br><span class="line">05ae65613256   host      host      <span class="built_in">local</span></span><br><span class="line">e0876b8be916   none      null      <span class="built_in">local</span></span><br></pre></td></tr></table></figure>
+
+<p>所有网络模式</p>
+<table>
+<thead>
+<tr>
+<th>网络模式</th>
+<th>配置</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bridge模式</td>
+<td>–net&#x3D;bridge</td>
+<td>默认值，在Docker网桥docker0上为容器创建新的网络栈</td>
+</tr>
+<tr>
+<td>none模式</td>
+<td>–net&#x3D;none</td>
+<td>不配置网络，用户可以稍后进入容器，自行配置</td>
+</tr>
+<tr>
+<td>container模式</td>
+<td>–net&#x3D;container:name&#x2F;id</td>
+<td>容器和另外一个容器共享Network namespace。kubernetes中的pod就是多个容器共享一个Network namespace</td>
+</tr>
+<tr>
+<td>host模式</td>
+<td>–net&#x3D;host</td>
+<td>容器和宿主机共享Network namespace</td>
+</tr>
+<tr>
+<td>用户自定义模式</td>
+<td>–net&#x3D;自定义网络</td>
+<td>用户自己使用network相关命令定义网络，创建容器的时候可以指定为自己定义的网络</td>
+</tr>
+</tbody></table>
+<p><strong>查看一个具体的网络的详情</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker network inspect 6ebce816547d</span></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;Name&quot;</span>: <span class="string">&quot;bridge&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Id&quot;</span>: <span class="string">&quot;6ebce816547d589207a8b545c4a79bb1f3f0f4219a3794b08e2669c97f2c52f8&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Created&quot;</span>: <span class="string">&quot;2024-09-21T20:29:18.36204997+08:00&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Scope&quot;</span>: <span class="string">&quot;local&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Driver&quot;</span>: <span class="string">&quot;bridge&quot;</span>,</span><br><span class="line">        <span class="string">&quot;EnableIPv6&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;IPAM&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Driver&quot;</span>: <span class="string">&quot;default&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Options&quot;</span>: null,</span><br><span class="line">            <span class="string">&quot;Config&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;Subnet&quot;</span>: <span class="string">&quot;172.17.0.0/16&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;Gateway&quot;</span>: <span class="string">&quot;172.17.0.1&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;Internal&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;Attachable&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;Ingress&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;ConfigFrom&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Network&quot;</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;ConfigOnly&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;Containers&quot;</span>: &#123;&#125;,</span><br><span class="line">        <span class="string">&quot;Options&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;com.docker.network.bridge.default_bridge&quot;</span>: <span class="string">&quot;true&quot;</span>,</span><br><span class="line">            <span class="string">&quot;com.docker.network.bridge.enable_icc&quot;</span>: <span class="string">&quot;true&quot;</span>,</span><br><span class="line">            <span class="string">&quot;com.docker.network.bridge.enable_ip_masquerade&quot;</span>: <span class="string">&quot;true&quot;</span>,</span><br><span class="line">            <span class="string">&quot;com.docker.network.bridge.host_binding_ipv4&quot;</span>: <span class="string">&quot;0.0.0.0&quot;</span>,</span><br><span class="line">            <span class="string">&quot;com.docker.network.bridge.name&quot;</span>: <span class="string">&quot;docker0&quot;</span>,</span><br><span class="line">            <span class="string">&quot;com.docker.network.driver.mtu&quot;</span>: <span class="string">&quot;1500&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;Labels&quot;</span>: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>拓展：</p>
+<ul>
+<li>172.17.0.0&#x2F;16 是一个 CIDR 地址，其中 &#x2F;16 表示子网掩码的位数，即 255.255.0.0。这个地址范围内的 IP 地址数量是 2^16 - 2 &#x3D; 65534。其中，2^16 表示该地址范围内的 IP 地址总数，而减去 2 是因为该地址范围内的第一个 IP 地址是网络地址，最后一个 IP 地址是广播地址，不能使用</li>
+<li>172.17.0.0&#x2F;24 是一个 CIDR 地址，其中 &#x2F;24 表示子网掩码的位数，即 255.255.255.0。这个地址范围内的 IP 地址数量是 2^8 - 2 &#x3D; 254。其中，2^8 表示该地址范围内的 IP 地址总数，而减去 2 是因为该地址范围内的第一个 IP 地址是网络地址，最后一个 IP 地址是广播地址，不能使用。</li>
+</ul>
+<blockquote>
+<p>自定义网卡</p>
+</blockquote>
+<ol>
+<li><p>删除原来的所有的容器（这样干净一点）</p>
+<p>这样网络就恢复最初的样子了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># ip addr</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 52:54:00:58:5e:1a brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    altname enp0s5</span><br><span class="line">    altname ens5</span><br><span class="line">    inet 10.0.16.10/22 metric 100 brd 10.0.19.255 scope global eth0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::5054:ff:fe58:5e1a/64 scope <span class="built_in">link</span> </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: docker0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default </span><br><span class="line">    <span class="built_in">link</span>/ether 02:42:99:03:57:1b brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::42:99ff:fe03:571b/64 scope <span class="built_in">link</span> </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自定义网络</p>
+<p>查看命令使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自定义一个网络</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker network create --driver bridge --subnet 192.17.0.0/16 --gateway 192.17.0.1 mynet</span></span><br><span class="line">ecef3e6ceef718e93c001b8068e0c824086046e1e5196b050fab6ef65a8903b9</span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker network ls</span></span><br><span class="line">NETWORK ID     NAME      DRIVER    SCOPE</span><br><span class="line">6ebce816547d   bridge    bridge    <span class="built_in">local</span></span><br><span class="line">05ae65613256   host      host      <span class="built_in">local</span></span><br><span class="line">ecef3e6ceef7   mynet     bridge    <span class="built_in">local</span></span><br><span class="line">e0876b8be916   none      null      <span class="built_in">local</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker network inspect mynet</span></span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&quot;Name&quot;</span>: <span class="string">&quot;mynet&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Id&quot;</span>: <span class="string">&quot;ecef3e6ceef718e93c001b8068e0c824086046e1e5196b050fab6ef65a8903b9&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Created&quot;</span>: <span class="string">&quot;2024-09-25T19:29:21.684869939+08:00&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Scope&quot;</span>: <span class="string">&quot;local&quot;</span>,</span><br><span class="line">        <span class="string">&quot;Driver&quot;</span>: <span class="string">&quot;bridge&quot;</span>,</span><br><span class="line">        <span class="string">&quot;EnableIPv6&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;IPAM&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Driver&quot;</span>: <span class="string">&quot;default&quot;</span>,</span><br><span class="line">            <span class="string">&quot;Options&quot;</span>: &#123;&#125;,</span><br><span class="line">            <span class="string">&quot;Config&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="string">&quot;Subnet&quot;</span>: <span class="string">&quot;192.17.0.0/16&quot;</span>,</span><br><span class="line">                    <span class="string">&quot;Gateway&quot;</span>: <span class="string">&quot;192.17.0.1&quot;</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;Internal&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;Attachable&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;Ingress&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;ConfigFrom&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;Network&quot;</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&quot;ConfigOnly&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;Containers&quot;</span>: &#123;&#125;,</span><br><span class="line">        <span class="string">&quot;Options&quot;</span>: &#123;&#125;,</span><br><span class="line">        <span class="string">&quot;Labels&quot;</span>: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基于自定义网络启动容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用自定义网络</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker run -d -P --name tomcat-net-1 --net mynet my-tomcat01:1.0</span></span><br><span class="line"><span class="comment"># 发现已经成功使用上</span></span><br><span class="line">root@VM-16-10-ubuntu:/home/ubuntu/test/docker-test-volume/tomcat<span class="comment"># docker network inspect mynet</span></span><br><span class="line">&#125;,</span><br><span class="line">        <span class="string">&quot;ConfigOnly&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="string">&quot;Containers&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;6ccd4eceb20ec77000793369ee924106f698c236e48f53e082b0cbd830289b13&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;Name&quot;</span>: <span class="string">&quot;tomcat-net-1&quot;</span>,</span><br><span class="line">                <span class="string">&quot;EndpointID&quot;</span>: <span class="string">&quot;cf8a18045268e43e29e3e7ae2315af57a58560860f8fe9ce64c5f015c599dc17&quot;</span>,</span><br><span class="line">                <span class="string">&quot;MacAddress&quot;</span>: <span class="string">&quot;02:42:c0:11:00:02&quot;</span>,</span><br><span class="line">                <span class="string">&quot;IPv4Address&quot;</span>: <span class="string">&quot;192.17.0.2/16&quot;</span>,</span><br><span class="line">                <span class="string">&quot;IPv6Address&quot;</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>发现，我们自定义的网络docker都已经帮我们维护好了对应的关系 </p>
+<p>所以我们平时都可以这样使用网络，不使用–link效果一样，所有东西实时维护好，直接域名 ping 通。</p>
+</li>
+</ol>
+<h2 id="4、网络连通"><a href="#4、网络连通" class="headerlink" title="4、网络连通"></a>4、网络连通</h2><ol>
+<li><p>启动两个容器（默认，基于docker0的网络）</p>
+<p>启动两个容器（默认，基于docker0的网络）</p>
+</li>
+<li><p>使用network connect 命令连接</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZwz9efdd2ukk4oauustczZ ~]<span class="comment"># docker network connect mynet tomcat-1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再次验证，通了</p>
+</li>
+<li><p>看一下tomcat-1的网络信息(tomcat01拥有了双ip)</p>
+</li>
+<li><p>再看一下mynet的网络信息</p>
+</li>
+</ol>
+<p>结论：如果要跨网络操作别人，就需要使用 <code>docker network connect [OPTIONS] NETWORK CONTAINER</code> 连接</p>
+<h1 id="十、Docker-compose"><a href="#十、Docker-compose" class="headerlink" title="十、Docker compose"></a>十、Docker compose</h1><p>Compose 是用于定义和运行多容器 Docker 应用程序的工具。</p>
+<p>通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以从 YML 文件配置中创建并启动所有服务。</p>
+<p>Compose 使用的三个步骤：</p>
+<ul>
+<li>使用 Dockerfile 定义应用程序的环境</li>
+<li>使用 docker-compose.yml 定义构成应用程序的服务，这样它们可以在隔离环境中一起运行</li>
+<li>最后，执行 docker-compose up 命令来启动并运行整个应用程序</li>
+</ul>
+<p>中文文档：<a target="_blank" rel="noopener" href="http://www.dockerinfo.net/docker-compose-%e9%a1%b9%e7%9b%ae">http://www.dockerinfo.net/docker-compose-%e9%a1%b9%e7%9b%ae</a></p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://docs.docker.com/compose/">https://docs.docker.com/compose/</a></p>
+<blockquote>
+<p>compose安装  要注意和Docker同一个版本</p>
+</blockquote>
+<blockquote>
+<p>这里有独立版和插件版两种，区别感觉不大，主要就是命令的使用的一点点差别，我这主要使用的是独立版</p>
+</blockquote>
+<blockquote>
+<p><strong>Compose 独立版</strong></p>
+<p>请注意，Compose standalone 使用<code>-compose</code>语法 而不是当前标准语法<code>compose</code>。<br>例如，<code>docker-compose up</code>使用 Compose standalone 时输入 ，而不是<code>docker compose up</code>。</p>
+</blockquote>
+<ol>
+<li><p>要下载并安装 Compose 独立版，请运行：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">curl -SL https://github.com/docker/compose/releases/download/v2.29.6/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将可执行权限应用于安装目标路径中的独立二进制文件。</p>
+</li>
+<li><p>使用 测试并执行撰写命令<code>docker-compose</code>。</p>
+<blockquote>
+<p><strong>提示</strong></p>
+<p>如果安装后命令<code>docker-compose</code>失败，请检查您的路径。您还可以创建指向或路径中任何其他目录的符号链接<code>/usr/bin</code>。例如：</p>
+<p>$ sudo ln -s &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docker-compose &#x2F;usr&#x2F;bin&#x2F;docker-compose</p>
+</blockquote>
+</li>
+</ol>
+<blockquote>
+<p>compose使用</p>
+</blockquote>
+<p>1、设置</p>
+<ol>
+<li><p>为项目创建目录：</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> composetest</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> composetest</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在您的项目目录中创建一个名为的文件<code>app.py</code>并粘贴以下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> redis</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line">cache = redis.Redis(host=<span class="string">&#x27;redis&#x27;</span>, port=<span class="number">6379</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_hit_count</span>():</span><br><span class="line">    retries = <span class="number">5</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> cache.incr(<span class="string">&#x27;hits&#x27;</span>)</span><br><span class="line">        <span class="keyword">except</span> redis.exceptions.ConnectionError <span class="keyword">as</span> exc:</span><br><span class="line">            <span class="keyword">if</span> retries == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">raise</span> exc</span><br><span class="line">            retries -= <span class="number">1</span></span><br><span class="line">            time.sleep(<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>():</span><br><span class="line">    count = get_hit_count()</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello World! I have been seen &#123;&#125; times.\n&#x27;</span>.<span class="built_in">format</span>(count)</span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，是应用程序网络上的 redis 容器的主机名，并使用<code>redis</code>默认端口。<code>6379</code></p>
+<blockquote>
+<p><strong>笔记</strong></p>
+<p>请注意函数的编写方式<code>get_hit_count</code>。如果 Redis 服务不可用，此基本重试循环会多次尝试请求。这在应用程序上线时启动时很有用，但如果在应用程序的生命周期内需要随时重新启动 Redis 服务，也会使应用程序更具弹性。在集群中，这也有助于处理节点之间的瞬时连接断开。</p>
+</blockquote>
+</li>
+<li><p>在您的项目目录中创建另一个名为的文件<code>requirements.txt</code>并粘贴以下代码：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flask</span><br><span class="line">redis</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个<code>Dockerfile</code>并粘贴以下代码：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># syntax=docker/dockerfile:1</span></span><br><span class="line"><span class="keyword">FROM</span> python:<span class="number">3.10</span>-alpine</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /code</span></span><br><span class="line"><span class="keyword">ENV</span> FLASK_APP=app.py</span><br><span class="line"><span class="keyword">ENV</span> FLASK_RUN_HOST=<span class="number">0.0</span>.<span class="number">0.0</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apk add --no-cache gcc musl-dev linux-headers</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> requirements.txt requirements.txt</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> pip install -r requirements.txt</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">5000</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;flask&quot;</span>, <span class="string">&quot;run&quot;</span>, <span class="string">&quot;--debug&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>重要的</strong></p>
+<p>检查<code>Dockerfile</code>文件扩展名是否为<code>.txt</code>。某些编辑器可能会自动附加此文件扩展名，从而导致运行应用程序时出现错误。</p>
+</blockquote>
+</li>
+</ol>
+<p>2、在Compose文件中定义服务</p>
+<p>Compose 简化了整个应用程序堆栈的控制，使您可以轻松地在单个易于理解的 YAML 配置文件中管理服务、网络和卷。</p>
+<p>在您的项目目录中创建一个名为的文件<code>compose.yaml</code>并粘贴以下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8000:5000&quot;</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;redis:alpine&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>该Compose文件定义了两个服务：<code>web</code>和<code>redis</code>。</p>
+<p>该<code>web</code>服务使用从当前目录中构建的镜像<code>Dockerfile</code>。然后它将容器和主机绑定到公开端口。<code>8000</code>此示例服务使用 Flask Web 服务器的默认端口<code>5000</code>。</p>
+<p>该<code>redis</code>服务使用 从 Docker Hub 注册表中提取的公共<a target="_blank" rel="noopener" href="https://registry.hub.docker.com/_/redis/">Redis映像。</a></p>
+<p>3、使用 Compose 构建并运行您的应用</p>
+<p>使用单个命令，您可以从配置文件创建并启动所有服务。</p>
+<ol>
+<li>从您的项目目录中，通过运行启动您的应用程序<code>docker compose up</code>。、</li>
+<li>每访问一次网站，次数应该都会增加</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/09/17/redis%E5%AD%A6%E4%B9%A0/" rel="prev" title="redis学习">
+                  <i class="fa fa-angle-left"></i> redis学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/09/29/JVM%E5%AD%A6%E4%B9%A0/" rel="next" title="JVM学习">
+                  JVM学习 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">6pc1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">391k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:55</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-pi-one.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2024/09/21/Docker%E5%AD%A6%E4%B9%A0/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+</body>
+</html>

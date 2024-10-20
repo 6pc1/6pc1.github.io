@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"6pc1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/./search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一、JVM的学习方式 请你谈谈你对JVM的理解？java8虚拟机和之前的变化更新？ 什么是OOM？什么是栈溢出？怎么分析？ JVM的常用调优参数有哪些？ 内存快照如何抓取，怎么分析Dump文件？ 谈谈JVM中，类加载器的认识？   JVM的位置 JVM的体系结构 类加载器 双亲委派机制 沙箱安全机制 Native PC寄存器 方法区 栈 三种JVM 堆 新生区、老年区 永久区 堆内存调优 GC 常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM学习">
+<meta property="og:url" content="http://6pc1.github.io/2024/09/29/JVM%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="6pc1&#39;s blog">
+<meta property="og:description" content="一、JVM的学习方式 请你谈谈你对JVM的理解？java8虚拟机和之前的变化更新？ 什么是OOM？什么是栈溢出？怎么分析？ JVM的常用调优参数有哪些？ 内存快照如何抓取，怎么分析Dump文件？ 谈谈JVM中，类加载器的认识？   JVM的位置 JVM的体系结构 类加载器 双亲委派机制 沙箱安全机制 Native PC寄存器 方法区 栈 三种JVM 堆 新生区、老年区 永久区 堆内存调优 GC 常">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/15f08b83cc36ebf5ba8c33bb4ca72c5c--fe5c--image-20241001184024276.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/2849f9431c9f35342055f25d9f9b4a7e--7c8c--image-20241001190719023.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/d1c23d6bb7bb20a3555f7a846826726f--6967--image-20241001190723436.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/360e596935f9e9d5556a8af031f0b6a0--ae8f--image-20241001190940381.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/8c000f95eebb45566d18867ed7a0aac3--536f--image-20241001191035701.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/b51342000f3683e90e3adf0e43c07bf2--9d4e--image-20241002123848724.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/6a27a87f70d3c0cceab5d63de4c051e4--0658--image-20241002123904705.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/ed4b55839bb408766121dea1a8bc1104--2a5a--image-20241002123934033.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/1edf21e9019ca08ebfecc32ee4c7e420--39e0--image-20241002123956626.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/5ad85f47f558bc9fc5ab633e705a9cb5--6a15--image-20241002124557784.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/6b89aa39d8346bafa121bf1eeed1f66c--3716--image-20241002135759659.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/d1abd1837ffaaff91149fd72a3b2fe45--f6ea--image-20241002140740183.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/0b95074c40254505a543d8b1e4f5615f--f343--image-20241002143615421.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/3e08fdadcb276e8d69cb5f7e3b8c055e--f1a5--image-20241002150143735.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/4decf139647e56d4315d0461f2a20f18--39c2--image-20241002150210872.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/22cc5c8b3199733d8c33c8bf306fe266--4c06--image-20241002151906956.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/26875756d86816c75926906a4d67903c--038c--image-20241002152233036.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/d9605fa66682ee4502ae00fc31e53fdb--c834--image-20241002152649930.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/f62b9bdd6057a232b59795de140c44a1--1843--image-20241002152705256.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/c77c99081d771362defd654f3a2faf49--25b7--image-20241002152724230.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/4d9607858f7e3a699652c996668bb036--7231--image-20241002152734368.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/a0441016fecf4962d73058e54efe8f11--fc1d--image-20241002152846508.png">
+<meta property="article:published_time" content="2024-09-29T06:42:54.000Z">
+<meta property="article:modified_time" content="2024-10-02T08:44:01.597Z">
+<meta property="article:author" content="6pc1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/15f08b83cc36ebf5ba8c33bb4ca72c5c--fe5c--image-20241001184024276.png">
+
+
+<link rel="canonical" href="http://6pc1.github.io/2024/09/29/JVM%E5%AD%A6%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://6pc1.github.io/2024/09/29/JVM%E5%AD%A6%E4%B9%A0/","path":"2024/09/29/JVM学习/","title":"JVM学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JVM学习 | 6pc1's blog</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-pi-one.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">6pc1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界如画，心中有梦!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81JVM%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">一、JVM的学习方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81JVM%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">二、JVM的体系结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%8F%8A%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">三、类加载器及双亲委派机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Java%E5%8E%86%E5%8F%B2-%E6%B2%99%E7%AE%B1%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">四、Java历史-沙箱安全机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81Native%E6%96%B9%E6%B3%95%E5%8C%BA"><span class="nav-number">5.</span> <span class="nav-text">五、Native方法区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">6.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B8%80%E4%B8%8B%E6%A0%88"><span class="nav-number">7.</span> <span class="nav-text">六、深入理解一下栈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E8%B5%B0%E8%BF%9BHotSpot%E5%92%8C%E5%A0%86"><span class="nav-number">8.</span> <span class="nav-text">七、走进HotSpot和堆</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86"><span class="nav-number">8.1.</span> <span class="nav-text">堆</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%96%B0%E7%94%9F%E5%8C%BA%E3%80%81%E6%B0%B8%E4%B9%85%E5%8C%BA%E3%80%81%E5%A0%86%E5%86%85%E5%AD%98%E8%B0%83%E4%BC%98"><span class="nav-number">9.</span> <span class="nav-text">八、新生区、永久区、堆内存调优</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E7%94%9F%E5%8C%BA"><span class="nav-number">9.1.</span> <span class="nav-text">新生区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%81%E5%B9%B4%E5%8C%BA"><span class="nav-number">9.2.</span> <span class="nav-text">老年区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B0%B8%E4%B9%85%E5%8C%BA"><span class="nav-number">9.3.</span> <span class="nav-text">永久区</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B9%9D%E3%80%81GC%E4%BB%8B%E7%BB%8D%E4%B9%8B%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%99%A8"><span class="nav-number">10.</span> <span class="nav-text">九、GC介绍之引用计数器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E3%80%81GC%E4%B9%8B%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="nav-number">11.</span> <span class="nav-text">十、GC之复制算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81GC%E4%B9%8B%E6%A0%87%E8%AE%B0%E5%8E%8B%E7%BC%A9%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="nav-number">12.</span> <span class="nav-text">十一、GC之标记压缩清除算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4"><span class="nav-number">12.1.</span> <span class="nav-text">标记清除</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E5%8E%8B%E7%BC%A9"><span class="nav-number">12.2.</span> <span class="nav-text">标记压缩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E9%99%A4%E5%8E%8B%E7%BC%A9"><span class="nav-number">12.3.</span> <span class="nav-text">标记清除压缩</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81GC%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93"><span class="nav-number">13.</span> <span class="nav-text">十二、GC算法总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E8%AE%B2%E8%A7%A3"><span class="nav-number">14.</span> <span class="nav-text">十三、如何快速学习方法讲解</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="6pc1"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">6pc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/6pc1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;6pc1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2961816476@qq.com" title="E-Mail → mailto:2961816476@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://qm.qq.com/q/uZSUzwBesa" title="QQ → https:&#x2F;&#x2F;qm.qq.com&#x2F;q&#x2F;uZSUzwBesa" rel="noopener me" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://hacbit.tech/" title="https:&#x2F;&#x2F;hacbit.tech&#x2F;" rel="noopener" target="_blank">hacbit</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://yixinbc.tech/" title="https:&#x2F;&#x2F;yixinbc.tech&#x2F;" rel="noopener" target="_blank">yixinBC</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="http://clearwine.online/" title="http:&#x2F;&#x2F;clearwine.online" rel="noopener" target="_blank">qinjiu</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://6pc1.github.io/2024/09/29/JVM%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="6pc1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JVM学习 | 6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-09-29 14:42:54" itemprop="dateCreated datePublished" datetime="2024-09-29T14:42:54+08:00">2024-09-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-10-02 16:44:01" itemprop="dateModified" datetime="2024-10-02T16:44:01+08:00">2024-10-02</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2024/09/29/JVM%E5%AD%A6%E4%B9%A0/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2024/09/29/JVM%E5%AD%A6%E4%B9%A0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="一、JVM的学习方式"><a href="#一、JVM的学习方式" class="headerlink" title="一、JVM的学习方式"></a>一、JVM的学习方式</h1><ul>
+<li>请你谈谈你对JVM的理解？java8虚拟机和之前的变化更新？</li>
+<li>什么是OOM？什么是栈溢出？怎么分析？</li>
+<li>JVM的常用调优参数有哪些？</li>
+<li>内存快照如何抓取，怎么分析Dump文件？</li>
+<li>谈谈JVM中，类加载器的认识？</li>
+</ul>
+<ol>
+<li>JVM的位置</li>
+<li>JVM的体系结构</li>
+<li>类加载器</li>
+<li>双亲委派机制</li>
+<li>沙箱安全机制</li>
+<li>Native</li>
+<li>PC寄存器</li>
+<li>方法区</li>
+<li>栈</li>
+<li>三种JVM</li>
+<li>堆</li>
+<li>新生区、老年区</li>
+<li>永久区</li>
+<li>堆内存调优</li>
+<li>GC<ol>
+<li>常用算法</li>
+</ol>
+</li>
+<li>JMM</li>
+<li>总结</li>
+</ol>
+<h1 id="二、JVM的体系结构"><a href="#二、JVM的体系结构" class="headerlink" title="二、JVM的体系结构"></a>二、JVM的体系结构</h1><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/15f08b83cc36ebf5ba8c33bb4ca72c5c--fe5c--image-20241001184024276.png" alt="image-20241001184024276"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/2849f9431c9f35342055f25d9f9b4a7e--7c8c--image-20241001190719023.png" alt="image-20241001190719023"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/d1c23d6bb7bb20a3555f7a846826726f--6967--image-20241001190723436.png" alt="image-20241001190723436"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/360e596935f9e9d5556a8af031f0b6a0--ae8f--image-20241001190940381.png" alt="image-20241001190940381"></p>
+<h1 id="三、类加载器及双亲委派机制"><a href="#三、类加载器及双亲委派机制" class="headerlink" title="三、类加载器及双亲委派机制"></a>三、类加载器及双亲委派机制</h1><p>作用：加载Class文件 </p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-01/8c000f95eebb45566d18867ed7a0aac3--536f--image-20241001191035701.png" alt="image-20241001191035701"></p>
+<ol>
+<li>虚拟机自带的加载器</li>
+<li>启动类（根）加载器（<strong>BootstrapClassLoader</strong>）</li>
+<li>扩展类加载器（<strong>ExtClassLoader</strong>）</li>
+<li>应用程序（系统类）加载器（<strong>AppClassLoader</strong>）</li>
+</ol>
+<h1 id="四、Java历史-沙箱安全机制"><a href="#四、Java历史-沙箱安全机制" class="headerlink" title="四、Java历史-沙箱安全机制"></a>四、Java历史-沙箱安全机制</h1><p>java安全模型的核心就是java沙箱（sandbox）</p>
+<blockquote>
+<p>什么是沙箱?</p>
+</blockquote>
+<p>沙箱是一个限制程序运行的环境。</p>
+<p>沙箱机制就是将java代码限定在虚拟机（JVM）特定的运行范围中，并且严格限制代码对本地系统资源的访问，通过这样的措施来保证对代码的有效隔离。防止对本地系统造成破坏。沙箱主要限制系统资源访问。</p>
+<p>那系统资源包括什么？CPU、内存、文件系统、网络。不同级别的沙箱对这些资源访问的限制也不一样。</p>
+<p>所有的java程序运行都可以指定沙箱，可以指定安全策略。</p>
+<p>在java中将执行程序分成本地代码和远程代码两种，本地代码默认视为可信任的，而远程代码则被看作是不受信受信的。对于受信的本地代码，可以访问一切本地资源。而对于非受信的远程代码在早期的java实现中，安全依赖于沙箱机制。如下图所示 JDK1.0安全模型</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/b51342000f3683e90e3adf0e43c07bf2--9d4e--image-20241002123848724.png" alt="image-20241002123848724"></p>
+<p>但是如此严格的安全机制也给程序的功能扩展带来障碍，比如当用户希望远程代码访问本地系统的文件时候，就无法实现。因此在后续的java1.1版本中，针对安全机制做了改进，增加了<strong>安全策略</strong>，允许用户指定代码对本地资源的访问权限，如下图所示JDK1.1安全模型</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/6a27a87f70d3c0cceab5d63de4c051e4--0658--image-20241002123904705.png" alt="image-20241002123904705"></p>
+<p>在java1.2版本中，再次改进了安全机制，增加了<strong>代码签名</strong>，不论本地代码或者远程代码，都会按照用户的安全策略设定，由类加载器加载到虚拟机中权限不同的运行空间，来实现差异化的代码执行权限控制。如下图所示JDK1.2安全模型</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/ed4b55839bb408766121dea1a8bc1104--2a5a--image-20241002123934033.png" alt="image-20241002123934033"></p>
+<p> 当前最新的安全机制实现，则引入了<strong>域（Domain）</strong>的概念。虚拟机会把所有代码加载到不同的系统域和应用域，系统域部分专门负责与关键资源进行交互，而各个应用域部分则通过系统域的部分代理来对各种需要的资源进行访问。虚拟机中不同的受保护域（Protected Domain），对应不一样的权限（Permission）。存在于不同域中的类文件，就具有当前域的全部权限，如下图所示，最新的安全模型（jdk1.6）</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/1edf21e9019ca08ebfecc32ee4c7e420--39e0--image-20241002123956626.png" alt="image-20241002123956626"></p>
+<p>组成沙箱的基本组件</p>
+<ul>
+<li>字节码校验器（bytecode verifier）：确保Java类文件遵循Java语言规范。这样可以帮助Java程序实现内存保护。但并不是所有的类文件都会经过字节码校验，比如核心类。</li>
+<li>类装载器（class loader）：其中类装载器在3个方面对Java沙箱起作用<ul>
+<li>它防止恶意代码去干涉善意的代码；（双亲委派机制）</li>
+<li>它守护了被信任的类库边界；</li>
+<li>它将代码归入保护域，确定了代码可以进行哪些操作。</li>
+</ul>
+</li>
+</ul>
+<p>虚拟机为不同的类加载器载入的类提供不同的命名空间，命名空间由一系列唯一的名称组成，每一个被装载的类将有一个名字，这个命名空间是由Java虚拟机为每一个类装载器维护的，它们互相之间甚至不可见。</p>
+<p>类装载器采用的机制是双亲委派模式。</p>
+<ol>
+<li>从最内层JVM自带类加载器开始加载，外层恶意同名类得不到加载从而无法使用；</li>
+<li>由于严格通过包来区分了访问域，外层恶意的类通过内置代码也无法获得权限访问到内层类，破坏代码就自然无法生效。</li>
+</ol>
+<ul>
+<li>存取控制器（access controller）：存取控制器可以控制核心API对操作系统的存取权限，而这个控制的策略设定，可以由用户指定。</li>
+<li>安全管理器（security manager）：是核心API和操作系统之间的主要接口。实现权限控制，比存取控制器优先级高。</li>
+<li>安全软件包（security package）：java.security下的类和扩展包下的类，允许用户为自己的应用增加新的安全特性，包括：<ul>
+<li>安全提供者</li>
+<li>消息摘要</li>
+<li>数字签名（keytools）</li>
+<li>加密</li>
+<li>鉴别</li>
+</ul>
+</li>
+</ul>
+<h1 id="五、Native方法区"><a href="#五、Native方法区" class="headerlink" title="五、Native方法区"></a>五、Native方法区</h1><h1 id=""><a href="#" class="headerlink" title=""></a></h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(() -&gt; &#123;</span><br><span class="line"></span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * native :凡是带了native关键字的，说明java的作用范围达不到了，会去调用底层C语言的库！</span></span><br><span class="line"><span class="comment">     * 会进入本地方法栈</span></span><br><span class="line"><span class="comment">     * 调用本地方法接口！ JNI</span></span><br><span class="line"><span class="comment">     * JNI作用：扩展java的使用，融合不同的编程语言为java所用！最初：C、C++</span></span><br><span class="line"><span class="comment">     * java诞生的时候 C、C++横行，想要立足，必须要有调用C、C++的程序</span></span><br><span class="line"><span class="comment">     * 他在内存区域中专门开辟了一块标记区域：Native Method Stace，登记native方法</span></span><br><span class="line"><span class="comment">     * 在最终执行的时候，加载本地方法库中的方法，通过JNI</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="comment">//java程序驱动打印机，管理系统。掌握即可，在企业级应用中较为少见！</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title function_">start0</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>PC寄存器</strong></p>
+<p>程序计数器：program counter register</p>
+<p>每个线程都有一个程序计数器，是线程私有的，就是一个指针，指向方法区中的方法字节码（用来存储指向一条执行的地址，也即将要执行的指令代码），在执行引擎读取下一条指令，是一个非常小的内存空间，几乎可以忽略不计</p>
+<p><strong>方法区</strong></p>
+<p>Method Area 方法区</p>
+<p><strong>方法区是被所有线程共享</strong>，所有字段和方法字节码，以及一些特殊方法，如构造函数，接口代码也在此定义，简单说，所有定义的方法的信息都保存在该区域，<strong>此区域属于共享空间</strong></p>
+<p><strong>静态变量，常量，类信息（构造方法，接口定义），运行时的常量池存在方法区中，但是实例变量存在堆内存中，和方法区无关</strong></p>
+<h1 id="六、深入理解一下栈"><a href="#六、深入理解一下栈" class="headerlink" title="六、深入理解一下栈"></a>六、深入理解一下栈</h1><p><strong>栈：数据结构</strong></p>
+<p><strong>栈：先进后出 、后进先出  （桶）</strong></p>
+<p><strong>队列：先进先出（FIFO: first input first output）</strong></p>
+<p>为什么main()方法先执行，最后结束！</p>
+<p>栈：栈内存，主管程序的运行，生命周期和线程同步</p>
+<p>线程结束，栈内存也就是释放，对于栈来说，<strong>不存在垃圾回收问题</strong></p>
+<p>一旦线程结束，栈就over</p>
+<p><strong>栈中可以存什么：</strong></p>
+<ul>
+<li>8大基本类型<ul>
+<li>boolean</li>
+<li>byte</li>
+<li>char</li>
+<li>short</li>
+<li>int</li>
+<li>long</li>
+<li>float</li>
+<li>double</li>
+</ul>
+</li>
+<li>对象引用<ul>
+<li>reference类型</li>
+</ul>
+</li>
+<li>实例的方法</li>
+</ul>
+<p>栈运行原理：栈帧</p>
+<p>栈满了会抛出:StackOverflowError</p>
+<p>栈 + 堆 + 方法区 交互关系</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/5ad85f47f558bc9fc5ab633e705a9cb5--6a15--image-20241002124557784.png" alt="image-20241002124557784"></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/102316535">JVM虚拟机栈执行原理深入详解 - 知乎 (zhihu.com)</a></p>
+<h1 id="七、走进HotSpot和堆"><a href="#七、走进HotSpot和堆" class="headerlink" title="七、走进HotSpot和堆"></a>七、走进HotSpot和堆</h1><p>三种JVM</p>
+<ul>
+<li>sun公司的 <strong>HotSpot</strong></li>
+<li>BEA <strong>JRockit</strong></li>
+<li>IBM <strong>J9 VM</strong></li>
+</ul>
+<p>我们学习的都是：HotSpot</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>Heap，一个JVM只有一个堆内存，堆内存的大小是可以调节的。</p>
+<p>类加载器读取了类文件后，一般会把什么东西放到堆中? 类，方法，常量，变量~  保存我们所有引用类型的真实对象</p>
+<p>堆内存中还要细分为三个区域：</p>
+<ul>
+<li>新生区（伊甸园区） Young&#x2F;New</li>
+<li>养老区 Old</li>
+<li>永久区 Perm</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/6b89aa39d8346bafa121bf1eeed1f66c--3716--image-20241002135759659.png" alt="image-20241002135759659"></p>
+<p>GC垃圾回收，主要是在伊甸园区和养老区~</p>
+<p>加入内存满了，OOM，堆内存不够! java.lang.OutOfMemoryError:java heap space</p>
+<p>在JDK1.8以后，永久区改了一个名字~<strong>元空间</strong></p>
+<h1 id="八、新生区、永久区、堆内存调优"><a href="#八、新生区、永久区、堆内存调优" class="headerlink" title="八、新生区、永久区、堆内存调优"></a>八、新生区、永久区、堆内存调优</h1><h2 id="新生区"><a href="#新生区" class="headerlink" title="新生区"></a>新生区</h2><ul>
+<li>类：诞生和成长的地方，设置死亡！</li>
+<li>伊甸园，所有的对象都是在伊甸园区new出来的</li>
+<li>幸存者区（0,1）</li>
+</ul>
+<p>现象：经过研究，99%的对象都是临时对象！</p>
+<h2 id="老年区"><a href="#老年区" class="headerlink" title="老年区"></a>老年区</h2><h2 id="永久区"><a href="#永久区" class="headerlink" title="永久区"></a>永久区</h2><p>这个区域常驻内存的，用来存放JDK自身携带的Class对象，Interface元数据，<strong>存储的是java运行时的一些环境或者类信息，这个区域不存在垃圾回收！关闭VM虚拟机就会释放这个区域的内存~</strong></p>
+<p><strong>一个启动类，加载了大量的第三方jar包。tomcat部署了太多的应用，大量动态生成的反射类，不断的被加载。直到内存满了，就会出现OOM</strong></p>
+<ul>
+<li>jdk1.6之前：永久代，<strong>常量池在方法区</strong></li>
+<li>jdk1.7:永久代，但是慢慢的退化了，去永久代，<strong>常量池在堆中</strong></li>
+<li>jdk1.8之后：无永久代，<strong>常量池在元空间</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/d1abd1837ffaaff91149fd72a3b2fe45--f6ea--image-20241002140740183.png" alt="image-20241002140740183"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JVMDemo01</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//虚拟机试图使用的最大内存</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">maxMemory</span> <span class="operator">=</span> Runtime.getRuntime().maxMemory();</span><br><span class="line">        <span class="comment">//虚拟机的初始化总内存</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">totalMemory</span> <span class="operator">=</span> Runtime.getRuntime().totalMemory();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;maxMemory:&quot;</span> + maxMemory + <span class="string">&quot;字节\t&quot;</span> + (maxMemory / (<span class="type">double</span>) <span class="number">1024</span> / <span class="number">1024</span>) + <span class="string">&quot;MB&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;totalMemory:&quot;</span> + maxMemory + <span class="string">&quot;字节\t&quot;</span> + (totalMemory / (<span class="type">double</span>) <span class="number">1024</span> / <span class="number">1024</span>) + <span class="string">&quot;MB&quot;</span>);</span><br><span class="line">        <span class="comment">//默认情况下，分配的最大内存是电脑内存的1/4 而初始化的内存是 1/64</span></span><br><span class="line">        <span class="comment">//-Xms1024m -Xmx1024m -XX:+PrintGCDetails</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * OOM：</span></span><br><span class="line"><span class="comment">         *   1. 尝试扩大堆内存看结果</span></span><br><span class="line"><span class="comment">         *   2. 分析内存，看一下哪个地方出现了问题（专业工具）</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">maxMemory:4211081216字节	4016.0MB</span><br><span class="line">totalMemory:4211081216字节	252.0MB</span><br></pre></td></tr></table></figure>
+
+<p>元空间：逻辑上存在，物理上不存在</p>
+<p>idea设置JVM堆内存大小</p>
+<p>这里要注意新版idea是默认隐藏vm option的</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/0b95074c40254505a543d8b1e4f5615f--f343--image-20241002143615421.png" alt="image-20241002143615421"></p>
+<p>输出：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">maxMemory:<span class="number">1048576000</span>字节	<span class="number">1000.</span>0MB</span><br><span class="line">totalMemory:<span class="number">1048576000</span>字节	<span class="number">1000.</span>0MB</span><br><span class="line">[<span class="number">0.</span>183s][info   ][gc,heap,exit] Heap</span><br><span class="line">[<span class="number">0.</span>183s][info   ][gc,heap,exit]  garbage-first heap   total reserved 1024000K, committed 1024000K, used 6144K [<span class="number">0x00000000c1800000</span>, <span class="number">0x0000000100000000</span>)</span><br><span class="line">[<span class="number">0.</span>183s][info   ][gc,heap,exit]   region size 1024K, <span class="number">6</span> young (6144K), <span class="number">0</span> survivors (0K)</span><br><span class="line">[<span class="number">0.</span>183s][info   ][gc,heap,exit]  Metaspace       used 858K, committed 1024K, reserved 1114112K</span><br><span class="line">[<span class="number">0.</span>183s][info   ][gc,heap,exit]   <span class="keyword">class</span> <span class="title class_">space</span>    used 68K, committed 128K, reserved 1048576K</span><br></pre></td></tr></table></figure>
+
+<p>如下代码设置</p>
+<p><code>-Xms1m -Xmx1m -XX:+PrintGCDetails</code></p>
+<p>-Xms 设置初始化内存分配大小，默认1&#x2F;64</p>
+<p>-Xmx 设置最大分配内存大小，默认1&#x2F;4</p>
+<p>-XX:+PrintGCDetails  — 打印GC垃圾回收信息</p>
+<p>-XX:+HeapDumpOnOutOfMemoryError   — OOM DUMP</p>
+<blockquote>
+<p>拓展</p>
+</blockquote>
+<p>这里也可以使用一些工具去检测对应的堆内存问题的，推荐就是可以使用JPofiler</p>
+<p>在一个项目中，突然出现了OOM故障，那么该如何排除~</p>
+<ul>
+<li>能够看到代码第几行出错：内存快照分析工具，MAT，Jprofiler</li>
+<li>Dubug，一行行代码分析！</li>
+</ul>
+<p>MAT，Jprofiler作用：</p>
+<ul>
+<li>分析Dump内存文件，快速定位内存泄露</li>
+<li>获得堆中的数据</li>
+<li>获得大的对象</li>
+<li>…</li>
+</ul>
+<h1 id="九、GC介绍之引用计数器"><a href="#九、GC介绍之引用计数器" class="headerlink" title="九、GC介绍之引用计数器"></a>九、GC介绍之引用计数器</h1><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/3e08fdadcb276e8d69cb5f7e3b8c055e--f1a5--image-20241002150143735.png" alt="image-20241002150143735"></p>
+<p>JVM在进行GC时，并不是对这三个区域统一回收，大部分的时候，回收都是新生代</p>
+<ul>
+<li>新生区</li>
+<li>幸存区</li>
+<li>老年区</li>
+</ul>
+<p>GC种类：</p>
+<ul>
+<li>轻GC（普通的GC）</li>
+<li>重GC（全局的GC）</li>
+</ul>
+<p>GC题目：</p>
+<ul>
+<li>JVM的内存模型和分区，详细到每个区放什么？</li>
+<li>堆里面的分区有哪些？Eden，from,to,老年区，说说他们的特点</li>
+<li>GC的算法有哪些？怎么用？<ul>
+<li>标记清除法</li>
+<li>标记压缩</li>
+<li>复制算法</li>
+<li>引用计数器</li>
+</ul>
+</li>
+<li>轻GC和重GC分别是在什么什么时候发生？</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/4decf139647e56d4315d0461f2a20f18--39c2--image-20241002150210872.png" alt="image-20241002150210872">s</p>
+<h1 id="十、GC之复制算法"><a href="#十、GC之复制算法" class="headerlink" title="十、GC之复制算法"></a>十、GC之复制算法</h1><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/22cc5c8b3199733d8c33c8bf306fe266--4c06--image-20241002151906956.png" alt="image-20241002151906956"></p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/26875756d86816c75926906a4d67903c--038c--image-20241002152233036.png" alt="image-20241002152233036"></p>
+<p>好处：没有内存的碎片</p>
+<p>坏处：浪费了内存空间，多了一半空间永远是空（To），假设对象100%存活(极端情况)</p>
+<p>复制算法最佳使用场景：对象存活度较低的区域，新生区</p>
+<h1 id="十一、GC之标记压缩清除算法"><a href="#十一、GC之标记压缩清除算法" class="headerlink" title="十一、GC之标记压缩清除算法"></a>十一、GC之标记压缩清除算法</h1><h2 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h2><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/d9605fa66682ee4502ae00fc31e53fdb--c834--image-20241002152649930.png" alt="image-20241002152649930"></p>
+<p>优点：不需要额外的空间！</p>
+<p>缺点：两次扫描，严重浪费时间，会产生内存碎片</p>
+<h2 id="标记压缩"><a href="#标记压缩" class="headerlink" title="标记压缩"></a>标记压缩</h2><p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/f62b9bdd6057a232b59795de140c44a1--1843--image-20241002152705256.png" alt="image-20241002152705256"></p>
+<h2 id="标记清除压缩"><a href="#标记清除压缩" class="headerlink" title="标记清除压缩"></a>标记清除压缩</h2><p>先标记清除几次</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/c77c99081d771362defd654f3a2faf49--25b7--image-20241002152724230.png" alt="image-20241002152724230"></p>
+<p>再压缩</p>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/4d9607858f7e3a699652c996668bb036--7231--image-20241002152734368.png" alt="image-20241002152734368"></p>
+<h1 id="十二、GC算法总结"><a href="#十二、GC算法总结" class="headerlink" title="十二、GC算法总结"></a>十二、GC算法总结</h1><p>内存效率：复制算法 &gt; 标记清除算法 &gt; 标记压缩算法（时间复杂度）</p>
+<p>内存整齐度：复制算法 &#x3D; 标记压缩算法 &gt; 标记清除算法</p>
+<p>内存利用率： 标记压缩算法 &#x3D; 标记清除算法 &gt; 复制算法</p>
+<p>思考：难道没有最优算法吗？</p>
+<p>答案：没有，没有最好的算法，只有最合适的算法 —–》 GC：分代收集算法</p>
+<p>年轻代：</p>
+<ul>
+<li>存活率低</li>
+<li>复制算法</li>
+</ul>
+<p>老年代：</p>
+<ul>
+<li>区域大：存活率</li>
+<li>标记清除（内存碎片不是太多）+ 标记压缩 混合实现</li>
+</ul>
+<p>一天时间学JVM,不现实，要深究，必须要花时间，多看面试题，以及《深入理解JVM》</p>
+<p>但是，我们可以掌握一个学习JVM的方法</p>
+<h1 id="十三、如何快速学习方法讲解"><a href="#十三、如何快速学习方法讲解" class="headerlink" title="十三、如何快速学习方法讲解"></a>十三、如何快速学习方法讲解</h1><p>JMM:java Memory Model（java内存模型）</p>
+<ol>
+<li><p>什么是JMM</p>
+<p>【JMM】（Java Memory Model的缩写）</p>
+</li>
+<li><p>它干嘛的？– 官方，其他人的博客，对应的视频</p>
+<p>作用：缓存一致性协议，用于定义数据读写的规则（遵守，找到这个规则）</p>
+<p>JMM定义了线程工作内存和主内存之间的抽象关系，线程之间的共享变量存储在主内存（Main Memory）中，每个线程都有一个私有的本地内存（Local Memory）</p>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/6pc1/typora/main/img/2024-10-02/a0441016fecf4962d73058e54efe8f11--fc1d--image-20241002152846508.png" alt="image-20241002152846508"></p>
+<ol>
+<li><p>解决共享对象可见性这个问题：volatile</p>
+</li>
+<li><p>它该如何学习？</p>
+<p>JMM：抽象的概念，理论</p>
+<p>JMM对这八种指令的使用，制定了如下规则：</p>
+<ul>
+<li><p>不允许read和load、store和write操作之一单独出现。即使用了read必须load，使用了store必须write</p>
+</li>
+<li><p>不允许线程丢弃他最近的assign操作，即工作变量的数据改变了之后，必须告知主存</p>
+</li>
+<li><p>不允许一个线程将没有assign的数据从工作内存同步回主内存</p>
+</li>
+<li><p>一个新的变量必须在主内存中诞生，不允许工作内存直接使用一个未被初始化的变量。就是怼变量实施use、store操作之前，必须经过assign和load操作</p>
+</li>
+<li><p>一个变量同一时间只有一个线程能对其进行lock。多次lock后，必须执行相同次数的unlock才能解锁</p>
+</li>
+<li><p>如果对一个变量进行lock操作，会清空所有工作内存中此变量的值，在执行引擎使用这个变量前，必须重新load或assign操作初始化变量的值</p>
+</li>
+<li><p>如果一个变量没有被lock，就不能对其进行unlock操作。也不能unlock一个被其他线程锁住的变量</p>
+</li>
+<li><p>对一个变量进行unlock操作之前，必须把此变量同步回主内存</p>
+</li>
+</ul>
+<p>JMM对这八种操作规则和对<a target="_blank" rel="noopener" href="https://www.cnblogs.com/null-qige/p/8569131.html">volatile的一些特殊规则</a>就能确定哪里操作是线程安全，哪些操作是线程不安全的了。但是这些规则实在复杂，很难在实践中直接分析。所以一般我们也不会通过上述规则进行分析。更多的时候，使用java的happen-before规则来进行分析。</p>
+</li>
+</ol>
+<hr>
+<p>   学习新东西是常态</p>
+<p>   针对面试学习</p>
+<p>   针对技术学习</p>
+<p>   面试：</p>
+<p>   3&#x2F;10 &#x3D;&#x3D; pass ，面经 &#x3D;10 ，分析这10个？触类旁通：百度面试题</p>
+<p>   通过大量的面试总结，得出一套解题思路</p>
+<p>更多阅读：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/nSwNZpObWLGteG-v7n5PSw">https://mp.weixin.qq.com/s/nSwNZpObWLGteG-v7n5PSw</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/09/21/Docker%E5%AD%A6%E4%B9%A0/" rel="prev" title="Docker学习">
+                  <i class="fa fa-angle-left"></i> Docker学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/10/07/JUC%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="next" title="JUC并发编程">
+                  JUC并发编程 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">6pc1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">391k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:55</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-pi-one.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2024/09/29/JVM%E5%AD%A6%E4%B9%A0/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+</body>
+</html>
