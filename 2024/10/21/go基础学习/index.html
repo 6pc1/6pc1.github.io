@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"6pc1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/./search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近也是开始尝试去学习一些go语言相关的知识 基于狂神的go语言的相关课程！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go基础学习">
+<meta property="og:url" content="http://6pc1.github.io/2024/10/21/go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="6pc1&#39;s blog">
+<meta property="og:description" content="最近也是开始尝试去学习一些go语言相关的知识 基于狂神的go语言的相关课程！">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-21T12:01:51.000Z">
+<meta property="article:modified_time" content="2024-12-17T14:15:07.090Z">
+<meta property="article:author" content="6pc1">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://6pc1.github.io/2024/10/21/go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://6pc1.github.io/2024/10/21/go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/","path":"2024/10/21/go基础学习/","title":"go基础学习"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>go基础学习 | 6pc1's blog</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-pi-one.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">6pc1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界如画，心中有梦!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81go%E8%AF%AD%E8%A8%80%E7%9A%84%E8%83%8C%E6%99%AF%E4%BB%A5%E5%8F%8A%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">一、go语言的背景以及下载安装配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#go%E8%AF%AD%E8%A8%80%E7%9A%84%E5%88%9B%E5%A7%8B"><span class="nav-number">1.1.</span> <span class="nav-text">go语言的创始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E5%B8%B8%E7%94%A8%E5%BA%93"><span class="nav-number">1.2.</span> <span class="nav-text">Go语言常用库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E4%BB%A3%E7%A0%81%E6%B8%85%E7%88%BD"><span class="nav-number">1.3.</span> <span class="nav-text">Go语言代码清爽</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="nav-number">1.4.</span> <span class="nav-text">Go语言特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0Go%E8%AF%AD%E8%A8%80%E5%8F%AF%E4%BB%A5%E5%B9%B2%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.5.</span> <span class="nav-text">学习Go语言可以干什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8EGo%E8%AF%AD%E8%A8%80%E6%9C%AA%E6%9D%A5%E7%9A%84%E5%B1%95%E6%9C%9B"><span class="nav-number">1.6.</span> <span class="nav-text">关于Go语言未来的展望</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="6pc1"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">6pc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/6pc1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;6pc1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2961816476@qq.com" title="E-Mail → mailto:2961816476@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://qm.qq.com/q/uZSUzwBesa" title="QQ → https:&#x2F;&#x2F;qm.qq.com&#x2F;q&#x2F;uZSUzwBesa" rel="noopener me" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://hacbit.tech/" title="https:&#x2F;&#x2F;hacbit.tech&#x2F;" rel="noopener" target="_blank">hacbit</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://yixinbc.tech/" title="https:&#x2F;&#x2F;yixinbc.tech&#x2F;" rel="noopener" target="_blank">yixinBC</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="http://clearwine.online/" title="http:&#x2F;&#x2F;clearwine.online" rel="noopener" target="_blank">qinjiu</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://6pc1.github.io/2024/10/21/go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="6pc1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="go基础学习 | 6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          go基础学习
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-10-21 20:01:51" itemprop="dateCreated datePublished" datetime="2024-10-21T20:01:51+08:00">2024-10-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-12-17 22:15:07" itemprop="dateModified" datetime="2024-12-17T22:15:07+08:00">2024-12-17</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2024/10/21/go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2024/10/21/go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>最近也是开始尝试去学习一些go语言相关的知识</p>
+<p>基于狂神的go语言的相关课程！</p>
+<span id="more"></span>
+
+<h1 id="一、go语言的背景以及下载安装配置"><a href="#一、go语言的背景以及下载安装配置" class="headerlink" title="一、go语言的背景以及下载安装配置"></a>一、go语言的背景以及下载安装配置</h1><h2 id="go语言的创始"><a href="#go语言的创始" class="headerlink" title="go语言的创始"></a>go语言的创始</h2><blockquote>
+<p>为什么需要go语言的</p>
+</blockquote>
+<p>C 系统效率  开发起来比较复杂 </p>
+<p>Java 开发相对来说简单了 （面向对象—）更符合人的思维  很多大型企业在用  培训机构  ssm ssh  springboot   java 人才多  单价低</p>
+<p>效率要高 + 开发简单 &#x3D;  兼顾  （创造一种新语言  Go）   12 年  移动端 智能手机   85   95   时代进步了，我们需要一些更高效的东西，而不是一些历史的东西</p>
+<p>最近十年来，C&#x2F;C++在计算领域没有很好得到发展，并没有新的系统编程语言出现。对开发程度和系统效率在很多情况下不能兼得。要么执行效率高，但低效的开发和编译，如C++；要么执行低效，但拥有有效的编译，如.NET、Java；所以需要一种拥有较高效的执行速度、编译速度和开发速度的编程语言，Go就横空出世了。</p>
+<p>每个语言都有自己的优点 &#x3D; 整合 12年 Go</p>
+<p><strong>go出现之前，无论汇编语言、还是动态脚本语言，在执行效率和开发效率上都不能兼备。</strong></p>
+<blockquote>
+<p>Docker、Kubernetes</p>
+</blockquote>
+<p>一家叫做 Docker 的公司。就是使用 Go 进行项目开发，并促进了计算机领域的容器行业，进而出现了像 Kubernetes 这样的项目。现在，<strong>我们完全可以说 Go 是容器语言</strong>，这是另一个完全出乎意料的结果。</p>
+<p>除了大名鼎鼎的Docker，完全用GO实现。业界最为火爆的容器编排管理系统kubernetes完全用GO实现。之后的Docker Swarm，完全用GO实现。越来越多的人开始加入和关注！&#x3D;&#x3D;&#x3D; Docker  1</p>
+<p>除此之外，还有各种有名的项目，如etcd&#x2F;consul&#x2F;flannel，<strong>七牛云存储</strong>等等 均使用GO实现。有人说，GO语言之所以出名，是赶上了云时代。但为什么不能换种说法？也是GO语言促使了云的发展。</p>
+<p>除了云项目外，2023还有像今日头条、UBER这样的公司，他们也使用GO语言对自己的业务进行了彻底的重构。</p>
+<p>所以当下go语言还是很有发展前景的。</p>
+<blockquote>
+<p>go语言的展望</p>
+</blockquote>
+<p>Go语言是谷歌2009年发布的第二款开源编程语言（系统开发语言)，它是基于编译、垃圾收集和并发的编程语言。</p>
+<p>Go语言专门针对多处理器系统应用程序的编程进行了优化，<strong>使用Go编译的程序可以媲美 C &#x2F; C++代码的速度，而且更加安全、支持并行进程</strong>。</p>
+<p>作为出现在21世纪的语言，其近C的执行性能和近解析型语言的开发效率，以及近乎于完美的编译速度，已经风靡全球。</p>
+<p><strong>特别是在云项目中，大部分都使用了Golang来开发。PC、移动端、云时代</strong>不得不说，Golang早已深入人心。而对于一个没有历史负担的新项目，Golang或许就是个不二的选择。为什么很多新项目都是使用Golang。</p>
+<p><strong>很多人将Go语言称为21世纪的C语言，因为Go不仅拥有C的简洁和性能。而且还很好的提供了21世纪互联网环境下服务端开发的各种实用特性。</strong></p>
+<p>被称为Go语言之父的罗勃·派克(Rob Pike)就曾说过，你是否同意Go语言，取决于你是认可少就是多，还是少就是少(Less is more or less is less)。<strong>Go语言的整个设计哲学就是：将简单、实用体现得淋漓尽致。 学习起来很轻松，很容易学习</strong></p>
+<p><strong>如今 Go 已经是云计算编程语言，GO语言背靠Google这棵大树，又不乏牛人坐镇，是名副其实的“牛二代”。</strong>想象一下：一个只有十几年发展经历的编程语言，已经成为了如此巨大而且正在不断发展的行业的主导者，这种成功是每个人都无法想象的。</p>
+<h2 id="Go语言常用库"><a href="#Go语言常用库" class="headerlink" title="Go语言常用库"></a>Go语言常用库</h2><p>学习编程语言，早已不是学一点语法规则那么简单。现在更习惯称作选择 Ecosystem（生态圈），而这其中标准库的作用和分量尤为明显。</p>
+<p>在Go语言的安装文件里包含了一些可以直接使用的包，即标准库。Go语言的标准库（通常被称为语言自带的电池），提供了清晰的构建模块和公共接口，包含 I&#x2F;O 操作、文本处理、图像、密码学、网络和分布式应用程序等，并支持许多标准化的文件格式和编解码协议。</p>
+<p>在 Windows 下，标准库的位置在Go语言根目录下的子目录 pkg\windows_amd64 中；在 Linux 下，标准库在Go语言根目录下的子目录 pkg\linux_amd64 中（如果是安装的是 32 位，则在 linux_386 目录中）。一般情况下，标准包会存放在 $GOROOT&#x2F;pkg&#x2F;$GOOS_$GOARCH&#x2F; 目录下。</p>
+<p>Go语言的编译器也是标准库的一部分，通过词法器扫描源码，使用语法树获得源码逻辑分支等。Go语言的周边工具也是建立在这些标准库上。在标准库上可以完成几乎大部分的需求。</p>
+<p>Go语言的标准库以包的方式提供支持，下表列出了Go语言标准库中常见的包及其功能。</p>
+<table>
+<thead>
+<tr>
+<th>Go语言标准库包名</th>
+<th>功  能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bufio</td>
+<td>带缓冲的 I&#x2F;O 操作</td>
+</tr>
+<tr>
+<td>bytes</td>
+<td>实现字节操作</td>
+</tr>
+<tr>
+<td>container</td>
+<td>封装堆、列表和环形列表等容器</td>
+</tr>
+<tr>
+<td>crypto</td>
+<td>加密算法</td>
+</tr>
+<tr>
+<td>database</td>
+<td>数据库驱动和接口</td>
+</tr>
+<tr>
+<td>debug</td>
+<td>各种调试文件格式访问及调试功能</td>
+</tr>
+<tr>
+<td>encoding</td>
+<td>常见算法如 JSON、XML、Base64 等</td>
+</tr>
+<tr>
+<td>flag</td>
+<td>命令行解析</td>
+</tr>
+<tr>
+<td>fmt</td>
+<td>格式化操作</td>
+</tr>
+<tr>
+<td>go</td>
+<td>Go语言的词法、语法树、类型等。可通过这个包进行代码信息提取和修改</td>
+</tr>
+<tr>
+<td>html</td>
+<td>HTML 转义及模板系统</td>
+</tr>
+<tr>
+<td>image</td>
+<td>常见图形格式的访问及生成</td>
+</tr>
+<tr>
+<td>io</td>
+<td>实现 I&#x2F;O 原始访问接口及访问封装</td>
+</tr>
+<tr>
+<td>math</td>
+<td>数学库</td>
+</tr>
+<tr>
+<td>net</td>
+<td>网络库，支持 Socket、HTTP、邮件、RPC、SMTP 等</td>
+</tr>
+<tr>
+<td>os</td>
+<td>操作系统平台不依赖平台操作封装</td>
+</tr>
+<tr>
+<td>path</td>
+<td>兼容各操作系统的路径操作实用函数</td>
+</tr>
+<tr>
+<td>plugin</td>
+<td>Go 1.7 加入的插件系统。支持将代码编译为插件，按需加载（一个完整的go环境是很大也，只放需要的部分）</td>
+</tr>
+<tr>
+<td>reflect</td>
+<td>语言反射支持。可以动态获得代码中的类型信息，获取和修改变量的值</td>
+</tr>
+<tr>
+<td>regexp</td>
+<td>正则表达式封装</td>
+</tr>
+<tr>
+<td>runtime</td>
+<td>运行时接口</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>排序接口</td>
+</tr>
+<tr>
+<td>strings</td>
+<td>字符串转换、解析及实用函数</td>
+</tr>
+<tr>
+<td>time</td>
+<td>时间接口</td>
+</tr>
+<tr>
+<td>text</td>
+<td>文本模板及 Token 词法器</td>
+</tr>
+</tbody></table>
+<p>当然，优秀第三方资源也是语言生态圈的重要组成部分。近年来崛起的几门语言中，Go 算是独树一帜，大批优秀作品频繁涌现，这也给我们学习 Go 提供了很好的参照。</p>
+<h2 id="Go语言代码清爽"><a href="#Go语言代码清爽" class="headerlink" title="Go语言代码清爽"></a>Go语言代码清爽</h2><p>Go语言语法类似于C语言，因此熟悉C语言及其派生语言（[C++]、[C#]、Objective-C 等）的人都会迅速熟悉这门语言。</p>
+<p>C语言的有些语法会让代码可读性降低甚至发生歧义。Go语言在C语言的基础上取其精华，弃其糟粕，将C语言中较为容易发生错误的写法进行调整，做出相应的编译提示。</p>
+<blockquote>
+<p>去掉循环冗余括号</p>
+</blockquote>
+<p>Go语言在众多大师的丰富实战经验的基础上诞生，去除了C语言语法中一些冗余、烦琐的部分。下面的代码是C语言的数值循环：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// C语言的for数值循环</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> a = <span class="number">0</span>;a&lt;<span class="number">10</span>;a++)&#123;</span><br><span class="line">	<span class="comment">// 循环代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在Go语言中，这样的循环变为：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> a := <span class="number">0</span>;a&lt;<span class="number">10</span>;a++&#123;</span><br><span class="line">	<span class="comment">// 循环代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>for 两边的括号被去掉，int 声明被简化为<code>:=</code>，直接通过编译器右值推导获得 a 的变量类型并声明。</p>
+<blockquote>
+<p>去掉表达式冗余括号</p>
+</blockquote>
+<p>同样的简化也可以在判断语句中体现出来，以下是C语言的判断语句：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (表达式)&#123;</span><br><span class="line">	<span class="comment">// 表达式成立 </span></span><br></pre></td></tr></table></figure>
+
+<p>在Go语言中，无须添加表达式括号，代码如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> 表达式&#123;</span><br><span class="line">	<span class="comment">// 表达式成立</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 很多代码不能乱写，Go会自动帮我们整理代码  </span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>强制的代码风格</p>
+</blockquote>
+<p>Go语言中，左括号必须紧接着语句不换行。其他样式的括号将被视为代码编译错误。<strong>这个特性刚开始会使开发者有一些不习惯</strong>，但随着对Go语言的不断熟悉，开发者就会发现风格统一让大家在阅读代码时把注意力集中到了解决问题上，而不是代码风格上。</p>
+<p>同时Go语言也提供了一套格式化工具。一些Go语言的开发环境或者编辑器在保存时，都会使用格式化工具对代码进行格式化，让代码提交时已经是统一格式的代码。</p>
+<blockquote>
+<p>不再纠结于 i++ 和 ++ i</p>
+</blockquote>
+<p>C语言非常经典的考试题为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a, b;</span><br><span class="line">a = i++;</span><br><span class="line">b = ++i;</span><br></pre></td></tr></table></figure>
+
+<p>这种题目对于初学者简直摸不着头脑。为什么一个简单的自增表达式需要有两种写法？</p>
+<p>复杂的东西都慢慢去掉了，让新手更加容易理解</p>
+<p>在Go语言中，自增操作符不再是一个操作符，而是一个语句。因此，在Go语言中自增只有一种写法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i++</span><br></pre></td></tr></table></figure>
+
+<p>如果写成前置自增<code>++i</code>，或者赋值后自增<code>a=i++</code>都将导致编译错误。</p>
+<p>两个数字交换</p>
+<p>a &#x3D; 1</p>
+<p>b &#x3D; 2</p>
+<p>定式 （交换一定是这样子的，让编译器自动执行，不用去理会底层实现  21世纪的语言）</p>
+<p>a，b &#x3D; b，a   （人更好理解的编码方式）</p>
+<p>不要觉得编程很难，Go</p>
+<h2 id="Go语言特性"><a href="#Go语言特性" class="headerlink" title="Go语言特性"></a>Go语言特性</h2><p>Go语言也称为 Golang，是由 Google 公司开发的一种静态强类型、编译型、并发型、并具有垃圾回收功能的编程语言。</p>
+<p>接下来从几个方面来具体介绍一下Go语言的特性。</p>
+<blockquote>
+<p>语法简单</p>
+</blockquote>
+<p>抛开语法样式不谈，单就类型和规则而言，Go 与 C99、C11 相似之处颇多，这也是Go语言被冠以“NextC”名号的重要原因。</p>
+<p>Go语言的语法处于简单和复杂的两极。C语言简单到你每写下一行代码，都能在脑中想象出编译后的模样，指令如何执行，内存如何分配，等等。而 C 的复杂在于，它有太多隐晦而不着边际的规则，着实让人头疼。相比较而言，Go 从零开始，没有历史包袱，在汲取众多经验教训后，可从头规划一个规则严谨、条理简单的世界。</p>
+<p>Go语言的语法规则严谨，没有歧义，更没什么黑魔法变异用法。任何人写出的代码都基本一致，这使得Go语言简单易学。放弃部分“灵活”和“自由”，换来更好的维护性，我觉得是值得的。</p>
+<p>将“++”、“–”从运算符降级为语句，保留指针，但默认阻止指针运算，带来的好处是显而易见的。还有，将切片和字典作为内置类型，从运行时的层面进行优化，这也算是一种“简单”。</p>
+<blockquote>
+<p>并发模型</p>
+</blockquote>
+<p>时至今日，并发编程已成为程序员的基本技能，在各个技术社区都能看到诸多与之相关的讨论主题。在这种情况下Go语言却一反常态做了件极大胆的事，从根本上将一切都并发化，运行时用 Goroutine 运行所有的一切，包括 main.main 入口函数。</p>
+<p>可以说，Goroutine 是 Go 最显著的特征。它用类协程的方式来处理并发单元，却又在运行时层面做了更深度的优化处理。这使得语法上的并发编程变得极为容易，无须处理回调，无须关注线程切换，仅一个关键字，简单而自然。</p>
+<p>搭配 channel，实现 CSP 模型。将并发单元间的数据耦合拆解开来，各司其职，这对所有纠结于内存共享、锁粒度的开发人员都是一个可期盼的解脱。若说有所不足，那就是应该有个更大的计划，将通信从进程内拓展到进程外，实现真正意义上的分布式。</p>
+<blockquote>
+<p>内存分配</p>
+</blockquote>
+<p>将一切并发化固然是好，但带来的问题同样很多。如何实现高并发下的内存分配和管理就是个难题。好在 Go 选择了 tcmalloc [ <em>tcmalloc</em>全称Thread-Caching Malloc，即线程缓存的malloc，实现了高效的多线程内存管理 ]，它本就是为并发而设计的高性能内存分配组件。</p>
+<p>可以说，内存分配器是运行时三大组件里变化最少的部分。刨去因配合垃圾回收器而修改的内容，内存分配器完整保留了 tcmalloc 的原始架构。使用 cache 为当前执行线程提供无锁分配，多个 central 在不同线程间平衡内存单元复用。在更高层次里，heap 则管理着大块内存，用以切分成不同等级的复用内存块。快速分配和二级内存平衡机制，让内存分配器能优秀地完成高压力下的内存管理任务。</p>
+<p>在最近几个版本中，编译器优化卓有成效。它会竭力将对象分配在栈上，以降低垃圾回收压力，减少管理消耗，提升执行性能。可以说，除偶尔因性能问题而被迫采用对象池和自主内存管理外，我们基本无须参与内存管理操作。</p>
+<blockquote>
+<p>垃圾回收</p>
+</blockquote>
+<p>垃圾回收一直是个难题。早年间，[Java]就因垃圾回收低效被嘲笑了许久，后来 Sun 连续收纳了好多人才和技术才发展到今天。可即便如此，在 Hadoop 等大内存应用场景下，垃圾回收依旧捉襟见肘、步履维艰。</p>
+<p>相比 Java，Go 面临的困难要更多。因指针的存在，所以回收内存不能做收缩处理。幸好，指针运算被阻止，否则要做到精确回收都难。</p>
+<p>每次升级，垃圾回收器必然是核心组件里修改最多的部分。从并发清理，到降低 STW 时间，直到 Go 的 1.5 版本实现并发标记，逐步引入三色标记和写屏障等等，都是为了能让垃圾回收在不影响用户逻辑的情况下更好地工作。尽管有了努力，当前版本的垃圾回收算法也只能说堪用，离好用尚有不少距离。</p>
+<blockquote>
+<p>静态链接</p>
+</blockquote>
+<p>Go 刚发布时，静态链接被当作优点宣传。只须编译后的一个可执行文件，无须附加任何东西就能部署。这似乎很不错，只是后来风气变了。连着几个版本，编译器都在完善动态库 buildmode 功能，场面一时变得有些尴尬。</p>
+<p>暂不说未完工的 buildmode 模式，静态编译的好处显而易见。将运行时、依赖库直接打包到可执行文件内部，简化了部署和发布操作，无须事先安装运行环境和下载诸多第三方库。这种简单方式对于编写系统软件有着极大好处，因为库依赖一直都是个麻烦。</p>
+<blockquote>
+<p>标准库</p>
+</blockquote>
+<p>功能完善、质量可靠的标准库为编程语言提供了充足动力。在不借助第三方扩展的情况下，就可完成大部分基础功能开发，这大大降低了学习和使用成本。最关键的是，标准库有升级和修复保障，还能从运行时获得深层次优化的便利，这是第三方库所不具备的。</p>
+<p>Go 标准库虽称不得完全覆盖，但也算极为丰富。其中值得称道的是 net&#x2F;http，仅须简单几条语句就能实现一个高性能 Web Server，这从来都是宣传的亮点。更何况大批基于此的优秀第三方 Framework 更是将 Go 推到 Web&#x2F;Microservice 开发标准之一的位置。</p>
+<p>当然，优秀第三方资源也是语言生态圈的重要组成部分。近年来崛起的几门语言中，Go 算是独树一帜，大批优秀作品频繁涌现，这也给我们学习 Go 提供了很好的参照。</p>
+<blockquote>
+<p>工具链</p>
+</blockquote>
+<p>完整的工具链对于日常开发极为重要。Go 在此做得相当不错，无论是编译、格式化、错误检查、帮助文档，还是第三方包下载、更新都有对应的工具。其功能未必完善，但起码算得上简单易用。</p>
+<p>内置完整测试框架，其中包括单元测试、性能测试、代码覆盖率、数据竞争，以及用来调优的 pprof，这些都是保障代码能正确而稳定运行的必备利器。</p>
+<p>除此之外，还可通过环境变量输出运行时监控信息，尤其是垃圾回收和并发调度跟踪，可进一步帮助我们改进算法，获得更佳的运行期表现。</p>
+<h2 id="学习Go语言可以干什么？"><a href="#学习Go语言可以干什么？" class="headerlink" title="学习Go语言可以干什么？"></a>学习Go语言可以干什么？</h2><p>Go 语言从发布 1.0 版本以来备受众多开发者关注并得到广泛使用，<strong>Go 语言的简单、高效、并发特性吸引了众多传统语言（C、C#、Java、Python）开发者的加入</strong>，而且人数越来越多。</p>
+<p>鉴于Go语言的特点和设计的初衷，Go语言作为服务器编程语言，很适合处理日志、数据打包、虚拟机处理、文件系统、分布式系统、数据库代理等；网络编程方面，Go语言广泛应用于Web 应用、API应用、下载应用等；除此之外，Go语言还适用于内存数据库和云平台领域（中间件），目前国外很多云平台都是采用Go开发。 </p>
+<p><strong>服务器编程：</strong>以前你如果使用C或者C++做的那些事情，用Go来做很合适，例如处理日志、数据打包、虚拟机处理、文件系统等。</p>
+<p><strong>分布式系统、数据库代理器、中间件</strong>：例如Etcd。</p>
+<p><strong>网络编程：</strong>这一块目前应用最广市场大，包括Web应用、API应用、下载应用，而且Go内置的net&#x2F;http包基本上把我们平常用到的网络功能都实现了。<strong>原生的网络编程</strong>才是核心，框架只是让我们偷懒的，快速开发！</p>
+<p><strong>开发云平台：</strong>目前国外很多云平台在采用Go开发，我们所熟知的<strong>七牛云、华为云</strong>等等都有使用Go进行开发并且开源的成型的产品。</p>
+<p><strong>区块链：</strong>目前有一种说法，技术从业人员把Go语言称作为区块链行业的开发语言。如果大家学习区块链技术的话，就会发现现在有很多很多的区块链的系统和应用都是采用Go进行开发的，比如ehtereum是目前知名度最大的公链，再比如fabric是目前最知名的联盟链，两者都有go语言的版本，且go-ehtereum还是以太坊官方推荐的版本。</p>
+<p>中心化：我们的数据都不是在我们手上！</p>
+<p>去中心化：最终把数据所有权放到我们自己手上 !</p>
+<p>区块链 ：去中心化的技术 。 国家是提倡（有限制的，部分数据一样在中央手上！）</p>
+<p>Go 嵌入式 </p>
+<p><strong>目前来看，Go在国内的发展和社区动态势头也都不错，开发者群体也越来越多。5-10年的事业</strong></p>
+<h2 id="关于Go语言未来的展望"><a href="#关于Go语言未来的展望" class="headerlink" title="关于Go语言未来的展望"></a>关于Go语言未来的展望</h2><p>一家叫做 Docker 的公司。就是使用 Go 进行项目开发，并促进了计算机领域的容器行业，进而出现了像 Kubernetes 这样的项目。现在，我们完全可以说 Go 是容器语言，这是另一个完全出乎意料的结果。</p>
+<p>除了大名鼎鼎的Docker，完全用GO实现。业界最为火爆的容器编排管理系统kubernetes完全用GO实现。之后的Docker Swarm，完全用GO实现。</p>
+<p>除此之外，还有各种有名的项目，如etcd&#x2F;consul&#x2F;flannel，七牛云存储等等 均使用GO实现。有人说，GO语言之所以出名，是赶上了云时代。但为什么不能换种说法？也是GO语言促使了云的发展。</p>
+<p>除了云项目外，还有像今日头条、UBER这样的公司，他们也使用GO语言对自己的业务进行了彻底的重构。</p>
+<p>Go语言是谷歌2009年发布的第二款开源编程语言（系统开发语言)，它是基于编译、垃圾收集和并发的编程语言。</p>
+<p>Go语言专门针对多处理器系统应用程序的编程进行了优化，使用Go编译的程序可以媲美 C &#x2F; C++代码的速度，而且更加安全、支持并行进程。</p>
+<p>作为出现在21世纪的语言，其近C的执行性能和近解析型语言的开发效率，以及近乎于完美的编译速度，已经风靡全球。</p>
+<p>特别是在云项目中，大部分都使用了Golang来开发。不得不说，Golang早已深入人心。而对于一个没有历史负担的新项目，Golang或许就是个不二的选择。</p>
+<p>很多人将Go语言称为21世纪的C语言，因为Go不仅拥有C的简洁和性能。而且还很好的提供了21世纪互联网环境下服务端开发的各种实用特性。</p>
+<p>被称为Go语言之父的罗勃·派克(Rob Pike)就曾说过，你是否同意Go语言，取决于你是认可少就是多，还是少就是少(Less is more or less is less)。Go语言的整个设计哲学就是：将简单、实用体现得淋漓尽致。</p>
+<p>如今 Go 已经是云计算编程语言，GO语言背靠Google这棵大树，又不乏牛人坐镇，是名副其实的“牛二代”。想象一下：一个只有十几年发展经历的编程语言，已经成为了如此巨大而且正在不断发展的行业的主导者，这种成功是每个人都无法想象的。</p>
+<p><strong>Go语言迟早会迎来一个属于它的时代！</strong></p>
+<p>欲工善其事、必先利其器！</p>
+<ul>
+<li>Go语言本身</li>
+<li>Go语言的开发工具</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/10/20/Java-Web/" rel="prev" title="Java-Web">
+                  <i class="fa fa-angle-left"></i> Java-Web
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/11/08/%E5%AD%97%E8%8A%82%E8%AE%AD%E7%BB%83%E8%90%A5%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="next" title="字节训练营学习记录">
+                  字节训练营学习记录 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">6pc1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">453k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:51</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-pi-one.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2024/10/21/go%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+</body>
+</html>
