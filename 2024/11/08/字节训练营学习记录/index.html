@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"6pc1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/./search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本篇文章主要记录在青训营X豆包MarsCode 技术训练营后端go语言学习的一些经历与过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字节训练营学习记录">
+<meta property="og:url" content="http://6pc1.github.io/2024/11/08/%E5%AD%97%E8%8A%82%E8%AE%AD%E7%BB%83%E8%90%A5%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="6pc1&#39;s blog">
+<meta property="og:description" content="本篇文章主要记录在青训营X豆包MarsCode 技术训练营后端go语言学习的一些经历与过程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241110123533028.png">
+<meta property="og:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241110130119241.png">
+<meta property="og:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241110130127895.png">
+<meta property="og:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241112174939548.png">
+<meta property="og:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241112180255808.png">
+<meta property="og:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241112180751008.png">
+<meta property="article:published_time" content="2024-11-08T10:34:21.000Z">
+<meta property="article:modified_time" content="2024-11-17T12:52:14.483Z">
+<meta property="article:author" content="6pc1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241110123533028.png">
+
+
+<link rel="canonical" href="http://6pc1.github.io/2024/11/08/%E5%AD%97%E8%8A%82%E8%AE%AD%E7%BB%83%E8%90%A5%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://6pc1.github.io/2024/11/08/%E5%AD%97%E8%8A%82%E8%AE%AD%E7%BB%83%E8%90%A5%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/","path":"2024/11/08/字节训练营学习记录/","title":"字节训练营学习记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>字节训练营学习记录 | 6pc1's blog</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="waline-server-pi-one.vercel.app">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">6pc1's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">世界如画，心中有梦!</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%9D%92%E8%AE%AD%E8%90%A5X%E8%B1%86%E5%8C%85MarsCode-%E6%8A%80%E6%9C%AF%E8%AE%AD%E7%BB%83%E8%90%A5%E4%B9%8B%E7%AE%80%E6%98%93%E5%8F%91%E5%B8%96%E9%A1%B9%E7%9B%AE%E8%AE%B0%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">一、青训营X豆包MarsCode 技术训练营之简易发帖项目记录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81Gin%E6%A1%86%E6%9E%B6%E3%80%82"><span class="nav-number">1.1.</span> <span class="nav-text">1、Gin框架。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">2、项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.</span> <span class="nav-text">3、项目总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Gorm-Kitex-Hertz%E8%AE%B2%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">二、Gorm&#x2F;Kitex&#x2F;Hertz讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81Gorm%E6%A1%86%E6%9E%B6"><span class="nav-number">2.1.</span> <span class="nav-text">1、Gorm框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E9%93%BE%E6%8E%A5%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.2.</span> <span class="nav-text">2、链接初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81CRUD%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.3.</span> <span class="nav-text">3、CRUD接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE"><span class="nav-number">2.3.1.</span> <span class="nav-text">前置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA"><span class="nav-number">2.3.2.</span> <span class="nav-text">1、创建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">批量插入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.3.3.</span> <span class="nav-text">2、查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E4%B8%BB%E9%94%AE%E6%A3%80%E7%B4%A2"><span class="nav-number">2.3.3.1.</span> <span class="nav-text">根据主键检索</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2%E5%85%A8%E9%83%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.3.3.2.</span> <span class="nav-text">检索全部对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%9D%A1%E4%BB%B6%E6%A3%80%E7%B4%A2"><span class="nav-number">2.3.3.3.</span> <span class="nav-text">通过条件检索</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#String%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.3.3.3.1.</span> <span class="nav-text">String条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Struct-Map%E6%A3%80%E7%B4%A2"><span class="nav-number">2.3.3.3.2.</span> <span class="nav-text">通过Struct&amp;Map检索</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%9B%B4%E6%96%B0"><span class="nav-number">2.3.4.</span> <span class="nav-text">3、更新</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E6%89%80%E6%9C%89%E5%AD%97%E6%AE%B5"><span class="nav-number">2.3.4.1.</span> <span class="nav-text">保存所有字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%8D%95%E4%B8%AA%E5%88%97"><span class="nav-number">2.3.4.2.</span> <span class="nav-text">更新单个列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%A4%9A%E4%B8%AA%E5%88%97"><span class="nav-number">2.3.4.3.</span> <span class="nav-text">更新多个列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%89%80%E9%80%89%E5%AE%9A%E7%9A%84%E5%AD%97%E6%AE%B5"><span class="nav-number">2.3.4.4.</span> <span class="nav-text">更新所选定的字段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%88%A0%E9%99%A4"><span class="nav-number">2.3.5.</span> <span class="nav-text">4、删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%8E%9F%E7%94%9FSLQ%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.3.6.</span> <span class="nav-text">5、原生SLQ的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.4.</span> <span class="nav-text">4、事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%81%E7%94%A8%E9%BB%98%E8%AE%A4%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.4.1.</span> <span class="nav-text">禁用默认事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.4.2.</span> <span class="nav-text">手动事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.4.3.</span> <span class="nav-text">自动提交事务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81Gorm%E7%94%9F%E6%80%81"><span class="nav-number">2.5.</span> <span class="nav-text">5、Gorm生态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81Kitex"><span class="nav-number">2.6.</span> <span class="nav-text">6、Kitex</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.6.1.</span> <span class="nav-text">RPC是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDC%E5%8F%88%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.6.2.</span> <span class="nav-text">IDC又是什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7%E3%80%81Kitex%E7%94%9F%E6%80%81"><span class="nav-number">2.7.</span> <span class="nav-text">7、Kitex生态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8%E3%80%81Hertz"><span class="nav-number">2.8.</span> <span class="nav-text">8、Hertz</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.8.1.</span> <span class="nav-text">简单介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9%E3%80%81Hertz%E7%94%9F%E6%80%81"><span class="nav-number">2.9.</span> <span class="nav-text">9、Hertz生态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10%E3%80%81%E6%9C%80%E5%90%8E%E7%9A%84%E5%B0%8F%E6%80%BB%E7%BB%93"><span class="nav-number">2.10.</span> <span class="nav-text">10、最后的小总结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="6pc1"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">6pc1</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/6pc1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;6pc1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2961816476@qq.com" title="E-Mail → mailto:2961816476@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://qm.qq.com/q/uZSUzwBesa" title="QQ → https:&#x2F;&#x2F;qm.qq.com&#x2F;q&#x2F;uZSUzwBesa" rel="noopener me" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://hacbit.tech/" title="https:&#x2F;&#x2F;hacbit.tech&#x2F;" rel="noopener" target="_blank">hacbit</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://yixinbc.tech/" title="https:&#x2F;&#x2F;yixinbc.tech&#x2F;" rel="noopener" target="_blank">yixinBC</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="http://clearwine.online/" title="http:&#x2F;&#x2F;clearwine.online" rel="noopener" target="_blank">qinjiu</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://6pc1.github.io/2024/11/08/%E5%AD%97%E8%8A%82%E8%AE%AD%E7%BB%83%E8%90%A5%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="6pc1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="字节训练营学习记录 | 6pc1's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          字节训练营学习记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-11-08 18:34:21" itemprop="dateCreated datePublished" datetime="2024-11-08T18:34:21+08:00">2024-11-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-17 20:52:14" itemprop="dateModified" datetime="2024-11-17T20:52:14+08:00">2024-11-17</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2024/11/08/%E5%AD%97%E8%8A%82%E8%AE%AD%E7%BB%83%E8%90%A5%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2024/11/08/%E5%AD%97%E8%8A%82%E8%AE%AD%E7%BB%83%E8%90%A5%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>本篇文章主要记录在青训营X豆包MarsCode 技术训练营后端go语言学习的一些经历与过程。</p>
+<span id="more"></span>
+
+<h1 id="一、青训营X豆包MarsCode-技术训练营之简易发帖项目记录"><a href="#一、青训营X豆包MarsCode-技术训练营之简易发帖项目记录" class="headerlink" title="一、青训营X豆包MarsCode 技术训练营之简易发帖项目记录"></a>一、青训营X豆包MarsCode 技术训练营之简易发帖项目记录</h1><p>​	首先就是这次文章是怎么来的，是因为在训练营中看到了第四课，讲的是Go语言工程实践以及对应使用的gin框架，但是发现项目全套代码是有了，但是却没有分段的对应代码，应该是后边课程讲的但是没在此次训练营的课程表中吗，所以在此也是根据自己的理解对该项目进行一定的记录学习。并且，由于是直接对于一个项目进行分析的，就不过多对于理论部分进行讲解了。</p>
+<h2 id="1、Gin框架。"><a href="#1、Gin框架。" class="headerlink" title="1、Gin框架。"></a>1、Gin框架。</h2><p>​	gin框架也是go中的一个最常见的框架了，能够让我们快速的启动一些http服务，非常的方便快捷。这里也就不多介绍了，本篇文章的侧重点是项目分析，这个也不是很难，可以直接看官方文档即可。<a target="_blank" rel="noopener" href="https://gin-gonic.com/zh-cn/docs/quickstart/">https://gin-gonic.com/zh-cn/docs/quickstart/</a></p>
+<h2 id="2、项目结构"><a href="#2、项目结构" class="headerlink" title="2、项目结构"></a>2、项目结构</h2><p>首先就是我们可以去分析一下项目的结果，这里我将给的项目中的一些测试以及知识点代码都去掉了，剩下了这些代码，并且其中service是用来测试项目功能的</p>
+<p><img src="C:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241110123533028.png" alt="image-20241110123533028"></p>
+<p>接下来我们就是对这些代码进行理解。</p>
+<p>首先就是启动项，server.go</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;gopkg.in/gin-gonic/gin.v1&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="comment">//&quot;github.com/Moonlight-Zhao/go-project-example/handler&quot;</span></span><br><span class="line">	<span class="comment">//&quot;github.com/Moonlight-Zhao/go-project-example/repository&quot;</span></span><br><span class="line">	<span class="string">&quot;test01/server/handler&quot;</span></span><br><span class="line">	<span class="string">&quot;test01/server/repository&quot;</span></span><br><span class="line">	<span class="string">&quot;test01/server/util&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> err := Init(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		os.Exit(<span class="number">-1</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	r := gin.Default()</span><br><span class="line"></span><br><span class="line">	r.Use(gin.Logger())</span><br><span class="line"></span><br><span class="line">	r.GET(<span class="string">&quot;/ping&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		c.JSON(<span class="number">200</span>, gin.H&#123;</span><br><span class="line">			<span class="string">&quot;message&quot;</span>: <span class="string">&quot;pong&quot;</span>,</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	r.GET(<span class="string">&quot;/community/page/get/:id&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		topicId := c.Param(<span class="string">&quot;id&quot;</span>)</span><br><span class="line">		data := handler.QueryPageInfo(topicId)</span><br><span class="line">		c.JSON(<span class="number">200</span>, data)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	r.POST(<span class="string">&quot;/community/post/do&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">		uid, _ := c.GetPostForm(<span class="string">&quot;uid&quot;</span>)</span><br><span class="line">		topicId, _ := c.GetPostForm(<span class="string">&quot;topic_id&quot;</span>)</span><br><span class="line">		content, _ := c.GetPostForm(<span class="string">&quot;content&quot;</span>)</span><br><span class="line">		data := handler.PublishPost(uid, topicId, content)</span><br><span class="line">		c.JSON(<span class="number">200</span>, data)</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">	err := r.Run(<span class="string">&quot;:8081&quot;</span>)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Init</span><span class="params">()</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> err := repository.Init(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err := util.InitLogger(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们就是可以发现这是一个很简单的启动服务</p>
+<p>定义了三个路由，分别是一个测试路由，一个获取页面，一个添加页面的路由，没有什么很难理解的，Init则是初始化各组件，并且如果初始化失败则会返回err</p>
+<p>接下来我们去看看util，发现里面只有一个文件，看名字就很浅显易懂</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> util</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;go.uber.org/zap&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Logger *zap.Logger</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">InitLogger</span><span class="params">()</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	<span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line">	Logger, err = zap.NewProduction()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个日志记录器方便使用，以方便调试</p>
+<p>然后就是看repository，这个名字也很明显，仓库对吧，这也就是和数据库打交道的地方，专门用于操作数据库的，这里我们可以首先看数据库的初始化</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> repository</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;gorm.io/driver/mysql&quot;</span></span><br><span class="line">	<span class="string">&quot;gorm.io/gorm&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> db *gorm.DB</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Init</span><span class="params">()</span></span> <span class="type">error</span> &#123;</span><br><span class="line">	<span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line">	dsn := <span class="string">&quot;root:root@tcp(127.0.0.1:3306)/community?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&quot;</span></span><br><span class="line">	db, err = gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;&#125;)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很简单的一个Init函数，用于初始化数据库</p>
+<p>接下来就是对应的三个文件分别对应数据库中的三个表</p>
+<p><img src="C:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241110130119241.png" alt="image-20241110130119241"></p>
+<p><img src="C:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241110130127895.png" alt="image-20241110130127895"></p>
+<p>很容易看懂的结构也是，我们就对此，分析一个post文件吧</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> repository</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;gorm.io/gorm&quot;</span></span><br><span class="line">	<span class="string">&quot;sync&quot;</span></span><br><span class="line">	<span class="string">&quot;test01/server/util&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Post <span class="keyword">struct</span> &#123;</span><br><span class="line">	Id         <span class="type">int64</span>     <span class="string">`gorm:&quot;column:id&quot;`</span></span><br><span class="line">	ParentId   <span class="type">int64</span>     <span class="string">`gorm:&quot;column:parent_id&quot;`</span></span><br><span class="line">	UserId     <span class="type">int64</span>     <span class="string">`gorm:&quot;column:user_id&quot;`</span></span><br><span class="line">	Content    <span class="type">string</span>    <span class="string">`gorm:&quot;column:content&quot;`</span></span><br><span class="line">	DiggCount  <span class="type">int64</span>     <span class="string">`gorm:&quot;column:digg_count&quot;`</span></span><br><span class="line">	CreateTime time.Time <span class="string">`gorm:&quot;column:create_time&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(Post)</span></span> TableName() <span class="type">string</span> &#123; <span class="keyword">return</span> <span class="string">&quot;post&quot;</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> PostDao <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> postDao *PostDao</span><br><span class="line"><span class="keyword">var</span> postOnce sync.Once</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewPostDaoInstance</span><span class="params">()</span></span> *PostDao &#123;</span><br><span class="line">	postOnce.Do(<span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		postDao = &amp;PostDao&#123;&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">return</span> postDao</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*PostDao)</span></span> QueryPostById(id <span class="type">int64</span>) (*Post, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> post Post</span><br><span class="line">	err := db.Where(<span class="string">&quot;id=?&quot;</span>, id).Find(&amp;post).Error</span><br><span class="line">	<span class="keyword">if</span> err == gorm.ErrRecordNotFound &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		util.Logger.Error(<span class="string">&quot;find post by id err:&quot;</span> + err.Error())</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> &amp;post, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*PostDao)</span></span> QueryPostByParentId(parentId <span class="type">int64</span>) ([]*Post, <span class="type">error</span>) &#123;</span><br><span class="line">	<span class="keyword">var</span> posts []*Post</span><br><span class="line">	err := db.Where(<span class="string">&quot;parent_id = ?&quot;</span>, parentId).Find(&amp;posts).Error</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		util.Logger.Error(<span class="string">&quot;find posts by parent_id err:&quot;</span> + err.Error())</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> posts, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*PostDao)</span></span> CreatePost(post *Post) <span class="type">error</span> &#123;</span><br><span class="line">	<span class="keyword">if</span> err := db.Create(post).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">		util.Logger.Error(<span class="string">&quot;create post err:&quot;</span> + err.Error())</span><br><span class="line">		<span class="keyword">return</span> err</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先就是创建了一个Post结构体去对应着表中的列，这样也就可以更好的去操作数据库</p>
+<p>然后就是通过单例模式创建对应的数据库操作实例，从而避免了资源的浪费。</p>
+<p>然后就是接下来的三个方法，就是QueryPostById通过id查询Post记录</p>
+<p>QueryPostByParentId通过parentId查询多条post记录</p>
+<p>CreatePost就是创建一条新的post</p>
+<p>自此，我们就大概了解了如何通过go框架去操作数据库了</p>
+<p>这时候也就剩下了最后一个文件夹，handler</p>
+<p>这也就是处理程序的文件夹，用于处理对路由访问的并且返回对应所需结果的</p>
+<p>我们可以看到有两个文件，启动publish_post就是将请求的队友结果返回</p>
+<p>而query_page_info则是将对应的发布文章的请求进行处理并返回对应结果。</p>
+<p>这里我们能够发现handler中的代码是调用了service层的方法的，这里我们也就可以剖析整个程序的流程了</p>
+<p>server.go中的路由—–&gt; handler——&gt;service—–&gt;repository</p>
+<p>这也就是整个该项目的流程了</p>
+<p>也就和java很像感觉。</p>
+<p>最后就是对于service层的讲解</p>
+<p>这里也就还是两个文件，对应handler中的两个操作</p>
+<p>由service层调用数据库操作，从而获取到对应的数据，从而将其能够将数据返回。</p>
+<p>自此，这个小项目的结构也就明了了，这也能够更加方便我们之后自己去开发项目，也要有着对应的结构，这样才能更好的去快速编写对应的功能。</p>
+<h2 id="3、项目总结"><a href="#3、项目总结" class="headerlink" title="3、项目总结"></a>3、项目总结</h2><p>最后就是对整个项目的总结，这里我们了解了gin框架，并且完成了第一个go语言项目的编写，我们需要详细明白对应的项目结构，有着清晰的项目结构，才能更好的保障我们代码的可读性，还是gin框架，我感觉还是算是比较简单的，但是对于其操作数据库来说，我感觉稍微有点麻烦，毕竟对于每一个表都需要一个go文件与其对应才能使用，这样感觉有点啰嗦了。当然也不是说不好，只是个人这么感觉而已。<br>最后就是类比go语言和java，我感觉go语言中特别多的就是对于错误的处理，经常需要使用err去接受错误，并且去判断错误，以及打印，这点稍微有点麻烦，不过也有好处，就是能够快捷的指导自己代码哪里有错误什么的，方便去进行修改。</p>
+<h1 id="二、Gorm-Kitex-Hertz讲解"><a href="#二、Gorm-Kitex-Hertz讲解" class="headerlink" title="二、Gorm&#x2F;Kitex&#x2F;Hertz讲解"></a>二、Gorm&#x2F;Kitex&#x2F;Hertz讲解</h1><h2 id="1、Gorm框架"><a href="#1、Gorm框架" class="headerlink" title="1、Gorm框架"></a>1、Gorm框架</h2><p>这也是我们上面的小项目中所涉及使用到的框架，是用于操作数据库的一个框架。</p>
+<p>这里附上一个GORM框架的中文文档<a target="_blank" rel="noopener" href="https://gorm.io/zh_CN/docs/index.html">https://gorm.io/zh_CN/docs/index.html</a></p>
+<p>安装的话就不过多讲了，自己看文档都是有的</p>
+<h2 id="2、链接初始化"><a href="#2、链接初始化" class="headerlink" title="2、链接初始化"></a>2、链接初始化</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name 获取详情</span></span><br><span class="line">dsn := <span class="string">&quot;user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&amp;parseTime=True&amp;loc=Local&quot;</span></span><br><span class="line">db, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>通过设置dsn，去打开数据库，而且也能够在后边对Config进行相应的数据库连接设置。(包括一些基本设置，以及可以自定义对应的数据库驱动等等)</p>
+<h2 id="3、CRUD接口"><a href="#3、CRUD接口" class="headerlink" title="3、CRUD接口"></a>3、CRUD接口</h2><p>完成了简单的数据库的初始化之后，我们就可以对数据库进行对应的一系列的操作了，Gorm支持所有对数据库的操作，这里我们也就一一简单介绍一下。</p>
+<h3 id="前置"><a href="#前置" class="headerlink" title="前置"></a>前置</h3><p>这里要注意的是，使用Gorm对于数据库的操作，针对每个表，我们都需要有个对应的模型结构体去对应数据库的表以及其中的字段。</p>
+<p>通俗来说，就是对于数据库操作中，我们习惯性创建一个repository文件夹，启动放置对应数据库有多少表就有多少个文件，一一对应着操作每个表。</p>
+<p>并且每个文件中都要定义对应的结构体，也就是如下图所示</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// gorm.Model 的定义</span></span><br><span class="line"><span class="keyword">type</span> Model <span class="keyword">struct</span> &#123;</span><br><span class="line">  ID        <span class="type">uint</span>           <span class="string">`gorm:&quot;primaryKey&quot;`</span></span><br><span class="line">  CreatedAt time.Time</span><br><span class="line">  UpdatedAt time.Time</span><br><span class="line">  DeletedAt gorm.DeletedAt <span class="string">`gorm:&quot;index&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里注意，如果不使用<code>gorm:&quot;xxxx&quot;</code>去对字段进行申明，结构体字段名称转换为 <code>snake_case</code> 作为数据库中的列名</p>
+<p>以及对应表名，我们可以使用Tablename方法去设置func (Post) TableName() string { return “post” }，也可以使用默认的所对应命名，也就是将结构体名称转换为 <code>snake_case</code> 并为表名加上复数形式。 例如，一个 <code>User</code> 结构体在数据库中的表名变为 <code>users</code></p>
+</blockquote>
+<p>并且使用Gorm框架的情况下，我们还能去包含一些特定的字段，实现更好的功能</p>
+<ul>
+<li><code>ID</code> ：每个记录的唯一标识符（主键）。</li>
+<li><code>CreatedAt</code> ：在创建记录时自动设置为当前时间。</li>
+<li><code>UpdatedAt</code>：每当记录更新时，自动更新为当前时间。</li>
+<li><code>DeletedAt</code>：用于软删除（将记录标记为已删除，而实际上并未从数据库中删除）。</li>
+</ul>
+<p>基础使用的话这些已经足够了，至于更加高级的，就可以去自己查看官方文档即可。</p>
+<h3 id="1、创建"><a href="#1、创建" class="headerlink" title="1、创建"></a>1、创建</h3><p>直接使用上面返回的数据库，使用结构体的指针方式去创建对应的数据 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user := User&#123;Name: <span class="string">&quot;Jinzhu&quot;</span>, Age: <span class="number">18</span>, Birthday: time.Now()&#125;</span><br><span class="line">result := db.Create(&amp;user) <span class="comment">// 通过数据的指针来创建</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里一定要注意，传入的是结构体的指针，而不是单纯的结构体</p>
+</blockquote>
+<p>用着指定的字段创建记录</p>
+<blockquote>
+<p>创建记录并为指定字段赋值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.Select(<span class="string">&quot;Name&quot;</span>, <span class="string">&quot;Age&quot;</span>, <span class="string">&quot;CreatedAt&quot;</span>).Create(&amp;user)</span><br></pre></td></tr></table></figure>
+
+<p>创建记录并忽略传递给 ‘Omit’ 的字段值</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.Omit(<span class="string">&quot;Name&quot;</span>, <span class="string">&quot;Age&quot;</span>, <span class="string">&quot;CreatedAt&quot;</span>).Create(&amp;user)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="批量插入"><a href="#批量插入" class="headerlink" title="批量插入"></a>批量插入</h4><p>这里批量插入我们使用传入一个切片去完成，或者也可以使用map去创建也是可以的</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> users = []User&#123;&#123;Name: <span class="string">&quot;jinzhu1&quot;</span>&#125;, &#123;Name: <span class="string">&quot;jinzhu2&quot;</span>&#125;, &#123;Name: <span class="string">&quot;jinzhu3&quot;</span>&#125;&#125;</span><br><span class="line">db.Create(&amp;users)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.Model(&amp;User&#123;&#125;).Create(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">  <span class="string">&quot;Name&quot;</span>: <span class="string">&quot;jinzhu&quot;</span>, <span class="string">&quot;Age&quot;</span>: <span class="number">18</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、查询"><a href="#2、查询" class="headerlink" title="2、查询"></a>2、查询</h3><p>GORM 提供了 <code>First</code>、<code>Take</code>、<code>Last</code> 方法，以便从数据库中检索单个对象。当查询数据库时它添加了 <code>LIMIT 1</code> 条件，且没有找到记录时，它会返回 <code>ErrRecordNotFound</code> 错误</p>
+<p><img src="C:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241112174939548.png" alt="image-20241112174939548"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">如果你想避免ErrRecordNotFound错误，你可以使用Find，比如db.Limit(<span class="number">1</span>).Find(&amp;user)，Find方法可以接受<span class="keyword">struct</span>和slice的数据。</span><br><span class="line">建议就是尽量使用find而不是first以避免出现一些错误。</span><br></pre></td></tr></table></figure>
+
+<h4 id="根据主键检索"><a href="#根据主键检索" class="headerlink" title="根据主键检索"></a>根据主键检索</h4><p>如果主键是数字类型，您可以使用 <a target="_blank" rel="noopener" href="https://gorm.io/zh_CN/docs/query.html#inline_conditions">内联条件</a> 来检索对象。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.First(&amp;user, <span class="number">10</span>)</span><br><span class="line"><span class="comment">// SELECT * FROM users WHERE id = 10;</span></span><br><span class="line">db.First(&amp;user, <span class="string">&quot;10&quot;</span>)</span><br><span class="line"><span class="comment">// SELECT * FROM users WHERE id = 10;</span></span><br><span class="line">db.Find(&amp;users, []<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;)</span><br><span class="line"><span class="comment">// SELECT * FROM users WHERE id IN (1,2,3);</span></span><br></pre></td></tr></table></figure>
+
+<p>如果主键是字符串(例如像uuid这种)，查询将会被写成如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">db.First(&amp;user, <span class="string">&quot;id = ?&quot;</span>, <span class="string">&quot;1b74413f-f3b8-409f-ac47-e8c062e3472a&quot;</span>)</span><br><span class="line"><span class="comment">// SELECT * FROM users WHERE id = &quot;1b74413f-f3b8-409f-ac47-e8c062e3472a&quot;;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="检索全部对象"><a href="#检索全部对象" class="headerlink" title="检索全部对象"></a>检索全部对象</h4><p>直接通过find去查找即可，这里要注意的是一下的部分</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result.RowsAffected <span class="comment">// returns found records count, equals `len(users)`</span></span><br><span class="line">result.Error        <span class="comment">// returns error</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="通过条件检索"><a href="#通过条件检索" class="headerlink" title="通过条件检索"></a>通过条件检索</h4><h5 id="String条件"><a href="#String条件" class="headerlink" title="String条件"></a>String条件</h5><p>使用Where方法即可</p>
+<p><img src="C:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241112180255808.png" alt="image-20241112180255808"></p>
+<h5 id="通过Struct-Map检索"><a href="#通过Struct-Map检索" class="headerlink" title="通过Struct&amp;Map检索"></a>通过Struct&amp;Map检索</h5><p>可以通过结构体和Map去达到匹配多项的条件查询的目的</p>
+<p><img src="C:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20241112180751008.png" alt="image-20241112180751008"></p>
+<p>但这里有一点要注意的就是，使用结构体查询是不会匹配空字符串或者0的，会进行忽略，只有使用map的话才能完成对应的匹配</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.Where(&amp;User&#123;Name: <span class="string">&quot;jinzhu&quot;</span>, Age: <span class="number">0</span>&#125;).Find(&amp;users)</span><br><span class="line"><span class="comment">// SELECT * FROM users WHERE name = &quot;jinzhu&quot;;</span></span><br><span class="line"></span><br><span class="line">db.Where(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;Name&quot;</span>: <span class="string">&quot;jinzhu&quot;</span>, <span class="string">&quot;Age&quot;</span>: <span class="number">0</span>&#125;).Find(&amp;users)</span><br><span class="line"><span class="comment">// SELECT * FROM users WHERE name = &quot;jinzhu&quot; AND age = 0;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3、更新"><a href="#3、更新" class="headerlink" title="3、更新"></a>3、更新</h3><h4 id="保存所有字段"><a href="#保存所有字段" class="headerlink" title="保存所有字段"></a>保存所有字段</h4><p><code>Save</code>是也贵组合函数。如果保存值不包含主键，它将执行 <code>Create</code>，否则它将执行 <code>Update</code> (包含所有字段)。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.Save(&amp;User&#123;Name: <span class="string">&quot;jinzhu&quot;</span>, Age: <span class="number">100</span>&#125;)</span><br><span class="line"><span class="comment">// INSERT INTO `users` (`name`,`age`,`birthday`,`update_at`) VALUES (&quot;jinzhu&quot;,100,&quot;0000-00-00 00:00:00&quot;,&quot;0000-00-00 00:00:00&quot;)</span></span><br><span class="line"></span><br><span class="line">db.Save(&amp;User&#123;ID: <span class="number">1</span>, Name: <span class="string">&quot;jinzhu&quot;</span>, Age: <span class="number">100</span>&#125;)</span><br><span class="line"><span class="comment">// UPDATE `users` SET `name`=&quot;jinzhu&quot;,`age`=100,`birthday`=&quot;0000-00-00 00:00:00&quot;,`update_at`=&quot;0000-00-00 00:00:00&quot; WHERE `id` = 1</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="更新单个列"><a href="#更新单个列" class="headerlink" title="更新单个列"></a>更新单个列</h4><p>这就很简单了，直接使用update即可。</p>
+<h4 id="更新多个列"><a href="#更新多个列" class="headerlink" title="更新多个列"></a>更新多个列</h4><p>也是类似，使用结构体和map就行，能够进行多列的更新。</p>
+<h4 id="更新所选定的字段"><a href="#更新所选定的字段" class="headerlink" title="更新所选定的字段"></a>更新所选定的字段</h4><p>这里可以通过加一些选择进行对应选定字段的更新。</p>
+<h3 id="4、删除"><a href="#4、删除" class="headerlink" title="4、删除"></a>4、删除</h3><p>最后就是删除了，删除应该算是最简单的了</p>
+<p>直接就是可以通过Delete去对某列进行删除。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 带额外条件的删除</span></span><br><span class="line">db.Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Delete(&amp;email)</span><br><span class="line"><span class="comment">// DELETE from emails where id = 10 AND name = &quot;jinzhu&quot;;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、原生SLQ的使用"><a href="#5、原生SLQ的使用" class="headerlink" title="5、原生SLQ的使用"></a>5、原生SLQ的使用</h3><p>使用Raw和Scan去指定SQL语句</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result Result</span><br><span class="line">db.Raw(<span class="string">&quot;SELECT id, name, age FROM users WHERE id = ?&quot;</span>, <span class="number">3</span>).Scan(&amp;result)</span><br></pre></td></tr></table></figure>
+
+<p>Exec原生SQL</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Exec with SQL Expression</span></span><br><span class="line">db.Exec(<span class="string">&quot;UPDATE users SET money = ? WHERE name = ?&quot;</span>, gorm.Expr(<span class="string">&quot;money * ? + ?&quot;</span>, <span class="number">10000</span>, <span class="number">1</span>), <span class="string">&quot;jinzhu&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、事务"><a href="#4、事务" class="headerlink" title="4、事务"></a>4、事务</h2><h3 id="禁用默认事务"><a href="#禁用默认事务" class="headerlink" title="禁用默认事务"></a>禁用默认事务</h3><p>为了确保数据一致性，GORM 会在事务里执行写入操作（创建、更新、删除）。如果没有这方面的要求，您可以在初始化时禁用它，这将获得大约 30%+ 性能提升。</p>
+<p>可以通过SkipDefaultTransaction对应配置去关闭</p>
+<h3 id="手动事务"><a href="#手动事务" class="headerlink" title="手动事务"></a>手动事务</h3><p>Gorm 支持直接调用事务控制方法（commit、rollback），例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开始事务</span></span><br><span class="line">tx := db.Begin()</span><br><span class="line"><span class="comment">// 在事务中执行一些 db 操作（从这里开始，您应该使用 &#x27;tx&#x27; 而不是 &#x27;db&#x27;）</span></span><br><span class="line">tx.Create(...)</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// 遇到错误时回滚事务</span></span><br><span class="line">tx.Rollback()</span><br><span class="line"><span class="comment">// 否则，提交事务</span></span><br><span class="line">tx.Commit()</span><br></pre></td></tr></table></figure>
+
+<p>这样差不多，Gorm的使用我们大致也就了解了，接下来就是让我们进入Kitex的学习!</p>
+<h3 id="自动提交事务"><a href="#自动提交事务" class="headerlink" title="自动提交事务"></a>自动提交事务</h3><p>Gorm提供了Tansaction方法用于自动提交事务，避免用户漏写Commit、Rollback</p>
+<h2 id="5、Gorm生态"><a href="#5、Gorm生态" class="headerlink" title="5、Gorm生态"></a>5、Gorm生态</h2><table>
+<thead>
+<tr>
+<th>GORM 代码生成工具</th>
+<th><a target="_blank" rel="noopener" href="https://github.com/go-gorm/gen">https://github.com/go-gorm/gen</a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GORM 分片库方案</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/go-gorm/sharding">https://github.com/go-gorm/sharding</a></td>
+</tr>
+<tr>
+<td>GORM 手动索引</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/go-gorm/hints">https://github.com/go-gorm/hints</a></td>
+</tr>
+<tr>
+<td>GORM 乐观锁</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/go-gorm/optimisticlock">https://github.com/go-gorm/optimisticlock</a></td>
+</tr>
+<tr>
+<td>GORM 读写分离</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/go-gorm/dbresolver">https://github.com/go-gorm/dbresolver</a></td>
+</tr>
+<tr>
+<td>GORM OpenTelemetry扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/go-gorm/opentelemetry">https://github.com/go-gorm/opentelemetry</a></td>
+</tr>
+</tbody></table>
+<p>关于更多的GORM用法可以查看Gorm的文档（<a target="_blank" rel="noopener" href="https://gorm.cn/">https://gorm.cn</a>)</p>
+<h2 id="6、Kitex"><a href="#6、Kitex" class="headerlink" title="6、Kitex"></a>6、Kitex</h2><p>这里先给上一个学习链接，本次总结也是主要针对链接内容进行的<a target="_blank" rel="noopener" href="https://www.cloudwego.io/zh/docs/kitex/getting-started/">https://www.cloudwego.io/zh/docs/kitex/getting-started/</a></p>
+<p>首先这边就是要先从RPC开始。</p>
+<h3 id="RPC是什么？"><a href="#RPC是什么？" class="headerlink" title="RPC是什么？"></a>RPC是什么？</h3><p><strong>RPC</strong> (Remote Procedure Call) ，即远程过程调用。通俗来讲，就是调用远端服务的某个方法，并获取到对应的响应。RPC 本质上定义了一种通信的流程，而具体的实现技术没有约束，核心需要解决的问题为<strong>序列化</strong>与<strong>网络通信</strong>。如可以通过 <code>gob/json/pb/thrift</code> 来序列化和反序列化消息内容，通过 <code>socket/http</code> 来进行网络通信。只要客户端与服务端在这两方面达成共识，能够做到消息正确的解析接口即可。</p>
+<blockquote>
+<p>个人理解就是和HTTP挺类似的作用，使用RPC去能够实现类似HTTP远程访问的效果</p>
+</blockquote>
+<p>这里就还要讲到一个东西，也就是IDL，这个在RPC中十分的重要</p>
+<h3 id="IDC又是什么？"><a href="#IDC又是什么？" class="headerlink" title="IDC又是什么？"></a>IDC又是什么？</h3><p><strong>IDL</strong> 全称是 Interface Definition Language，接口定义语言。</p>
+<p>如果我们要使用 RPC 进行调用，就需要知道对方的接口是什么，需要传什么参数，同时也需要知道返回值是什么样的，就好比两个人之间交流，需要保证在说的是同一个语言、同一件事。IDL 就是为了解决这样的问题，通过 IDL 来约定双方的协议，就像在写代码的时候需要调用某个函数，我们需要知道 <code>签名</code>一样。</p>
+<p>对于 RPC 框架，IDL 不仅作为接口描述语言，还会根据 IDL 文件生成指定语言的接口定义模块，这样极大简化了开发工作。服务提供方（服务端）需要做的变为 编写 IDL -&gt; 使用代码生成工具生成代码 -&gt; 实现接口；服务调用方（客户端）只需根据服务提供方（服务端）提供的 IDL 生成代码后进行调用。这当中还有服务发现、负载均衡等问题，但不属于 IDL 范畴，故不展开介绍。</p>
+<p>Kitex 默认支持 <code>thrift</code> 和 <code>proto3</code> 两种 IDL。</p>
+<p>对应的语法参考链接：</p>
+<p>Thrift IDL 语法可参考：<a target="_blank" rel="noopener" href="http://thrift.apache.org/docs/idl">Thrift interface description language</a>。</p>
+<p>proto3 语法可参考：<a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/docs/proto3">Language Guide(proto3)</a>。</p>
+<blockquote>
+<p>对于Kitex框架的知识点，短时间内页无法讲解清楚，强雷建议就是去看看上面官网中的那个小案例，能够理解明白很多。</p>
+</blockquote>
+<h2 id="7、Kitex生态"><a href="#7、Kitex生态" class="headerlink" title="7、Kitex生态"></a>7、Kitex生态</h2><table>
+<thead>
+<tr>
+<th>XDS 扩展</th>
+<th><a target="_blank" rel="noopener" href="https://github.com/kitex-contrib/xds">https://github.com/kitex-contrib/xds</a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>opentelemetry 扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/kitex-contrib/obs-opentelemetry">https://github.com/kitex-contrib/obs-opentelemetry</a></td>
+</tr>
+<tr>
+<td>ETCD 服务注册与发现扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/kitex-contrib/registry-etcd">https://github.com/kitex-contrib/registry-etcd</a></td>
+</tr>
+<tr>
+<td>Nacos 服务注册与发现扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/kitex-contrib/registry-nacos">https://github.com/kitex-contrib/registry-nacos</a></td>
+</tr>
+<tr>
+<td>Zookeeper 服务注册与发现扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/kitex-contrib/registry-zookeeper">https://github.com/kitex-contrib/registry-zookeeper</a></td>
+</tr>
+<tr>
+<td>polaris 扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/kitex-contrib/polaris">https://github.com/kitex-contrib/polaris</a></td>
+</tr>
+<tr>
+<td>丰富的示例代码与业务Demo</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/cloudwego/kitex-examples/">https://github.com/cloudwego/kitex-examples/</a></td>
+</tr>
+</tbody></table>
+<h2 id="8、Hertz"><a href="#8、Hertz" class="headerlink" title="8、Hertz"></a>8、Hertz</h2><h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>Hertz[həːts] 是一个 Golang 微服务 HTTP 框架，在设计之初参考了其他开源框架 <a target="_blank" rel="noopener" href="https://github.com/valyala/fasthttp">fasthttp</a>、<a target="_blank" rel="noopener" href="https://github.com/gin-gonic/gin">gin</a>、<a target="_blank" rel="noopener" href="https://github.com/labstack/echo">echo</a> 的优势， 并结合字节跳动内部的需求，使其具有高易用性、高性能、高扩展性等特点，目前在字节跳动内部已广泛使用。 如今越来越多的微服务选择使用 Golang，如果对微服务性能有要求，又希望框架能够充分满足内部的可定制化需求，Hertz 会是一个不错的选择。</p>
+<p>看看文档就很能明白其实和gin框架还是很相似的，但相比gin而言，Hertz有一个很好的点，就是有自动代码生成，也就是和上面的Kitex类似的IDL，使用IDL接口去自动生成对应代码，能够大大方便我们去编写对应的代码，十分的方便。</p>
+<h2 id="9、Hertz生态"><a href="#9、Hertz生态" class="headerlink" title="9、Hertz生态"></a>9、Hertz生态</h2><table>
+<thead>
+<tr>
+<th>HTTP2 扩展</th>
+<th><a target="_blank" rel="noopener" href="https://github.com/hertz-contrib/http2">https://github.com/hertz-contrib/http2</a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>opentelemetry 扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/hertz-contrib/obs-opentelemetry">https://github.com/hertz-contrib/obs-opentelemetry</a></td>
+</tr>
+<tr>
+<td>国际化扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/hertz-contrib/i18n">https://github.com/hertz-contrib/i18n</a></td>
+</tr>
+<tr>
+<td>反向代理扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/hertz-contrib/reverseproxy">https://github.com/hertz-contrib/reverseproxy</a></td>
+</tr>
+<tr>
+<td>JWT 鉴权扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/hertz-contrib/jwt">https://github.com/hertz-contrib/jwt</a></td>
+</tr>
+<tr>
+<td>Websocket 扩展</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/hertz-contrib/websocket">https://github.com/hertz-contrib/websocket</a></td>
+</tr>
+<tr>
+<td>丰富的示例代码与业 Demo</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/cloudwego/hertz-examples/">https://github.com/cloudwego/hertz-examples/</a></td>
+</tr>
+</tbody></table>
+<h2 id="10、最后的小总结"><a href="#10、最后的小总结" class="headerlink" title="10、最后的小总结"></a>10、最后的小总结</h2><p>个人感觉字节的这套框架很大程度的方便了程序员的代码编写，特别是加入了很多种类型的自动代码生成，避免了一些简单重复代码的多次编写，感觉这方面就非常好。而且通过这次的学习，我发现，学习还得是看官方文档，官方文档讲的很细很透彻，加上字节对于文档建设还是非常好的，视频的话更多的起到的是一个引导的作用，更多的还得是看自己的学习！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/10/20/Java-Web/" rel="prev" title="Java-Web">
+                  <i class="fa fa-angle-left"></i> Java-Web
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">6pc1</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">445k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:45</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline-server-pi-one.vercel.app","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","el":"#waline","comment":true,"path":"/2024/11/08/%E5%AD%97%E8%8A%82%E8%AE%AD%E7%BB%83%E8%90%A5%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/fireworks.js"></script>
+</body>
+</html>
